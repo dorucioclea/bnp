@@ -1,0 +1,37 @@
+.jc-navbar {
+    height: 50px;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    margin-right: 15px;
+}
+.jc-navbar > .dropdown {
+    display: flex;
+    align-items: stretch;
+}
+.jc-navbar > .dropdown > .dropdown-toggle {
+    text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    color: #777;
+}
+.jc-navbar > .dropdown > .dropdown-toggle:hover {
+    color: #333;
+}
+.jc-navbar > .dropdown > .dropdown-toggle:hover {
+    background-color: transparent;
+}
+
+.jc-navbar > .dropdown.open > .dropdown-toggle,
+.jc-navbar > .dropdown.open > .dropdown-toggle:hover{
+    background-color: #dedede;
+}
+.jc-navbar > .dropdown > .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+.jc-navbar.jc-navbar--dropdown-right > .dropdown > .dropdown-menu {
+    left: 0;
+    right: auto;
+}

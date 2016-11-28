@@ -1,0 +1,20 @@
+{
+  "browser": true,
+  "camelcase": true,
+  "esnext": true,
+  "latedef": true,
+  "node": true,
+  "undef": true,
+  "unused": true,
+  "varstmt": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "freeze": true,
+  "funcscope": true,
+  "maxerr": 20,
+  "nocomma": true,
+  "asi": true,
+  "boss": true,
+  "moz": true
+}

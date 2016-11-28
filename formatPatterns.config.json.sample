@@ -1,0 +1,22 @@
+{
+  "formatPatterns": {
+    "en": {
+      "datePattern": "MM/dd/yyyy",
+      "dateTimePattern": "MM/dd/yyyy h:mm:ss a",
+      "integerPattern": "#,##0",
+      "numberDecimalSeparator": ".",
+      "numberGroupingSeparator": ",",
+      "numberGroupingSeparatorUse": true,
+      "numberPattern": "#,##0.00"
+    },
+    "de": {
+      "datePattern": "dd.MM.yyyy",
+      "dateTimePattern": "dd.MM.yyyy HH:mm:ss",
+      "integerPattern": "#,##0",
+      "numberPattern": "#,##0.00",
+      "numberDecimalSeparator": ",",
+      "numberGroupingSeparator": ".",
+      "numberGroupingSeparatorUse": true
+    }
+  }
+}

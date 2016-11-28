@@ -1,0 +1,6 @@
+{
+  "name": "SuccessRegistration",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./SuccessRegistration.js"
+}

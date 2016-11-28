@@ -1,0 +1,7 @@
+.spinner {
+  left: 50%;
+  margin-left: -4em;
+  position: fixed;
+  top: 50%;
+  z-index: 99999;
+}

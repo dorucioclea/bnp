@@ -1,0 +1,24 @@
+{
+  "workareaPath": "./workarea",
+  "activationLinkExpireInDays": 15,
+  "defaultLocale": "en",
+  "avaliableLocales": [
+    "en",
+    "de"
+  ],
+  "mail": {
+    "options": {
+      "host": "mail.scand",
+      "secure": false,
+      "port": 25,
+      "tls": {
+        "rejectUnauthorized": false
+      }
+    },
+    "defaultFromAddress": "Supplier Information Manager <sim@jcatalog.com>"
+  },
+  "jcatalogWorkflowAdminEmailConfigurationAttribute" : "sim@jcatalog.com",
+  "defaultClassification": "eClass_6.0.1",
+  "registrationEnabled": true,
+  "externalCustomizationarea": "./../externalCustomizationarea"
+}

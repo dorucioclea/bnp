@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Supplier Information Manager</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{simPublicUrl}}/static/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="{{simPublicUrl}}/css/jcatalog.css">
+    <link rel="stylesheet" type="text/css" href="{{simPublicUrl}}/less/jcatalog-bootstrap-bundle.css">
+    <link rel="stylesheet" type="text/css" href="{{simPublicUrl}}/less/jcatalog-bootstrap-extensions-bundle.css">
+    <link rel="stylesheet" type="text/css" href="{{simPublicUrl}}/less/jquery-ui-bundle.css">
+    {{#if isProductionMode}}
+        <link rel="stylesheet" type="text/css" href="{{simPublicUrl}}/static/main.css">
+        <script>
+          //<![CDATA[
+          window.webpackManifest = {{{chunksManifest}}};
+          //]]>
+        </script>
+    {{/if}}
+    <script type="application/javascript">
+        var urlArray = '{{simPublicUrl}}'.split('/');
+        var contextPath = "/";
+        for (var i = 3; i < urlArray.length; i++) {
+            if (contextPath !== '/') {
+                contextPath += '/';
+            }
+            contextPath += urlArray[i];
+        }
+        window.simRootContextPath = contextPath;
+        window.simContextPath = (contextPath === '/' ? "" : contextPath);
+    </script>
+</head>
+<body>
+<div id="rootApplicationComponent"></div>
+<script type="application/javascript" src="{{simPublicUrl}}/js/react/react-0.14.7.min.js"></script>
+<script type="application/javascript" src="{{simPublicUrl}}/js/react/react-dom-0.14.7.min.js"></script>
+<script type="application/javascript" src="{{simPublicUrl}}/gateway/bundle/supplier.js"></script>
+<script type="application/javascript" src="{{simPublicUrl}}/static/{{bundle}}"></script>
+</body>
+</html>
