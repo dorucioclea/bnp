@@ -3,30 +3,31 @@ awsProject.zip
 *~
 *.swp
 
-resources/jcatalog/less/jquery-ui-bundle.css
-resources/jcatalog/less/jcatalog-bootstrap-bundle.css
-resources/jcatalog/less/jcatalog-bootstrap-extensions-bundle.css
+/resources/jcatalog/less/jquery-ui-bundle.css
+/resources/jcatalog/less/jcatalog-bootstrap-bundle.css
+/resources/jcatalog/less/jcatalog-bootstrap-extensions-bundle.css
 
-db.config.json
-service.config.json
-app.config.json
-formatPatterns.config.json
-logging.config.json
+/db.config.json
+/service.config.json
+/app.config.json
+/formatPatterns.config.json
+/logging.config.json
 
-*.log**
 *.out
 *.iml
 
 .idea
-target
-build
-dist
-esdoc
-lib
-apidoc
+/target
+/build
+/dist
+/docs
+/esdoc
+/lib
+/apidoc
 
 # All the below is taken from
 # https://github.com/github/gitignore/blob/master/Node.gitignore
+# except for some /node_modules subfolders.
 
 # Logs
 logs
@@ -58,8 +59,14 @@ coverage
 build/Release
 
 # Dependency directories
-node_modules/
 jspm_packages/
+/node_modules/*
+!/node_modules/jcatalog-i18n
+!/node_modules/jcatalog-react-reference-search
+!/node_modules/eslint-config-jcatalog
+
+# TODO: remove after webpack 2 goes stable:
+!/node_modules/chunk-manifest-webpack-plugin
 
 # Optional npm cache directory
 .npm

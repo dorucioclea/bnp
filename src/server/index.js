@@ -34,7 +34,21 @@ if (process.env.NODE_ENV !== 'test') {
   serverService.initTemplate(app, bundle, chunksManifest);
 }
 
-serverService.runServer(app);
+let server = app.listen(process.env.PORT || 3000, () => console.info(
+  'The server is running at http://%s:%s/',
+  server.address().address,
+  server.address().port
+));
+
+function gracefulShutdown() {
+  server.close(() => process.exit(0));
+}
+
+// listen for TERM signal .e.g. "kill" or "docker[-compose] stop" commands.
+process.on('SIGTERM', gracefulShutdown);
+
+// listen for INT signal e.g. Ctrl-C
+process.on('SIGINT', gracefulShutdown);
 
 // Export below is needed for the sake of testing (see "request(app)" in "test/utils/testUtils.js", line 21).
 export default app;

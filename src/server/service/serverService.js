@@ -200,11 +200,6 @@ function initDevWebpack(app) {
   }));
 }
 
-function runServer(app) {
-  let port = (process.env.PORT || 3000);
-  app.listen(port, () => console.info(`The server is running at ${sim ? sim.public : 'test environment'}`));
-}
-
 module.exports = {
   initRequestHelpers,
   initRequestInterceptor,
@@ -217,6 +212,5 @@ module.exports = {
   initRoutes,
   initSecurityManager,
   initTemplate,
-  initDevWebpack,
-  runServer
+  initDevWebpack
 }

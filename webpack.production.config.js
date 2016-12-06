@@ -30,10 +30,12 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
+
     new webpack.ContextReplacementPlugin(
       new RegExp('\\' + path.sep + 'node_modules\\' + path.sep + 'moment\\' + path.sep + 'locale'),
       /en|de/
     ),
+
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false,
@@ -45,14 +47,21 @@ module.exports = {
         screw_ie8: true
       }
     }),
-    new webpack.optimize.DedupePlugin(),
+
+    // new webpack.optimize.DedupePlugin(),  // TODO: uncomment when webpack 2 goes stable.
     new webpack.PrefetchPlugin('react-dom/server.js'),
-    new ExtractTextPlugin('main.css'),
+
+    new ExtractTextPlugin({
+      filename: 'main.css'
+    }),
+
     new AssetsPlugin({ filename: 'assets.json', path: path.resolve(__dirname, 'build/client') }),
+
     new ChunkManifestPlugin({
       filename: "chunk-manifest.json",
       manifestVariable: "webpackManifest"
     }),
+
     new WebpackMd5Hash()
   ],
 
@@ -63,7 +72,6 @@ module.exports = {
 
   resolveLoader: {
     modules: ['node_modules'],
-    moduleTemplates: ['-loader'],
     extensions: ['.js']
   },
 
