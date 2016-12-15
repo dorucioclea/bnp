@@ -1,6 +1,6 @@
 import axios from 'axios';
 const supplierUrl = require('./../../../service.config.json').supplier;
-const models = require('./../db/models');
+const modelsPromise = require('./../db/models');
 
 module.exports = function(request) {
   let currentUserInfo = {
@@ -10,15 +10,18 @@ module.exports = function(request) {
     readOnly: false  // TODO: user's attachment to a particular supplier needs to be approved.
   }
 
-  let promises = [models.default.User.findOne({
-    where: {
-      LoginName: currentUserInfo.username
-    }
-  }), axios.get(`${supplierUrl}/api/suppliers`, {
-    params: {
-      userId: currentUserInfo.username
-    }
-  })];
+  let promises = [
+    modelsPromise.then(models => models.User.findOne({
+      where: {
+        LoginName: currentUserInfo.username
+      }
+    })),
+    axios.get(`${supplierUrl}/api/suppliers`, {
+      params: {
+        userId: currentUserInfo.username
+      }
+    })
+  ];
 
   return Promise.all(promises).then(([user, suppliers]) => {
     if (!user) {

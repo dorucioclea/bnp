@@ -1,21 +1,21 @@
-import sendMail from './../mailer';
+const sendMail = require('./../mailer');
 
-let models = require('./../db/models');
+let modelsPromise = require('./../db/models');
 let md5 = require('md5');
-let urls = require('../../../service.config.json');
+let bnpUrl = require('../../../service.config.json').bnp.public;
 let serviceErrorHandlingService = require('./../service/serviceErrorHandlingService');
 let databaseErrorHandlingService = require('./../service/databaseErrorHandlingService');
 let CryptoJS = require('crypto-js');
 
 function verify(req, res) {
-  models.default.User.update({
+  modelsPromise.then(models => models.User.update({
     locked: false,
     verificationToken: null
   }, {
     where: {
       verificationToken: req.body.verificationToken
     }
-  }).then(([affectedCount]) => {
+  })).then(([affectedCount]) => {
     if (affectedCount === 0) {
       console.warn(`User verification failed: verification token ${req.body.verificationToken} not found`);
       res.status(404).send({ global: 'User not found' });
@@ -43,15 +43,15 @@ function createAbsentUser(req, transaction) {
     changedBy: req.body.LoginName
   };
 
-  return models.default.User.create(newUser, {
+  return modelsPromise.then(models => models.User.create(newUser, {
     transaction
-  }).then(createdUser => sendMail(
+  })).then(createdUser => sendMail(
     req.cookies.LANGUAGE_COOKIE_KEY,
     'registration',
     {
       email: req.body.EMail,
       surname: req.body.Name,
-      simUrl: urls.sim.public,
+      simUrl: bnpUrl,
       verificationToken: newUser.verificationToken,
       name: 'Supplier Information manager service'
     }
@@ -69,18 +69,19 @@ function createAbsentUser(req, transaction) {
 function createUser(req, res) {
   console.info(`Creating new account ${req.body.EMail}`);
 
-  models.default.User.findOne({
+  modelsPromise.then(models => models.User.findOne({
     where: {
       loginName: req.body.LoginName
     }
-  }).then(existingUser => {
+  })).then(existingUser => {
     if (existingUser) {
       res.status(203).send(`User ${req.body.EMail} already exists!`);
       return Promise.resolve();  // The same as
       // return;
     }
 
-    return models.default.sequelize.transaction().
+    return modelsPromise.
+      then(models => models.sequelize.transaction()).
       then(transaction => createAbsentUser(req, transaction)).
       then(() => res.status(201).send('Message sent'));
   }).catch(err => databaseErrorHandlingService.generateErrorAndSendResponse(err, res));

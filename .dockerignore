@@ -5,6 +5,12 @@ Dockerfile
 .git/
 bower_components/
 
+*~
+*.swp
+
+db.config.json
+#service.config.json
+
 # All the below is taken from
 # https://github.com/github/gitignore/blob/master/Node.gitignore
 
@@ -41,7 +47,6 @@ build/Release
 jspm_packages/
 /node_modules/*
 !/node_modules/jcatalog-i18n
-!/node_modules/jcatalog-react-reference-search
 !/node_modules/eslint-config-jcatalog
 
 # TODO: remove after webpack 2 goes stable:

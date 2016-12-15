@@ -1,9 +1,9 @@
-let urls = require('../../../service.config.json');
+let bnpUrl = require('../../../service.config.json').bnp.public;
 let appConfig = require('../../../app.config.json');
 let formatPatternsConfig = require('../../../formatPatterns.config.json');
 
 function getUrl(req, res) {
-  res.send(urls.sim.public);
+  res.send(bnpUrl);
 }
 
 function getDefaultLocale(req, res) {
@@ -22,7 +22,7 @@ function getFormatPatterns(req, res) {
 }
 
 module.exports = {
-  getUrl: getUrl,
-  getDefaultLocale: getDefaultLocale,
-  getFormatPatterns: getFormatPatterns
+  getUrl,
+  getDefaultLocale,
+  getFormatPatterns
 };

@@ -28,10 +28,10 @@ function proxyServices(req, res) {
   }, (error, response, body) => {
     if (error) {
       let errors = serviceErrorHandlingService.parseError(error, service.charAt(0).toUpperCase() + service.slice(1)) ||
-        {
-          error,
-          status: response ? response.statusCode : 500
-        };
+      {
+        error,
+        status: response ? response.statusCode : 500
+      };
 
       return res.status(errors.status).send(errors);
     }
@@ -65,11 +65,12 @@ function getBundle(req, res) {
     },
     (err, response, body) => {
       if (err) {
+        console.log('===== ERROR ATTEMPTING TO ACCESS SUPPLIER WITH',`${urls[service]}/static/bundle.js`);
         let errors = serviceErrorHandlingService.parseError(err, service.charAt(0).toUpperCase() + service.slice(1)) ||
-          {
-            ...err,
-            status: response ? response.statusCode : 500
-          };
+        {
+          ...err,
+          status: response ? response.statusCode : 500
+        };
 
         return res.status(errors.status).send(errors);
       }

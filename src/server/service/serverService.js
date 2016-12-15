@@ -14,11 +14,11 @@ const axios = require('axios');
 const COOKIE_SECRET = 'keyboard cat';
 const JCATALOG_RESOURCES = '../../../resources/jcatalog';
 const FAVICON_ICO = path.join(JCATALOG_RESOURCES, 'favicon.ico');
-const SIM_VIEWS = '../../../resources/sim/views';
+const SIM_VIEWS = '../../../resources/bnp/views';
 const MAIN_CSS = '../../client/main.css';
 const WEBPACK_DEV_CONFIG = './../../../webpack.development.config.js';
 const SERVICE_CONFIG = './../../../service.config.json';
-const sim = (process.env.NODE_ENV !== 'test' && require(SERVICE_CONFIG) || {}).sim;
+const bnp = (process.env.NODE_ENV !== 'test' && require(SERVICE_CONFIG) || {}).bnp;
 
 function scrubETag(res) {
   onHeaders(res, function() {
@@ -60,7 +60,7 @@ function initSession(app) {
     secret: COOKIE_SECRET,
     resave: true,
     saveUninitialized: true,
-    name: 'sim.connect.sid'  // It must be different than session names of scripts running on the same host.
+    name: 'bnp.connect.sid'  // It must be different than session names of scripts running on the same host.
   }));
 }
 
@@ -165,10 +165,10 @@ function initTemplate(app, bundle, chunksManifest) {
 
     if (req.session.currentUserInfo && req.originalUrl.indexOf('/login') !== -1) {
       // Known user is at login-page.
-      res.redirect(`${sim.public}/supplierInformation`);
+      res.redirect(`${bnp.public}/supplierInformation`);
     } else {
       res.render('home', {
-        simPublicUrl: sim.public,
+        simPublicUrl: bnp.public,
         bundle: bundle,
         chunksManifest: JSON.stringify(chunksManifest),
         isProductionMode: (process.env.NODE_ENV === 'production')
@@ -187,7 +187,7 @@ function initDevWebpack(app) {
     noInfo: true
   }));
 
-  app.use('/[0-9]+\.chunk\.js', (req, res) => axios.get(`${sim.private}/static${req.originalUrl}`, {
+  app.use('/[0-9]+\.chunk\.js', (req, res) => axios.get(`${bnp.private}/static${req.originalUrl}`, {
     headers: {
       Accept: 'application/javascript',
       'Content-Type': 'application/javascript'

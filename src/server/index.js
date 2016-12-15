@@ -34,13 +34,23 @@ if (process.env.NODE_ENV !== 'test') {
   serverService.initTemplate(app, bundle, chunksManifest);
 }
 
-let server = app.listen(process.env.PORT || 3000, () => console.info(
-  'The server is running at http://%s:%s/',
-  server.address().address,
-  server.address().port
-));
+let server = app.listen(process.env.PORT || 3000, err => {
+  if (err) {
+    console.log(err);
+  }
 
-function gracefulShutdown() {
+  console.info(
+    'The server is running at http://%s:%s/',
+    server.address().address === '::' ? '0.0.0.0' : server.address().address,
+    server.address().port
+  )
+});
+
+function gracefulShutdown(msg) {
+  if (msg) {
+    console.log('SERVER GRACEFUL SHUTDONW:', msg);
+  }
+
   server.close(() => process.exit(0));
 }
 
