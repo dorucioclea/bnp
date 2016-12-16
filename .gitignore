@@ -8,10 +8,10 @@ awsProject.zip
 /resources/jcatalog/less/jcatalog-bootstrap-extensions-bundle.css
 
 /db.config.json
-/service.config.json
-/app.config.json
-/formatPatterns.config.json
-/logging.config.json
+#/service.config.json
+#/app.config.json
+#/formatPatterns.config.json
+#/logging.config.json
 
 *.out
 *.iml

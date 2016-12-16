@@ -1,0 +1,8 @@
+{
+  "supplier": "http://suppliers:3001",
+  "bnp": {
+    "private": "http://bnp:3000",
+    "public":  "http://localhost:3000"
+  },
+  "country": "http://suppliers:3001"
+}
