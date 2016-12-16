@@ -3,7 +3,7 @@ import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import cookie from 'react-cookie';
-import I18nManager from 'jcatalog-i18n/lib/utils/I18nManager';
+import I18nManager from 'opuscapita-i18n/lib/utils/I18nManager';
 import locales from './../i18n/locales';
 
 class ApplicationContext extends React.Component {

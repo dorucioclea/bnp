@@ -15,7 +15,8 @@ function verify(req, res) {
     where: {
       verificationToken: req.body.verificationToken
     }
-  })).then(([affectedCount]) => {
+  })).then(function([affectedCount]) {
+    console.log('===== ARGUMENTS', arguments);
     if (affectedCount === 0) {
       console.warn(`User verification failed: verification token ${req.body.verificationToken} not found`);
       res.status(404).send({ global: 'User not found' });

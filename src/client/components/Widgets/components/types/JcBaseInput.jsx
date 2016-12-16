@@ -1,6 +1,6 @@
 import React from 'react';
-import StripToNullConverter from 'jcatalog-i18n/lib/converters/StripToNullConverter';
-import ParseError from 'jcatalog-i18n/lib/converters/ParseError';
+import StripToNullConverter from 'opuscapita-i18n/lib/converters/StripToNullConverter';
+import ParseError from 'opuscapita-i18n/lib/converters/ParseError';
 import utils from 'underscore';
 import Errors from './../model/validation/Errors';
 

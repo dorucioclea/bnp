@@ -159,7 +159,11 @@ function initTemplate(app, bundle, chunksManifest) {
 
   app.use('/', function(req, res) {
     // eslint-disable-next-line no-param-reassign
-    req.session.returnTo = (!req.session.currentUserInfo && req.originalUrl.indexOf('/login') === -1) ?
+    req.session.returnTo = (
+      !req.session.currentUserInfo &&
+      req.originalUrl.indexOf('/login') === -1 &&
+      req.originalUrl.indexOf('/registration/confirmation') === -1
+    ) ?
       req.originalUrl :  // Unknown user wants to view portal internal resources.
       null;
 

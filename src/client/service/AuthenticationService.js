@@ -30,7 +30,7 @@ export default class AuthenticationService {
   verifyUser(verificationToken) {
     return axios.post(`${window.simContextPath}/user/verify`,
       JSON.stringify({
-        verificationToken: verificationToken
+        verificationToken
       }),
       {
         headers: {

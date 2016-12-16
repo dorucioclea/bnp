@@ -4,7 +4,7 @@ import DatePicker from './../datepicker/DatePicker.jsx';
 import MinValidator from './../model/validation/MinValidator';
 import MaxValidator from './../model/validation/MaxValidator';
 import { DateComparator } from './../model/validation/Comparator';
-import DateConverter from 'jcatalog-i18n/lib/converters/DateConverter';
+import DateConverter from 'opuscapita-i18n/lib/converters/DateConverter';
 import utils from 'underscore';
 
 import JcBaseInput from './JcBaseInput.jsx';

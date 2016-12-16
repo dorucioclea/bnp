@@ -63,6 +63,7 @@ module.exports = function(request) {
 
     // eslint-disable-next-line no-param-reassign
     request.session.currentUserInfo = currentUserInfo;
+    console.log('===== SUCCESSFULLY EXTRACTING USER INFO');
     return currentUserInfo;  // The same as return Promise.resolve(currentUserInfo);
   }).catch(err => Promise.reject({
     status: err.status || 500,

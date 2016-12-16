@@ -143,7 +143,7 @@ let dbPromise = Promise.all(consulPromises).
           break;
         default:
           throw new Error(
-            `${dbConfig.populateDatabase} is unknown populateDatabase param in DB configuration file "${DB_CONFIG_FILE}".`
+            `${dbConfig.populateDatabase} is unknown value for "populateDatabase" param in DB configuration file.`
           );
       }
     }

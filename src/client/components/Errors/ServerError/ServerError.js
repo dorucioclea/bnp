@@ -27,7 +27,7 @@ export default class ServerError extends React.Component {
       <div>
         <div className="container">
           <div className="row">
-            <div className="col-md-4 col-md-offset-4"></div>
+            <div className="col-md-4 col-md-offset-4" />
           </div>
           <div className="row">
             <div className="col-md-4">
