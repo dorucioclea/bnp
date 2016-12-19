@@ -2,7 +2,6 @@ const sendMail = require('./../mailer');
 
 let modelsPromise = require('./../db/models');
 let md5 = require('md5');
-let bnpUrl = require('../../../service.config.json').bnp.public;
 let serviceErrorHandlingService = require('./../service/serviceErrorHandlingService');
 let databaseErrorHandlingService = require('./../service/databaseErrorHandlingService');
 let CryptoJS = require('crypto-js');
@@ -51,7 +50,7 @@ function createAbsentUser(req, transaction) {
     {
       email: req.body.EMail,
       surname: req.body.Name,
-      simUrl: bnpUrl,
+      simUrl: req.protocol + '://' + req.get('host'),
       verificationToken: newUser.verificationToken,
       name: 'Supplier Information manager service'
     }

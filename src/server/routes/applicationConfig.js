@@ -1,9 +1,8 @@
-let bnpUrl = require('../../../service.config.json').bnp.public;
 let appConfig = require('../../../app.config.json');
 let formatPatternsConfig = require('../../../formatPatterns.config.json');
 
 function getUrl(req, res) {
-  res.send(bnpUrl);
+  res.send(req.protocol + '://' + req.get('host'));
 }
 
 function getDefaultLocale(req, res) {

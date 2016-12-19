@@ -18,7 +18,7 @@ const SIM_VIEWS = '../../../resources/bnp/views';
 const MAIN_CSS = '../../client/main.css';
 const WEBPACK_DEV_CONFIG = './../../../webpack.development.config.js';
 const SERVICE_CONFIG = './../../../service.config.json';
-const bnp = (process.env.NODE_ENV !== 'test' && require(SERVICE_CONFIG) || {}).bnp;
+const bnpUrl = (process.env.NODE_ENV !== 'test' && require(SERVICE_CONFIG) || {}).bnp;
 
 function scrubETag(res) {
   onHeaders(res, function() {
@@ -169,10 +169,10 @@ function initTemplate(app, bundle, chunksManifest) {
 
     if (req.session.currentUserInfo && req.originalUrl.indexOf('/login') !== -1) {
       // Known user is at login-page.
-      res.redirect(`${bnp.public}/supplierInformation`);
+      res.redirect(req.protocol + '://' + req.get('host') + '/supplierInformation');
     } else {
       res.render('home', {
-        simPublicUrl: bnp.public,
+        simPublicUrl: req.protocol + '://' + req.get('host'),
         bundle: bundle,
         chunksManifest: JSON.stringify(chunksManifest),
         isProductionMode: (process.env.NODE_ENV === 'production')
@@ -191,7 +191,7 @@ function initDevWebpack(app) {
     noInfo: true
   }));
 
-  app.use('/[0-9]+\.chunk\.js', (req, res) => axios.get(`${bnp.private}/static${req.originalUrl}`, {
+  app.use('/[0-9]+\.chunk\.js', (req, res) => axios.get(`${bnpUrl}/static${req.originalUrl}`, {
     headers: {
       Accept: 'application/javascript',
       'Content-Type': 'application/javascript'

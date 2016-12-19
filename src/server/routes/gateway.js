@@ -1,5 +1,5 @@
 let request = require('request');
-let urls = require('../../../service.config.json');
+let servicesUrls = require('../../../service.config.json');
 let serviceErrorHandlingService = require('./../service/serviceErrorHandlingService');
 let onHeaders = require('on-headers');
 
@@ -15,7 +15,7 @@ function proxyServices(req, res) {
 
   return request({
     method: req.method,
-    uri: urls[service] + url.replace(service, ''),
+    uri: servicesUrls[service] + url.replace(service, ''),
     headers: {
       accept: req.headers.accept,
       'content-type': req.headers['content-type'],
@@ -56,7 +56,7 @@ function getBundle(req, res) {
   return request(
     {
       method: req.method,
-      uri: `${urls[service]}/static/bundle.js`,
+      uri: `${servicesUrls[service]}/static/bundle.js`,
       headers: {
         accept: req.headers.accept,
         'content-type': req.headers['content-type'],
