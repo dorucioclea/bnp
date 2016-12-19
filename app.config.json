@@ -8,11 +8,12 @@
   ],
   "mail": {
     "options": {
-      "host": "mail.scand",
-      "secure": false,
-      "port": 25,
-      "tls": {
-        "rejectUnauthorized": false
+      "host": "smtp-relay.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "arne.graeper@jcatalog.com",
+        "pass": "3NzaC1yc2"
       }
     },
     "defaultFromAddress": "Business Network Portal <sim@jcatalog.com>"
