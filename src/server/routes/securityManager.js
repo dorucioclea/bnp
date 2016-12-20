@@ -1,8 +1,8 @@
 import LocalStrategy from 'passport-local';
 import passport from 'passport';
 import md5 from 'md5';
-import currentUserInfo from '../service/currentUserInfoService';
 import databaseErrorHandlingService from '../service/databaseErrorHandlingService';
+const currentUserInfoService = require('../service/currentUserInfoService');
 const modelsPromise = require('./../db/models');
 
 module.exports = function(app) {
@@ -56,10 +56,16 @@ module.exports = function(app) {
 
         console.info('User has been logged in');
 
-        return currentUserInfo(req).then(userInfo => res.send({
+        return currentUserInfoService(
+          req.session,
+          req.session.passport.user,
+          req.body.language
+        ).
+        then(userInfo => res.send({
           userInfo,
           returnTo: req.session.returnTo
-        })).catch(err => res.status(err.status).send(err.data));
+        })).
+        catch(err => res.status(err.status).send(err.data));
       });
     })(req, res, next);
   });

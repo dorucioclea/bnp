@@ -1,4 +1,5 @@
 const sendMail = require('./../mailer');
+const currentUserInfoService = require('../service/currentUserInfoService');
 
 let modelsPromise = require('./../db/models');
 let md5 = require('md5');
@@ -87,9 +88,14 @@ function createUser(req, res) {
 }
 
 function getCurrentUserInfo(req, res) {
-  res.send({
-    currentUserInfo: req.session.currentUserInfo
-  });
+  (req.query.reload === 'true' && req.session.currentUserInfo ?
+    currentUserInfoService(req.session, req.session.currentUserInfo.username) :
+    Promise.resolve(req.session.currentUserInfo)
+  ).  // eslint-disable-line dot-location
+  then(currentUserInfo => res.send({
+    currentUserInfo
+  })).
+  catch(err => res.status(err.status).send(err.data));
 }
 
 module.exports = {

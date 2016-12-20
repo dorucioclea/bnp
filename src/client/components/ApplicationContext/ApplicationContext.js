@@ -23,17 +23,14 @@ class ApplicationContext extends React.Component {
   };
 
   state = {
-    currentUserInfo: {
-      locale: cookie.load('LANGUAGE_COOKIE_KEY'),
-      user: null,
-      username: null,
-      supplierId: null
-    }
+    locale: cookie.load('LANGUAGE_COOKIE_KEY')
   }
 
   getChildContext() {
     if (cookie.load('LANGUAGE_COOKIE_KEY')) {
-      this.props.route.context.authenticationService.currentUserInfo().then(response => {
+      let forceReload = this.props.currentUserInfo.username === undefined;  // Quering the server for the 1st time.
+
+      this.props.route.context.authenticationService.currentUserInfo(forceReload).then(response => {
         let currentUserInfo = response.data.currentUserInfo || {
           locale: cookie.load('LANGUAGE_COOKIE_KEY'),
           user: null,
@@ -79,10 +76,8 @@ class ApplicationContext extends React.Component {
           cookie.save('LANGUAGE_COOKIE_KEY', response.data, {
             path: window.simRootContextPath
           });
-          let currentUserInfo = this.state.currentUserInfo;
-          currentUserInfo.locale = response.data;
           this.setState({
-            currentUserInfo: currentUserInfo
+            locale: response.data
           });
         }
       });
@@ -139,7 +134,7 @@ class ApplicationContext extends React.Component {
     // TODO: check conditions.
     if (
       location.pathname === `${window.simContextPath}/supplierInformation` && !currentUserInfo.user ||
-      !this.state.currentUserInfo.locale ||
+      !this.state.locale ||
       !this.state.simUrl ||
       !this.i18n
     ) {
@@ -154,10 +149,8 @@ class ApplicationContext extends React.Component {
   }
 }
 
-function injectState(store) {
-  return {
-    currentUserInfo: store.currentUserInfo
-  };
+function injectState({ currentUserInfo }) {  // Transform the current Redux store state into the component's props.
+  return { currentUserInfo };
 }
 
 export default connect(injectState)(ApplicationContext);
