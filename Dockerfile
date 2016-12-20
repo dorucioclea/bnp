@@ -18,7 +18,7 @@ COPY jq-linux32 jq-linux64 /usr/local/bin/
 RUN chown -R node:node .
 
 # Set the user name or UID to use when running the image and for any RUN, CMD and ENTRYPOINT instructions that follow
-USER node
+#USER node
 
 #COPY package.json npm-shrinkwrap.json .
 COPY package.json .
@@ -30,11 +30,11 @@ RUN npm install && npm cache clean
 # Bundle app source by overwriting all WORKDIR content.
 COPY . .
 
-USER root
+#USER root
 # Change owner since COPY/ADD assignes UID/GID 0 to all copied content.
 RUN chown -R node:node .
 
-USER node
+#USER node
 EXPOSE 3000
 CMD [ "npm", "start" ]
 
