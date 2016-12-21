@@ -1,5 +1,9 @@
 const express = require('express');
 const serverService = require('./service/serverService');
+const consulService = require('./service/consulService.js');
+consulService.on('service', (action, details) => {
+  console.log('===== SERVICE ACTION =', action, '===== SERVICE DETAILS', details);
+});
 
 const app = express();
 

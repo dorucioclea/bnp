@@ -53,7 +53,7 @@ function createAbsentUser(req, transaction) {
       surname: req.body.Name,
       simUrl: req.protocol + '://' + req.get('host'),
       verificationToken: newUser.verificationToken,
-      name: 'Supplier Information manager service'
+      name: 'Business Network Portal service'
     }
   )).then(() => {
     console.info(`User ${newUser.loginName} has been created`);

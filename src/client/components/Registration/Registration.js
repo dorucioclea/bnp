@@ -99,9 +99,9 @@ export default class Registration extends React.Component {
         message: this.i18n.getMessage('validatejs.invalid.email.message')
       },
       length: {
-        maximum: 30,
+        maximum: 50,
         tooLong: this.i18n.getMessage('validatejs.invalid.maxSize.message', {
-          maxSize: 30
+          maxSize: 50
         })
       }
     },

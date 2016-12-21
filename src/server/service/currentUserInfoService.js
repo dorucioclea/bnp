@@ -32,10 +32,6 @@ module.exports = function(session, username, locale) {
     let userData = user.dataValues;
     let suppliersData = suppliers.data;
 
-    console.log('\n\n\n');
-    console.log('===== user =====', userData);
-    console.log('===== suppliers =====', suppliersData);
-
     // eslint-disable-next-line no-param-reassign
     session.currentUserInfo = {
       username,
