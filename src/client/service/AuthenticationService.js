@@ -39,8 +39,8 @@ export default class AuthenticationService {
       });
   }
 
-  currentUserInfo() {
-    return axios.get(`${window.simContextPath}/user/currentUserInfo`, {
+  currentUserInfo(forceReload) {
+    return axios.get(`${window.simContextPath}/user/currentUserInfo?reload=${!!forceReload}`, {
       headers: {
         Accept: 'application/json'
       }

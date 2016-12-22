@@ -47,10 +47,7 @@ let server = app.listen(process.env.PORT || 3000, err => {
 });
 
 function gracefulShutdown(msg) {
-  if (msg) {
-    console.log('SERVER GRACEFUL SHUTDONW:', msg);
-  }
-
+  console.log('SERVER GRACEFUL SHUTDONW', msg && `: ${msg}` || '', '...');
   server.close(() => process.exit(0));
 }
 
