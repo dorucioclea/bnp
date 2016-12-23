@@ -2,7 +2,8 @@ let appConfig = require('../../../app.config.json');
 let formatPatternsConfig = require('../../../formatPatterns.config.json');
 
 function getUrl(req, res) {
-  res.send(req.protocol + '://' + req.get('host'));
+  let bnpExternalUrl = req.protocol + '://' + req.get('host');  // URL used by web client to access bnp.
+  res.send(bnpExternalUrl);
 }
 
 function getDefaultLocale(req, res) {

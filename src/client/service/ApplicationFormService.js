@@ -7,7 +7,7 @@ export default class ApplicationFormService {
   }
 
   getCountryList() {
-    return axios.get(`${this._applicationFormRestEndpoint}/gateway/country/api/countries`, {
+    return axios.get(`${this._applicationFormRestEndpoint}/gateway/supplier/api/countries`, {
       headers: {
         'Content-Type': 'application/json'
       }

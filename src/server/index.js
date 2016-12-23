@@ -1,10 +1,5 @@
 const express = require('express');
 const serverService = require('./service/serverService');
-const consulService = require('./service/consulService.js');
-consulService.on('service', (action, details) => {
-  console.log('===== SERVICE ACTION =', action, '===== SERVICE DETAILS', details);
-});
-
 const app = express();
 
 let bundle = (process.env.NODE_ENV === 'production') ?
@@ -38,7 +33,7 @@ if (process.env.NODE_ENV !== 'test') {
   serverService.initTemplate(app, bundle, chunksManifest);
 }
 
-let server = app.listen(process.env.PORT || 3000, err => {
+let server = app.listen(process.env.PORT, err => {
   if (err) {
     console.log(err);
   }

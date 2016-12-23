@@ -35,7 +35,6 @@ COPY . .
 RUN chown -R node:node .
 
 #USER node
-EXPOSE 3000
 CMD [ "npm", "start" ]
 
 # NOTE: "mysql" below is a DB service name in "docker-compose.yml"

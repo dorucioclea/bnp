@@ -9,7 +9,6 @@ bower_components/
 *.swp
 
 db.config.json
-#service.config.json
 
 # All the below is taken from
 # https://github.com/github/gitignore/blob/master/Node.gitignore

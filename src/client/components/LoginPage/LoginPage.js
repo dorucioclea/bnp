@@ -36,11 +36,9 @@ export default class LoginPage extends React.Component {
     this.setState(newFieldValue);
   }
 
-  handleLanguageSelect = (e, value) => {
-    this.setState({
-      language: value
-    });
-  }
+  handleLanguageSelect = eventKey => this.setState({
+    language: eventKey
+  })
 
   handleLoginClick = () => {
     cookie.save('LANGUAGE_COOKIE_KEY', this.state.language, {

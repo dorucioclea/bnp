@@ -1,6 +1,27 @@
 import axios from 'axios';
-const supplierUrl = require('./../../../service.config.json').supplier;
 const modelsPromise = require('./../db/models');
+
+const consulEmitter = require('./consulService.js').emitter;
+let supplierUrl = null;
+
+consulEmitter.on('service', (action, details) => {
+  if (details.name === 'supplier') {
+    switch (action) {
+      case 'add':
+        supplierUrl = 'http://' + details.ip + ':' + details.port;
+        break;
+      case 'delete':
+        supplierUrl = null;
+        break;
+      case 'update':
+        supplierUrl = 'http://' + details.ip + ':' + details.port;
+        break;
+      default:
+        break;
+    }
+    console.log('===== supplierUrl =====', supplierUrl);
+  }
+});
 
 module.exports = function(session, username, locale) {
   if (!username) {
@@ -16,8 +37,12 @@ module.exports = function(session, username, locale) {
         LoginName: username
       }
     })),
+    supplierUrl ?
     axios.get(`${supplierUrl}/api/suppliers`, {
       params: { username }
+    }) :
+    Promise.resolve({
+      data: []
     })
   ];
 

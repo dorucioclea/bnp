@@ -31,6 +31,8 @@ function verify(req, res) {
 }
 
 function createAbsentUser(req, transaction) {
+  let bnpExternalUrl = req.protocol + '://' + req.get('host');  // URL used by web client to access bnp.
+
   let newUser = {
     loginName: req.body.LoginName,
     password: md5(CryptoJS.AES.decrypt(req.body.Password, 'SecretJcatalogPasswordKey').toString(CryptoJS.enc.Utf8)),
@@ -51,7 +53,7 @@ function createAbsentUser(req, transaction) {
     {
       email: req.body.EMail,
       surname: req.body.Name,
-      simUrl: req.protocol + '://' + req.get('host'),
+      simUrl: bnpExternalUrl,
       verificationToken: newUser.verificationToken,
       name: 'Business Network Portal service'
     }

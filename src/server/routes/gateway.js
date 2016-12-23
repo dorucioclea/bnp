@@ -1,7 +1,26 @@
 let request = require('request');
-let servicesUrls = require('../../../service.config.json');
 let serviceErrorHandlingService = require('./../service/serviceErrorHandlingService');
 let onHeaders = require('on-headers');
+
+const consulEmitter = require('./../service/consulService.js').emitter;
+const servicesUrls = {};
+
+consulEmitter.on('service', (action, details) => {
+  switch (action) {
+    case 'add':
+      servicesUrls[details.name] = 'http://' + details.ip + ':' + details.port;
+      break;
+    case 'delete':
+      delete servicesUrls[details.name];
+      break;
+    case 'update':
+      servicesUrls[details.name] = 'http://' + details.ip + ':' + details.port;
+      break;
+    default:
+      break;
+  }
+  console.log(`===== servicesUrls[${details.name}] =====`, servicesUrls[details.name]);
+});
 
 function scrubETag(res) {
   onHeaders(res, function() {

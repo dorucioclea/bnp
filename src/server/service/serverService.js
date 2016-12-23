@@ -17,8 +17,7 @@ const FAVICON_ICO = path.join(JCATALOG_RESOURCES, 'favicon.ico');
 const SIM_VIEWS = '../../../resources/bnp/views';
 const MAIN_CSS = '../../client/main.css';
 const WEBPACK_DEV_CONFIG = './../../../webpack.development.config.js';
-const SERVICE_CONFIG = './../../../service.config.json';
-const bnpUrl = (process.env.NODE_ENV !== 'test' && require(SERVICE_CONFIG) || {}).bnp;
+const bnpInternalUrl = 'http://127.0.0.1:' + process.env.PORT;
 
 function scrubETag(res) {
   onHeaders(res, function() {
@@ -167,12 +166,14 @@ function initTemplate(app, bundle, chunksManifest) {
       req.originalUrl :  // Unknown user wants to view portal internal resources.
       null;
 
+    let bnpExternalUrl = req.protocol + '://' + req.get('host');  // URL used by web client to access bnp.
+
     if (req.session.currentUserInfo && req.originalUrl.indexOf('/login') !== -1) {
       // Known user is at login-page.
-      res.redirect(req.protocol + '://' + req.get('host') + '/supplierInformation');
+      res.redirect(bnpExternalUrl + '/supplierInformation');
     } else {
       res.render('home', {
-        simPublicUrl: req.protocol + '://' + req.get('host'),
+        simPublicUrl: bnpExternalUrl,
         bundle: bundle,
         chunksManifest: JSON.stringify(chunksManifest),
         isProductionMode: (process.env.NODE_ENV === 'production')
@@ -191,7 +192,7 @@ function initDevWebpack(app) {
     noInfo: true
   }));
 
-  app.use('/[0-9]+\.chunk\.js', (req, res) => axios.get(`${bnpUrl}/static${req.originalUrl}`, {
+  app.use('/[0-9]+\.chunk\.js', (req, res) => axios.get(`${bnpInternalUrl}/static${req.originalUrl}`, {
     headers: {
       Accept: 'application/javascript',
       'Content-Type': 'application/javascript'

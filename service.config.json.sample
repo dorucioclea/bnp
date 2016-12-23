@@ -1,7 +1,0 @@
-{
-  "supplier": "http://192.168.7.90:3001",
-  "sim": {
-    "private": "http://192.168.7.90:3000",
-    "public":  "http://test.jcatalog.com/sim"
-  }
-}
