@@ -90,12 +90,4 @@ module.exports = function(app) {
 
     return next();
   });
-
-  app.use(/^\/gateway\/(?!bundle|resources|catalogUser)/, (req, res, next) => {
-    if (!req.isAuthenticated || !req.isAuthenticated()) {
-      return res.sendStatus(401);
-    }
-
-    return next();
-  });
 }

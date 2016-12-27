@@ -107,7 +107,16 @@ function propDeepSearch(input, value) {
   return _sortAndFilter(_propDeepSearch(input, value));
 }
 
+function getOriginalProtocolHostPort(req) {
+  // let externalHost = req.hostname;
+  // The above line does not work regardless "Express behind proxies" documentation at
+  // https://expressjs.com/en/guide/behind-proxies.html
+  let externalHost = req.get('X-Forwarded-Host') || req.get('Host');
+  return req.protocol + '://' + externalHost;  // URL used by web client.
+}
+
 module.exports = {
   propDeepSearch,
-  valueDeepSearch
+  valueDeepSearch,
+  getOriginalProtocolHostPort
 }
