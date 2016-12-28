@@ -1,5 +1,6 @@
 const sendMail = require('./../mailer');
 const currentUserInfoService = require('../service/currentUserInfoService');
+const getOriginalProtocolHostPort = require('../../client-server/lib.js').getOriginalProtocolHostPort;
 
 let modelsPromise = require('./../db/models');
 let md5 = require('md5');
@@ -31,8 +32,6 @@ function verify(req, res) {
 }
 
 function createAbsentUser(req, transaction) {
-  let bnpExternalUrl = req.protocol + '://' + req.get('host');  // URL used by web client to access bnp.
-
   let newUser = {
     loginName: req.body.LoginName,
     password: md5(CryptoJS.AES.decrypt(req.body.Password, 'SecretJcatalogPasswordKey').toString(CryptoJS.enc.Utf8)),
@@ -53,7 +52,7 @@ function createAbsentUser(req, transaction) {
     {
       email: req.body.EMail,
       surname: req.body.Name,
-      simUrl: bnpExternalUrl,
+      simUrl: getOriginalProtocolHostPort(req),
       verificationToken: newUser.verificationToken,
       name: 'Business Network Portal service'
     }

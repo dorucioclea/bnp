@@ -42,7 +42,8 @@ export default class LoginPage extends React.Component {
 
   handleLoginClick = () => {
     cookie.save('LANGUAGE_COOKIE_KEY', this.state.language, {
-      path: window.simRootContextPath
+      path: window.simRootContextPath,
+      maxAge: 31536000
     });
     this.context.authenticationService.login({
       username: this.state.username,

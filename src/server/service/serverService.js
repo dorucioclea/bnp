@@ -18,6 +18,7 @@ const SIM_VIEWS = '../../../resources/bnp/views';
 const MAIN_CSS = '../../client/main.css';
 const WEBPACK_DEV_CONFIG = './../../../webpack.development.config.js';
 const bnpInternalUrl = 'http://127.0.0.1:' + process.env.PORT;
+const getOriginalProtocolHostPort = require('../../client-server/lib.js').getOriginalProtocolHostPort;
 
 function scrubETag(res) {
   onHeaders(res, function() {
@@ -132,17 +133,13 @@ function initRoutes(app) {
   let viewLogRoutes = require('./../routes/viewLog');
   app.get('/viewLog/*', viewLogRoutes.downloadLogs);
 
-  let gatewayRoutes = require('./../routes/gateway');
-  app.get('/gateway/bundle/*', gatewayRoutes.getBundle);
-  app.all(/^\/gateway\/(?!bundle)/, gatewayRoutes.proxyServices);
-
   let userRoutes = require('./../routes/user');
   app.post('/user/verify', userRoutes.verify);
   app.post('/user/createUser', userRoutes.createUser);
   app.get('/user/currentUserInfo', userRoutes.getCurrentUserInfo);
 
   let applicationConfigRoutes = require('./../routes/applicationConfig');
-  app.get('/applicationConfig/url', applicationConfigRoutes.getUrl);
+  app.get('/applicationConfig/url', (req, res) => res.send(getOriginalProtocolHostPort(req)));
   app.get('/applicationConfig/defaultLocale', applicationConfigRoutes.getDefaultLocale);
   app.get('/applicationConfig/formatPatterns', applicationConfigRoutes.getFormatPatterns);
 }
@@ -155,6 +152,7 @@ function initTemplate(app, bundle, chunksManifest) {
   app.engine('handlebars', expressHandlebars());
   app.set('view engine', 'handlebars');
   app.set('views', path.resolve(path.join(__dirname, SIM_VIEWS)));
+  app.set('trust proxy', true);
 
   app.use('/', function(req, res) {
     // eslint-disable-next-line no-param-reassign
@@ -166,14 +164,12 @@ function initTemplate(app, bundle, chunksManifest) {
       req.originalUrl :  // Unknown user wants to view portal internal resources.
       null;
 
-    let bnpExternalUrl = req.protocol + '://' + req.get('host');  // URL used by web client to access bnp.
-
     if (req.session.currentUserInfo && req.originalUrl.indexOf('/login') !== -1) {
       // Known user is at login-page.
-      res.redirect(bnpExternalUrl + '/supplierInformation');
+      res.redirect(getOriginalProtocolHostPort(req) + '/supplierInformation');
     } else {
       res.render('home', {
-        simPublicUrl: bnpExternalUrl,
+        simPublicUrl: getOriginalProtocolHostPort(req),
         bundle: bundle,
         chunksManifest: JSON.stringify(chunksManifest),
         isProductionMode: (process.env.NODE_ENV === 'production')

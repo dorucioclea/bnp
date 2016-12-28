@@ -197,16 +197,7 @@ class ConsulEmitter extends EventEmitter {
       let integrationService = this.integrationServices[serviceName];
 
       if (nodesInfo.length === 0) {
-        // The service has been unregistered in Consul.
-        if (integrationService) {
-          integrationService.watch.end();
-          delete this.integrationServices[serviceName];
-
-          this.emit('service', 'delete', {
-            name: serviceName
-          });
-        }
-
+        // The service has been unregistered in Consul => let "consul.catalog.service.list" watch deal with it.
         return;
       }
 
