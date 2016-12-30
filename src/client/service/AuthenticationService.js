@@ -12,13 +12,12 @@ export default class AuthenticationService {
   }
 
   login(user) {
-    return axios.post(`${window.simContextPath}/login`, user).then(response => {
-      if (response.data.returnTo) {
-        browserHistory.push(`${window.simContextPath}${response.data.returnTo}`);
-      } else {
-        browserHistory.push(`${window.simContextPath}/supplierInformation`);
-      }
-    });
+    return axios.post(`${window.simContextPath}/login`, user).then(response => browserHistory.push(
+      `${window.simContextPath}${
+        response.data.returnTo ||
+        (response.data.supplierId ? '/dashboard' : '/supplierInformation')
+      }`
+    ));
   }
 
   logout() {

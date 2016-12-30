@@ -1,6 +1,0 @@
-{
-  "name": "CustomerPortal",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./CustomerPortal.js"
-}

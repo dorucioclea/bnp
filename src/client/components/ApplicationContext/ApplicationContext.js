@@ -133,7 +133,11 @@ class ApplicationContext extends React.Component {
 
     // TODO: check conditions.
     if (
-      location.pathname === `${window.simContextPath}/supplierInformation` && !currentUserInfo.user ||
+      (
+        location.pathname === `${window.simContextPath}/supplierInformation` ||
+        location.pathname === `${window.simContextPath}/dashboard`
+      ) &&
+      !currentUserInfo.user ||
       !this.state.locale ||
       !this.state.simUrl ||
       !this.i18n

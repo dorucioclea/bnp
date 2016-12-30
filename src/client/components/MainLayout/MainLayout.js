@@ -1,5 +1,4 @@
 import React from 'react';
-import browserHistory from 'react-router/lib/browserHistory';
 import connect from 'react-redux/lib/components/connect';
 import locales from './i18n/locales.js'
 import './styles/main-layout.css';
@@ -17,23 +16,6 @@ class MainLayout extends React.Component {
   }
 
   i18n = this.context.i18n.register('MainLayout', locales)
-
-  handleLogoutClick = () => {
-    clearInterval(this.checkSessionInterval);
-    this.context.authenticationService.logout();
-  }
-
-  handleCustomerMenuItemClick = (e) => {
-    browserHistory.push(`${window.simContextPath}/${e.target.id}`);
-  }
-
-  handleHomeClick = () => {
-    browserHistory.push(`${window.simContextPath}/supplierInformation`);
-  }
-
-  handleLoginModalClick = () => {
-    window.open(`${window.simContextPath}/login`);
-  }
 
   render() {
     let header = (

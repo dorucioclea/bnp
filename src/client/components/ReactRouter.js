@@ -7,6 +7,7 @@ import browserHistory from 'react-router/lib/browserHistory';
 import Layout from './MainLayout';
 import LoginPage from './LoginPage';
 import Registration from './Registration';
+import Dashboard from './Dashboard';
 import SuccessRegistration from './Notifications/SuccessRegistration';
 import SuccessConfirmation from './Notifications/SuccessConfirmation';
 import AccessDenied from './Errors/AccessDenied';
@@ -30,10 +31,24 @@ let store = createStore(simRootApplicationReducer, {
   }
 });
 
-function beforeComponentEnterInterceptor(nextState, replace, done) {
+function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.isAuthenticated().then(response => {
     if (!response.data.username) {
       replace(`${window.simContextPath}/login`);
+    }
+    done();
+  }).catch(() => {
+    replace(`${window.simContextPath}/login`);
+    done();
+  });
+}
+
+function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
+  authenticationService.isAuthenticated().then(response => {
+    if (!response.data.username) {
+      replace(`${window.simContextPath}/login`);
+    } else if (!resonse.data.supplierId) {
+      replace(`${window.simContextPath}/supplierInformation`);
     }
     done();
   }).catch(() => {
@@ -76,11 +91,15 @@ ReactDOM.render(
             path={`${window.simContextPath}/registration/confirmation/:verificationToken`}
             component={SuccessConfirmation}
           />
-          {/* beforeComponentEnterInterceptor works before component will be accessed */}
           <Route
-            onEnter={beforeComponentEnterInterceptor}
+            onEnter={beforeSupplierComponentEnterInterceptor}
             path={`${window.simContextPath}/supplierInformation`}
             getComponent={(location, cb) => require('./SupplierApplicationForm')(location, cb)}
+          />
+          <Route
+            onEnter={beforeDashboardComponentEnterInterceptor}
+            path={`${window.simContextPath}/dashboard`}
+            component={Dashboard}
           />
         </Route>
       </Route>
