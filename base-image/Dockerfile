@@ -8,8 +8,6 @@ WORKDIR /home/node/bnp
 
 RUN mv /var/tmp/base/node_modules ./node_modules && apk add --no-cache mysql-client && apk add --no-cache curl rsync
 
-# Copying modules which are either manually changed or not located in https://registry.npmjs.org/ official registry
-# (i.e. jCatalog registry) - see ".dockerignore" for the list. Otherwise "npm install" will throw an error.
 COPY ./jq-linux32 ./jq-linux64 /usr/local/bin/
 
 COPY package.json .

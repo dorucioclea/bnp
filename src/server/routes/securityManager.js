@@ -15,7 +15,7 @@ module.exports = function(app) {
       Password: md5(password)
     }
   })).then(user => {
-    if (!user || user.Locked === 'Y') {
+    if (!user || !user.dataValues ||  user.dataValues.locked) {
       console.warn("User hasn't been logged in: no such user or the user is locked");
       return done(null, false);
     }

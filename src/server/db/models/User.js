@@ -5,7 +5,7 @@ module.exports = function(sequelize) {
   const User = sequelize.define('User', {
     loginName: {
       field: 'LoginName',
-      type: Sequelize.STRING(50),
+      type: Sequelize.STRING(100),
       primaryKey: true,
       validate: {
         notEmpty: true

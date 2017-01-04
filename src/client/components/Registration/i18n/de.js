@@ -24,8 +24,10 @@ RegistrationLabel.duns.label = 'DUNS/GTIN';
 RegistrationLabel.name.label = 'Name';
 RegistrationLabel.firstName.label = 'Vorname';
 RegistrationLabel.password.label = 'Passwort';
+RegistrationLabel.password.comment = 'Your password has to be at least 8 characters long and needs to contain at least 1 letter and 1 figure.';  // TODO: substitute with de.
 RegistrationLabel.passwordConfirmation.label = 'Passwort-Bestätigung';
 RegistrationLabel.email.label = 'E-Mail';
+RegistrationLabel.email.comment = 'Please enter a valid eMail address, you will be required to confirm an eMail sent to this address.'; // TODO: substitute with de.
 RegistrationLabel.emailConfirmation.label = 'E-Mail-Bestätigung';
 
 let RegistrationHeader = {};

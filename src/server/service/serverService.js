@@ -187,6 +187,7 @@ function initDevWebpack(app) {
 
   app.use(webpackMiddleware(compiler, {
     publicPath: '/static',
+    stats: { colors: true },
     noInfo: true
   }));
 

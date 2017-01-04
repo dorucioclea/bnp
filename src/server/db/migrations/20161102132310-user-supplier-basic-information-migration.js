@@ -4,7 +4,7 @@ module.exports = {
       queryInterface.createTable('CatalogUser', {
         loginName: {
           field: 'LoginName',
-          type: Sequelize.STRING(50),
+          type: Sequelize.STRING(100),
           primaryKey: true,
           validate: {
             notEmpty: true

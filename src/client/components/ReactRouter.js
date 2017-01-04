@@ -4,7 +4,8 @@ import Router from 'react-router/lib/Router';
 import Route from 'react-router/lib/Route';
 import IndexRedirect from 'react-router/lib/IndexRedirect';
 import browserHistory from 'react-router/lib/browserHistory';
-import Layout from './MainLayout';
+import MainLayout from './MainLayout';
+import RegistrationLayout from './RegistrationLayout';
 import LoginPage from './LoginPage';
 import Registration from './Registration';
 import Dashboard from './Dashboard';
@@ -83,14 +84,15 @@ ReactDOM.render(
         <IndexRedirect to={`${window.simContextPath}/supplierInformation`}/>
         <Route path={`${window.simContextPath}/login`} component={LoginPage}/>
         <Route path={`${window.simContextPath}/logout`} onEnter={logout}/>
-        <Route path={window.simRootContextPath} component={Layout}>
+        <Route path={window.simRootContextPath} component={RegistrationLayout}>
           <Route path={`${window.simContextPath}/registration`} component={Registration}/>
           <Route path={`${window.simContextPath}/registration/success`} component={SuccessRegistration}/>
-          <Route path={`${window.simContextPath}/accessDenied`} component={AccessDenied}/>
           <Route
             path={`${window.simContextPath}/registration/confirmation/:verificationToken`}
             component={SuccessConfirmation}
           />
+        </Route>
+        <Route path={window.simRootContextPath} component={MainLayout}>
           <Route
             onEnter={beforeSupplierComponentEnterInterceptor}
             path={`${window.simContextPath}/supplierInformation`}
@@ -101,6 +103,7 @@ ReactDOM.render(
             path={`${window.simContextPath}/dashboard`}
             component={Dashboard}
           />
+          <Route path={`${window.simContextPath}/accessDenied`} component={AccessDenied}/>
         </Route>
       </Route>
     </Router>

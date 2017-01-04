@@ -33,15 +33,13 @@ function verify(req, res) {
 
 function createAbsentUser(req, transaction) {
   let newUser = {
-    loginName: req.body.LoginName,
+    loginName: req.body.EMail,
     password: md5(CryptoJS.AES.decrypt(req.body.Password, 'SecretJcatalogPasswordKey').toString(CryptoJS.enc.Utf8)),
     verificationToken: md5(new Date().getTime()),
     locked: true,
-    firstName: req.body.FirstName,
-    surname: req.body.Name,
     email: req.body.EMail,
-    createdBy: req.body.LoginName,
-    changedBy: req.body.LoginName
+    createdBy: req.body.EMail,
+    changedBy: req.body.EMail
   };
 
   return modelsPromise.then(models => models.User.create(newUser, {
@@ -51,7 +49,6 @@ function createAbsentUser(req, transaction) {
     'registration',
     {
       email: req.body.EMail,
-      surname: req.body.Name,
       simUrl: getOriginalProtocolHostPort(req),
       verificationToken: newUser.verificationToken,
       name: 'Business Network Portal service'
@@ -72,7 +69,7 @@ function createUser(req, res) {
 
   modelsPromise.then(models => models.User.findOne({
     where: {
-      loginName: req.body.LoginName
+      loginName: req.body.EMail
     }
   })).then(existingUser => {
     if (existingUser) {
