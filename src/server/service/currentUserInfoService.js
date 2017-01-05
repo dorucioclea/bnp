@@ -33,17 +33,15 @@ module.exports = function(session, username, locale) {
 
   let promises = [
     modelsPromise.then(models => models.User.findOne({
-      where: {
-        LoginName: username
-      }
+      where: { LoginName: username }
     })),
     supplierUrl ?
-    axios.get(`${supplierUrl}/api/suppliers`, {
-      params: { username }
-    }) :
-    Promise.resolve({
-      data: []
-    })
+      axios.get(`${supplierUrl}/api/suppliers`, {
+        params: { userId: username }
+      }) :
+      Promise.resolve({
+        data: []
+      })
   ];
 
   return Promise.all(promises).then(([user, suppliers]) => {

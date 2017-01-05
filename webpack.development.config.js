@@ -30,7 +30,7 @@ if (NODE_ENV == 'production') {
 module.exports = {
   entry: './src/client/components/ReactRouter.js',
   output: {
-    path: path.resolve(__dirname, 'build/client'),
+    path: path.resolve(__dirname, 'build/client'),  // with 'webpack-dev-middleware' this value is ignored.
     filename: 'bundle.js',
     chunkFilename: '[id].chunk.js'
   },
@@ -41,7 +41,7 @@ module.exports = {
     "react-dom": "ReactDOM"
   },
 
-  devtool: NODE_ENV == 'development' ? 'eval-source-map' : null,
+  devtool: NODE_ENV == 'development' ? 'eval-source-map' : null,  // 'source-map' may be set for production.
 
   plugins: plugins,
 

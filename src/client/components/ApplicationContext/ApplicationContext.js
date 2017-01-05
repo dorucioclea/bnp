@@ -5,6 +5,7 @@ import { setCurrentUserInfo } from './../../redux/actions.js';
 import cookie from 'react-cookie';
 import I18nManager from 'opuscapita-i18n/lib/utils/I18nManager';
 import locales from './../i18n/locales';
+import validateMessages from './i18n';
 
 class ApplicationContext extends React.Component {
 
@@ -118,7 +119,6 @@ class ApplicationContext extends React.Component {
       ) &&
       this.state.formatPatterns
     ) {
-      let validateMessages = require('./i18n').default;
       this.i18n = new I18nManager(cookie.load('LANGUAGE_COOKIE_KEY'), validateMessages, this.state.formatPatterns);
       this.i18n.register('Common', locales);
       // this.dateTimePattern = this.formatPatterns[cookie.load('LANGUAGE_COOKIE_KEY').toString()].dateTimePattern;

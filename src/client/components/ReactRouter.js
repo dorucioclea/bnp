@@ -19,6 +19,7 @@ import httpResponseHandler from './../httpResponseHandler';
 import ApplicationContext from './ApplicationContext';
 import simRootApplicationReducer from './../redux/reducers.js';
 import axios from 'axios';
+import SupplierApplicationForm from './SupplierApplicationForm';
 
 let authenticationService = new AuthenticationService({
   httpResponseHandler: httpResponseHandler
@@ -96,7 +97,7 @@ ReactDOM.render(
           <Route
             onEnter={beforeSupplierComponentEnterInterceptor}
             path={`${window.simContextPath}/supplierInformation`}
-            getComponent={(location, cb) => require('./SupplierApplicationForm')(location, cb)}
+            getComponent={(location, cb) => SupplierApplicationForm(location, cb)}
           />
           <Route
             onEnter={beforeDashboardComponentEnterInterceptor}

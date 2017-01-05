@@ -125,7 +125,7 @@ export default class Registration extends React.Component {
         if (err && err.data && err.data.data && err.data.data.errors && err.data.data.errors.length > 0) {
           newState.formErrors = err.data.data.errors.reduce((rez, error) => {
             if (!rez[error.field]) {
-              rez[error.field] = [];
+              rez[error.field] = []; // eslint-disable-line no-param-reassign
             }
             rez[error.field].push(error.message);
             return rez;
@@ -231,7 +231,7 @@ export default class Registration extends React.Component {
               placeholder="Your eMail"
               onBlur={this.handleValidateField}
               onChange={e => this.setState({ email: e.target.value })}
-              autoFocus
+              autoFocus={true}
             />
             <small>
               {i18n.getMessage('RegistrationLabel.email.comment')}

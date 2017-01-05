@@ -12,9 +12,7 @@ export default class SuccessConfirmation extends React.Component {
   }
 
   componentDidMount() {
-    console.log('SuccessConfirmation component did mount');
     if (this.props.routeParams.verificationToken) {
-      console.log('About to verify User');
       this.context.authenticationService.verifyUser(this.props.routeParams.verificationToken).
         catch(err => this.setState({
           serverErrorMessage: this.i18n.getMessage('CommonMessages.systemError')

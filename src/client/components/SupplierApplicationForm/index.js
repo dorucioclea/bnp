@@ -1,9 +1,9 @@
-module.exports = function(location, cb) {
+import SupplierApplicationForm from './SupplierApplicationForm';
+
+export default function(location, cb) {
   if (typeof require.ensure === 'function') {
-    require.ensure([], (require) => {
-      cb(null, require('./SupplierApplicationForm').default)
-    })
+    require.ensure([], require => cb(null, SupplierApplicationForm));
   } else {
-    cb(null, require('./SupplierApplicationForm').default);
+    cb(null, SupplierApplicationForm);
   }
-};
+}

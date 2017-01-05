@@ -15,7 +15,7 @@ module.exports = function(app) {
       Password: md5(password)
     }
   })).then(user => {
-    if (!user || !user.dataValues ||  user.dataValues.locked) {
+    if (!user || !user.dataValues || user.dataValues.locked) {
       console.warn("User hasn't been logged in: no such user or the user is locked");
       return done(null, false);
     }
@@ -61,11 +61,14 @@ module.exports = function(app) {
           req.session.passport.user,
           req.body.language
         ).
-        then(userInfo => res.send({
-          userInfo,
-          returnTo: req.session.returnTo
-        })).
-        catch(err => res.status(err.status).send(err.data));
+          then(userInfo => res.send({
+            userInfo,
+            returnTo: req.session.returnTo
+          })).
+          catch(err => {
+            console.log('ERROR EXTRACTING USER INFO:', err);
+            res.status(err.status).send(err.data);
+          });
       });
     })(req, res, next);
   });

@@ -20,7 +20,6 @@ function sendMail(mailProps) {
 }
 
 module.exports = (locale, templateName, params) => new Promise((resolve, reject) => {
-  console.log('===== SEND MAIL pre-PARAMS', params);
   if (! params.email) {
     return reject('no email provided');
   }
