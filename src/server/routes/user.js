@@ -2,21 +2,21 @@ const sendMail = require('./../mailer');
 const currentUserInfoService = require('../service/currentUserInfoService');
 const getOriginalProtocolHostPort = require('../../client-server/lib.js').getOriginalProtocolHostPort;
 
-let modelsPromise = require('./../db/models');
 let md5 = require('md5');
 let serviceErrorHandlingService = require('./../service/serviceErrorHandlingService');
 let databaseErrorHandlingService = require('./../service/databaseErrorHandlingService');
 let CryptoJS = require('crypto-js');
+let db;
 
 function verify(req, res) {
-  modelsPromise.then(models => models.User.update({
+  db.User.update({
     locked: false,
     verificationToken: null
   }, {
     where: {
       verificationToken: req.body.verificationToken
     }
-  })).then(([affectedCount]) => {
+  }).then(([affectedCount]) => {
     if (affectedCount === 0) {
       console.warn(`User verification failed: verification token ${req.body.verificationToken} not found`);
       res.status(404).send({ global: 'User not found' });
@@ -42,9 +42,9 @@ function createAbsentUser(req, transaction) {
     changedBy: req.body.EMail
   };
 
-  return modelsPromise.then(models => models.User.create(newUser, {
+  return db.User.create(newUser, {
     transaction
-  })).then(createdUser => sendMail(
+  }).then(createdUser => sendMail(
     req.cookies.LANGUAGE_COOKIE_KEY,
     'registration',
     {
@@ -67,19 +67,18 @@ function createAbsentUser(req, transaction) {
 function createUser(req, res) {
   console.info(`Creating new account ${req.body.EMail}`);
 
-  modelsPromise.then(models => models.User.findOne({
+  db.User.findOne({
     where: {
       loginName: req.body.EMail
     }
-  })).then(existingUser => {
+  }).then(existingUser => {
     if (existingUser) {
       res.status(203).send(`User ${req.body.EMail} already exists!`);
       return Promise.resolve();  // The same as
       // return;
     }
 
-    return modelsPromise.
-      then(models => models.sequelize.transaction()).
+    return db.sequelize.transaction().
       then(transaction => createAbsentUser(req, transaction)).
       then(() => res.status(201).send('Message sent'));
   }).catch(err => databaseErrorHandlingService.generateErrorAndSendResponse(err, res));
@@ -87,7 +86,7 @@ function createUser(req, res) {
 
 function getCurrentUserInfo(req, res) {
   (req.query.reload === 'true' && req.session.currentUserInfo ?
-    currentUserInfoService(req.session, req.session.currentUserInfo.username) :
+    currentUserInfoService(db, req.session, req.session.currentUserInfo.username) :
     Promise.resolve(req.session.currentUserInfo)
   ).  // eslint-disable-line dot-location
   then(currentUserInfo => res.send({
@@ -96,8 +95,12 @@ function getCurrentUserInfo(req, res) {
   catch(err => res.status(err.status).send(err.data));
 }
 
-module.exports = {
-  verify: verify,
-  createUser: createUser,
-  getCurrentUserInfo: getCurrentUserInfo
+module.exports = function(dbObj) {
+  db = dbObj;
+
+  return {
+    verify,
+    createUser,
+    getCurrentUserInfo
+  };
 };

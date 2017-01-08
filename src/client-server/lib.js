@@ -108,10 +108,14 @@ function propDeepSearch(input, value) {
 }
 
 function getOriginalProtocolHostPort(req) {
+  // The function analizes req (request object) and determines "<protocol>://<host>:<port>" used by a client
+  // (like web browser, etc.) to access the server.
+
   // let externalHost = req.hostname;
   // The above line does not work regardless "Express behind proxies" documentation at
   // https://expressjs.com/en/guide/behind-proxies.html
   let externalHost = req.get('X-Forwarded-Host') || req.get('Host');
+
   return req.protocol + '://' + externalHost;  // URL used by web client.
 }
 

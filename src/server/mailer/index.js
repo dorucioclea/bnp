@@ -6,7 +6,6 @@ import { EmailTemplate } from 'email-templates';
 let smtpTransport = nodemailer.createTransport(config.mail.options);
 
 function sendMail(mailProps) {
-  console.log('===== SEND MAIL PROPS', mailProps);
   return new Promise((resolve, reject) => smtpTransport.sendMail(
     mailProps,
     err => {

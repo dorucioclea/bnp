@@ -1,5 +1,4 @@
 import axios from 'axios';
-const modelsPromise = require('./../db/models');
 
 const consulEmitter = require('./consulService.js').emitter;
 let supplierUrl = null;
@@ -23,7 +22,7 @@ consulEmitter.on('service', (action, details) => {
   }
 });
 
-module.exports = function(session, username, locale) {
+module.exports = function(db, session, username, locale) {
   if (!username) {
     return Promise.reject({
       status: 404,
@@ -32,9 +31,9 @@ module.exports = function(session, username, locale) {
   }
 
   let promises = [
-    modelsPromise.then(models => models.User.findOne({
+    db.User.findOne({
       where: { LoginName: username }
-    })),
+    }),
     supplierUrl ?
       axios.get(`${supplierUrl}/api/suppliers`, {
         params: { userId: username }

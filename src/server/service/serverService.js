@@ -129,11 +129,11 @@ function initCssBundle(app) {
   app.use('/static/main.css', express.static(path.join(__dirname, MAIN_CSS)));
 }
 
-function initRoutes(app) {
+function initRoutes(app, db) {
   let viewLogRoutes = require('./../routes/viewLog');
   app.get('/viewLog/*', viewLogRoutes.downloadLogs);
 
-  let userRoutes = require('./../routes/user');
+  let userRoutes = require('./../routes/user')(db);
   app.post('/user/verify', userRoutes.verify);
   app.post('/user/createUser', userRoutes.createUser);
   app.get('/user/currentUserInfo', userRoutes.getCurrentUserInfo);
@@ -144,8 +144,8 @@ function initRoutes(app) {
   app.get('/applicationConfig/formatPatterns', applicationConfigRoutes.getFormatPatterns);
 }
 
-function initSecurityManager(app) {
-  require('./../routes/securityManager')(app);
+function initSecurityManager(app, db) {
+  require('./../routes/securityManager')(app, db);
 }
 
 function initTemplate(app, bundle, chunksManifest) {

@@ -3,18 +3,17 @@ import passport from 'passport';
 import md5 from 'md5';
 import databaseErrorHandlingService from '../service/databaseErrorHandlingService';
 const currentUserInfoService = require('../service/currentUserInfoService');
-const modelsPromise = require('./../db/models');
 
-module.exports = function(app) {
+module.exports = function(app, db) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  passport.use(new LocalStrategy((username, password, done) => modelsPromise.then(models => models.User.find({
+  passport.use(new LocalStrategy((username, password, done) => db.User.find({
     where: {
       LoginName: username,
       Password: md5(password)
     }
-  })).then(user => {
+  }).then(user => {
     if (!user || !user.dataValues || user.dataValues.locked) {
       console.warn("User hasn't been logged in: no such user or the user is locked");
       return done(null, false);
@@ -57,6 +56,7 @@ module.exports = function(app) {
         console.info('User has been logged in');
 
         return currentUserInfoService(
+          db,
           req.session,
           req.session.passport.user,
           req.body.language

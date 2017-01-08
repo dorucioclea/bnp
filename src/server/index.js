@@ -25,14 +25,6 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
-if (process.env.NODE_ENV !== 'test') {
-  // require("./logger");
-  serverService.initResources(app);
-  serverService.initSecurityManager(app);
-  serverService.initRoutes(app);
-  serverService.initTemplate(app, bundle, chunksManifest);
-}
-
 let server = app.listen(process.env.PORT, err => {
   if (err) {
     console.log(err);
@@ -55,6 +47,19 @@ process.on('SIGTERM', gracefulShutdown);
 
 // listen for INT signal e.g. Ctrl-C
 process.on('SIGINT', gracefulShutdown);
+
+if (process.env.NODE_ENV !== 'test') {
+  // require("./logger");
+  serverService.initResources(app);
+
+  require('./service/dbReadyService').
+    then(db => {
+      serverService.initSecurityManager(app, db);
+      serverService.initRoutes(app, db);
+      serverService.initTemplate(app, bundle, chunksManifest);
+    }).  // register services dependent on DB.
+    catch(err => gracefulShutdown(err));
+}
 
 // Export below is needed for the sake of testing (see "request(app)" in "test/utils/testUtils.js", line 21).
 export default app;
