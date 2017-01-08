@@ -168,7 +168,7 @@ class ConsulEmitter extends EventEmitter {
         dbWatch.on('error', err => this.emit('dbConfig', 'error', err));
 
         dbWatch.on('change', data => {  // eslint-disable-line no-loop-func
-          // console.log(`===== CHANAGE EVENT FOR "${consulKey}" KV OF TYPE ${typeof data}`, data);
+          console.log(`===== CHANGE EVENT FOR "${consulKey}" KV OF TYPE ${typeof data}`, data);
           if (data && this.dbConfig[configKey] !== data.Value) {
             this.emit(
               'dbConfig',
@@ -223,6 +223,7 @@ class ConsulEmitter extends EventEmitter {
     serviceWatch.on('error', err => this.emit('dbConfig', 'error', err));
 
     serviceWatch.on('change', nodesInfo => {  // NOTE: first event happens immediatelly after watch call.
+      console.log(`===== CHANGE EVENT FOR "${DB_SERVICE_NAME}" SERVICE TYPE ${typeof nodesInfo}`, nodesInfo);
       if (nodesInfo.length === 0) {
         // DB service has been unregistered in Consul.
         delete this.dbConfig.host;
@@ -279,6 +280,7 @@ class ConsulEmitter extends EventEmitter {
     servicesListWatch.on('error', err => this.emit('service', 'error', err));
 
     servicesListWatch.on('change', allServices => {  // NOTE: first event happens immediatelly after watch call.
+      console.log(`===== CHANGE EVENT FOR ALL SERVICES LISTING TYPE ${typeof allServices}`, allServices);
       let updatedServices = Object.keys(allServices).reduce((hash, serviceName) => {
         if (allServices[serviceName].indexOf('external') === -1) {
           return hash;
@@ -315,6 +317,7 @@ class ConsulEmitter extends EventEmitter {
     serviceWatch.on('error', err => this.emit('service', 'error', err));
 
     serviceWatch.on('change', nodesInfo => {  // NOTE: first event happens immediatelly after watch call.
+      console.log(`===== CHANGE EVENT FOR "${serviceName}" SERVICE: TYPE ${typeof nodesInfo}`, nodesInfo);
       let integrationService = this.integrationServices[serviceName];
 
       if (nodesInfo.length === 0) {
