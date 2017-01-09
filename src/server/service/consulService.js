@@ -189,6 +189,7 @@ class ConsulEmitter extends EventEmitter {
     });
 
     this.on('newListener', (event, listener) => {
+      console.log('===== NEW LISTENER FOR EVENT', event);
       switch (event) {
         case 'service':  // Inform new listener about all available services.
           Object.keys(this.integrationServices).forEach(serviceName => {
@@ -198,6 +199,7 @@ class ConsulEmitter extends EventEmitter {
             };
 
             delete details.watch;
+            console.log('===== SENDING "add" EVENT TO NEW LISTENER:', details);
             listener('add', details);
           });
           break;
@@ -292,7 +294,7 @@ class ConsulEmitter extends EventEmitter {
 
         return {
           ...hash,
-          serviceName: true
+          [serviceName]: true
         };
       }, {});
 
@@ -300,6 +302,8 @@ class ConsulEmitter extends EventEmitter {
         if (!updatedServices[serviceName]) {  // The service has been unregistered in Consul.
           this.integrationServices[serviceName].watch.end();
           delete this.integrationServices[serviceName];
+          console.log('===== EMITTING "service" "delete"', { name: serviceName });
+          console.log('===== THIS.INTEGRATION-SERVICES IS NOW', this.integrationServices);
           this.emit('service', 'delete', { name: serviceName });
         }
       });
@@ -341,7 +345,9 @@ class ConsulEmitter extends EventEmitter {
           integrationService.port = updatedInfo.port = port;
         }
 
-        if (Object.keys(updatedInfo).length !== 0) {
+        if (Object.keys(updatedInfo).length) {
+          console.log('===== EMITTING "service" "update"', { ...updatedInfo, name: serviceName });
+          console.log('===== THIS.INTEGRATION-SERVICES IS NOW', this.integrationServices);
           this.emit('service', 'update', {
             ...updatedInfo,
             name: serviceName
@@ -358,6 +364,8 @@ class ConsulEmitter extends EventEmitter {
         watch: serviceWatch
       };
 
+      console.log('===== EMITTING "service" "add"', { name: serviceName, ip, port });
+      console.log('===== THIS.INTEGRATION-SERVICES IS NOW', this.integrationServices);
       this.emit('service', 'add', {
         name: serviceName,
         ip,
