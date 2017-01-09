@@ -46,14 +46,17 @@ function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
 }
 
 function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
-  authenticationService.isAuthenticated().then(response => {
-    if (!response.data.username) {
+  authenticationService.currentUserInfo(true).then(response => {
+    let currentUserInfo = response.data.currentUserInfo;
+
+    if (!currentUserInfo.username) {
       replace(`${window.simContextPath}/login`);
-    } else if (!resonse.data.supplierId) {
+    } else if (!currentUserInfo.supplierId) {
       replace(`${window.simContextPath}/supplierInformation`);
     }
+
     done();
-  }).catch(() => {
+  }).catch(err => {
     replace(`${window.simContextPath}/login`);
     done();
   });
