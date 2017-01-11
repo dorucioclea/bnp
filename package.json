@@ -16,7 +16,7 @@
     "build": "rimraf build && ./node_modules/.bin/webpack --config ./webpack.production.config.js --progress --profile --colors --bail && babel src/server -d build/server --copy-files",
     "stats": "./node_modules/.bin/webpack --config ./webpack.production.config.js --profile --json > stats.json",
     "nsp-check": "nsp check",
-    "test": "./node_modules/.bin/mocha -R mocha-junit-reporter test"
+    "test": "./node_modules/.bin/mocha -R mocha-junit-reporter test/index.js"
   },
   "repository": {
     "type": "git",
