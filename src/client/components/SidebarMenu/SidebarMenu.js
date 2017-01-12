@@ -29,7 +29,7 @@ export default class SidebarMenu extends React.Component {
               </a>
             </li>
             <li>
-              <a href={`${window.simContextPath}/campaings`}>
+              <a href={`${window.simContextPath}/campaigns`}>
                 Campaigns
               </a>
             </li>
