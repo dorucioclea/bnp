@@ -48,8 +48,8 @@ make_task_def(){
 			"cpu": 1,
 			"portMappings": [
 				{
-					"containerPort": 3001,
-					"hostPort": 3001
+					"containerPort": 3000,
+					"hostPort": 3000
 				}
 			]
 		}
