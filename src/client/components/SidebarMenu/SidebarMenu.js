@@ -243,4 +243,3 @@ export default class SidebarMenu extends React.Component {
     )
   }
 }
-
