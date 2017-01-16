@@ -17,6 +17,7 @@ import CreateInvoiceFromOrder from './CreateInvoiceFromOrder';
 import Monitor from './Monitor';
 import Partners from './Partners';
 import Products from './Products';
+import PoDownload from './PoDownload';
 import SuccessRegistration from './Notifications/SuccessRegistration';
 import SuccessConfirmation from './Notifications/SuccessConfirmation';
 import AccessDenied from './Errors/AccessDenied';
@@ -149,6 +150,11 @@ ReactDOM.render(
             onEnter={beforeDashboardComponentEnterInterceptor}
             path={`${window.simContextPath}/monitor`}
             component={Monitor}
+          />
+          <Route
+            onEnter={beforeDashboardComponentEnterInterceptor}
+            path={`${window.simContextPath}/poDownload`}
+            component={PoDownload}
           />
           <Route
             onEnter={beforeDashboardComponentEnterInterceptor}
