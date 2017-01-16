@@ -9,6 +9,14 @@ import RegistrationLayout from './RegistrationLayout';
 import LoginPage from './LoginPage';
 import Registration from './Registration';
 import Dashboard from './Dashboard';
+import Statistics from './Statistics';
+import CreateInvoice from './CreateInvoice';
+import ReviewItems from './ReviewItems';
+import Rfq from './Rfq';
+import CreateInvoiceFromOrder from './CreateInvoiceFromOrder';
+import Monitor from './Monitor';
+import Partners from './Partners';
+import Products from './Products';
 import SuccessRegistration from './Notifications/SuccessRegistration';
 import SuccessConfirmation from './Notifications/SuccessConfirmation';
 import AccessDenied from './Errors/AccessDenied';
@@ -101,6 +109,46 @@ ReactDOM.render(
             onEnter={beforeSupplierComponentEnterInterceptor}
             path={`${window.simContextPath}/supplierInformation`}
             getComponent={(location, cb) => SupplierApplicationForm(location, cb)}
+          />
+          <Route
+            onEnter={beforeDashboardComponentEnterInterceptor}
+            path={`${window.simContextPath}/statistics`}
+            component={Statistics}
+          />
+          <Route
+            onEnter={beforeDashboardComponentEnterInterceptor}
+            path={`${window.simContextPath}/createInvoice`}
+            component={CreateInvoice}
+          />
+          <Route
+            onEnter={beforeDashboardComponentEnterInterceptor}
+            path={`${window.simContextPath}/reviewItems`}
+            component={ReviewItems}
+          />
+          <Route
+            onEnter={beforeDashboardComponentEnterInterceptor}
+            path={`${window.simContextPath}/rfq`}
+            component={Rfq}
+          />
+          <Route
+            onEnter={beforeDashboardComponentEnterInterceptor}
+            path={`${window.simContextPath}/partners`}
+            component={Partners}
+          />
+          <Route
+            onEnter={beforeDashboardComponentEnterInterceptor}
+            path={`${window.simContextPath}/products`}
+            component={Products}
+          />
+          <Route
+            onEnter={beforeDashboardComponentEnterInterceptor}
+            path={`${window.simContextPath}/createInvoiceFromOrder`}
+            component={CreateInvoiceFromOrder}
+          />
+          <Route
+            onEnter={beforeDashboardComponentEnterInterceptor}
+            path={`${window.simContextPath}/monitor`}
+            component={Monitor}
           />
           <Route
             onEnter={beforeDashboardComponentEnterInterceptor}

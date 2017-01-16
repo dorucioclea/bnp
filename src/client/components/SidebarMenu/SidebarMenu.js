@@ -69,9 +69,9 @@ export default class SidebarMenu extends React.Component {
     browserHistory.push(`${window.simContextPath}/poDownload`);
   }
 
-  handleCreateInvoiceClick(e) {
+  handleCreateInvoiceFromOrderClick(e) {
     e.preventDefault();
-    browserHistory.push(`${window.simContextPath}/createInvoice`);
+    browserHistory.push(`${window.simContextPath}/createInvoiceFromOrder`);
   }
 
   handleRfqClick(e) {
@@ -164,7 +164,7 @@ export default class SidebarMenu extends React.Component {
               </a>
               <ul className="dropdown-menu">
                 <li><a href="#" onClick={this.handlePoDownloadClick}>PO Download</a></li>
-                <li><a href="#" onClick={this.handleCreateInvoiceClick}>Create Invoice from Order</a></li>
+                <li><a href="#" onClick={this.handleCreateInvoiceFromOrderClick}>Create Invoice from Order</a></li>
               </ul>
             </li>
 

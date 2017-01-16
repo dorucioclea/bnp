@@ -7,7 +7,7 @@ export default class Dashboard extends React.Component {
 
   render() {
     return (
-      <img src={`${window.simContextPath}/static/dashboard.jpg`} style={{ maxWidth: '80vw' }}/>
+      <img src={`${window.simContextPath}/static/partners.jpg`} style={{ maxWidth: '80vw' }}/>
     )
   }
 }
