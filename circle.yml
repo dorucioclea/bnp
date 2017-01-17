@@ -8,13 +8,20 @@ machine:
 dependencies:
   override:
     - docker info
-    - docker build --rm=false -t gr4per/bnp .
+    - docker build --rm=false -t gr4per/bnp:latest .
+
+test:
+  override:
+    - docker run gr4per/bnp:latest npm run test
+  post:
+    - sudo mkdir $CIRCLE_TEST_REPORTS/junit
+    - sudo cp test-results.xml $CIRCLE_TEST_REPORTS/junit
 
 deployment:
   hub:
     branch: master
     commands:
       - docker login -u $DOCKER_USER -p $DOCKER_PASS -e $DOCKER_EMAIL
-      - docker push gr4per/bnp
+      - docker push gr4per/bnp:latest
       - chmod +x deploy.sh
       - ./deploy.sh

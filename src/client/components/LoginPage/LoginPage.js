@@ -90,7 +90,15 @@ export default class LoginPage extends React.Component {
         loginErrorMessage = <div className="label label-danger">{this.i18n.getMessage('LoginPageError.badLogin')}</div>;
       }
       return (
-        <div onKeyPress={this.handleEnterPress}>
+        <div
+          onKeyPress={this.handleEnterPress}
+          style={{
+            background: `url(${window.simContextPath}/img/oc-bnp-bg.png) top center`,
+            backgroundSize: 'cover',
+            backgroundAttachment: 'fixed',
+            minHeight: '100vh'
+          }}
+        >
           <div className="container loginPage">
             <div className="row">
               <div className="col-md-4 col-md-offset-4">
@@ -99,7 +107,7 @@ export default class LoginPage extends React.Component {
                 </a>
               </div>
             </div>
-            <div className="row">
+            <div className="row" style={{ backgroundColor: 'white', paddingTop: '30px', paddingBottom: '10px' }}>
               <div className="col-md-4 col-md-offset-4">
                 <form method="post" action="/loginAction">
                   <div className="form-group">

@@ -9,6 +9,17 @@ import RegistrationLayout from './RegistrationLayout';
 import LoginPage from './LoginPage';
 import Registration from './Registration';
 import Dashboard from './Dashboard';
+import Settings from './Settings';
+import Statistics from './Statistics';
+import CreateInvoice from './CreateInvoice';
+import ReviewItems from './ReviewItems';
+import Rfq from './Rfq';
+import CreateInvoiceFromOrder from './CreateInvoiceFromOrder';
+import Monitor from './Monitor';
+import Partners from './Partners';
+import Products from './Products';
+import PoDownload from './PoDownload';
+import EInvoice from './EInvoice';
 import SuccessRegistration from './Notifications/SuccessRegistration';
 import SuccessConfirmation from './Notifications/SuccessConfirmation';
 import AccessDenied from './Errors/AccessDenied';
@@ -45,7 +56,7 @@ function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
   });
 }
 
-function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
+function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.currentUserInfo(true).then(response => {
     let currentUserInfo = response.data.currentUserInfo;
 
@@ -85,7 +96,7 @@ ReactDOM.render(
         path={window.simRootContextPath}
         context={{ authenticationService: authenticationService }} component={ApplicationContext}
       >
-        <IndexRedirect to={`${window.simContextPath}/supplierInformation`}/>
+        <IndexRedirect to={`${window.simContextPath}/dashboard`}/>
         <Route path={`${window.simContextPath}/login`} component={LoginPage}/>
         <Route path={`${window.simContextPath}/logout`} onEnter={logout}/>
         <Route path={window.simRootContextPath} component={RegistrationLayout}>
@@ -103,14 +114,64 @@ ReactDOM.render(
             getComponent={(location, cb) => SupplierApplicationForm(location, cb)}
           />
           <Route
-            onEnter={beforeDashboardComponentEnterInterceptor}
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/statistics`}
+            component={Statistics}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/createInvoice`}
+            component={CreateInvoice}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/reviewItems`}
+            component={ReviewItems}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/rfq`}
+            component={Rfq}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/partners`}
+            component={Partners}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/products`}
+            component={Products}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/createInvoiceFromOrder`}
+            component={CreateInvoiceFromOrder}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/monitor`}
+            component={Monitor}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/settings`}
+            component={Settings}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/poDownload`}
+            component={PoDownload}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
             path={`${window.simContextPath}/dashboard`}
             component={Dashboard}
           />
           <Route path={`${window.simContextPath}/accessDenied`} component={AccessDenied}/>
+          <Route path={`${window.simContextPath}/einvoice`} component={EInvoice}/>
         </Route>
       </Route>
     </Router>
   </Provider>,
   document.getElementById('rootApplicationComponent'));
-

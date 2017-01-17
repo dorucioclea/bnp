@@ -13,7 +13,7 @@ class RegistrationLayout extends React.Component {
     return (
       <div
         style={{
-          background: `url(${window.simContextPath}/img/oc-register-bg.jpg) top center`,
+          background: `url(${window.simContextPath}/img/oc-bnp-bg.png) top center`,
           backgroundSize: 'cover',
           backgroundAttachment: 'fixed',
           minHeight: '100vh'

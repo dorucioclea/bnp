@@ -48,8 +48,8 @@ make_task_def(){
 			"cpu": 1,
 			"portMappings": [
 				{
-					"containerPort": 3001,
-					"hostPort": 3001
+					"containerPort": 3000,
+					"hostPort": 3000
 				}
 			]
 		}
@@ -60,7 +60,7 @@ make_task_def(){
 
 register_definition() {
 
-    if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
+    if revision=$(aws ecs register-task-definition --network-mode host --container-definitions "$task_def" --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
         echo "Failed to register task definition"

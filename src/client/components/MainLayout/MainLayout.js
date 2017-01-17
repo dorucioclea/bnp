@@ -12,7 +12,6 @@ class MainLayout extends React.Component {
   }
 
   render() {
-    console.log('===== MAIN LAYOUT CURRENT USER INFO', this.props.currentUserInfo);
     return (
       <div style={{ minHeight: '100vh' }}>
         {this.props.currentUserInfo && this.props.currentUserInfo.supplierId && <SidebarMenu/>}
