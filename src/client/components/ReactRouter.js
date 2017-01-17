@@ -9,6 +9,7 @@ import RegistrationLayout from './RegistrationLayout';
 import LoginPage from './LoginPage';
 import Registration from './Registration';
 import Dashboard from './Dashboard';
+import Settings from './Settings';
 import Statistics from './Statistics';
 import CreateInvoice from './CreateInvoice';
 import ReviewItems from './ReviewItems';
@@ -151,6 +152,11 @@ ReactDOM.render(
             onEnter={beforeRegularComponentEnterInterceptor}
             path={`${window.simContextPath}/monitor`}
             component={Monitor}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/settings`}
+            component={Settings}
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}

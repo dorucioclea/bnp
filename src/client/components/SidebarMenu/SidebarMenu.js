@@ -288,7 +288,7 @@ class SidebarMenu extends React.Component {
               </a>
               <ul className="dropdown-menu">
                 <li className="user-image" style={{ textAlign: 'center' }}>
-                  <img src={`${window.simContextPath}/static/default_user.png`}/>
+                  <img src={`${window.simContextPath}/img/mockup/default_user.png`}/>
                 </li>
                 <li className="dropdown-header">Logged in as</li>
                 <li>

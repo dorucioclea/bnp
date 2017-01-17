@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class PoDownload extends React.Component {
+export default class Settings extends React.Component {
   static contextTypes = {
     simUrl: React.PropTypes.string
   };
@@ -8,7 +8,7 @@ export default class PoDownload extends React.Component {
   render() {
     return (
       <div>
-        This is a PO Download page.
+        This is a Settings page.
       </div>
     )
   }
