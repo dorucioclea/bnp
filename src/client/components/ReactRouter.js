@@ -18,6 +18,7 @@ import Monitor from './Monitor';
 import Partners from './Partners';
 import Products from './Products';
 import PoDownload from './PoDownload';
+import EInvoice from './EInvoice';
 import SuccessRegistration from './Notifications/SuccessRegistration';
 import SuccessConfirmation from './Notifications/SuccessConfirmation';
 import AccessDenied from './Errors/AccessDenied';
@@ -162,9 +163,9 @@ ReactDOM.render(
             component={Dashboard}
           />
           <Route path={`${window.simContextPath}/accessDenied`} component={AccessDenied}/>
+          <Route path={`${window.simContextPath}/einvoice`} component={EInvoice}/>
         </Route>
       </Route>
     </Router>
   </Provider>,
   document.getElementById('rootApplicationComponent'));
-

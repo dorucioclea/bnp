@@ -331,4 +331,3 @@ function injectState(store) {
 }
 
 export default connect(injectState)(SidebarMenu);
-

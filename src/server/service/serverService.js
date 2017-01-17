@@ -13,6 +13,7 @@ const axios = require('axios');
 
 const COOKIE_SECRET = 'keyboard cat';
 const JCATALOG_RESOURCES = '../../../resources/jcatalog';
+const BNP_STATIC = '../../../resources/bnp/static';
 const FAVICON_ICO = path.join(JCATALOG_RESOURCES, 'favicon.ico');
 const SIM_VIEWS = '../../../resources/bnp/views';
 const MAIN_CSS = '../../client/main.css';
@@ -95,6 +96,8 @@ function initResources(app) {
       }
     }
   }));
+
+  app.use(express.static(path.join(__dirname, BNP_STATIC)));
 
   app.use('/static/favicon.ico', express.static(path.join(__dirname, FAVICON_ICO)));
 }
