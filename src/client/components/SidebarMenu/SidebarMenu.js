@@ -8,7 +8,7 @@ class SidebarMenu extends React.Component {
   };
 
   static contextTypes = {
-    currentUserInfo: React.PropTypes.object
+    authenticationService: React.PropTypes.object
   };
 
   state = {
@@ -79,6 +79,11 @@ class SidebarMenu extends React.Component {
     });
 
     browserHistory.push(`${window.simContextPath}/supplierInformation`);
+  };
+
+  handleLogoutClick = e => {
+    this.context.authenticationService.logout();
+    e.preventDefault();
   };
 
   render() {
@@ -301,13 +306,13 @@ class SidebarMenu extends React.Component {
                   </a>
                 </li>
                 <li className="dropdown-header">Company Name</li>
-                <li><a href="#" onClick={this.handleSuppliersClick}>{userInfo.supplierId}</a></li>
+                <li><a href="#" onClick={this.handleSuppliersClick}>{userInfo.supplierName}</a></li>
                 <li role="separator" className="divider"></li>
                 <li className="dropdown-header">Support</li>
                 <li><a href="#" onClick={e => e.preventDefault()}>Help</a></li>
                 <li><a href="#" onClick={e => e.preventDefault()}>Report a Problem</a></li>
                 <li role="separator" className="divider"></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="#" onClick={this.handleLogoutClick}>Logout</a></li>
               </ul>
             </li>
 

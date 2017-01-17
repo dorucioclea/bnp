@@ -43,6 +43,7 @@ class ApplicationContext extends React.Component {
           // supplierId is known but server might have obsolete info
           // (the user could assign/change his supplier after initial login).
           currentUserInfo.supplierId = this.props.currentUserInfo.supplierId;
+          currentUserInfo.supplierName = this.props.currentUserInfo.supplierName;
         }
 
         if (JSON.stringify(currentUserInfo) !== JSON.stringify(this.props.currentUserInfo)) {
