@@ -15,29 +15,32 @@ export default class Dashboard extends React.Component {
 
   pieData = {
     label: 'somethingA',
-    values: [{x: 'SomethingA', y: 10}, {x: 'SomethingB', y: 4}, {x: 'SomethingC', y: 3}]
+    values: [{x: 'Identified', y: 3154}, {x: 'Contacted', y: 2501}, {x: 'Discusion', y: 2146}, {x: 'Won', y: 1860}]
   };
 
-  barData = [{name: 'Page A', uv: 590, pv: 800, amt: 1400},
-              {name: 'Page B', uv: 868, pv: 967, amt: 1506},
-              {name: 'Page C', uv: 1397, pv: 1098, amt: 989},
-              {name: 'Page D', uv: 1480, pv: 1200, amt: 1228},
-              {name: 'Page E', uv: 1520, pv: 1108, amt: 1100},
-              {name: 'Page F', uv: 1400, pv: 680, amt: 1700}];
+  barData = [ {name: 'wave 1', bounced: 12, read: 20, loaded: 35, onboarded: 283},
+              {name: 'wave 2', bounced: 2, read: 47, loaded: 68, onboarded: 123},
+              {name: 'wave 3', bounced: 5, read: 23, loaded: 10, onboarded: 162},
+              {name: 'wave 4', bounced: 0, read: 0, loaded: 0, onboarded: 0}];
 
   barStackedData = [
     {
-    label: 'somethingA',
-    values: [{x: 'SomethingA', y: 10}, {x: 'SomethingB', y: 4}, {x: 'SomethingC', y: 3}]
+    label: 'bounced',
+    values: [{x: 'wave1', y: 12}, {x: 'wave2', y: 2}, {x: 'wave3', y: 5}, {x: 'wave4', y: 0}]
     },
-    {
-    label: 'somethingB',
-    values: [{x: 'SomethingA', y: 6}, {x: 'SomethingB', y: 8}, {x: 'SomethingC', y: 5}]
+	 {
+    label: 'read',
+    values: [{x: 'wave1', y: 20}, {x: 'wave2', y: 47}, {x: 'wave3', y: 10}, {x: 'wave4', y: 0}]
     },
-    {
-    label: 'somethingC',
-    values: [{x: 'SomethingA', y: 6}, {x: 'SomethingB', y: 8}, {x: 'SomethingC', y: 5}]
-    }
+ 	{
+    label: 'loaded',
+    values: [{x: 'wave1', y: 35}, {x: 'wave2', y: 68}, {x: 'wave3', y: 10}, {x: 'wave4', y: 0}]
+    }, 
+	  {
+    label: 'onboarded',
+    values: [{x: 'wave1', y: 283}, {x: 'wave2', y: 123}, {x: 'wave3', y: 162}, {x: 'wave4', y: 0}]
+    },
+
 ];
 
   render() {
@@ -76,20 +79,24 @@ export default class Dashboard extends React.Component {
                   <Tooltip/>
                   <Legend/>
                   <CartesianGrid stroke='#f5f5f5'/>
-                  <Area type='monotone' dataKey='amt' fill='#A7C9E8' stroke='#007AB3'/>
-                  <Bar dataKey='pv' barSize={20} fill='#FF7903'/>
+									<Bar dataKey='bounced' barSize={20} fill='#459FD2'/>
+									<Bar dataKey='read' barSize={20} fill='#F7783A'/>
+									<Bar dataKey='loaded' barSize={20} fill='#A5A5A5'/>
+									<Bar dataKey='onboarded' barSize={20} fill='#FFBB30'/>
                </ComposedChart>
               </Col>
               <Col>
                 <BarChart width={550} height={300} data={this.barStackedData}
-                      margin={{top: 20, right: 30, left: 80, bottom: 5}}>
+                      margin={{top: 20, right: 30, left: 80, bottom: 25}}>
                    <XAxis dataKey="name"/>
                    <YAxis/>
                    <CartesianGrid strokeDasharray="3 3"/>
                    <Tooltip/>
                    <Legend />
-                   <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-                   <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
+									<Bar dataKey='bounced' barSize={20} fill='#459FD2'/>
+									<Bar dataKey='read' barSize={20} fill='#F7783A'/>
+									<Bar dataKey='loaded' barSize={20} fill='#A5A5A5'/>
+									<Bar dataKey='onboarded' barSize={20} fill='#FFBB30'/>
                 </BarChart>
               </Col>
             </Row>
