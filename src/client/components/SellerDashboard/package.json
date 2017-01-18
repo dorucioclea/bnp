@@ -1,0 +1,6 @@
+{
+  "name": "SellerDashboard",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./SellerDashboard.js"
+}

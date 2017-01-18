@@ -66,11 +66,13 @@ class SupplierApplicationForm extends React.Component {
   handleSupplierUpdate = newSupplier => {
     this.isDirty = false;
     let wasSupplierlessUser = !this.props.currentUserInfo.supplierId;
+    console.log('===== SupplierApplicationForm newSupplier', JSON.stringify(newSupplier));
 
     this.props.dispatch(setCurrentUserInfo({
       ...this.props.currentUserInfo,
       supplierId: newSupplier.supplierId,
-      supplierName: newSupplier.supplierName
+      supplierName: newSupplier.supplierName,
+      companyRole: newSupplier.companyRole
     }));
 
     if (wasSupplierlessUser) {
@@ -104,6 +106,8 @@ class SupplierApplicationForm extends React.Component {
           readOnly={false /* TODO: only supplier creator can edit his supplier info */}
           actionUrl={this.context.supplierUrl}
           supplierId={currentUserInfo.supplierId}
+          supplierName={currentUserInfo.supplierName}
+          companyRole={currentUserInfo.companyRole}
           locale={currentUserInfo.locale}
           username={currentUserInfo.username}
           dateTimePattern={this.context.dateTimePattern}

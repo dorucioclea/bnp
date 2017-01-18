@@ -8,7 +8,8 @@ import MainLayout from './MainLayout';
 import RegistrationLayout from './RegistrationLayout';
 import LoginPage from './LoginPage';
 import Registration from './Registration';
-import Dashboard from './Dashboard';
+import SellerDashboard from './SellerDashboard';
+import BuyerDashboard from './BuyerDashboard';
 import Settings from './Settings';
 import Statistics from './Statistics';
 import CreateInvoice from './CreateInvoice';
@@ -61,8 +62,10 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
     let currentUserInfo = response.data.currentUserInfo;
 
     if (!currentUserInfo.username) {
+      console.log('===== redirecting to login =====');
       replace(`${window.simContextPath}/login`);
     } else if (!currentUserInfo.supplierId) {
+      console.log('===== redirecting to supplierInformation =====');
       replace(`${window.simContextPath}/supplierInformation`);
     }
 
@@ -96,7 +99,7 @@ ReactDOM.render(
         path={window.simRootContextPath}
         context={{ authenticationService: authenticationService }} component={ApplicationContext}
       >
-        <IndexRedirect to={`${window.simContextPath}/dashboard`}/>
+        <IndexRedirect to={`${window.simContextPath}/sellerDashboard`}/>
         <Route path={`${window.simContextPath}/login`} component={LoginPage}/>
         <Route path={`${window.simContextPath}/logout`} onEnter={logout}/>
         <Route path={window.simRootContextPath} component={RegistrationLayout}>
@@ -165,8 +168,13 @@ ReactDOM.render(
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
-            path={`${window.simContextPath}/dashboard`}
-            component={Dashboard}
+            path={`${window.simContextPath}/buyerDashboard`}
+            component={BuyerDashboard}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/sellerDashboard`}
+            component={SellerDashboard}
           />
           <Route path={`${window.simContextPath}/accessDenied`} component={AccessDenied}/>
           <Route path={`${window.simContextPath}/einvoice`} component={EInvoice}/>

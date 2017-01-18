@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import locales from './i18n/locales.js'
 import browserHistory from 'react-router/lib/browserHistory';

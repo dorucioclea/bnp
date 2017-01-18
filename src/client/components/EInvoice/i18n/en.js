@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default {
   WelcomeTab: {
     welcomeHeader: 'Welcome to OpusCapita page for registration of suppliers for the Business Network Portal.',

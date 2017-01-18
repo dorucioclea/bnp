@@ -1,0 +1,6 @@
+{
+  "name": "BuyerDashboard",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./BuyerDashboard.js"
+}

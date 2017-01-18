@@ -1,9 +1,10 @@
+/* eslint-disable */
 import React from 'react';
 import {Tabs, Tab, TabContent, Col, Row, Image, ButtonToolbar, Button} from 'react-bootstrap';
 import {AreaChart, PieChart, BarChart, LineChart} from 'react-d3-components';
 import {ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
-export default class Dashboard extends React.Component {
+export default class BuyerDashboard extends React.Component {
   static contextTypes = {
     simUrl: React.PropTypes.string
   };

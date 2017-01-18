@@ -44,6 +44,7 @@ class ApplicationContext extends React.Component {
           // (the user could assign/change his supplier after initial login).
           currentUserInfo.supplierId = this.props.currentUserInfo.supplierId;
           currentUserInfo.supplierName = this.props.currentUserInfo.supplierName;
+          currentUserInfo.companyRole = this.props.currentUserInfo.companyRole;
         }
 
         if (JSON.stringify(currentUserInfo) !== JSON.stringify(this.props.currentUserInfo)) {
