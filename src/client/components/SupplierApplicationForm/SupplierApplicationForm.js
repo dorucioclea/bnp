@@ -65,14 +65,15 @@ class SupplierApplicationForm extends React.Component {
 
   handleSupplierUpdate = newSupplier => {
     this.isDirty = false;
-    let currentSupplierId = this.props.currentUserInfo.supplierId;
+    let wasSupplierlessUser = !this.props.currentUserInfo.supplierId;
 
     this.props.dispatch(setCurrentUserInfo({
       ...this.props.currentUserInfo,
-      supplierId: newSupplier.supplierId
+      supplierId: newSupplier.supplierId,
+      supplierName: newSupplier.supplierName
     }));
 
-    if (!currentSupplierId) {
+    if (wasSupplierlessUser) {
       browserHistory.push(`${window.simContextPath}/dashboard`);
     }
   }

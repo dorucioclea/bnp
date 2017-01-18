@@ -6,6 +6,7 @@ module.exports = function(db) {
 
   switch (db.config.populateDatabase) {
     case 'demo':
+      require('./demo')(db);
       break;
     case 'system':
       break;

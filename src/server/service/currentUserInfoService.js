@@ -58,6 +58,7 @@ module.exports = function(db, session, username, locale) {
     session.currentUserInfo = {
       username,
       supplierId: suppliersData.length ? suppliersData[0].supplierId : null,
+      supplierName: suppliersData.length ? suppliersData[0].supplierName : null,
       locale: locale || session.currentUserInfo && session.currentUserInfo.locale,
       readOnly: false,  // TODO: user's attachment to a particular supplier needs to be approved.
       user: {

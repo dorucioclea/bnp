@@ -15,7 +15,7 @@ export default class AuthenticationService {
     return axios.post(`${window.simContextPath}/login`, user).then(response => browserHistory.push(
       `${window.simContextPath}${
         response.data.returnTo ||
-        (response.data.supplierId ? '/dashboard' : '/supplierInformation')
+        (response.data.userInfo.supplierId ? '/dashboard' : '/supplierInformation')
       }`
     ));
   }
