@@ -137,7 +137,9 @@ class ApplicationContext extends React.Component {
     if (
       (
         location.pathname === `${window.simContextPath}/supplierInformation` ||
-        location.pathname === `${window.simContextPath}/dashboard`
+        location.pathname === `${window.simContextPath}/dashboard` ||
+        location.pathname === `${window.simContextPath}/buyerDashboard` ||
+        location.pathname === `${window.simContextPath}/sellerDashboard`
       ) &&
       !currentUserInfo.user ||
       !this.state.locale ||

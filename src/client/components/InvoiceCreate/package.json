@@ -1,0 +1,6 @@
+{
+  "name": "InvoiceCreate",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./InvoiceCreate.js"
+}

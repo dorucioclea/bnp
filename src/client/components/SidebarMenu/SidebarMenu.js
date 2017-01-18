@@ -107,88 +107,12 @@ class SidebarMenu extends React.Component {
             <li className={`${this.state.activeMainMenuName === 'Home' && ' active' || ''}`}>
               <a
                 href="#"
-                onClick={this.handleMenuItemClick.bind(this,
-                  isBuyer ? 'buyerDashboard' : 'sellerDashboard',
-                  'Home'
-                )}
+                onClick={this.handleMenuItemClick.bind(this, 'dashboard', 'Home')}
               >
                 <span className="oci oci-store"></span>
                 Home
               </a>
             </li>
-
-            {
-              isBuyer &&
-              <li className={`${this.state.activeMainMenuName === 'Statistics' && ' active' || ''}`}>
-                <a href="#" onClick={this.handleMenuItemClick.bind(this, 'statistics', 'Statistics')}>
-                  <span className="oci oci-reports"></span>
-                  Statistics
-                </a>
-              </li>
-            }
-
-            <li className={`dropdown${
-                this.state.currentOpenMenuName === 'Invoice' && ' open' || ''
-              }${
-                this.state.activeMainMenuName === 'Invoice' && ' active' || ''
-              }`}
-            >
-              <a
-                href="#"
-                className="dropdown-toggle"
-                data-toggle="dropdown"
-                role="button"
-                aria-haspopup="true"
-                aria-expanded="false"
-                onClick={this.mainMenuWithSubmenuClick.bind(this, 'Invoice')}
-              >
-                <span className="oci oci-invoice"></span>
-                Invoice <span className="badge">7</span>
-              </a>
-              <ul className="dropdown-menu">
-                <li className={`${
-                    this.state.activeMainMenuName === 'Invoice' &&
-                    this.state.activeSubMenuName === 'Review Items' &&
-                    ' active' ||
-                    ''
-                  }`}
-                >
-                  <a
-                    href="#"
-                    onClick={this.handleMenuItemClick.bind(this, 'reviewItems', 'Invoice', 'Review Items')}
-                  >
-                    Todo List <span className="badge">7</span>
-                  </a>
-                </li>
-                {
-                  isSupplier &&
-                  <li className={`${
-                      this.state.activeMainMenuName === 'Invoice' &&
-                      this.state.activeSubMenuName === 'Create Invoice' &&
-                      ' active' ||
-                      ''
-                    }`}
-                  >
-                    <a
-                      href="#"
-                      onClick={this.handleMenuItemClick.bind(this, 'createInvoice', 'Invoice', 'Create Invoice')}
-                    >
-                      Create Invoice
-                    </a>
-                  </li>
-                }
-              </ul>
-            </li>
-
-            {
-              isSupplier &&
-              <li className={`${this.state.activeMainMenuName === 'Products' && ' active' || ''}`}>
-                <a href="#" onClick={this.handleMenuItemClick.bind(this, 'products', 'Products')}>
-                  <span className="oci oci-products"></span>
-                  Products
-                </a>
-              </li>
-            }
 
             {
               isSupplier &&
@@ -213,6 +137,34 @@ class SidebarMenu extends React.Component {
                 <ul className="dropdown-menu">
                   <li className={`${
                       this.state.activeMainMenuName === 'Orders' &&
+                      this.state.activeSubMenuName === 'OrderCon' &&
+                      ' active' ||
+                      ''
+                    }`}
+                  >
+                    <a
+                      href="#"
+                      onClick={this.handleMenuItemClick.bind(this, 'orderConfirmation', 'Orders', 'OrderCon')}
+                    >
+                      Order Confirmation
+                    </a>
+                  </li>
+                  <li className={`${
+                      this.state.activeMainMenuName === 'Orders' &&
+                      this.state.activeSubMenuName === 'OrderHistory' &&
+                      ' active' ||
+                      ''
+                    }`}
+                  >
+                    <a
+                      href="#"
+                      onClick={this.handleMenuItemClick.bind(this, 'orderHistory', 'Orders', 'OrderHistory')}
+                    >
+                      Order History
+                    </a>
+                  </li>
+                  <li className={`${
+                      this.state.activeMainMenuName === 'Orders' &&
                       this.state.activeSubMenuName === 'PO Download' &&
                       ' active' ||
                       ''
@@ -225,21 +177,104 @@ class SidebarMenu extends React.Component {
                       PO Download
                     </a>
                   </li>
+                </ul>
+              </li>
+            }
+
+            {
+              isBuyer &&
+              <li className={`${this.state.activeMainMenuName === 'ShippingNotice' && ' active' || ''}`}>
+                <a href="#" onClick={this.handleMenuItemClick.bind(this, 'shippingNotice', 'ShippingNotice')}>
+                  <span className="oci oci-texts"></span>
+                  Shipping Notice
+                </a>
+              </li>
+            }
+
+            <li className={`dropdown${
+                this.state.currentOpenMenuName === 'Invoice' && ' open' || ''
+              }${
+                this.state.activeMainMenuName === 'Invoice' && ' active' || ''
+              }`}
+            >
+              <a
+                href="#"
+                className="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                onClick={this.mainMenuWithSubmenuClick.bind(this, 'Invoice')}
+              >
+                <span className="oci oci-invoice"></span>
+                Invoice <span className="badge">7</span>
+              </a>
+              <ul className="dropdown-menu">
+                {
+                  isBuyer &&
                   <li className={`${
-                      this.state.activeMainMenuName === 'Orders' &&
-                      this.state.activeSubMenuName === 'CIFO' &&
+                      this.state.activeMainMenuName === 'Invoice' &&
+                      this.state.activeSubMenuName === 'Approval' &&
                       ' active' ||
                       ''
                     }`}
                   >
                     <a
                       href="#"
-                      onClick={this.handleMenuItemClick.bind(this, 'createInvoiceFromOrder', 'Orders', 'CIFO')}
+                      onClick={this.handleMenuItemClick.bind(this, 'invoiceApproval', 'Invoice', 'Approval')}
                     >
-                      Create Invoice from Order
+                      Approval
                     </a>
                   </li>
-                </ul>
+                }
+                <li className={`${
+                    this.state.activeMainMenuName === 'Invoice' &&
+                    this.state.activeSubMenuName === 'Inspect' &&
+                    ' active' ||
+                    ''
+                  }`}
+                >
+                  <a
+                    href="#"
+                    onClick={this.handleMenuItemClick.bind(this, 'invoiceInspect', 'Invoice', 'Inspect')}
+                  >
+                    Inspect
+                  </a>
+                </li>
+                {
+                  isSupplier &&
+                  <li className={`${
+                      this.state.activeMainMenuName === 'Invoice' &&
+                      this.state.activeSubMenuName === 'Create New' &&
+                      ' active' ||
+                      ''
+                    }`}
+                  >
+                    <a
+                      href="#"
+                      onClick={this.handleMenuItemClick.bind(this, 'invoiceCreate', 'Invoice', 'Create New')}
+                    >
+                      Create New
+                    </a>
+                  </li>
+                }
+              </ul>
+            </li>
+
+            <li className={`${this.state.activeMainMenuName === 'OtherDocs' && ' active' || ''}`}>
+              <a href="#" onClick={this.handleMenuItemClick.bind(this, 'otherDocuments', 'OtherDocs')}>
+                <span className="oci oci-docu"></span>
+                Other Docs
+              </a>
+            </li>
+
+            {
+              isSupplier &&
+              <li className={`${this.state.activeMainMenuName === 'Products' && ' active' || ''}`}>
+                <a href="#" onClick={this.handleMenuItemClick.bind(this, 'products', 'Products')}>
+                  <span className="oci oci-products"></span>
+                  Products
+                </a>
               </li>
             }
 
@@ -253,19 +288,12 @@ class SidebarMenu extends React.Component {
               </li>
             }
 
-            <li className={`${this.state.activeMainMenuName === 'Partners' && ' active' || ''}`}>
-              <a href="#" onClick={this.handleMenuItemClick.bind(this, 'partners', 'Partners')}>
-                <span className="oci oci-supdirect"></span>
-                Partners
-              </a>
-            </li>
-
             {
               isBuyer &&
               <li className={`dropdown${
-                  this.state.currentOpenMenuName === 'Onboarding' && ' open' || ''
+                  this.state.currentOpenMenuName === 'Suppliers' && ' open' || ''
                 }${
-                  this.state.activeMainMenuName === 'Onboarding' && ' active' || ''
+                  this.state.activeMainMenuName === 'Suppliers' && ' active' || ''
                 }`}
               >
                 <a
@@ -275,27 +303,57 @@ class SidebarMenu extends React.Component {
                   role="button"
                   aria-haspopup="true"
                   aria-expanded="false"
-                  onClick={this.mainMenuWithSubmenuClick.bind(this, 'Onboarding')}
+                  onClick={this.mainMenuWithSubmenuClick.bind(this, 'Suppliers')}
                 >
-                  <span className="oci oci-campaigns"></span>
-                  Onboarding
+                  <span className="oci oci-supdirect"></span>
+                  Suppliers
                 </a>
                 <ul className="dropdown-menu">
-                  <li>
-                    <a href={`${window.simContextPath}/campaigns/create`}>New Campaign</a>
-                  </li>
                   <li className={`${
-                      this.state.activeMainMenuName === 'Onboarding' &&
-                      this.state.activeSubMenuName === 'Monitor' &&
+                      this.state.activeMainMenuName === 'Suppliers' &&
+                      this.state.activeSubMenuName === 'Dir' &&
                       ' active' ||
                       ''
                     }`}
                   >
                     <a
                       href="#"
-                      onClick={this.handleMenuItemClick.bind(this, 'monitor', 'Onboarding', 'Monitor')}
+                      onClick={this.handleMenuItemClick.bind(this, 'supplierDirectory', 'Suppliers', 'Dir')}
                     >
-                      Monitor
+                      Supplier Directory
+                    </a>
+                  </li>
+                  <li className={`${
+                      this.state.activeMainMenuName === 'Suppliers' &&
+                      this.state.activeSubMenuName === 'Rating' &&
+                      ' active' ||
+                      ''
+                    }`}
+                  >
+                    <a
+                      href="#"
+                      onClick={this.handleMenuItemClick.bind(this, 'supplierRating', 'Suppliers', 'Rating')}
+                    >
+                      Supplier Rating
+                    </a>
+                  </li>
+                  <li className={`${
+                      this.state.activeMainMenuName === 'Suppliers' &&
+                      this.state.activeSubMenuName === 'Dashboard' &&
+                      ' active' ||
+                      ''
+                    }`}
+                  >
+                    <a
+                      href="#"
+                      onClick={this.handleMenuItemClick.bind(this, 'onboardingDashboard', 'Suppliers', 'Dashboard')}
+                    >
+                      Onboarding Dashboard
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`${window.simContextPath}/campaigns/create`}>
+                      Create Campaign
                     </a>
                   </li>
                 </ul>

@@ -7,9 +7,7 @@ export default class PoDownload extends React.Component {
 
   render() {
     return (
-      <div>
-        This is a PO Download page.
-      </div>
+      <img src={`${window.simContextPath}/screenshots/poDownload.png`} style={{ maxWidth: '80vw' }}/>
     )
   }
 }
