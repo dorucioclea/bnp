@@ -132,7 +132,7 @@ class SidebarMenu extends React.Component {
                   onClick={this.mainMenuWithSubmenuClick.bind(this, 'Orders')}
                 >
                   <span className="oci oci-order"></span>
-                  Orders
+                  Orders <span className="badge">3</span>
                 </a>
                 <ul className="dropdown-menu">
                   <li className={`${
@@ -146,7 +146,7 @@ class SidebarMenu extends React.Component {
                       href="#"
                       onClick={this.handleMenuItemClick.bind(this, 'orderConfirmation', 'Orders', 'OrderCon')}
                     >
-                      Order Confirmation
+                      Order Confirmation <span className="badge">3</span>
                     </a>
                   </li>
                   <li className={`${
@@ -223,7 +223,7 @@ class SidebarMenu extends React.Component {
                       href="#"
                       onClick={this.handleMenuItemClick.bind(this, 'invoiceApproval', 'Invoice', 'Approval')}
                     >
-                      Approval
+                      Approval <span className="badge">7</span>
                     </a>
                   </li>
                 }
@@ -283,7 +283,7 @@ class SidebarMenu extends React.Component {
               <li className={`${this.state.activeMainMenuName === 'RFQ' && ' active' || ''}`}>
                 <a href="#" onClick={this.handleMenuItemClick.bind(this, 'rfq', 'RFQ')}>
                   <span className="oci oci-order-v2"></span>
-                  RFQ <span className="badge">18</span>
+                  RFQ
                 </a>
               </li>
             }
