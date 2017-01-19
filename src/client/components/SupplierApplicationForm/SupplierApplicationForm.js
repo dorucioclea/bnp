@@ -28,8 +28,7 @@ class SupplierApplicationForm extends React.Component {
     dateTimePattern: React.PropTypes.string,
     simUrl: React.PropTypes.string,
     supplierUrl: React.PropTypes.string,
-    httpResponseHandler: React.PropTypes.func,
-    authenticationService: React.PropTypes.object
+    httpResponseHandler: React.PropTypes.func
   }
 
   state = {

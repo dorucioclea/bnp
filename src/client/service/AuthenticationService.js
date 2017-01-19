@@ -23,6 +23,7 @@ export default class AuthenticationService {
   logout() {
     return axios.get(`${window.simContextPath}/logout`).then(() => {
       browserHistory.push(`${window.simContextPath}/login`);
+      this.props.resetCurrentUserInfo();
     }).catch(this.props.httpResponseHandler);
   }
 

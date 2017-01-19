@@ -93,6 +93,7 @@ class SidebarMenu extends React.Component {
     let { currentUserInfo: userInfo } = this.props;
     let isBuyer = userInfo.companyRole === BUYING_ROLE;
     let isSupplier = userInfo.companyRole === SELLING_ROLE;
+    console.log('===== SidebarMenu render currentUserInfo', JSON.stringify(userInfo));
 
     return (
       <section className="sidebar" style={{ minHeight: '100vh', position: 'fixed', zIndex: 3 }}>

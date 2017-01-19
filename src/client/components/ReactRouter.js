@@ -34,22 +34,28 @@ import createStore from 'redux/lib/createStore';
 import httpResponseHandler from './../httpResponseHandler';
 import ApplicationContext from './ApplicationContext';
 import simRootApplicationReducer from './../redux/reducers.js';
+import { setCurrentUserInfo } from './../redux/actions.js';
 import axios from 'axios';
 import SupplierApplicationForm from './SupplierApplicationForm';
 
 const BUYING_ROLE = 'buying';
 const SELLING_ROLE = 'selling';
 
-let authenticationService = new AuthenticationService({
-  httpResponseHandler: httpResponseHandler
-});
-
-let store = createStore(simRootApplicationReducer, {
-  currentUserInfo: {
+function getInitialCurrentUserInfo() {
+  return {
     locale: 'en',
     username: undefined,
     supplierId: undefined
-  }
+  };
+}
+
+let store = createStore(simRootApplicationReducer, {
+  currentUserInfo: getInitialCurrentUserInfo()
+});
+
+let authenticationService = new AuthenticationService({
+  httpResponseHandler,
+  resetCurrentUserInfo: () => store.dispatch(setCurrentUserInfo(getInitialCurrentUserInfo()))
 });
 
 function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
@@ -68,12 +74,13 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
   // TODO: prevent suppliers from viewing buyer-only pages and vice-versa.
   authenticationService.currentUserInfo(true).then(response => {
     let currentUserInfo = response.data.currentUserInfo;
+    console.log('===== beforeRegularComponentEnterInterceptor got currentUserInfo', JSON.stringify(currentUserInfo));
 
     if (!currentUserInfo.username) {
-      console.log('===== redirecting to login =====');
+      console.log('===== beforeRegularComponentEnterInterceptor redirecting to login =====');
       replace(`${window.simContextPath}/login`);
     } else if (!currentUserInfo.supplierId) {
-      console.log('===== redirecting to supplierInformation =====');
+      console.log('===== beforeRegularComponentEnterInterceptor redirecting to supplierInformation =====');
       replace(`${window.simContextPath}/supplierInformation`);
     }
 
@@ -87,18 +94,19 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
 function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.currentUserInfo(true).then(response => {
     let currentUserInfo = response.data.currentUserInfo;
+    console.log('===== beforeDashboardComponentEnterInterceptor got currentUserInfo', JSON.stringify(currentUserInfo));
 
     if (!currentUserInfo.username) {
-      console.log('===== redirect to login =====');
+      console.log('===== beforeDashboardComponentEnterInterceptor redirect to login =====');
       replace(`${window.simContextPath}/login`);
     } else if (!currentUserInfo.supplierId) {
-      console.log('===== redirect to supplierInformation =====');
+      console.log('===== beforeDashboardComponentEnterInterceptor redirect to supplierInformation =====');
       replace(`${window.simContextPath}/supplierInformation`);
     } else if (currentUserInfo.companyRole === BUYING_ROLE) {
-      console.log('===== redirect to buyerDashboard =====');
+      console.log('===== beforeDashboardComponentEnterInterceptor redirect to buyerDashboard =====');
       replace(`${window.simContextPath}/buyerDashboard`);
     } else if (currentUserInfo.companyRole === SELLING_ROLE) {
-      console.log('===== redirect to sellerDashboard =====');
+      console.log('===== beforeDashboardComponentEnterInterceptor redirect to sellerDashboard =====');
       replace(`${window.simContextPath}/sellerDashboard`);
     }
 

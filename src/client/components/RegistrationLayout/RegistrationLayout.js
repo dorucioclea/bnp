@@ -3,8 +3,7 @@ import locales from './i18n/locales.js';
 
 class RegistrationLayout extends React.Component {
   static contextTypes = {
-    i18n: React.PropTypes.object,
-    authenticationService: React.PropTypes.object
+    i18n: React.PropTypes.object
   };
 
   i18n = this.context.i18n.register('RegistrationLayout', locales);
