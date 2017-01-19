@@ -32,7 +32,6 @@ class ApplicationContext extends React.Component {
       let forceReload = this.props.currentUserInfo.username === undefined;  // Quering the server for the 1st time.
 
       this.props.route.context.authenticationService.currentUserInfo(forceReload).then(response => {
-        console.log('===== ApplicationContext got currentUserInfo', JSON.stringify(response.data.currentUserInfo));
         let currentUserInfo = response.data.currentUserInfo || {
           locale: cookie.load('LANGUAGE_COOKIE_KEY'),
           user: null,
@@ -49,7 +48,6 @@ class ApplicationContext extends React.Component {
         }
 
         if (JSON.stringify(currentUserInfo) !== JSON.stringify(this.props.currentUserInfo)) {
-          console.log('===== ApplicationContext dispatches currentUserInfo', JSON.stringify(currentUserInfo));
           this.props.dispatch(setCurrentUserInfo(currentUserInfo));
         }
       });

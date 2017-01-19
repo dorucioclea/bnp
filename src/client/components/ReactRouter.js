@@ -74,13 +74,10 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
   // TODO: prevent suppliers from viewing buyer-only pages and vice-versa.
   authenticationService.currentUserInfo(true).then(response => {
     let currentUserInfo = response.data.currentUserInfo;
-    console.log('===== beforeRegularComponentEnterInterceptor got currentUserInfo', JSON.stringify(currentUserInfo));
 
     if (!currentUserInfo.username) {
-      console.log('===== beforeRegularComponentEnterInterceptor redirecting to login =====');
       replace(`${window.simContextPath}/login`);
     } else if (!currentUserInfo.supplierId) {
-      console.log('===== beforeRegularComponentEnterInterceptor redirecting to supplierInformation =====');
       replace(`${window.simContextPath}/supplierInformation`);
     }
 
@@ -94,19 +91,14 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
 function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.currentUserInfo(true).then(response => {
     let currentUserInfo = response.data.currentUserInfo;
-    console.log('===== beforeDashboardComponentEnterInterceptor got currentUserInfo', JSON.stringify(currentUserInfo));
 
     if (!currentUserInfo.username) {
-      console.log('===== beforeDashboardComponentEnterInterceptor redirect to login =====');
       replace(`${window.simContextPath}/login`);
     } else if (!currentUserInfo.supplierId) {
-      console.log('===== beforeDashboardComponentEnterInterceptor redirect to supplierInformation =====');
       replace(`${window.simContextPath}/supplierInformation`);
     } else if (currentUserInfo.companyRole === BUYING_ROLE) {
-      console.log('===== beforeDashboardComponentEnterInterceptor redirect to buyerDashboard =====');
       replace(`${window.simContextPath}/buyerDashboard`);
     } else if (currentUserInfo.companyRole === SELLING_ROLE) {
-      console.log('===== beforeDashboardComponentEnterInterceptor redirect to sellerDashboard =====');
       replace(`${window.simContextPath}/sellerDashboard`);
     }
 

@@ -7,12 +7,7 @@ class MainLayout extends React.Component {
     currentUserInfo: React.PropTypes.object
   }
 
-  static contextTypes = {
-    currentUserInfo: React.PropTypes.object
-  }
-
   render() {
-    console.log('===== MAIN-LAYOUT currentUserInfo', JSON.stringify(this.props.currentUserInfo));
     return (
       <div style={{ minHeight: '100vh' }}>
         {this.props.currentUserInfo && this.props.currentUserInfo.supplierId && <SidebarMenu/>}

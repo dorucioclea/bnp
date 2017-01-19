@@ -95,73 +95,65 @@ class SupplierApplicationForm extends React.Component {
       return null;
     }
 
-    let currentUserInfo = this.props.currentUserInfo;
+    let userInfo = this.props.currentUserInfo;
 
     let company = (
-      <I18nBundle locale={currentUserInfo.locale} formatInfos={this.context.formatPatterns}>
+      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
         <SupplierEditor
           key='company'
           onUnauthorized={this.handleUnauthorized}
           readOnly={false /* TODO: only supplier creator can edit his supplier info */}
           actionUrl={this.context.supplierUrl}
-          supplierId={currentUserInfo.supplierId}
-          supplierName={currentUserInfo.supplierName}
-          companyRole={currentUserInfo.companyRole}
-          locale={currentUserInfo.locale}
-          username={currentUserInfo.username}
+          supplierId={userInfo.supplierId}
+          supplierName={userInfo.supplierName}
+          companyRole={userInfo.companyRole}
+          locale={userInfo.locale}
+          username={userInfo.username}
           dateTimePattern={this.context.dateTimePattern}
           countries={this.state.countries}
           onChange={this.handleDirtyState}
           onUpdate={this.handleSupplierUpdate}
+          isOnboarding={!userInfo.supplierId}
         />
       </I18nBundle>
     );
 
-    let extraTabs = [];
-
-    if (currentUserInfo.supplierId) {
-      let address = (
-        <I18nBundle locale={currentUserInfo.locale} formatInfos={this.context.formatPatterns}>
-          <SupplierAddressEditor
-            key='address'
-            onUnauthorized={this.handleUnauthorized}
-            dateTimePattern={this.context.dateTimePattern}
-            readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-            actionUrl={this.context.supplierUrl}
-            supplierId={currentUserInfo.supplierId}
-            locale={currentUserInfo.locale}
-            username={currentUserInfo.username}
-            countries={this.state.countries}
-            onChange={this.handleDirtyState}
-          />
-        </I18nBundle>
-      );
-
-      let contact = (
-        <I18nBundle locale={currentUserInfo.locale} formatInfos={this.context.formatPatterns}>
-          <SupplierContactEditor
-            key='contact'
-            onUnauthorized={this.handleUnauthorized}
-            dateTimePattern={this.context.dateTimePattern}
-            readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-            actionUrl={this.context.supplierUrl}
-            supplierId={currentUserInfo.supplierId}
-            locale={currentUserInfo.locale}
-            username={currentUserInfo.username}
-            onChange={this.handleDirtyState}
-          />
-        </I18nBundle>
-      );
-
-      extraTabs.push(
-        <Tab eventKey={2} title={this.i18n.getMessage('ApplicationFormTab.address')}>
-          {(this.state.key === 2) ? address : null}
-        </Tab>,
-        <Tab eventKey={3} title={this.i18n.getMessage('ApplicationFormTab.contact')}>
-          {(this.state.key === 3) ? contact : null}
-        </Tab>
-      );
+    if (!userInfo.supplierId) {
+      return company;
     }
+
+    let address = (
+      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
+        <SupplierAddressEditor
+          key='address'
+          onUnauthorized={this.handleUnauthorized}
+          dateTimePattern={this.context.dateTimePattern}
+          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
+          actionUrl={this.context.supplierUrl}
+          supplierId={userInfo.supplierId}
+          locale={userInfo.locale}
+          username={userInfo.username}
+          countries={this.state.countries}
+          onChange={this.handleDirtyState}
+        />
+      </I18nBundle>
+    );
+
+    let contact = (
+      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
+        <SupplierContactEditor
+          key='contact'
+          onUnauthorized={this.handleUnauthorized}
+          dateTimePattern={this.context.dateTimePattern}
+          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
+          actionUrl={this.context.supplierUrl}
+          supplierId={userInfo.supplierId}
+          locale={userInfo.locale}
+          username={userInfo.username}
+          onChange={this.handleDirtyState}
+        />
+      </I18nBundle>
+    );
 
     return (
       <div>
@@ -169,7 +161,12 @@ class SupplierApplicationForm extends React.Component {
           <Tab eventKey={1} title={this.i18n.getMessage('ApplicationFormTab.company')}>
             {(this.state.key === 1) ? company : null}
           </Tab>
-          {extraTabs}
+          <Tab eventKey={2} title={this.i18n.getMessage('ApplicationFormTab.address')}>
+            {(this.state.key === 2) ? address : null}
+          </Tab>
+          <Tab eventKey={3} title={this.i18n.getMessage('ApplicationFormTab.contact')}>
+            {(this.state.key === 3) ? contact : null}
+          </Tab>
         </Tabs>
       </div>
     )
