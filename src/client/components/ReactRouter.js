@@ -11,16 +11,21 @@ import Registration from './Registration';
 import SellerDashboard from './SellerDashboard';
 import BuyerDashboard from './BuyerDashboard';
 import Settings from './Settings';
+import ServiceConfiguration from './ServiceConfiguration';
 import InvoiceCreate from './InvoiceCreate';
 import InvoiceApproval from './InvoiceApproval';
 import InvoiceInspect from './InvoiceInspect';
 import ShippingNotice from './ShippingNotice';
 import OtherDocuments from './OtherDocuments';
-import Rfq from './Rfq';
+import CompanyInformation from './CompanyInformation';
+import InspectRfQ from './InspectRfQ';
+import ViewRfQs from './ViewRfQs';
+import CreateRfQ from './CreateRfQ';
 import OnboardingDashboard from './OnboardingDashboard';
 import SupplierDirectory from './SupplierDirectory';
 import SupplierRating from './SupplierRating';
 import Products from './Products';
+import DisputeManagement from './DisputeManagement';
 import PoDownload from './PoDownload';
 import EInvoice from './EInvoice';
 import OrderConfirmation from './OrderConfirmation';
@@ -176,8 +181,28 @@ ReactDOM.render(
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
-            path={`${window.simContextPath}/rfq`}
-            component={Rfq}
+            path={`${window.simContextPath}/companyInformation`}
+            component={CompanyInformation}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/serviceConfiguration`}
+            component={ServiceConfiguration}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/createRfQ`}
+            component={CreateRfQ}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/viewRfQs`}
+            component={ViewRfQs}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/inspectRfQ`}
+            component={InspectRfQ}
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
@@ -188,6 +213,11 @@ ReactDOM.render(
             onEnter={beforeRegularComponentEnterInterceptor}
             path={`${window.simContextPath}/supplierRating`}
             component={SupplierRating}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/disputeManagement`}
+            component={DisputeManagement}
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}

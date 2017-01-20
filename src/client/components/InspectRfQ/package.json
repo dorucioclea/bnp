@@ -1,0 +1,6 @@
+{
+  "name": "InspectRfQ",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./InspectRfQ.js"
+}

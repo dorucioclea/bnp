@@ -7,9 +7,7 @@ export default class SellerDashboard extends React.Component {
 
   render() {
     return (
-      <div>
-        This is a Seller Dashboard page.
-      </div>
+      <img src={`${window.simContextPath}/screenshots/sellerDashboard.png`} style={{ maxWidth: '80vw' }}/>
     )
   }
 }

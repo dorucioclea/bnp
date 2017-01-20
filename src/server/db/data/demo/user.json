@@ -5,5 +5,12 @@
     "email": "john.doe@ncc.com",
     "createdBy": "john.doe@ncc.com",
     "changedBy": "john.doe@ncc.com"
+  },
+  {
+    "loginName": "scott.tiger@example.com",
+    "password": "098f6bcd4621d373cade4e832627b4f6",
+    "email": "scott.tiger@example.com",
+    "createdBy": "scott.tiger@example.com",
+    "changedBy": "scott.tiger@example.com"
   }
 ]
