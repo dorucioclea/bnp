@@ -1,18 +1,143 @@
 /* eslint-disable */
 import React from 'react';
-import {Tabs, Tab, TabContent, Col, Row, Image, ButtonToolbar, Button} from 'react-bootstrap';
-import {AreaChart, PieChart, BarChart, LineChart} from 'react-d3-components';
-import {ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import {Tabs, Tab, TabContent, Col, Row, Image, ButtonToolbar, Button, Panel} from 'react-bootstrap';
+import {AreaChart, Area, Bar, XAxis, YAxis, CartesianGrid, Pie, Cell, PieChart, Tooltip, Legend, BarChart} from 'recharts';
+import {ReactHighcharts} from 'react-highcharts';
 
 export default class BuyerDashboard extends React.Component {
   static contextTypes = {
     simUrl: React.PropTypes.string
   };
 
+
+
+  pieColors = ['#459FD2', '#F7783A', '#A5A5A5', '#FFBB30'];
   // charts in order: Area, pie, stack, bar+line
   // actions in order: invoice, rfq, stamp, news
 
-  areaData=[{label:"eInvoice",values:[{x:1,y:453},{x:2,y:670},{x:3,y:660},{x:4,y:920},{x:5,y:1050},{x:6,y:1080},{x:7,y:1230},{x:8,y:1100},{x:9,y:1250},{x:10,y:1370},{x:11,y:1400},{x:12,y:1350}]},{label:"PDF",values:[{x:1,y:30},{x:2,y:250},{x:3,y:260},{x:4,y:340},{x:5,y:360},{x:6,y:366},{x:7,y:420},{x:8,y:390},{x:9,y:450},{x:10,y:550},{x:11,y:555},{x:12,y:540}]},{label:"Keyin",values:[{x:1,y:0},{x:2,y:10},{x:3,y:15},{x:4,y:40},{x:5,y:50},{x:6,y:48},{x:7,y:70},{x:8,y:65},{x:9,y:90},{x:10,y:105},{x:11,y:108},{x:12,y:102}]},{label:"Paper",values:[{x:1,y:1600},{x:2,y:1100},{x:3,y:1120},{x:4,y:750},{x:5,y:600},{x:6,y:650},{x:7,y:540},{x:8,y:550},{x:9,y:430},{x:10,y:240},{x:11,y:230},{x:12,y:210}]},{label:"Total",values:[{x:1,y:2083},{x:2,y:2030},{x:3,y:2055},{x:4,y:2050},{x:5,y:2060},{x:6,y:2144},{x:7,y:2260},{x:8,y:2105},{x:9,y:2220},{x:10,y:2265},{x:11,y:2293},{x:12,y:2202}]}];
+  areaData=[{label:"eInvoice",values:[{x:1,y:453},{x:2,y:670},{x:3,y:660},{x:4,y:920},{x:5,y:1050},{x:6,y:1080},{x:7,y:1230},{x:8,y:1100},{x:9,y:1250},{x:10,y:1370},{x:11,y:1400},{x:12,y:1350}]},{label:"PDF",values:[{x:1,y:30},{x:2,y:250},{x:3,y:260},{x:4,y:340},{x:5,y:360},{x:6,y:366},{x:7,y:420},{x:8,y:390},{x:9,y:450},{x:10,y:550},{x:11,y:555},{x:12,y:540}]},{label:"Keyin",values:[{x:1,y:0},{x:2,y:10},{x:3,y:15},{x:4,y:40},{x:5,y:50},{x:6,y:48},{x:7,y:70},{x:8,y:65},{x:9,y:90},{x:10,y:105},{x:11,y:108},{x:12,y:102}]},{label:"Paper",values:[{x:1,y:1600},{x:2,y:1100},{x:3,y:1120},{x:4,y:750},{x:5,y:600},{x:6,y:650},{x:7,y:540},{x:8,y:550},{x:9,y:430},{x:10,y:240},{x:11,y:230},{x:12,y:210}]}];
+  areaDataRecharts = [
+    {
+      "month": 1,
+      "eInvoice": 453,
+      "PDF": 30,
+      "Keyin": 0,
+      "Paper": 1600
+    },
+    {
+      "month": 2,
+      "eInvoice": 670,
+      "PDF": 250,
+      "Keyin": 10,
+      "Paper": 1100
+    },
+    {
+      "month": 3,
+      "eInvoice": 660,
+      "PDF": 260,
+      "Keyin": 15,
+      "Paper": 1120
+    },
+    {
+      "month": 4,
+      "eInvoice": 920,
+      "PDF": 340,
+      "Keyin": 40,
+      "Paper": 750
+    },
+    {
+      "month": 5,
+      "eInvoice": 1050,
+      "PDF": 360,
+      "Keyin": 50,
+      "Paper": 600
+    },
+    {
+      "month": 6,
+      "eInvoice": 1080,
+      "PDF": 366,
+      "Keyin": 48,
+      "Paper": 650
+    },
+    {
+      "month": 7,
+      "eInvoice": 1230,
+      "PDF": 420,
+      "Keyin": 70,
+      "Paper": 540
+    },
+    {
+      "month": 8,
+      "eInvoice": 1100,
+      "PDF": 390,
+      "Keyin": 65,
+      "Paper": 550
+    },
+    {
+      "month": 9,
+      "eInvoice": 1250,
+      "PDF": 450,
+      "Keyin": 90,
+      "Paper": 430
+    },
+    {
+      "month": 10,
+      "eInvoice": 1370,
+      "PDF": 550,
+      "Keyin": 105,
+      "Paper": 240
+    },
+    {
+      "month": 11,
+      "eInvoice": 1400,
+      "PDF": 555,
+      "Keyin": 108,
+      "Paper": 230
+    },
+    {
+      "month": 12,
+      "eInvoice": 1350,
+      "PDF": 540,
+      "Keyin": 102,
+      "Paper": 210
+    }
+  ];
+
+  funnelConfig = {
+    chart: {
+      type: 'funnel',
+      marginRight: 100
+    },
+    title: {
+      text: 'Sales funnel',
+      x: -50
+    },
+    plotOptions: {
+      series: {
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b> ({point.y:,.0f})',
+          color: 'black',
+          softConnector: true
+        },
+        neckWidth: '30%',
+        neckHeight: '25%'
+      }
+    },
+    legend: {
+      enabled: false
+    },
+    series: [{
+      name: 'Unique users',
+      data: [
+        ['Website visits', 15654],
+        ['Downloads', 4064],
+        ['Requested price list', 1987],
+        ['Invoice sent', 976],
+        ['Finalized', 846]
+      ]
+    }]
+  };
 
   pieData = {
     label: 'somethingA',
@@ -36,71 +161,98 @@ export default class BuyerDashboard extends React.Component {
  	{
     label: 'loaded',
     values: [{x: 'wave1', y: 35}, {x: 'wave2', y: 68}, {x: 'wave3', y: 10}, {x: 'wave4', y: 0}]
-    }, 
+    },
 	  {
     label: 'onboarded',
     values: [{x: 'wave1', y: 283}, {x: 'wave2', y: 123}, {x: 'wave3', y: 162}, {x: 'wave4', y: 0}]
-    },
+    }
+  ];
 
-];
+  lastWaveData = [{name: 'eInvoice', value: 1350},{name: 'pdf', value: 540},{name: 'key in', value: 102},{name: 'paper', value: 210}]
+
+
+  renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, payload }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x  = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy  + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
+        {payload.name+": "+payload.value}
+      </text>
+    );
+  };
 
   render() {
     return (
       <div>
+      <br/>
         <Row>
           <Col md={6}>
-            <h3>Document flow</h3>
-            <Row>
-              <Col>
-                <AreaChart
-                  data={this.areaData}
-                  width={550}
-                  height={300}
-                  yOrientation='left' // if you do not provide right default left orientation for yAxis will be used
-                  margin={{top: 10, bottom: 50, left: 50, right: 10}}/></Col>
-              <Col>
-                <PieChart
-                  data={this.pieData}
-                  width={550}
-                  height={300}
-                  margin={{top: 10, bottom: 10, left: 100, right: 100}}
-                  sort={null}
-                  />
-              </Col>
-            </Row>
+            <div className="panel panel-success">
+              <div className="panel-heading">eTransition Development</div>
+              <div className="panel-body">
+                <AreaChart width={500} height={300} data={this.areaDataRecharts}
+                           margin={{top: 5, right: 0, left: 0, bottom: 5}}>
+                  <XAxis dataKey="month"/>
+                  <YAxis/>
+                  <CartesianGrid strokeDasharray="3 3"/>
+                  <Tooltip/>
+                  <Legend />
+                  <Area type="monotone" stackId='1' dataKey="Paper"    stroke="#00B1D4" fill="#00B1D4" />
+                  <Area type="monotone" stackId='1' dataKey="PDF"      stroke="#F75F1B" fill="#F75F1B" />
+                  <Area type="monotone" stackId='1' dataKey="Keyin"    stroke="#E81319" fill="#E81319" />
+                  <Area type="monotone" stackId='1' dataKey="eInvoice" stroke="#FFC53C" fill="#FFC53C" />
+                </AreaChart>
+              </div>
+            </div>
+            <div className="panel panel-success">
+              <div className="panel-heading">eTransition Today</div>
+              <div className="panel-body">
+                <PieChart width={500} height={300} onMouseEnter={this.onPieEnter}>
+                  <Pie
+                    data={this.lastWaveData}
+                    cx={250}
+                    cy={150}
+                    labelLine={false}
+
+                    label={this.renderCustomizedLabel}
+                    outerRadius={120}
+                    fill="#8884d8"
+                  >
+                    {
+                      this.lastWaveData.map((entry, index) => <Cell fill={this.pieColors[index % this.pieColors.length]}/>)
+                    }
+                  </Pie>
+                </PieChart>
+              </div>
+            </div>
           </Col>
           <Col md={6}>
-            <h3>eTransaction Pipeline</h3>
-            <Row>
-              <Col>
-              <ComposedChart width={550} height={320} data={this.barData}
-                    margin={{top: 20, right: 20, bottom: 20, left: 20}}>
+            <div className="panel panel-success">
+              <div className="panel-heading">eTransition Today</div>
+              <div className="panel-body">
+                <BarChart width={500} height={300} data={this.barData}
+                          margin={{top: 20, right: 0, left: 0, right: 0}}>
                   <XAxis dataKey="name"/>
-                  <YAxis />
+                  <YAxis/>
+                  <CartesianGrid strokeDasharray="3 3"/>
                   <Tooltip/>
-                  <Legend/>
-                  <CartesianGrid stroke='#f5f5f5'/>
-									<Bar dataKey='bounced' barSize={20} fill='#459FD2'/>
-									<Bar dataKey='read' barSize={20} fill='#F7783A'/>
-									<Bar dataKey='loaded' barSize={20} fill='#A5A5A5'/>
-									<Bar dataKey='onboarded' barSize={20} fill='#FFBB30'/>
-               </ComposedChart>
-              </Col>
-              <Col>
-                <BarChart width={550} height={300} data={this.barStackedData}
-                      margin={{top: 20, right: 30, left: 80, bottom: 25}}>
-                   <XAxis dataKey="name"/>
-                   <YAxis/>
-                   <CartesianGrid strokeDasharray="3 3"/>
-                   <Tooltip/>
-                   <Legend />
-									<Bar dataKey='bounced' barSize={20} fill='#459FD2'/>
-									<Bar dataKey='read' barSize={20} fill='#F7783A'/>
-									<Bar dataKey='loaded' barSize={20} fill='#A5A5A5'/>
-									<Bar dataKey='onboarded' barSize={20} fill='#FFBB30'/>
+                  <Legend />
+                  <Bar stackId="a" dataKey='bounced' barSize={20} fill='#459FD2'/>
+                  <Bar stackId="a" dataKey='read' barSize={20} fill='#F7783A'/>
+                  <Bar stackId="a" dataKey='loaded' barSize={20} fill='#A5A5A5'/>
+                  <Bar stackId="a" dataKey='onboarded' barSize={20} fill='#FFBB30'/>
                 </BarChart>
-              </Col>
-            </Row>
+              </div>
+            </div>
+            <div className="panel panel-success">
+              <div className="panel-heading">eTransition Pipeline</div>
+              <div className="panel-body">
+                {/*<ReactHighcharts config={this.funnelConfig} />*/}
+              </div>
+            </div>
           </Col>
         </Row>
       </div>
