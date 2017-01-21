@@ -2,13 +2,15 @@
 import React from 'react';
 import {Tabs, Tab, TabContent, Col, Row, Image, ButtonToolbar, Button, Panel} from 'react-bootstrap';
 import {AreaChart, Area, Bar, XAxis, YAxis, CartesianGrid, Pie, Cell, PieChart, Tooltip, Legend, BarChart} from 'recharts';
-import {ReactHighcharts} from 'react-highcharts';
+import ReactHighcharts from 'react-highcharts';
+
+require('highcharts-more')(ReactHighcharts.Highcharts)
+require('highcharts-funnel')(ReactHighcharts.Highcharts)
 
 export default class BuyerDashboard extends React.Component {
   static contextTypes = {
     simUrl: React.PropTypes.string
   };
-
 
 
   pieColors = ['#459FD2', '#F7783A', '#A5A5A5', '#FFBB30'];
@@ -106,22 +108,79 @@ export default class BuyerDashboard extends React.Component {
   funnelConfig = {
     chart: {
       type: 'funnel',
-      marginRight: 100
+      marginRight: 100,
+      height: 300
     },
-    title: {
-      text: 'Sales funnel',
-      x: -50
-    },
+    title: null,
     plotOptions: {
       series: {
         dataLabels: {
           enabled: true,
           format: '<b>{point.name}</b> ({point.y:,.0f})',
-          color: 'black',
+          color: {
+            colors: ['#7cb5ec', '#f7a35c', '#90ee7e', '#7798BF', '#aaeeee', '#ff0066', '#eeaaee',
+              '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+            chart: {
+              backgroundColor: null,
+              style: {
+                fontFamily: 'Dosis, sans-serif'
+              }
+            },
+            title: {
+              style: {
+                fontSize: '16px',
+                fontWeight: 'bold',
+                textTransform: 'uppercase'
+              }
+            },
+            tooltip: {
+              borderWidth: 0,
+              backgroundColor: 'rgba(219,219,216,0.8)',
+              shadow: false
+            },
+            legend: {
+              itemStyle: {
+                fontWeight: 'bold',
+                fontSize: '13px'
+              }
+            },
+            xAxis: {
+              gridLineWidth: 1,
+              labels: {
+                style: {
+                  fontSize: '12px'
+                }
+              }
+            },
+            yAxis: {
+              minorTickInterval: 'auto',
+              title: {
+                style: {
+                  textTransform: 'uppercase'
+                }
+              },
+              labels: {
+                style: {
+                  fontSize: '12px'
+                }
+              }
+            },
+            plotOptions: {
+              candlestick: {
+                lineColor: '#404048'
+              }
+            },
+
+
+            // General
+            background2: '#F0F0EA'
+
+          },
           softConnector: true
         },
-        neckWidth: '30%',
-        neckHeight: '25%'
+        neckWidth: '0%',
+        neckHeight: '0%'
+
       }
     },
     legend: {
@@ -130,14 +189,14 @@ export default class BuyerDashboard extends React.Component {
     series: [{
       name: 'Unique users',
       data: [
-        ['Website visits', 15654],
-        ['Downloads', 4064],
-        ['Requested price list', 1987],
-        ['Invoice sent', 976],
-        ['Finalized', 846]
+        ['Identified', 3154],
+        ['Contacted', 2501],
+        ['Discussion', 2146],
+        ['Won', 1860]
       ]
     }]
   };
+
 
   pieData = {
     label: 'somethingA',
@@ -250,7 +309,7 @@ export default class BuyerDashboard extends React.Component {
             <div className="panel panel-success">
               <div className="panel-heading">eTransition Pipeline</div>
               <div className="panel-body">
-                {/*<ReactHighcharts config={this.funnelConfig} />*/}
+                <ReactHighcharts config={this.funnelConfig}></ReactHighcharts>
               </div>
             </div>
           </Col>
