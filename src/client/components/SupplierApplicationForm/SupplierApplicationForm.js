@@ -28,7 +28,8 @@ class SupplierApplicationForm extends React.Component {
     dateTimePattern: React.PropTypes.string,
     simUrl: React.PropTypes.string,
     supplierUrl: React.PropTypes.string,
-    httpResponseHandler: React.PropTypes.func
+    httpResponseHandler: React.PropTypes.func,
+    authenticationService: React.PropTypes.object
   }
 
   state = {
@@ -79,6 +80,8 @@ class SupplierApplicationForm extends React.Component {
     }
   }
 
+  handleLogout = () => this.context.authenticationService.logout()
+
   handleSelect = key => {
     if (!this.isDirty || this._confirmLeaveChangesUnsaved()) {
       this.isDirty = false;
@@ -113,6 +116,7 @@ class SupplierApplicationForm extends React.Component {
           countries={this.state.countries}
           onChange={this.handleDirtyState}
           onUpdate={this.handleSupplierUpdate}
+          onLogout={this.handleLogout}
           isOnboarding={!userInfo.supplierId}
         />
       </I18nBundle>
