@@ -250,7 +250,7 @@ export default class BuyerDashboard extends React.Component {
         <Row>
           <Col md={6}>
             <div className="panel panel-success">
-              <div className="panel-heading">eTransition Development</div>
+              <div className="panel-heading"><h4>eTransition Development</h4></div>
               <div className="panel-body">
                 <AreaChart width={750} height={300} data={this.areaDataRecharts}
                            margin={{top: 5, right: 0, left: 0, bottom: 5}}>
@@ -267,7 +267,7 @@ export default class BuyerDashboard extends React.Component {
               </div>
             </div>
             <div className="panel panel-success">
-              <div className="panel-heading">eTransition Today</div>
+              <div className="panel-heading"><h4>eTransition Today</h4></div>
               <div className="panel-body">
                 <PieChart width={750} height={300} onMouseEnter={this.onPieEnter}>
                   <Pie
@@ -289,7 +289,7 @@ export default class BuyerDashboard extends React.Component {
           </Col>
           <Col md={6}>
             <div className="panel panel-success">
-              <div className="panel-heading">eTransition Today</div>
+              <div className="panel-heading"><h4>eTransition Today</h4></div>
               <div className="panel-body">
                 <BarChart width={750} height={300} data={this.barData}
                           margin={{top: 20, right: 0, left: 0, right: 0}}>
@@ -306,7 +306,7 @@ export default class BuyerDashboard extends React.Component {
               </div>
             </div>
             <div className="panel panel-success">
-              <div className="panel-heading">eTransition Pipeline</div>
+              <div className="panel-heading"><h4>eTransition Pipeline</h4></div>
               <div className="panel-body">
                 <ReactHighcharts config={this.funnelConfig}></ReactHighcharts>
               </div>
