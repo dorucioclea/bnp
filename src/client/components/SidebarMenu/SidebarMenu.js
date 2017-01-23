@@ -10,10 +10,6 @@ class SidebarMenu extends React.Component {
     currentUserInfo: React.PropTypes.object
   };
 
-  static contextTypes = {
-    authenticationService: React.PropTypes.object
-  };
-
   state = {
     oldOpenMenuName: null,
     currentOpenMenuName: null,
