@@ -11,7 +11,7 @@ class MainLayout extends React.Component {
     return (
       <div style={{ minHeight: '100vh' }}>
         {this.props.currentUserInfo && this.props.currentUserInfo.supplierId && <SidebarMenu/>}
-        <div className="container">
+        <div className="container-fluid" style={{ paddingLeft: '250px' }}>
         <section className="content" style={{ overflow: 'visible' }}>
           <a className="applogo visible-md visible-sm visible-xs" href="http://www.opuscapita.com/">
             <img src={`${window.simContextPath}/img/oc-logo-rgb.svg`}/>

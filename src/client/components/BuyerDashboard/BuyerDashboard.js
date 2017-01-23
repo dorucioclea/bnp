@@ -252,7 +252,7 @@ export default class BuyerDashboard extends React.Component {
             <div className="panel panel-success">
               <div className="panel-heading">eTransition Development</div>
               <div className="panel-body">
-                <AreaChart width={500} height={300} data={this.areaDataRecharts}
+                <AreaChart width={750} height={300} data={this.areaDataRecharts}
                            margin={{top: 5, right: 0, left: 0, bottom: 5}}>
                   <XAxis dataKey="month"/>
                   <YAxis/>
@@ -269,17 +269,16 @@ export default class BuyerDashboard extends React.Component {
             <div className="panel panel-success">
               <div className="panel-heading">eTransition Today</div>
               <div className="panel-body">
-                <PieChart width={500} height={300} onMouseEnter={this.onPieEnter}>
+                <PieChart width={750} height={300} onMouseEnter={this.onPieEnter}>
                   <Pie
                     data={this.lastWaveData}
-                    cx={250}
+                    cx={375}
                     cy={150}
                     labelLine={false}
 
                     label={this.renderCustomizedLabel}
                     outerRadius={120}
-                    fill="#8884d8"
-                  >
+                    fill="#8884d8">
                     {
                       this.lastWaveData.map((entry, index) => <Cell fill={this.pieColors[index % this.pieColors.length]}/>)
                     }
@@ -292,7 +291,7 @@ export default class BuyerDashboard extends React.Component {
             <div className="panel panel-success">
               <div className="panel-heading">eTransition Today</div>
               <div className="panel-body">
-                <BarChart width={500} height={300} data={this.barData}
+                <BarChart width={750} height={300} data={this.barData}
                           margin={{top: 20, right: 0, left: 0, right: 0}}>
                   <XAxis dataKey="name"/>
                   <YAxis/>
