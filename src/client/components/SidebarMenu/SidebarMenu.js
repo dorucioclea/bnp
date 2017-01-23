@@ -253,7 +253,7 @@ class SidebarMenu extends React.Component {
                   >
                     <a
                       href="#"
-                      onClick={this.handleMenuItemClick.bind(this, 'invoiceCreate', 'Invoice', 'Create New')}
+                      onClick={this.handleMenuItemClick.bind(this, 'invoice/create', 'Invoice', 'Create New')}
                     >
                       Create New
                     </a>
