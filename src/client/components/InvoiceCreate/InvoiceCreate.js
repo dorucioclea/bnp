@@ -68,16 +68,19 @@ class InvoiceCreate extends React.Component {
                 <label className="col-sm-4 control-label">Create Invoices by</label>
                 <div className="col-sm-8">
                   <label className="oc-radio">
-                    <input type="radio" name="creationType" checked={this.selection == 'manual'} onClick={this.onSelectType.bind(this, 'manual')}/>
+                    <input type="radio" name="creationType" checked={this.selection === 'manual'}
+                      onClick={this.onSelectType.bind(this, 'manual')}/>
                     filling in invoices manually
                   </label>
                   <br />
                   <label className="oc-radio">
-                    <input type="radio" name="creationType" checked={this.selection == 'usePO'} onClick={this.onSelectType.bind(this, 'usePO')} />converting an existing PO
+                    <input type="radio" name="creationType" checked={this.selection === 'usePO'}
+                      onClick={this.onSelectType.bind(this, 'usePO')} />converting an existing PO
                   </label>
                   <br />
                   <label className="oc-radio">
-                    <input type="radio" name="creationType" checked={this.selection == 'pdf'} onClick={this.onSelectType.bind(this, 'pdf')} />uploading a PDF file
+                    <input type="radio" name="creationType" checked={this.selection === 'pdf'}
+                      onClick={this.onSelectType.bind(this, 'pdf')} />uploading a PDF file
                   </label>
                 </div>
               </div>

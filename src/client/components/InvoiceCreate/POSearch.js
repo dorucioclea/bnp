@@ -24,7 +24,7 @@ export default class POSearch extends React.Component {
                       <input type="text" className="form-control" name="supplierId" value=""
                         readonly="readonly" id="supplierId" />
                       <span className="input-group-btn reference-search">
-                        <a id="" href="javascript:void(0);" className="btn btn-default" title="">
+                        <a id="" href="" className="btn btn-default" title="">
                           <span className="glyphicon glyphicon-search"></span>
                         </a>
                       </span>
@@ -41,7 +41,7 @@ export default class POSearch extends React.Component {
                       <input type="text" className="form-control" name="supplierId" value=""
                         readonly="readonly" id="supplierId" />
                       <span className="input-group-btn reference-search">
-                        <a id="" href="javascript:void(0);" className="btn btn-default" title="">
+                        <a id="" href="" className="btn btn-default" title="">
                           <span className="glyphicon glyphicon-search"></span>
                         </a>
                       </span>
@@ -93,7 +93,7 @@ export default class POSearch extends React.Component {
                     <div className="input-group">
                       <input type="text" maxlength="50" className="form-control" id="loginName" name="assignee" value="" />
                       <span className="input-group-btn reference-search">
-                        <a id="" href="javascript:void(0);" className="btn btn-default" title="">
+                        <a id="" href="" className="btn btn-default" title="">
                           <span className="glyphicon glyphicon-search"></span>
                         </a>
                       </span>
