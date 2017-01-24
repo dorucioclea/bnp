@@ -1,9 +1,10 @@
 import React from "react"
-import { Button, MenuItem, Dropdown } from 'react-bootstrap/lib';
+import { Button, MenuItem, Dropdown, Glyphicon } from 'react-bootstrap/lib';
 import browserHistory from 'react-router/lib/browserHistory';
 import cookie from 'react-cookie';
 import locales from './i18n/locales.js'
 import ServerError from './../Errors/ServerError';
+import jQuery from 'jquery';
 
 export default class LoginPage extends React.Component {
 
@@ -27,6 +28,13 @@ export default class LoginPage extends React.Component {
   languageTitle = {
     de: this.i18n.getMessage('LoginPageLanguage.deutsch'),
     en: this.i18n.getMessage('LoginPageLanguage.english')
+  }
+
+  componentDidMount() {
+    jQuery('.nav-toggle').click(function() {
+			jQuery('.nav-toggle').toggleClass('active');
+			jQuery('.sidebar').toggleClass('active');
+		});
   }
 
   handleFieldChange = (e) => {
@@ -89,128 +97,165 @@ export default class LoginPage extends React.Component {
         loginErrorMessage = <div className="label label-danger">{this.i18n.getMessage('LoginPageError.badLogin')}</div>;
       }
       return (
-        <div
-          onKeyPress={this.handleEnterPress}
-          style={{
-            background: `url(${window.simContextPath}/img/oc-bnp-bg.png) top center`,
-            backgroundSize: 'cover',
-            backgroundAttachment: 'fixed',
-            minHeight: '100vh'
-          }}
-        >
-          <div className="container loginPage">
-            <div className="row">
-              <div className="col-md-4 col-md-offset-4">
-                <a href="#" className="logoImage">
-                  <img src={`${window.simContextPath}/oc-logo-rgb.svg`}/>
-                </a>
+        <div>
+          <section className="content" style={{
+            backgroundImage: "url('/img/service-config-welcome.jpg')",
+            maxWidth: "100%",
+            backgroundSize: "100%"
+          }}>
+
+            <nav className="navbar navbar-default" style={{
+              height: "100px",
+        			backgroundColor: "white !important",
+        			padding: "2% 2% 0 0"
+            }}>
+              <div className="container-fluid">
+                <div className="navbar-header">
+                  <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span className="sr-only">Toggle navigation</span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                  </button>
+                  <img src="/img/OC-logo-BN-orange-gray.svg" style={{
+                    position: "absolute",
+                    width: "20%",
+                    top: "8%"
+                  }} />
+                  <p style={{
+                    display: "table",
+                    position: "absolute",
+                    top: "10%",
+                    left: "38%",
+                    fontSize: "200%",
+                    color: "#67707C",
+                    opacity: "0.75"
+                  }}>Welcome to OpusCapita<br/> Business Network Portal</p>
+                </div>
+
+
+                <ul className="nav navbar-nav navbar-right">
+                <Dropdown id="dropdown-custom-1">
+                  <Dropdown.Toggle>
+                    <Glyphicon glyph="star" />
+                    English
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="super-colors">
+                    <MenuItem eventKey="1">Suomi</MenuItem>
+                    <MenuItem eventKey="2">German</MenuItem>
+                    <MenuItem eventKey="3" active>Something else</MenuItem>
+                    <MenuItem divider />
+                    <MenuItem eventKey="4">Separated link</MenuItem>
+                  </Dropdown.Menu>
+                </Dropdown>
+                </ul>
               </div>
-            </div>
-            <div className="row" style={{ backgroundColor: 'white', paddingTop: '30px', paddingBottom: '10px' }}>
-              <div className="col-md-4 col-md-offset-4">
-                <form method="post" action="/loginAction">
-                  <div className="form-group">
-                    <label htmlFor="username"> {this.i18n.getMessage('LoginPageLabel.username')} </label>
-                    <div className="input-group">
-                    <span className="input-group-addon">
-                      <span className="glyphicon glyphicon-user"/>
-                    </span>
-                      <input
-                        id="username"
-                        className="form-control"
-                        type="text"
-                        value={this.state.username}
-                        placeholder={this.i18n.getMessage('LoginPageLabel.username')}
-                        onChange={this.handleFieldChange} name="username"
-                        autoFocus={true}
-                      />
-                    </div>
-                  </div>
-                  <div className={`form-group ${this.state.authenticationFailed ? 'has-error' : ''}`}>
-                    <label htmlFor="password"> {this.i18n.getMessage('LoginPageLabel.password')} </label>
-                    <div className="input-group">
-                    <span className="input-group-addon">
-                      <span className="glyphicon glyphicon-lock"/>
-                    </span>
-                      <input
-                        id="password"
-                        className="form-control"
-                        type="password"
-                        placeholder={this.i18n.getMessage('LoginPageLabel.password')}
-                        value={this.state.password} onChange={this.handleFieldChange} name="password"
-                      />
-                    </div>
-                    {loginErrorMessage}
-                  </div>
-                  <p>
-                    <a href="#">{this.i18n.getMessage('LoginPageLabel.forgotPassword')}?</a>
-                  </p>
-                  <div className="form-group">
-                    <input id="language" type="hidden" value={this.state.language} name="languageParam"/>
-                    <div className="btn-group">
-                      <Dropdown id="lang" onSelect={this.handleLanguageSelect}>
-                        <Dropdown.Toggle>
-                          {this.i18n.getMessage('LoginPageLabel.language')}:
-                          <b>{this.languageTitle[this.state.language]}</b>
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <MenuItem eventKey="de" active={this.state.language === 'de'}>
-                            {this.i18n.getMessage('LoginPageLanguage.deutsch')}
-                          </MenuItem>
-                          <MenuItem eventKey="en" active={this.state.language === 'en'}>
-                            {this.i18n.getMessage('LoginPageLanguage.english')}
-                          </MenuItem>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <div>
-                      <div className="text-right">
+            </nav>
+
+            <div className="content-wrap" style={{
+              padding: "0px !important",
+              marginBottom: "0px !important",
+              minHeight: "545px"
+            }}>
+              <div className="container" id="container">
+                <div className="box" style={{
+                  width: "87%",
+          		    marginTop: "2%",
+                  marginLeft: "10%",
+          		    padding: "3%",
+          		    textAlign: "left",
+          		    zIndex: 3,
+          		    backgroundColor: "white"
+                }} id="bluebox">
+                  <div className="row">
+                    <div className="col-md-8">
+                      <h2>Login</h2>
+                      <form className="form-horizontal">
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="form-group">
+                              <label className="col-sm-4 control-label">E-Mail *</label>
+                              <div className="col-sm-8">
+                                <input
+                                id="username"
+                                className="form-control"
+                                type="text"
+                                value={this.state.username}
+                                placeholder={this.i18n.getMessage('LoginPageLabel.username')}
+                                onChange={this.handleFieldChange} name="username"
+                                autoFocus={true}
+                                />
+                              </div>
+                            </div>
+                            <div className="form-group">
+                              <label className="col-sm-4 control-label">Password *</label>
+                              <div className="col-sm-8">
+                                <input
+                                id="password"
+                                className="form-control"
+                                type="password"
+                                placeholder={this.i18n.getMessage('LoginPageLabel.password')}
+                                value={this.state.password} onChange={this.handleFieldChange} name="password"
+                                />
+                                {loginErrorMessage}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                      <br/>
+                      <div className="form-submit text-right">
+                        <button className="btn btn-link">Forgot your password?</button>
                         <Button
                           bsStyle="default"
-                          bsSize="lg"
                           onClick={this.handleSignupClick}
-                          style={{ 'marginRight': '5px' }}
-                        >
+                          style={{ 'marginRight': '5px' }}>
                           {this.i18n.getMessage('LoginPageButtonLabel.signup')}
                         </Button>
                         <Button
                           bsStyle="primary"
-                          bsSize="lg"
-                          onClick={this.handleLoginClick}
-                        >
+                          onClick={this.handleLoginClick}>
                           {this.i18n.getMessage('CommonButtonLabel.login')}
                         </Button>
                       </div>
                     </div>
+                    <div className="col-md-4">
+                      <p style={{
+                        margin: "25% 0 0 10%",
+                        fontSize: "150%"
+                      }}>Business Network</p>
+                      <br/>
+                      <p>
+                        OpusCapita Business Network integrates buyers, suppliers and other business partners in an efficient way. You can automate sending and receiving all types of electronic business documents, including e-invoices globally, through this network.
+                      </p>
+                    </div>
                   </div>
-                </form>
-              </div>
-              <div className="col-md-4">
-                <div className="bs-callout bs-callout-info">
-                  <h4>
-                    {this.i18n.getMessage('LoginPageLabel.privacyNote')}:
-                  </h4>
-                  <p>
-                    {privacyNotesArray[0]}
-                    <a target="_blank" href="mailto:info@jcatalog.com">
-                      {this.i18n.getMessage('LoginPageLabel.infoEmail')}
-                    </a>
-                    {privacyNotesArray[1]}
-                  </p>
                 </div>
               </div>
             </div>
-          </div>
-          <footer>
-            <div className="container copyright text-center">
-              &copy; {this.i18n.getMessage('LoginPageLabel.jcatalogActivityTime')}&nbsp;
-              <a href="http://www.opuscapita.com/" target="_blank">{this.i18n.getMessage('LoginPageLabel.jcatalog')}</a>
-            </div>
+          </section>
+          <footer className="footer" style={{
+            position: "absolute",
+    		    bottom: 0,
+    		    width: "100%",
+    		    height: "10%",
+    		    backgroundColor: "#ec6608"
+          }}>
+            <ul className="nav navbar-nav navbar-left">
+              <li><img src="/img/oc-logo-white.svg" style={{
+                width: "40%",
+                marginTop: "10%"
+              }} /></li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right" style={{
+              marginRight: "0.1%",
+              marginTop: "1.5%"
+            }}>
+              <li style={{color: "white"}}>&copy; OpusCapita 2017</li>
+            </ul>
           </footer>
         </div>
-      )
+      );
     }
   }
 }
