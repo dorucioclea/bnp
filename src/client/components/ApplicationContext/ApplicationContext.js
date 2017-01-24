@@ -150,7 +150,7 @@ class ApplicationContext extends React.Component {
     }
 
     return (
-      <div>
+      <div style={{height: "100%"}}>
         {children}
       </div>
     );

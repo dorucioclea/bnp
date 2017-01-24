@@ -1,0 +1,6 @@
+{
+  "name": "ServiceConfigStepFour",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ServiceConfigStepFour.js"
+}

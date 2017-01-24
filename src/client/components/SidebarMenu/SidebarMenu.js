@@ -147,7 +147,7 @@ class SidebarMenu extends React.Component {
                       ' active' ||
                       ''
                     }`}
-                  >
+                    >
                     <a
                       href="#"
                       onClick={this.handleMenuItemClick.bind(this, 'orderConfirmation', 'Orders', 'OrderCon')}
@@ -176,7 +176,7 @@ class SidebarMenu extends React.Component {
                       ' active' ||
                       ''
                     }`}
-                  >
+                    >
                     <a
                       href="#"
                       onClick={this.handleMenuItemClick.bind(this, 'poDownload', 'Orders', 'PO Download')}
@@ -498,7 +498,7 @@ class SidebarMenu extends React.Component {
                 >
                   <a
                     href="#"
-                    onClick={this.handleMenuItemClick.bind(this, 'serviceConfiguration', 'Company', 'ServiceConfig')}
+                    onClick={this.handleMenuItemClick.bind(this, 'serviceConfigFlow', 'Company', 'ServiceConfig')}
                   >
                     Service Configuration
                   </a>

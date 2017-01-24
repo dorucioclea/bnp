@@ -97,7 +97,7 @@ export default class LoginPage extends React.Component {
         loginErrorMessage = <div className="label label-danger">{this.i18n.getMessage('LoginPageError.badLogin')}</div>;
       }
       return (
-        <div>
+        <div style={{height: "100%"}}>
           <section className="content" style={{
             backgroundImage: "url('/img/service-config-welcome.jpg')",
             maxWidth: "100%",
@@ -119,7 +119,7 @@ export default class LoginPage extends React.Component {
                   </button>
                   <img src="/img/OC-logo-BN-orange-gray.svg" style={{
                     position: "absolute",
-                    width: "20%",
+                    width: "15%",
                     top: "8%"
                   }} />
                   <p style={{
@@ -135,33 +135,33 @@ export default class LoginPage extends React.Component {
 
 
                 <ul className="nav navbar-nav navbar-right">
-                <Dropdown id="dropdown-custom-1">
-                  <Dropdown.Toggle>
-                    <Glyphicon glyph="star" />
-                    English
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu className="super-colors">
-                    <MenuItem eventKey="1">Suomi</MenuItem>
-                    <MenuItem eventKey="2">German</MenuItem>
-                    <MenuItem eventKey="3" active>Something else</MenuItem>
-                    <MenuItem divider />
-                    <MenuItem eventKey="4">Separated link</MenuItem>
-                  </Dropdown.Menu>
-                </Dropdown>
+                  <Dropdown id="dropdown-custom-1">
+                    <Dropdown.Toggle>
+                      <Glyphicon glyph="star" />
+                      English
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu className="super-colors">
+                      <MenuItem eventKey="1">Suomi</MenuItem>
+                      <MenuItem eventKey="2">German</MenuItem>
+                      <MenuItem eventKey="3" active>English</MenuItem>
+                      <MenuItem divider />
+                      <MenuItem eventKey="4">Separated link</MenuItem>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </ul>
               </div>
             </nav>
 
             <div className="content-wrap" style={{
               padding: "0px !important",
-              marginBottom: "0px !important",
-              minHeight: "545px"
+              // marginBottom: "0px !important",
+              // minHeight: "545px"
             }}>
               <div className="container" id="container">
                 <div className="box" style={{
                   width: "87%",
           		    marginTop: "2%",
-                  marginLeft: "10%",
+                  // marginLeft: "10%",
           		    padding: "3%",
           		    textAlign: "left",
           		    zIndex: 3,

@@ -1,10 +1,6 @@
 import React from 'react';
 
 export default class Settings extends React.Component {
-  static contextTypes = {
-    simUrl: React.PropTypes.string
-  };
-
   render() {
     return (
       <div>
