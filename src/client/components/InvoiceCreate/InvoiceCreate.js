@@ -1,6 +1,6 @@
 import React from 'react';
 import POSearch from './POSearch';
-import ImportPDF from './ImportPDF';
+import ImportPDF from './PDF/Import';
 import CreateForm from './CreateForm';
 
 class InvoiceCreate extends React.Component {
@@ -17,8 +17,8 @@ class InvoiceCreate extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       this.decideChild(nextProps);
-      this.props = nextProps;
     }
+    this.props = nextProps;
   }
 
   onSelectType = (type) => {
@@ -38,7 +38,7 @@ class InvoiceCreate extends React.Component {
       this.child = <POSearch />;
       this.selection = 'usePO';
     } else if (props.location.pathname.indexOf('pdf') > -1) {
-      this.child = <ImportPDF />;
+      this.child = <ImportPDF {...props} />;
       this.selection = 'pdf';
     } else {
       this.child = <CreateForm />;
