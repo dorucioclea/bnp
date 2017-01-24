@@ -421,14 +421,13 @@ class SidebarMenu extends React.Component {
                     }`}
                   >
                     <a
-                      href="#"
-                      onClick={this.handleMenuItemClick.bind(this, 'onboardingDashboard', 'Suppliers', 'Dashboard')}
+                      href={`${window.simContextPath}/campaigns/dashboard`}
                     >
                       Onboarding Dashboard
                     </a>
                   </li>
                   <li>
-                    <a href={`${window.simContextPath}/campaigns/dashboard`}>
+                    <a href={`${window.simContextPath}/campaigns/`}>
                       Onboarding Campaigns
                     </a>
                   </li>
@@ -438,7 +437,7 @@ class SidebarMenu extends React.Component {
                     </a>
                   </li>
                   <li>
-                    <a href={`${window.simContextPath}/campaigns/`}>
+                    <a href={`${window.simContextPath}/campaigns/ncc_onboard`}>
                       View Onboarding Page
                     </a>
                   </li>

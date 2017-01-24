@@ -30,6 +30,7 @@ import PoDownload from './PoDownload';
 import EInvoice from './EInvoice';
 import OrderConfirmation from './OrderConfirmation';
 import OrderHistory from './OrderHistory';
+import OrderInspect from './OrderInspect';
 import SuccessRegistration from './Notifications/SuccessRegistration';
 import SuccessConfirmation from './Notifications/SuccessConfirmation';
 import AccessDenied from './Errors/AccessDenied';
@@ -129,6 +130,7 @@ axios.interceptors.response.use(response => {
   }
   return Promise.reject(errors);
 });
+
 
 ReactDOM.render(
   <Provider store={store}>
@@ -246,8 +248,8 @@ ReactDOM.render(
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
-            path={`${window.simContextPath}/onboardingDashboard`}
-            component={OnboardingDashboard}
+            path={`${window.simContextPath}/orderInspect`}
+            component={OrderInspect}
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
