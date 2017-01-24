@@ -1,6 +1,5 @@
 import React from "react"
-import MenuItem from 'react-bootstrap/lib/MenuItem';
-import Dropdown from 'react-bootstrap/lib/Dropdown';
+import { Button, MenuItem, Dropdown } from 'react-bootstrap/lib';
 import browserHistory from 'react-router/lib/browserHistory';
 import cookie from 'react-cookie';
 import locales from './i18n/locales.js'
@@ -168,17 +167,21 @@ export default class LoginPage extends React.Component {
                   <div className="form-group">
                     <div>
                       <div className="text-right">
-                        <button
-                          className="btn btn-default btn-lg"
-                          type="button"
+                        <Button
+                          bsStyle="default"
+                          bsSize="lg"
                           onClick={this.handleSignupClick}
                           style={{ 'marginRight': '5px' }}
                         >
                           {this.i18n.getMessage('LoginPageButtonLabel.signup')}
-                        </button>
-                        <button className="btn btn-primary btn-lg" type="button" onClick={this.handleLoginClick}>
+                        </Button>
+                        <Button
+                          bsStyle="primary"
+                          bsSize="lg"
+                          onClick={this.handleLoginClick}
+                        >
                           {this.i18n.getMessage('CommonButtonLabel.login')}
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>

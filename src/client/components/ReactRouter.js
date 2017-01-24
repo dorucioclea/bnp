@@ -10,6 +10,7 @@ import LoginPage from './LoginPage';
 import Registration from './Registration';
 import SellerDashboard from './SellerDashboard';
 import BuyerDashboard from './BuyerDashboard';
+import Welcome from './Welcome';
 import Settings from './Settings';
 import ServiceConfiguration from './ServiceConfiguration';
 import InvoiceCreate from './InvoiceCreate';
@@ -30,6 +31,7 @@ import PoDownload from './PoDownload';
 import EInvoice from './EInvoice';
 import OrderConfirmation from './OrderConfirmation';
 import OrderHistory from './OrderHistory';
+import OrderInspect from './OrderInspect';
 import SuccessRegistration from './Notifications/SuccessRegistration';
 import SuccessConfirmation from './Notifications/SuccessConfirmation';
 import AccessDenied from './Errors/AccessDenied';
@@ -65,6 +67,7 @@ let authenticationService = new AuthenticationService({
 
 function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.isAuthenticated().then(response => {
+    console.log('===== beforeSupplierComponentEnterInterceptor', JSON.stringify(response.data));
     if (!response.data.username) {
       replace(`${window.simContextPath}/login`);
     }
@@ -78,6 +81,7 @@ function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
 function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
   // TODO: prevent suppliers from viewing buyer-only pages and vice-versa.
   authenticationService.currentUserInfo(true).then(response => {
+    console.log('===== beforeRegularComponentEnterInterceptor', JSON.stringify(response.data));
     let currentUserInfo = response.data.currentUserInfo;
 
     if (!currentUserInfo.username) {
@@ -95,6 +99,7 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
 
 function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.currentUserInfo(true).then(response => {
+    console.log('===== beforeDashboardComponentEnterInterceptor', JSON.stringify(response.data));
     let currentUserInfo = response.data.currentUserInfo;
 
     if (!currentUserInfo.username) {
@@ -130,6 +135,7 @@ axios.interceptors.response.use(response => {
   return Promise.reject(errors);
 });
 
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -148,6 +154,11 @@ ReactDOM.render(
             component={SuccessConfirmation}
           />
         </Route>
+        <Route
+          onEnter={beforeRegularComponentEnterInterceptor}
+          path={`${window.simContextPath}/welcome`}
+          component={Welcome}
+        />
         <Route path={window.simRootContextPath} component={MainLayout}>
           <Route
             onEnter={beforeSupplierComponentEnterInterceptor}
@@ -246,8 +257,8 @@ ReactDOM.render(
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
-            path={`${window.simContextPath}/onboardingDashboard`}
-            component={OnboardingDashboard}
+            path={`${window.simContextPath}/orderInspect`}
+            component={OrderInspect}
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
