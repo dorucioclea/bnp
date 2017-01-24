@@ -122,12 +122,12 @@ class MainLayout extends React.Component {
     return (
       <div style={{ minHeight: '100vh' }}>
         {showSidebarMenu && <SidebarMenu/>}
-        <div className="container">
-          <section className="content" style={{ overflow: 'visible' }}>
-            {header}
-            <div className="content-wrap">
-              {this.props.children}
-            </div>
+        <div className="container-fluid" style={{ paddingLeft: '250px' }}>
+        <section className="content" style={{ overflow: 'visible' }}>
+          {header}
+          <div className="content-wrap">
+            {this.props.children}
+          </div>
             {footer}
           </section>
         </div>

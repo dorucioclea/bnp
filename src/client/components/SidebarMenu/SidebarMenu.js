@@ -106,7 +106,6 @@ class SidebarMenu extends React.Component {
             </li>
 
             {
-              isSupplier &&
               <li className={`dropdown${
                   this.state.currentOpenMenuName === 'Orders' && ' open' || ''
                 }${
@@ -126,7 +125,23 @@ class SidebarMenu extends React.Component {
                   Orders <span className="badge">3</span>
                 </a>
                 <ul className="dropdown-menu">
+                  { isBuyer &&
                   <li className={`${
+                  this.state.activeMainMenuName === 'Orders' &&
+                  this.state.activeSubMenuName === 'OrderInspect' &&
+                  ' active' ||
+                  ''
+                    }`}
+                  >
+                    <a
+                      href="#"
+                      onClick={this.handleMenuItemClick.bind(this, 'orderInspect', 'Orders', 'OrderInspect')}
+                    >
+                      Order Inspect
+                    </a>
+                  </li>}
+                  { isSupplier &&
+                    <li className={`${
                       this.state.activeMainMenuName === 'Orders' &&
                       this.state.activeSubMenuName === 'OrderCon' &&
                       ' active' ||
@@ -139,7 +154,7 @@ class SidebarMenu extends React.Component {
                     >
                       Order Confirmation <span className="badge">3</span>
                     </a>
-                  </li>
+                  </li>}
                   <li className={`${
                       this.state.activeMainMenuName === 'Orders' &&
                       this.state.activeSubMenuName === 'OrderHistory' &&
@@ -154,7 +169,8 @@ class SidebarMenu extends React.Component {
                       Order History
                     </a>
                   </li>
-                  <li className={`${
+                  { isSupplier &&
+                    <li className={`${
                       this.state.activeMainMenuName === 'Orders' &&
                       this.state.activeSubMenuName === 'PO Download' &&
                       ' active' ||
@@ -167,7 +183,7 @@ class SidebarMenu extends React.Component {
                     >
                       PO Download
                     </a>
-                  </li>
+                  </li>}
                 </ul>
               </li>
             }
@@ -260,7 +276,7 @@ class SidebarMenu extends React.Component {
                   >
                     <a
                       href="#"
-                      onClick={this.handleMenuItemClick.bind(this, 'invoiceCreate', 'Invoice', 'Create New')}
+                      onClick={this.handleMenuItemClick.bind(this, 'invoice/create', 'Invoice', 'Create New')}
                     >
                       Create New
                     </a>
@@ -423,7 +439,7 @@ class SidebarMenu extends React.Component {
                     </a>
                   </li>
                   <li>
-                    <a href={`${window.simContextPath}/campaigns/`}>
+                    <a href={`${window.simContextPath}/campaigns/dashboard`}>
                       Onboarding Campaigns
                     </a>
                   </li>

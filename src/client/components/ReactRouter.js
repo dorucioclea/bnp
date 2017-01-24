@@ -175,7 +175,17 @@ ReactDOM.render(
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
-            path={`${window.simContextPath}/invoiceCreate`}
+            path={`${window.simContextPath}/invoice/create`}
+            component={InvoiceCreate}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/invoice/create/po(/:POId)`}
+            component={InvoiceCreate}
+          />
+          <Route
+            onEnter={beforeRegularComponentEnterInterceptor}
+            path={`${window.simContextPath}/invoice/create/pdf`}
             component={InvoiceCreate}
           />
           <Route

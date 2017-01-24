@@ -8,7 +8,7 @@ export default class InvoiceInspect extends React.Component {
   render() {
     return (
       <div>
-        This is Invoice Inspect page.
+        <img src={`${window.simContextPath}/screenshots/invoiceInspect.jpg`} style={{ maxWidth: '80vw' }}/>
       </div>
     )
   }
