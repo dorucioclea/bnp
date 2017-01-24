@@ -107,7 +107,7 @@ export default class POSearch extends React.Component {
 
           <div className="form-submit text-right">
             <input type="button" value="Reset" className="btn btn-link" onclick="resetForm(this.form);" />
-            <input type="submit" name="_action_list" value="Search" className="btn btn-primary" />
+            <input type="button" name="_action_list" value="Search" className="btn btn-primary" />
           </div>
         </form>
       </div>
