@@ -1,5 +1,6 @@
 import React from 'react';
 import locales from './i18n/locales.js'
+import Button from 'react-bootstrap/lib/Button';
 
 export default class ServerError extends React.Component {
 
@@ -18,9 +19,9 @@ export default class ServerError extends React.Component {
     let backButton;
     if (this.props.onCloseErrorPage) {
       backButton = (
-        <button className="btn btn-primary" type="button" onClick={this.props.onCloseErrorPage}>
+        <Button bsStyle="primary" onClick={this.props.onCloseErrorPage}>
           {this.i18n.getMessage('CommonButtonLabel.back')}
-        </button>
+        </Button>
       );
     }
     return (

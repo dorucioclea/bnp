@@ -7,15 +7,26 @@ const SELLING_ROLE = 'selling';
 
 class SidebarMenu extends React.Component {
   static propTypes = {
-    currentUserInfo: React.PropTypes.object
+    currentUserInfo: React.PropTypes.object,
+    activeMainMenuName: React.PropTypes.string,
+    activeSubMenuName: React.PropTypes.string
   };
 
-  state = {
-    oldOpenMenuName: null,
-    currentOpenMenuName: null,
+  static defaultProps = {
     activeMainMenuName: 'Home',
     activeSubMenuName: null
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      oldOpenMenuName: null,
+      currentOpenMenuName: null,
+      activeMainMenuName: this.props.activeMainMenuName,
+      activeSubMenuName: this.props.activeSubMenuName
+    };
+  }
 
   componentDidMount() {
     document.body.addEventListener('click', this.hideMenu, false);

@@ -10,6 +10,7 @@ import LoginPage from './LoginPage';
 import Registration from './Registration';
 import SellerDashboard from './SellerDashboard';
 import BuyerDashboard from './BuyerDashboard';
+import Welcome from './Welcome';
 import Settings from './Settings';
 import ServiceConfiguration from './ServiceConfiguration';
 import InvoiceCreate from './InvoiceCreate';
@@ -66,6 +67,7 @@ let authenticationService = new AuthenticationService({
 
 function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.isAuthenticated().then(response => {
+    console.log('===== beforeSupplierComponentEnterInterceptor', JSON.stringify(response.data));
     if (!response.data.username) {
       replace(`${window.simContextPath}/login`);
     }
@@ -79,6 +81,7 @@ function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
 function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
   // TODO: prevent suppliers from viewing buyer-only pages and vice-versa.
   authenticationService.currentUserInfo(true).then(response => {
+    console.log('===== beforeRegularComponentEnterInterceptor', JSON.stringify(response.data));
     let currentUserInfo = response.data.currentUserInfo;
 
     if (!currentUserInfo.username) {
@@ -96,6 +99,7 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
 
 function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.currentUserInfo(true).then(response => {
+    console.log('===== beforeDashboardComponentEnterInterceptor', JSON.stringify(response.data));
     let currentUserInfo = response.data.currentUserInfo;
 
     if (!currentUserInfo.username) {
@@ -150,6 +154,11 @@ ReactDOM.render(
             component={SuccessConfirmation}
           />
         </Route>
+        <Route
+          onEnter={beforeRegularComponentEnterInterceptor}
+          path={`${window.simContextPath}/welcome`}
+          component={Welcome}
+        />
         <Route path={window.simRootContextPath} component={MainLayout}>
           <Route
             onEnter={beforeSupplierComponentEnterInterceptor}
