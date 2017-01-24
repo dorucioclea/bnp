@@ -54,14 +54,13 @@ export default class Welcome extends React.Component {
                     the services you select.
                   </p>
                   <br/>
-                  <div className="form-submit text-right" style={{ marginTop: '25%' }}>
+                  <div className="form-submit text-right" style={{ marginTop: '25%', zIndex: '3' }}>
                     <a
                       href="#"
                       onClick={e => {
                         e.preventDefault();
                         browserHistory.push(`${window.simContextPath}/serviceConfigFlow`);
                       }}
-                      style={{ zIndex: '3' }}
                     >
                       <Button bsStyle="primary" bsSize="lg">Start</Button>
                     </a>
