@@ -11,8 +11,8 @@ import Registration from './Registration';
 import SellerDashboard from './SellerDashboard';
 import BuyerDashboard from './BuyerDashboard';
 import Welcome from './Welcome';
+import ServiceConfigFlow from './ServiceConfigFlow';
 import Settings from './Settings';
-import ServiceConfiguration from './ServiceConfiguration';
 import InvoiceCreate from './InvoiceCreate';
 import InvoiceApproval from './InvoiceApproval';
 import InvoiceInspect from './InvoiceInspect';
@@ -22,7 +22,6 @@ import CompanyInformation from './CompanyInformation';
 import InspectRfQ from './InspectRfQ';
 import ViewRfQs from './ViewRfQs';
 import CreateRfQ from './CreateRfQ';
-import OnboardingDashboard from './OnboardingDashboard';
 import SupplierDirectory from './SupplierDirectory';
 import SupplierRating from './SupplierRating';
 import Products from './Products';
@@ -159,6 +158,11 @@ ReactDOM.render(
           path={`${window.simContextPath}/welcome`}
           component={Welcome}
         />
+        <Route
+          onEnter={beforeRegularComponentEnterInterceptor}
+          path={`${window.simContextPath}/serviceConfigFlow`}
+          component={ServiceConfigFlow}
+        />
         <Route path={window.simRootContextPath} component={MainLayout}>
           <Route
             onEnter={beforeSupplierComponentEnterInterceptor}
@@ -204,11 +208,6 @@ ReactDOM.render(
             onEnter={beforeRegularComponentEnterInterceptor}
             path={`${window.simContextPath}/companyInformation`}
             component={CompanyInformation}
-          />
-          <Route
-            onEnter={beforeRegularComponentEnterInterceptor}
-            path={`${window.simContextPath}/serviceConfiguration`}
-            component={ServiceConfiguration}
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}

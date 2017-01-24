@@ -22,7 +22,8 @@ export default class POSearch extends React.Component {
                   <div className="col-sm-8">
                     <div className="input-group">
                       <input type="text" className="form-control" name="supplierId" value=""
-                        readonly="readonly" id="supplierId" />
+                        readonly="readonly" id="supplierId"
+                      />
                       <span className="input-group-btn reference-search">
                         <a id="" href="" className="btn btn-default" title="">
                           <span className="glyphicon glyphicon-search"></span>
@@ -39,7 +40,8 @@ export default class POSearch extends React.Component {
                   <div className="col-sm-8">
                     <div className="input-group">
                       <input type="text" className="form-control" name="supplierId" value=""
-                        readonly="readonly" id="supplierId" />
+                        readonly="readonly" id="supplierId"
+                      />
                       <span className="input-group-btn reference-search">
                         <a id="" href="" className="btn btn-default" title="">
                           <span className="glyphicon glyphicon-search"></span>
@@ -54,12 +56,14 @@ export default class POSearch extends React.Component {
                   <div className="col-sm-8">
                     <div className="input-daterange input-group">
                       <input type="text" name="dueDateFrom" value="03/20/2016" className="form-control"
-                        placeholder="from" id="dueDateFrom" />
+                        placeholder="from" id="dueDateFrom"
+                      />
                       <span className="input-group-addon">
                         &ndash;
                       </span>
                       <input type="text" name="dueDateTo" value="04/20/2016" className="form-control"
-                        placeholder="to" id="dueDateTo" />
+                        placeholder="to" id="dueDateTo"
+                      />
                     </div>
                   </div>
                 </div>
@@ -91,7 +95,9 @@ export default class POSearch extends React.Component {
                   </label>
                   <div className="col-sm-8">
                     <div className="input-group">
-                      <input type="text" maxlength="50" className="form-control" id="loginName" name="assignee" value="" />
+                      <input type="text" maxlength="50" className="form-control" id="loginName"
+                        name="assignee" value=""
+                      />
                       <span className="input-group-btn reference-search">
                         <a id="" href="" className="btn btn-default" title="">
                           <span className="glyphicon glyphicon-search"></span>

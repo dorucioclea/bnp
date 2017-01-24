@@ -1,12 +1,9 @@
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import SidebarMenu from '../SidebarMenu';
+import browserHistory from 'react-router/lib/browserHistory';
 
 export default class Welcome extends React.Component {
-  static contextTypes = {
-    simUrl: React.PropTypes.string
-  };
-
   render() {
     return (
       <div style={{ minHeight: '100vh' }}>
@@ -58,7 +55,16 @@ export default class Welcome extends React.Component {
                   </p>
                   <br/>
                   <div className="form-submit text-right" style={{ marginTop: '25%' }}>
-                    <a href="#"><Button bsStyle="primary" bsSize="lg">Start</Button></a>
+                    <a
+                      href="#"
+                      onClick={e => {
+                        e.preventDefault();
+                        browserHistory.push(`${window.simContextPath}/serviceConfigFlow`);
+                      }}
+                      style={{ zIndex: '3' }}
+                    >
+                      <Button bsStyle="primary" bsSize="lg">Start</Button>
+                    </a>
                   </div>
                 </div>
                 <div className="col-md-4 col-md-offset-1" style={{ margin: '10% 8% 0 -15%' }}>
@@ -80,7 +86,7 @@ export default class Welcome extends React.Component {
           </div>
           </div>
         </section>
-        </div>
+      </div>
     )
   }
 }
