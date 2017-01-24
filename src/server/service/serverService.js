@@ -162,6 +162,8 @@ function initTemplate(app, bundle, chunksManifest) {
     req.session.returnTo = (
       !req.session.currentUserInfo &&
       req.originalUrl.indexOf('/login') === -1 &&
+      req.originalUrl.indexOf('/logout') === -1 &&
+      req.originalUrl.indexOf('/registration') === -1 &&
       req.originalUrl.indexOf('/registration/confirmation') === -1
     ) ?
       req.originalUrl :  // Unknown user wants to view portal internal resources.

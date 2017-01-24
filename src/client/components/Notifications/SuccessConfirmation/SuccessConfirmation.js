@@ -37,7 +37,7 @@ export default class SuccessConfirmation extends React.Component {
           <h2>{this.i18n.getMessage('RegistrationHeader.successConfirmation')}</h2>
           <h4>{this.i18n.getMessage('RegistrationConfirmation.doLogin')}</h4>
           <div className="form-submit text-right">
-            <Button bsStyle="btn btn-primary" onClick={this.handleLogin}>
+            <Button bsStyle="primary" onClick={this.handleLogin}>
               {this.i18n.getMessage('CommonButtonLabel.login')}
             </Button>
           </div>

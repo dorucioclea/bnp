@@ -10,7 +10,6 @@ import {
   SupplierAddressEditor,
   SupplierContactEditor
 } from 'supplier';
-import axios from 'axios';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
@@ -39,25 +38,26 @@ class SupplierApplicationForm extends React.Component {
   }
 
   componentDidMount() {
-    this.applicationFormService = new ApplicationFormService(this.context.simUrl);
+    this.ajaxPromise = new ApplicationFormService(this.context.simUrl).getCountryList();
 
-    this.applicationFormService.getCountryList().then(countries => this.setState({
-      isLoaded: true,
-      countries: countries.data.map(country => ({
-        id: country.countryId,
-        name: country.countryName
-      })).sort((a, b) => a.name.localeCompare(b.name)),
-    })).catch(err => axios.isCancel(err) || this.context.httpResponseHandler(err));
+    this.ajaxPromise.
+      then(res => this.setState({
+        isLoaded: true,
+        countries: res.body.
+          map(({ countryId: id, countryName: name }) => ({ id, name })).
+          sort((a, b) => a.name.localeCompare(b.name))
+      })).
+      catch(err => this.context.httpResponseHandler(err));
   }
 
   componentWillUnmount() {
-    this.axiosAjax.cancel();
+    this.ajaxPromise.cancel();
   }
 
+  ajaxPromise = null;
   i18n = this.context.i18n.register('SupplierApplicationForm', locales)
-  axiosAjax = axios.CancelToken.source()
-
   _confirmLeaveChangesUnsaved = () => window.confirm(this.i18n.getMessage('ApplicationFormConfirmation.unsavedChanges'))
+  isShowWelcomePage = () => true;
 
   handleDirtyState = event => {
     this.isDirty = event.isDirty;
@@ -75,8 +75,13 @@ class SupplierApplicationForm extends React.Component {
       companyRole: newSupplier.companyRole
     }));
 
+    console.log('===== wasSupplierlessUser', wasSupplierlessUser);
     if (wasSupplierlessUser) {
-      browserHistory.push(`${window.simContextPath}/dashboard`);
+      console.log(
+        '==== ABOUT TO LOAD',
+        `${window.simContextPath}/${this.isShowWelcomePage() ? 'welcome' : 'dashboard'}`
+      );
+      browserHistory.push(`${window.simContextPath}/${this.isShowWelcomePage() ? 'welcome' : 'dashboard'}`);
     }
   }
 
@@ -161,7 +166,7 @@ class SupplierApplicationForm extends React.Component {
 
     return (
       <div>
-        <Tabs activeKey={this.state.key} onSelect={this.handleSelect}>
+        <Tabs id="supplierTabs" activeKey={this.state.key} onSelect={this.handleSelect}>
           <Tab eventKey={1} title={this.i18n.getMessage('ApplicationFormTab.company')}>
             {(this.state.key === 1) ? company : null}
           </Tab>

@@ -273,7 +273,7 @@ export default class Registration extends React.Component {
             onClick={this.handleCancelClick}
           >{this.i18n.getMessage('CommonButtonLabel.cancel')}</Button>
           <Button
-            bsStyle="btn btn-primary"
+            bsStyle="primary"
             onClick={this.handleRegisterClick}
           >{this.i18n.getMessage('RegistrationButtonLabel.register')}</Button>
         </div>

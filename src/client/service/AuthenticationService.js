@@ -12,12 +12,17 @@ export default class AuthenticationService {
   }
 
   login(user) {
-    return axios.post(`${window.simContextPath}/login`, user).then(response => browserHistory.push(
-      `${window.simContextPath}${
+    return axios.post(`${window.simContextPath}/login`, user).then(response => {
+      console.log('===== AuthenticationService.login response.data', JSON.stringify(response.data));
+      console.log(`===== AuthenticationService.login redirect to ${window.simContextPath}${
         response.data.returnTo ||
         (response.data.userInfo.supplierId ? '/dashboard' : '/supplierInformation')
-      }`
-    ));
+      }`);
+      browserHistory.push(`${window.simContextPath}${
+        response.data.returnTo ||
+        (response.data.userInfo.supplierId ? '/dashboard' : '/supplierInformation')
+      }`);
+    });
   }
 
   logout() {
