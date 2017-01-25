@@ -122,13 +122,13 @@ class MainLayout extends React.Component {
             <div className="content-wrap" style={{ padding: '0px !important' }}>
               <div className="container" id="container">
                 <div className="box col-xs-12"  style={{
-                  width: "87%",
-                  marginTop: "2%",
-                  // marginLeft: "10%",
-                  padding: "3%",
-                  textAlign: "left",
-                  zIndex: 3,
-                  backgroundColor: "white"
+                  // width: "87%",
+                  // marginTop: "2%",
+                  // // marginLeft: "10%",
+                  // padding: "3%",
+                  // textAlign: "left",
+                  // zIndex: 3,
+                  // backgroundColor: "white"
                 }} id="bluebox">
                   <form className="form-horizontal">
                     {this.props.children}
