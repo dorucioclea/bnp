@@ -106,7 +106,7 @@ export default class LoginPage extends React.Component {
 
             <nav className="navbar navbar-default" style={{
               height: "100px",
-        			backgroundColor: "white !important",
+        			backgroundColor: "white",
         			padding: "2% 2% 0 0"
             }}>
               <div className="container-fluid">
