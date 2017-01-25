@@ -1,6 +1,7 @@
 import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import SidebarMenu from '../SidebarMenu';
+import HeaderMenu from '../Header';
 import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
 class MainLayout extends React.Component {
@@ -122,10 +123,11 @@ class MainLayout extends React.Component {
     return (
       <div style={{ minHeight: '100vh' }}>
         {showSidebarMenu && <SidebarMenu/>}
-        <div className="container-fluid" style={{ paddingLeft: '250px' }}>
+        <div className="container-fluid">
         <section className="content" style={{ overflow: 'visible' }}>
+          <HeaderMenu/>
           {header}
-          <div className="content-wrap">
+          <div className="content-wrap" style={{ paddingLeft: '250px' }}>
             {this.props.children}
           </div>
             {footer}

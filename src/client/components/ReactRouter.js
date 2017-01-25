@@ -10,8 +10,9 @@ import LoginPage from './LoginPage';
 import Registration from './Registration';
 import SellerDashboard from './SellerDashboard';
 import BuyerDashboard from './BuyerDashboard';
+import Welcome from './Welcome';
+import ServiceConfigFlow from './ServiceConfigFlow';
 import Settings from './Settings';
-import ServiceConfiguration from './ServiceConfiguration';
 import InvoiceCreate from './InvoiceCreate';
 import InvoiceApproval from './InvoiceApproval';
 import InvoiceInspect from './InvoiceInspect';
@@ -21,7 +22,6 @@ import CompanyInformation from './CompanyInformation';
 import InspectRfQ from './InspectRfQ';
 import ViewRfQs from './ViewRfQs';
 import CreateRfQ from './CreateRfQ';
-import OnboardingDashboard from './OnboardingDashboard';
 import SupplierDirectory from './SupplierDirectory';
 import SupplierRating from './SupplierRating';
 import Products from './Products';
@@ -30,6 +30,7 @@ import PoDownload from './PoDownload';
 import EInvoice from './EInvoice';
 import OrderConfirmation from './OrderConfirmation';
 import OrderHistory from './OrderHistory';
+import OrderInspect from './OrderInspect';
 import SuccessRegistration from './Notifications/SuccessRegistration';
 import SuccessConfirmation from './Notifications/SuccessConfirmation';
 import AccessDenied from './Errors/AccessDenied';
@@ -65,6 +66,7 @@ let authenticationService = new AuthenticationService({
 
 function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.isAuthenticated().then(response => {
+    console.log('===== beforeSupplierComponentEnterInterceptor', JSON.stringify(response.data));
     if (!response.data.username) {
       replace(`${window.simContextPath}/login`);
     }
@@ -78,6 +80,7 @@ function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
 function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
   // TODO: prevent suppliers from viewing buyer-only pages and vice-versa.
   authenticationService.currentUserInfo(true).then(response => {
+    console.log('===== beforeRegularComponentEnterInterceptor', JSON.stringify(response.data));
     let currentUserInfo = response.data.currentUserInfo;
 
     if (!currentUserInfo.username) {
@@ -95,6 +98,7 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
 
 function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.currentUserInfo(true).then(response => {
+    console.log('===== beforeDashboardComponentEnterInterceptor', JSON.stringify(response.data));
     let currentUserInfo = response.data.currentUserInfo;
 
     if (!currentUserInfo.username) {
@@ -130,6 +134,7 @@ axios.interceptors.response.use(response => {
   return Promise.reject(errors);
 });
 
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -148,6 +153,16 @@ ReactDOM.render(
             component={SuccessConfirmation}
           />
         </Route>
+        <Route
+          onEnter={beforeRegularComponentEnterInterceptor}
+          path={`${window.simContextPath}/welcome`}
+          component={Welcome}
+        />
+        <Route
+          onEnter={beforeRegularComponentEnterInterceptor}
+          path={`${window.simContextPath}/serviceConfigFlow`}
+          component={ServiceConfigFlow}
+        />
         <Route path={window.simRootContextPath} component={MainLayout}>
           <Route
             onEnter={beforeSupplierComponentEnterInterceptor}
@@ -176,7 +191,7 @@ ReactDOM.render(
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
-            path={`${window.simContextPath}/invoice/create/pdf`}
+            path={`${window.simContextPath}/invoice/create/pdf(/:step)`}
             component={InvoiceCreate}
           />
           <Route
@@ -193,11 +208,6 @@ ReactDOM.render(
             onEnter={beforeRegularComponentEnterInterceptor}
             path={`${window.simContextPath}/companyInformation`}
             component={CompanyInformation}
-          />
-          <Route
-            onEnter={beforeRegularComponentEnterInterceptor}
-            path={`${window.simContextPath}/serviceConfiguration`}
-            component={ServiceConfiguration}
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
@@ -246,8 +256,8 @@ ReactDOM.render(
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}
-            path={`${window.simContextPath}/onboardingDashboard`}
-            component={OnboardingDashboard}
+            path={`${window.simContextPath}/orderInspect`}
+            component={OrderInspect}
           />
           <Route
             onEnter={beforeRegularComponentEnterInterceptor}

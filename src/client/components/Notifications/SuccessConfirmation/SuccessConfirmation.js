@@ -33,15 +33,17 @@ export default class SuccessConfirmation extends React.Component {
       );
     } else {
       return (
-        <div>
-          <h2>{this.i18n.getMessage('RegistrationHeader.successConfirmation')}</h2>
-          <h4>{this.i18n.getMessage('RegistrationConfirmation.doLogin')}</h4>
-          <div className="form-submit text-right">
-            <Button bsStyle="btn btn-primary" onClick={this.handleLogin}>
-              {this.i18n.getMessage('CommonButtonLabel.login')}
-            </Button>
-          </div>
-        </div>
+        <div className="col-md-12">
+					<h2>{this.i18n.getMessage('RegistrationHeader.successConfirmation')}</h2>
+  						<p>
+  							Thank you for registering. Please continue to entering company information.
+  						</p>
+				<br />
+				<div className="form-submit text-right">
+					<button className="btn btn-link">Cancel</button>
+					<button className="btn btn-primary" onClick={this.handleLogin}>Continue</button>
+				</div>
+				</div>
       )
     }
   }

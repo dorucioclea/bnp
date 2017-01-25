@@ -205,77 +205,102 @@ export default class Registration extends React.Component {
     let passwordErrorMessage = this._fetchFieldErrors('passwordHash');
 
     return (
-      <div onKeyPress={this.handleEnterPress}>
-        <h2>{i18n.getMessage('RegistrationHeader.registration')}</h2>
-
-        {spinner}
-
-        {warnings}
-
-        <div
-          className={`form-group required ${emailErrorMessage ? 'has-error' : ''}`}
-          style={{ paddingLeft: '15px' }}
-        >
-          <Label
-            className="col-sm-3 control-label"
-            htmlFor="email"
-            objectName="RegistrationLabel"
-            fieldName="email"
-            isRequired={true}
-          />
-          <div className="col-sm-9">
-            <input
-              type="text"
-              id="email"
-              className="form-control"
-              placeholder="Your eMail"
-              onBlur={this.handleValidateField}
-              onChange={e => this.setState({ email: e.target.value })}
-              autoFocus={true}
-            />
-            <small>
-              {i18n.getMessage('RegistrationLabel.email.comment')}
-            </small>
-            {emailErrorMessage}
+      <div className="row">
+        <div className="col-md-8">
+          <h2>{i18n.getMessage('RegistrationHeader.registration')}</h2>
+          {warnings}
+          <div className="col-md-12">
+            <div className="form-group">
+              <Label
+              className="col-sm-4 control-label"
+              htmlFor="email"
+              objectName="RegistrationLabel"
+              fieldName="email"
+              isRequired={true}
+              />
+              <div className="col-sm-8">
+                <input
+                type="text"
+                id="email"
+                className="form-control"
+                placeholder="Your eMail"
+                onBlur={this.handleValidateField}
+                onChange={e => this.setState({ email: e.target.value })}
+                autoFocus={true}
+                />
+                <small>
+                  {/*i18n.getMessage('RegistrationLabel.email.comment')*/}
+                </small>
+                {emailErrorMessage}
+              </div>
+            </div>
+          </div>
+          <div className="col-md-12">
+            <div className="form-group">
+              <Label
+              className="col-sm-4 control-label"
+              htmlFor="passwordHash"
+              objectName="RegistrationLabel"
+              fieldName="password"
+              isRequired={true}
+              />
+              <div className="col-sm-8">
+                <input
+                type='password'
+                id="passwordHash"
+                className="form-control"
+                placeholder="Choose a Password"
+                onBlur={this.handleValidateField}
+                onChange={e => this.setState({ passwordHash: e.target.value })}
+                />
+                <small>
+                  {/*i18n.getMessage('RegistrationLabel.password.comment')*/}
+                </small>
+                {passwordErrorMessage}
+              </div>
+            </div>
+          </div>
+          <div className="col-md-12">
+            <div className="form-submit text-right">
+              <Button
+              bsStyle="link"
+              onClick={this.handleCancelClick}
+              >{this.i18n.getMessage('CommonButtonLabel.cancel')}</Button>
+              <Button
+              bsStyle="primary"
+              onClick={this.handleRegisterClick}
+              >{this.i18n.getMessage('RegistrationButtonLabel.register')}</Button>
+            </div>
+            {spinner}
           </div>
         </div>
-
-        <div
-          className={`form-group required ${passwordErrorMessage ? 'has-error' : ''}`}
-          style={{ paddingLeft: '15px' }}
-        >
-          <Label
-            className="col-sm-3 control-label"
-            htmlFor="passwordHash"
-            objectName="RegistrationLabel"
-            fieldName="password"
-            isRequired={true}
-          />
-          <div className="col-sm-9">
-            <input
-              type='password'
-              id="passwordHash"
-              className="form-control"
-              placeholder="Choose a Password"
-              onBlur={this.handleValidateField}
-              onChange={e => this.setState({ passwordHash: e.target.value })}
-            />
-            <small>
-              {i18n.getMessage('RegistrationLabel.password.comment')}
-            </small>
-            {passwordErrorMessage}
-          </div>
-        </div>
-
-        <div className="form-submit text-right">
-          <Button
-            bsStyle="link"
-            onClick={this.handleCancelClick}
-          >{this.i18n.getMessage('CommonButtonLabel.cancel')}</Button>
-          <Button
-            bsStyle="btn btn-primary"
-            onClick={this.handleRegisterClick}
-          >{this.i18n.getMessage('RegistrationButtonLabel.register')}</Button>
+        <div className="col-md-4">
+          <p style={{
+            margin: "25% 0 0 10%",
+            fontSize: "150%"
+          }}>Registration</p>
+          <br />
+          <p>
+            Registration requires a valid e-mail address. Once your registration has been submitted, you will receive an e-mail containing a link for account activation.
+          </p>
+          <p style={{
+            marginLeft: "10%",
+            fontSize: "150%"
+          }}>Password</p>
+          <ul>
+            <li>
+              Consist of at least 8 characters
+            </li>
+            <li>
+              Has a number and capital letter
+            </li>
+            <li>
+              Has a special character
+            </li>
+            <li>
+              Be unlike username
+            </li>
+          </ul>
         </div>
       </div>
     )

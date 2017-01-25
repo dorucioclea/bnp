@@ -31,7 +31,7 @@ RegistrationLabel.email.comment =
 RegistrationLabel.emailConfirmation.label = 'Email confirmation';
 
 let RegistrationHeader = {};
-RegistrationHeader.registration = 'User account registration';
+RegistrationHeader.registration = 'Please Register as New User';
 RegistrationHeader.successRegistration = 'Your registration was successful';
 RegistrationHeader.successConfirmation = 'Your account has been confirmed and activated';
 

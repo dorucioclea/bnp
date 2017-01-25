@@ -1,6 +1,6 @@
 import React from 'react';
 import POSearch from './POSearch';
-import ImportPDF from './ImportPDF';
+import ImportPDF from './PDF/Import';
 import CreateForm from './CreateForm';
 
 class InvoiceCreate extends React.Component {
@@ -17,8 +17,8 @@ class InvoiceCreate extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       this.decideChild(nextProps);
-      this.props = nextProps;
     }
+    this.props = nextProps;
   }
 
   onSelectType = (type) => {
@@ -38,7 +38,7 @@ class InvoiceCreate extends React.Component {
       this.child = <POSearch />;
       this.selection = 'usePO';
     } else if (props.location.pathname.indexOf('pdf') > -1) {
-      this.child = <ImportPDF />;
+      this.child = <ImportPDF {...props} />;
       this.selection = 'pdf';
     } else {
       this.child = <CreateForm />;
@@ -69,18 +69,23 @@ class InvoiceCreate extends React.Component {
                 <div className="col-sm-8">
                   <label className="oc-radio">
                     <input type="radio" name="creationType" checked={this.selection === 'manual'}
-                      onClick={this.onSelectType.bind(this, 'manual')}/>
+                      onClick={this.onSelectType.bind(this, 'manual')}
+                    />
                     filling in invoices manually
                   </label>
                   <br />
                   <label className="oc-radio">
                     <input type="radio" name="creationType" checked={this.selection === 'usePO'}
-                      onClick={this.onSelectType.bind(this, 'usePO')} />converting an existing PO
+                      onClick={this.onSelectType.bind(this, 'usePO')}
+                    />
+                    converting an existing PO
                   </label>
                   <br />
                   <label className="oc-radio">
                     <input type="radio" name="creationType" checked={this.selection === 'pdf'}
-                      onClick={this.onSelectType.bind(this, 'pdf')} />uploading a PDF file
+                      onClick={this.onSelectType.bind(this, 'pdf')}
+                    />
+                    uploading a PDF file
                   </label>
                 </div>
               </div>

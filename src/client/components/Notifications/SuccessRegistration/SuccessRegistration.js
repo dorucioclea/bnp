@@ -17,13 +17,18 @@ export default class SuccessRegistration extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>{this.i18n.getMessage('RegistrationHeader.successRegistration')}</h2>
-        <h4>{this.i18n.getMessage('RegistrationConfirmation.checkEmail')}</h4>
+      <div className="row">
+        <div className="col-md-12">
+          <h2>{this.i18n.getMessage('RegistrationHeader.successRegistration')}</h2>
+              <p>
+                We have sent an activation link to you e-mail. Please use the link to complete your registration.<br/>Please note that receiving the e-mail might take some time.
+              </p>
+              <a href="#"><p style={{color: "#ec6608"}}>Didn't get the e-mail?	</p></a>
+        <br/>
         <div className="form-submit text-right">
-          <Button bsStyle="btn btn-primary" onClick={this.handleLogin}>
-            {this.i18n.getMessage('CommonButtonLabel.login')}
-          </Button>
+          <button className="btn btn-link">Cancel</button>
+          <button className="btn btn-primary" onClick={this.handleLogin}>{this.i18n.getMessage('CommonButtonLabel.login')}</button>
+        </div>
         </div>
       </div>
     )
