@@ -120,7 +120,10 @@ function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
 
 function logout(nextState, replace, cb) {
   authenticationService.logout();
-  cb();
+  if (typeof window !== 'undefined') {
+    var path = location.protocol + '//' + location.host + "/";
+    window.location = path;
+  }
 }
 
 // may be can be deleted
