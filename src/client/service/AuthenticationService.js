@@ -32,6 +32,12 @@ export default class AuthenticationService {
     }).catch(this.props.httpResponseHandler);
   }
 
+  onboardingDone() {
+    return axios.get(`${window.simContextPath}/onboardingDone`).then(() => {
+      browserHistory.push(`${window.simContextPath}/dashboard`);
+    }).catch(this.props.httpResponseHandler);
+  }
+
   verifyUser(verificationToken) {
     return axios.post(`${window.simContextPath}/user/verify`,
       JSON.stringify({

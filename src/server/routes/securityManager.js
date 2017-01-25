@@ -85,6 +85,10 @@ module.exports = function(app, db) {
       res.sendStatus(401);
   });
 
+  app.get('/onboardingDone', (req, res) => {
+    res.sendStatus(200);
+  });
+
   app.use('/api/*', (req, res, next) => {
     if (!req.isAuthenticated || !req.isAuthenticated()) {
       console.warn(`Not authenticated user rejected to use api`);
