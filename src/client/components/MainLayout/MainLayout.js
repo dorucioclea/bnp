@@ -2,7 +2,7 @@ import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import SidebarMenu from '../SidebarMenu';
 import HeaderMenu from '../Header';
-import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 
 class MainLayout extends React.Component {
   static propTypes = {
@@ -15,47 +15,53 @@ class MainLayout extends React.Component {
 
     let header = isOnboarding ?
       (
-        <Navbar
-          collapseOnSelect={true}
-          fluid={true}
-          style={{
-            height: '13%',
-            backgroundColor: 'white !important',
-            padding: '2% 2% 0 0'
-          }}
-        >
-          <Navbar.Header>
-            <Navbar.Brand style={{ lineHeight: '45px', height: '90px' }}>
-              <img
-                src={`${window.simContextPath}/img/OC-logo-BN-orange-gray.svg`}
-                style={{ position: 'absolute', width: '15%', top: '15%', left: '0%' }}
-              />
-              <p
-                style={{
-                  display: 'table',
-                  position: 'absolute',
-                  top: '10%',
-                  left: '30%',
-                  fontSize: '200%',
-                  color: '#67707C',
-                  opacity: '0.75'
-                }}
-              >
-                Welcome to OpusCapita
-                <br/>
-                Supplier Onboarding
-              </p>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight={true} style={{ paddingRight: '31px' }}>
-              <NavDropdown eventKey={3} title="English" id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>German</MenuItem>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+        <nav className="navbar navbar-default" style={{
+          height: "100px",
+          backgroundColor: "white",
+          padding: "2% 2% 0 0"
+        }}>
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+            <img src="/img/OC-logo-BN-orange-gray.svg" style={{
+              position: "absolute",
+              width: "15%",
+              top: "8%"
+            }} />
+            <p style={{
+              display: "table",
+              position: "absolute",
+              top: "10%",
+              left: "38%",
+              fontSize: "200%",
+              color: "#67707C",
+              opacity: "0.75"
+            }}>Welcome to OpusCapita<br/> Supplier Onboarding</p>
+          </div>
+
+
+          <ul className="nav navbar-nav navbar-right">
+            <Dropdown id="dropdown-custom-1">
+              <Dropdown.Toggle>
+                <Glyphicon glyph="star" />
+                English
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="super-colors">
+                <MenuItem eventKey="1">Suomi</MenuItem>
+                <MenuItem eventKey="2">German</MenuItem>
+                <MenuItem eventKey="3" active>English</MenuItem>
+                <MenuItem divider />
+                <MenuItem eventKey="4">Separated link</MenuItem>
+              </Dropdown.Menu>
+            </Dropdown>
+          </ul>
+        </div>
+      </nav>
       ) :
       (
         <a className="applogo visible-md visible-sm visible-xs" href="http://www.opuscapita.com/">
@@ -102,21 +108,37 @@ class MainLayout extends React.Component {
 
     if (isOnboarding) {
       return (
-        <section
-          className="content"
-          style={{
-            backgroundImage: `url("${window.simContextPath}/img/service-config-welcome.jpg")`,
-            maxWidth: '100%',
-            backgroundSize: '100%',
-            minHeight: '100vh'
-          }}
-        >
-          {header}
-          <div className="content-wrap" style={{ padding: '0px !important' }}>
-            {this.props.children}
-          </div>
-          {footer}
-        </section>
+        <div style={{height: "100%"}}>
+          <section
+            className="content"
+            style={{
+              backgroundImage: `url("${window.simContextPath}/img/service-config-welcome.jpg")`,
+              maxWidth: '100%',
+              backgroundSize: '100%',
+              minHeight: '100vh'
+            }}
+          >
+            {header}
+            <div className="content-wrap" style={{ padding: '0px !important' }}>
+              <div className="container" id="container">
+                <div className="box col-xs-12"  style={{
+                  width: "87%",
+                  marginTop: "2%",
+                  // marginLeft: "10%",
+                  padding: "3%",
+                  textAlign: "left",
+                  zIndex: 3,
+                  backgroundColor: "white"
+                }} id="bluebox">
+                  <form className="form-horizontal">
+                    {this.props.children}
+                  </form>
+                </div>
+              </div>
+            </div>
+            </section>
+            {footer}
+        </div>
       );
     }
 
