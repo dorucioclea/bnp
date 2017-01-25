@@ -16,7 +16,7 @@
         "pass": "3NzaC1yc2"
       }
     },
-    "defaultFromAddress": "Business Network Portal <sim@jcatalog.com>"
+    "defaultFromAddress": "Business Network Portal <noreply@opuscapita.com>"
   },
   "jcatalogWorkflowAdminEmailConfigurationAttribute" : "sim@jcatalog.com",
   "defaultClassification": "eClass_6.0.1",
