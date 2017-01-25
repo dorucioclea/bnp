@@ -11,7 +11,7 @@ let plugins = [
     new RegExp('\\' + path.sep + 'node_modules\\' + path.sep + 'moment\\' + path.sep + 'locale'),
     /en|de/
   ),
-  new webpack.NoErrorsPlugin()
+  new webpack.NoEmitOnErrorsPlugin()
 ];
 
 if (NODE_ENV == 'production') {

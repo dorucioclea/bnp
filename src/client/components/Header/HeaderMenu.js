@@ -48,11 +48,11 @@ class HeaderMenu extends React.Component {
           </form>
           <ul className="nav navbar-nav navbar-no-collapse navbar-right">
             <li className={this.state.showHideDropdown}>
-              <a className="dropdown-toggle hidden-sm hidden-xs" onClick={this.toggleDropDown.bind(this)}  dataToggle="dropdown" href="#">
+              <a className="dropdown-toggle hidden-sm hidden-xs" onClick={this.toggleDropDown.bind(this)}  data-toggle="dropdown" href="#">
                 {userInfo.username}
                 <b className="caret"></b>
               </a>
-              <a className="dropdown-toggle icon-nav-item visible-sm visible-xs" dataToggle="dropdown" href="#">
+              <a className="dropdown-toggle icon-nav-item visible-sm visible-xs" data-toggle="dropdown" href="#">
                 <span className="glyphicon glyphicon-user"></span>
               </a>
               <ul className="dropdown-menu">
@@ -69,7 +69,7 @@ class HeaderMenu extends React.Component {
               </ul>
             </li>
             <li className="dropdown">
-              <a className="dropdown-toggle hidden-sm hidden-xs" dataToggle="dropdown" href="#">
+              <a className="dropdown-toggle hidden-sm hidden-xs" data-toggle="dropdown" href="#">
                 {userInfo.supplierName}
               </a>
             </li>
