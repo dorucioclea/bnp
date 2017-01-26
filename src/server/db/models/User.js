@@ -119,6 +119,16 @@ module.exports = function(sequelize) {
       field: 'MayChangeCustomer',
       type: Sequelize.BOOLEAN
     },
+    showWelcomePage: {
+      field: 'ShowWelcomePage',
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
+    verificationToken: {
+      field: 'VerificationToken',
+      type: Sequelize.STRING()
+    },
     createdBy: {
       field: 'CreatedBy',
       type: Sequelize.STRING(60),
@@ -128,10 +138,6 @@ module.exports = function(sequelize) {
       field: 'ChangedBy',
       type: Sequelize.STRING(60),
       allowNull: false
-    },
-    verificationToken: {
-      field: 'VerificationToken',
-      type: Sequelize.STRING()
     }
   }, {
     tableName: 'CatalogUser',

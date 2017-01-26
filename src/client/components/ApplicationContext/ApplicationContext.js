@@ -61,7 +61,7 @@ class ApplicationContext extends React.Component {
       dateTimePattern: this.state.dateTimePattern,
       simUrl: this.state.simUrl,
       supplierUrl: this.state.simUrl + '/gateway/supplier',
-      httpResponseHandler: httpResponseHandler,
+      httpResponseHandler,
       authenticationService: this.props.route.context.authenticationService
     };
   }

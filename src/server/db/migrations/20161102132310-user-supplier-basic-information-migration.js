@@ -118,6 +118,12 @@ module.exports = {
           field: 'MayChangeCustomer',
           type: Sequelize.BOOLEAN
         },
+        showWelcomePage: {
+          field: 'ShowWelcomePage',
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defaultValue: true
+        },
         verificationToken: {
           field: 'VerificationToken',
           type: Sequelize.STRING()

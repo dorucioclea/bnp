@@ -15,9 +15,8 @@ export default class ServiceConfigStepFive extends React.Component {
     isAccepted: false
   }
 
-  handleSubmit() {
-    browserHistory.push(`${window.simContextPath}/dashboard`);
-    //this.context.authenticationService.onboardingDone();
+  handleSubmit = () => {
+    this.context.authenticationService.onboardingDone();
   }
 
   render() {

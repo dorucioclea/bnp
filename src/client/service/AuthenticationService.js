@@ -3,8 +3,9 @@ import browserHistory from 'react-router/lib/browserHistory';
 
 export default class AuthenticationService {
 
-  constructor(props) {
-    this.props = props;
+  constructor({ httpResponseHandler, resetCurrentUserInfo }) {
+    this.httpResponseHandler = httpResponseHandler;
+    this.resetCurrentUserInfo = resetCurrentUserInfo;
   }
 
   isAuthenticated() {
@@ -27,14 +28,14 @@ export default class AuthenticationService {
 
   logout() {
     return axios.get(`${window.simContextPath}/logout`).then(() => {
-      this.props.resetCurrentUserInfo();
-    }).catch(this.props.httpResponseHandler);
+      this.resetCurrentUserInfo();
+    }).catch(this.httpResponseHandler);
   }
 
   onboardingDone() {
     return axios.get(`${window.simContextPath}/onboardingDone`).then(() => {
       browserHistory.push(`${window.simContextPath}/dashboard`);
-    }).catch(this.props.httpResponseHandler);
+    }).catch(this.httpResponseHandler);
   }
 
   verifyUser(verificationToken) {

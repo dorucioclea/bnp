@@ -73,7 +73,7 @@ export default class ServiceConfigStepTwo extends React.Component {
                 <div className="col-sm-9">
                   <FormControl
                     type="text"
-                    value={this.state.contactPhone}
+                    value={this.state.contactPhone || ''}
                     placeholder="556677-1122"
                     onChange={e => this.setState({ ediAddress: e.target.value })}
                   />
@@ -180,7 +180,7 @@ export default class ServiceConfigStepTwo extends React.Component {
                 <div className="col-sm-9">
                   <FormControl
                     type="text"
-                    value={this.state.contactName}
+                    value={this.state.contactName || ''}
                     placeholder="Name"
                     onChange={e => this.setState({ contactName: e.target.value })}
                   />
@@ -191,7 +191,7 @@ export default class ServiceConfigStepTwo extends React.Component {
                 <div className="col-sm-9">
                   <FormControl
                     type="text"
-                    value={this.state.contactPhone}
+                    value={this.state.contactPhone || ''}
                     placeholder="+491732185516"
                     onChange={e => this.setState({ contactPhone: e.target.value })}
                   />
@@ -204,7 +204,7 @@ export default class ServiceConfigStepTwo extends React.Component {
                 <div className="col-sm-9">
                   <FormControl
                     type="text"
-                    value={this.state.contactEmail}
+                    value={this.state.contactEmail || ''}
                     placeholder="name@company.com"
                     onChange={e => this.setState({ contactEmail: e.target.value })}
                   />

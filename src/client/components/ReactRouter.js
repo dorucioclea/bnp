@@ -87,6 +87,8 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
       replace(`${window.simContextPath}/login`);
     } else if (!currentUserInfo.supplierId) {
       replace(`${window.simContextPath}/supplierInformation`);
+    } else if (currentUserInfo.showWelcomePage) {
+      replace(`${window.simContextPath}/welcome`);
     }
 
     done();
@@ -96,6 +98,23 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
   });
 }
 
+function beforeServiceConfigComponentEnterInterceptor(nextState, replace, done) {
+  authenticationService.currentUserInfo(true).then(response => {
+    console.log('===== beforeServiceConfigComponentEnterInterceptor', JSON.stringify(response.data));
+    let currentUserInfo = response.data.currentUserInfo;
+
+    if (!currentUserInfo.username) {
+      replace(`${window.simContextPath}/login`);
+    } else if (!currentUserInfo.supplierId) {
+      replace(`${window.simContextPath}/supplierInformation`);
+    }
+
+    done();
+  }).catch(err => {
+    replace(`${window.simContextPath}/login`);
+    done();
+  });
+}
 function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.currentUserInfo(true).then(response => {
     console.log('===== beforeDashboardComponentEnterInterceptor', JSON.stringify(response.data));
@@ -105,6 +124,8 @@ function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
       replace(`${window.simContextPath}/login`);
     } else if (!currentUserInfo.supplierId) {
       replace(`${window.simContextPath}/supplierInformation`);
+    } else if (currentUserInfo.showWelcomePage) {
+      replace(`${window.simContextPath}/welcome`);
     } else if (currentUserInfo.companyRole === BUYING_ROLE) {
       replace(`${window.simContextPath}/buyerDashboard`);
     } else if (currentUserInfo.companyRole === SELLING_ROLE) {
@@ -118,6 +139,31 @@ function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
   });
 }
 
+function beforeWelcomeComponentEnterInterceptor(nextState, replace, done) {
+  authenticationService.currentUserInfo(true).then(response => {
+    console.log('===== beforeWelcomeComponentEnterInterceptor', JSON.stringify(response.data));
+    let currentUserInfo = response.data.currentUserInfo;
+
+    if (!currentUserInfo.username) {
+      replace(`${window.simContextPath}/login`);
+    } else if (!currentUserInfo.supplierId) {
+      replace(`${window.simContextPath}/supplierInformation`);
+    } else if (!currentUserInfo.showWelcomePage) {
+      if (currentUserInfo.companyRole === BUYING_ROLE) {
+        replace(`${window.simContextPath}/buyerDashboard`);
+      } else if (currentUserInfo.companyRole === SELLING_ROLE) {
+        replace(`${window.simContextPath}/sellerDashboard`);
+      }
+    }
+
+    done();
+  }).catch(err => {
+    replace(`${window.simContextPath}/login`);
+    done();
+  });
+}
+
+
 function logout(nextState, replace, cb) {
   authenticationService.logout();
   if (typeof window !== 'undefined') {
@@ -126,7 +172,7 @@ function logout(nextState, replace, cb) {
   }
 }
 
-// may be can be deleted
+// TODO: may be can be deleted
 axios.interceptors.response.use(response => {
   return response;
 }, errors => {
@@ -157,12 +203,12 @@ ReactDOM.render(
           />
         </Route>
         <Route
-          onEnter={beforeRegularComponentEnterInterceptor}
+          onEnter={beforeWelcomeComponentEnterInterceptor}
           path={`${window.simContextPath}/welcome`}
           component={Welcome}
         />
         <Route
-          onEnter={beforeRegularComponentEnterInterceptor}
+          onEnter={beforeServiceConfigComponentEnterInterceptor}
           path={`${window.simContextPath}/serviceConfigFlow`}
           component={ServiceConfigFlow}
         />

@@ -77,11 +77,7 @@ class SupplierApplicationForm extends React.Component {
 
     console.log('===== wasSupplierlessUser', wasSupplierlessUser);
     if (wasSupplierlessUser) {
-      console.log(
-        '==== ABOUT TO LOAD',
-        `${window.simContextPath}/${this.isShowWelcomePage() ? 'welcome' : 'dashboard'}`
-      );
-      browserHistory.push(`${window.simContextPath}/${this.isShowWelcomePage() ? 'welcome' : 'dashboard'}`);
+      browserHistory.push(`${window.simContextPath}/dashboard`);
     }
   }
 

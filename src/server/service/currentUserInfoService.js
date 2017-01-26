@@ -57,6 +57,7 @@ module.exports = function(db, session, username, locale) {
     // eslint-disable-next-line no-param-reassign
     session.currentUserInfo = {
       username,
+      showWelcomePage: userData.showWelcomePage,
       supplierId: suppliersData.length ? suppliersData[0].supplierId : null,
       supplierName: suppliersData.length ? suppliersData[0].supplierName : null,
       companyRole: suppliersData.length ? suppliersData[0].role : null,

@@ -171,13 +171,7 @@ function initTemplate(app, bundle, chunksManifest) {
 
     if (req.session.currentUserInfo && req.originalUrl.indexOf('/login') !== -1) {
       // Known user is at login-page.
-      res.redirect(getOriginalProtocolHostPort(req) +
-        (
-          req.session.currentUserInfo.supplierId ?
-            '/dashboard' :
-            '/supplierInformation'
-        )
-      );
+      res.redirect(getOriginalProtocolHostPort(req) + '/dashboard');
     } else {
       res.render('home', {
         simPublicUrl: getOriginalProtocolHostPort(req),

@@ -86,7 +86,28 @@ module.exports = function(app, db) {
   });
 
   app.get('/onboardingDone', (req, res) => {
-    res.sendStatus(200);
+    db.User.
+      update({
+        showWelcomePage: false
+      }, {
+        where: { LoginName: req.session.currentUserInfo.username }
+      }).
+      then(([affectedCount]) => {
+        if (affectedCount === 0) {
+          console.warn(
+            `Onboarding final submit has failed. User ${req.session.currentUserInfo.username} not found`
+          );
+          return res.sendStatus(401);
+        }
+
+        req.session.currentUserInfo.showWelcomePage = false;
+        res.sendStatus(205);
+        return;  // The same as return Promise.resolve();
+      }).
+      catch(err => {
+        console.log(`Error unsetting "showWelcomePage" for ${req.session.currentUserInfo.username}`, err);
+        res.status(403).send(err);
+      });
   });
 
   app.use('/api/*', (req, res, next) => {

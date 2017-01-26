@@ -141,7 +141,7 @@ export default class ServiceConfigStepOne extends React.Component {
                 <div className="col-sm-9">
                   <FormControl
                     type="text"
-                    value={this.state.invitationCode}
+                    value={this.state.invitationCode || ''}
                     placeholder="Enter your code here."
                     onChange={e => this.setState({ invitationCode: e.target.value })}
                   />
