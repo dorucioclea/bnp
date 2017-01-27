@@ -10,6 +10,11 @@ import Alert from './../Alert/Alert.jsx';
 import validator from 'validate.js';
 import CryptoJS from 'crypto-js';
 
+function getCookie(name) {
+  let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match && match[2] || '';
+}
+
 export default class Registration extends React.Component {
   static contextTypes = {
     userRegistrationService: React.PropTypes.object,
@@ -22,13 +27,20 @@ export default class Registration extends React.Component {
     i18n: React.PropTypes.object
   };
 
-  state = {
-    formErrors: {
-      email: null,
-      passwordHash: null
-    },
-    isWarningsExists: false
-  };
+  constructor(props, context) {
+    super(props, context);
+    //document.cookie = 'CAMPAIGN_INFO={"companyName":"NCC Svenska","contactEmail":"test@arne-graeper.de"}';
+    let match = JSON.parse(getCookie('CAMPAIGN_INFO') || '{}');
+
+    this.state = {
+      email: match && match.contactEmail || '',
+      formErrors: {
+        email: null,
+        passwordHash: null
+      },
+      isWarningsExists: false
+    };
+  }
 
   getChildContext() {
     if (!this.context.userRegistrationService) {
@@ -223,6 +235,7 @@ export default class Registration extends React.Component {
                 type="text"
                 id="email"
                 className="form-control"
+                value={this.state.email}
                 placeholder="Your eMail"
                 onBlur={this.handleValidateField}
                 onChange={e => this.setState({ email: e.target.value })}
