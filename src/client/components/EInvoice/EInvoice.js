@@ -7,20 +7,16 @@ import I18nBundle from '../Widgets/components/I18nBundle';
 
 export default class EInvoice extends React.Component {
 
-	static contextTypes = {
-    i18n: React.PropTypes.object,
-    formatPatterns: React.PropTypes.object,
-    dateTimePattern: React.PropTypes.string,
-    simUrl: React.PropTypes.string
+  static contextTypes = {
+    i18n: React.PropTypes.object
   };
 
-	i18n = this.context.i18n.register('CreateAccount', locales);
+  i18n = this.context.i18n.register('CreateAccount', locales);
 
-	handleSelect(index, last) {
-		console.log('Selected tab: ' + index + ', Last tab: ' + last);
-		this.props.activeKey = index;
-	}
-
+  handleSelect(index, last) {
+    console.log('Selected tab: ' + index + ', Last tab: ' + last);
+    this.props.activeKey = index;
+  }
 
 	render() {
 		return (

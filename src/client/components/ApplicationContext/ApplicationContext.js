@@ -31,8 +31,8 @@ class ApplicationContext extends React.Component {
     if (cookie.load('LANGUAGE_COOKIE_KEY')) {
       let forceReload = this.props.currentUserInfo.username === undefined;  // Quering the server for the 1st time.
 
-      this.props.route.context.authenticationService.currentUserInfo(forceReload).then(response => {
-        let currentUserInfo = response.data.currentUserInfo || {
+      this.props.route.context.authenticationService.currentUserInfo(forceReload).then(currentUserInfo => {
+        let userInfo = currentUserInfo || {
           locale: cookie.load('LANGUAGE_COOKIE_KEY'),
           user: null,
           username: null,
@@ -42,13 +42,13 @@ class ApplicationContext extends React.Component {
         if (this.props.currentUserInfo.supplierId) {
           // supplierId is known but server might have obsolete info
           // (the user could assign/change his supplier after initial login).
-          currentUserInfo.supplierId = this.props.currentUserInfo.supplierId;
-          currentUserInfo.supplierName = this.props.currentUserInfo.supplierName;
-          currentUserInfo.companyRole = this.props.currentUserInfo.companyRole;
+          userInfo.supplierId = this.props.currentUserInfo.supplierId;
+          userInfo.supplierName = this.props.currentUserInfo.supplierName;
+          userInfo.companyRole = this.props.currentUserInfo.companyRole;
         }
 
-        if (JSON.stringify(currentUserInfo) !== JSON.stringify(this.props.currentUserInfo)) {
-          this.props.dispatch(setCurrentUserInfo(currentUserInfo));
+        if (JSON.stringify(userInfo) !== JSON.stringify(this.props.currentUserInfo)) {
+          this.props.dispatch(setCurrentUserInfo(userInfo));
         }
       });
 
@@ -67,51 +67,29 @@ class ApplicationContext extends React.Component {
   }
 
   componentDidMount() {
-    this._fetchDefaultLocale();
-    this._fetchApplicationUrl();
-    this._fetchFormatPatterns();
+    // Fetch default locale.
+    if (!cookie.load('LANGUAGE_COOKIE_KEY')) {
+      this.props.route.context.authenticationService.defaultLocale().then(locale => {
+        // The cookie could be set by Login Page by now.
+        if (!cookie.load('LANGUAGE_COOKIE_KEY') && !this.ignoreAjax) {
+          cookie.save('LANGUAGE_COOKIE_KEY', locale, { path: window.simRootContextPath });
+          this.setState({ locale });
+        }
+      });
+    }
+
+    // Fetch SIM application url.
+    this.props.route.context.authenticationService.applicationUrl().
+      then(simUrl => this.ignoreAjax || this.setState({ simUrl }));
+
+    // Fetch format patterns.
+    this.props.route.context.authenticationService.formatPatterns().
+      then(formatPatterns => this.ignoreAjax || this.setState({ formatPatterns }));
   }
 
-  _fetchDefaultLocale = () => {
-    if (!cookie.load('LANGUAGE_COOKIE_KEY')) {
-      this.props.route.context.authenticationService.defaultLocale().then(response => {
-        if (!cookie.load('LANGUAGE_COOKIE_KEY')) {
-          cookie.save('LANGUAGE_COOKIE_KEY', response.data, {
-            path: window.simRootContextPath
-          });
-          this.setState({
-            locale: response.data
-          });
-        }
-      });
-    }
-  };
-
-  _fetchApplicationUrl = () => {
-    if (!this.state.simUrl) {
-      this.props.route.context.authenticationService.applicationUrl().then(response => {
-        if (!this.state.simUrl) {
-          // this.simUrl = response.data;
-          this.setState({
-            simUrl: response.data
-          });
-        }
-      });
-    }
-  };
-
-  _fetchFormatPatterns = () => {
-    if (!this.state.formatPatterns) {
-      this.props.route.context.authenticationService.formatPatterns().then(response => {
-        if (!this.state.formatPatterns) {
-          // this.formatPatterns = response.data.formatPatterns;
-          this.setState({
-            formatPatterns: response.data.formatPatterns
-          });
-        }
-      });
-    }
-  };
+  componentWillUnmount() {
+    this.ignoreAjax = true;
+  }
 
   _initI18n = () => {
     if (
@@ -123,7 +101,6 @@ class ApplicationContext extends React.Component {
     ) {
       this.i18n = new I18nManager(cookie.load('LANGUAGE_COOKIE_KEY'), validateMessages, this.state.formatPatterns);
       this.i18n.register('Common', locales);
-      // this.dateTimePattern = this.formatPatterns[cookie.load('LANGUAGE_COOKIE_KEY').toString()].dateTimePattern;
       this.setState({
         dateTimePattern: this.state.formatPatterns[cookie.load('LANGUAGE_COOKIE_KEY').toString()].dateTimePattern
       });

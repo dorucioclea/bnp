@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ajaxRequest from 'superagent';
 
 const consulEmitter = require('./consulService.js').emitter;
 let supplierUrl = null;
@@ -35,11 +35,11 @@ module.exports = function(db, session, username, locale) {
       where: { LoginName: username }
     }),
     supplierUrl ?
-      axios.get(`${supplierUrl}/api/suppliers`, {
-        params: { userId: username }
-      }) :
+      ajaxRequest.
+        get(`${supplierUrl}/api/suppliers`).
+        query({ userId: username }) :
       Promise.resolve({
-        data: []
+        body: []
       })
   ];
 
@@ -52,7 +52,7 @@ module.exports = function(db, session, username, locale) {
     }
 
     let userData = user.dataValues;
-    let suppliersData = suppliers.data;
+    let suppliersData = suppliers.body;
 
     // eslint-disable-next-line no-param-reassign
     session.currentUserInfo = {

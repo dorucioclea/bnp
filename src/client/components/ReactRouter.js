@@ -41,7 +41,6 @@ import httpResponseHandler from './../httpResponseHandler';
 import ApplicationContext from './ApplicationContext';
 import simRootApplicationReducer from './../redux/reducers.js';
 import { setCurrentUserInfo } from './../redux/actions.js';
-import axios from 'axios';
 import SupplierApplicationForm from './SupplierApplicationForm';
 
 const BUYING_ROLE = 'buying';
@@ -55,9 +54,11 @@ function getInitialCurrentUserInfo() {
   };
 }
 
-let store = createStore(simRootApplicationReducer, {
-  currentUserInfo: getInitialCurrentUserInfo()
-});
+let store = createStore(
+  simRootApplicationReducer,
+  { currentUserInfo: getInitialCurrentUserInfo() },
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 let authenticationService = new AuthenticationService({
   httpResponseHandler,
@@ -65,9 +66,9 @@ let authenticationService = new AuthenticationService({
 });
 
 function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
-  authenticationService.isAuthenticated().then(response => {
-    console.log('===== beforeSupplierComponentEnterInterceptor', JSON.stringify(response.data));
-    if (!response.data.username) {
+  authenticationService.isAuthenticated().then(username => {
+    console.log('===== beforeSupplierComponentEnterInterceptor', JSON.stringify(username));
+    if (!username) {
       replace(`${window.simContextPath}/login`);
     }
     done();
@@ -79,9 +80,8 @@ function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
 
 function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
   // TODO: prevent suppliers from viewing buyer-only pages and vice-versa.
-  authenticationService.currentUserInfo(true).then(response => {
-    console.log('===== beforeRegularComponentEnterInterceptor', JSON.stringify(response.data));
-    let currentUserInfo = response.data.currentUserInfo;
+  authenticationService.currentUserInfo(true).then(currentUserInfo => {
+    console.log('===== beforeRegularComponentEnterInterceptor', JSON.stringify(currentUserInfo));
 
     if (!currentUserInfo.username) {
       replace(`${window.simContextPath}/login`);
@@ -99,9 +99,8 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
 }
 
 function beforeServiceConfigComponentEnterInterceptor(nextState, replace, done) {
-  authenticationService.currentUserInfo(true).then(response => {
-    console.log('===== beforeServiceConfigComponentEnterInterceptor', JSON.stringify(response.data));
-    let currentUserInfo = response.data.currentUserInfo;
+  authenticationService.currentUserInfo(true).then(currentUserInfo => {
+    console.log('===== beforeServiceConfigComponentEnterInterceptor', JSON.stringify(currentUserInfo));
 
     if (!currentUserInfo.username) {
       replace(`${window.simContextPath}/login`);
@@ -116,9 +115,8 @@ function beforeServiceConfigComponentEnterInterceptor(nextState, replace, done) 
   });
 }
 function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
-  authenticationService.currentUserInfo(true).then(response => {
-    console.log('===== beforeDashboardComponentEnterInterceptor', JSON.stringify(response.data));
-    let currentUserInfo = response.data.currentUserInfo;
+  authenticationService.currentUserInfo(true).then(currentUserInfo => {
+    console.log('===== beforeDashboardComponentEnterInterceptor', JSON.stringify(currentUserInfo));
 
     if (!currentUserInfo.username) {
       replace(`${window.simContextPath}/login`);
@@ -140,9 +138,8 @@ function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
 }
 
 function beforeWelcomeComponentEnterInterceptor(nextState, replace, done) {
-  authenticationService.currentUserInfo(true).then(response => {
-    console.log('===== beforeWelcomeComponentEnterInterceptor', JSON.stringify(response.data));
-    let currentUserInfo = response.data.currentUserInfo;
+  authenticationService.currentUserInfo(true).then(currentUserInfo => {
+    console.log('===== beforeWelcomeComponentEnterInterceptor', JSON.stringify(currentUserInfo));
 
     if (!currentUserInfo.username) {
       replace(`${window.simContextPath}/login`);
@@ -167,22 +164,9 @@ function beforeWelcomeComponentEnterInterceptor(nextState, replace, done) {
 function logout(nextState, replace, cb) {
   authenticationService.logout();
   if (typeof window !== 'undefined') {
-    var path = location.protocol + '//' + location.host + "/";
-    window.location = path;
+    window.location = location.protocol + '//' + location.host + "/";
   }
 }
-
-// TODO: may be can be deleted
-axios.interceptors.response.use(response => {
-  return response;
-}, errors => {
-  if (errors.status === 401) {
-    browserHistory.push(`${window.simContextPath}/login`);
-    return null;
-  }
-  return Promise.reject(errors);
-});
-
 
 ReactDOM.render(
   <Provider store={store}>

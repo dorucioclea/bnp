@@ -7,16 +7,17 @@ export default class Step2 extends React.Component {
     this.pdf = false;
   }
 
-  togglePDF = () => {
+  handleTogglePDF = () => {
     if (this.pdf) {
-      jQuery('#pdf').animate({height: '0px'}, 1000);
+      jQuery('#pdf').animate({ height: '0px' }, 1000);
     } else {
-      jQuery('#pdf').animate({height: '829px'}, 1000);
+      jQuery('#pdf').animate({ height: '829px' }, 1000);
     }
     this.pdf = !this.pdf;
   }
 
   render() {
+    /* eslint-disable max-len */
     return (
       <div>
         <h3>Create by uploading PDF</h3>
@@ -24,7 +25,7 @@ export default class Step2 extends React.Component {
           <div className="row">
             <div className="col-md-6">
               <input type="hidden" name="supplierId" value="hard001" id="supplierId" />
-              <input type="text" name="filename" style={{display: "none"}} value="Angebotsunterlagen_30032016_1336.PDF" />
+              <input type="text" name="filename" style={{ display: "none" }} value="Angebotsunterlagen_30032016_1336.PDF" />
               <div className="form-group">
                 <label className="col-sm-5">Supplier</label>
                 <div className="col-sm-7">
@@ -70,7 +71,7 @@ export default class Step2 extends React.Component {
                   Comment
                 </label>
                 <div className="col-sm-7">
-                  <textarea className="form-control" rows="2" cols="30" id="commentText" name="comment" onchange="markChanged();" style={{resize: "vertical"}}></textarea>
+                  <textarea className="form-control" rows="2" cols="30" id="commentText" name="comment" onchange="markChanged();" style={{ resize: "vertical" }}></textarea>
                 </div>
               </div>
             </div>
@@ -226,8 +227,7 @@ export default class Step2 extends React.Component {
                   <span className="error"> *</span>
                 </label>
                 <div className="col-sm-7">
-                  <select id="termsOfPayment" name="termsOfPayment" className="form-control" onchange="markChanged();
-                  checkSelection();">
+                  <select id="termsOfPayment" name="termsOfPayment" className="form-control" onchange="markChanged(); checkSelection();">
                   <option value="T1" selected="true">
                     10 days - 3 %, 30 days net
                   </option>
@@ -272,8 +272,7 @@ export default class Step2 extends React.Component {
             <div className="form-group">
               <label className="col-sm-5 control-label" for="termsOfDelivery">Terms of Delivery</label>
               <div className="col-sm-7">
-                <select id="termsOfDelivery" name="termsOfDelivery" className="form-control" onchange="markChanged();
-                checkSelection();">
+                <select id="termsOfDelivery" name="termsOfDelivery" className="form-control" onchange="markChanged(); checkSelection();">
                 <option value="null" selected="selected">
                 </option><option value="CIP">
                   Carriage and Insurance Paid to
@@ -368,20 +367,18 @@ export default class Step2 extends React.Component {
         </div>
       </div>
       <div className="row">
-        <div className="container" id="pdf" style={{
-          height: '0px'
-        }}>
+        <div className="container" id="pdf" style={{ height: '0px' }}>
           <hr />
           <object data="/pdf/demo-invoice.pdf" type="application/pdf" width="100%" height="100%" internalinstanceid="5">
             <a href="/pdf/demo-invoice.pdf">click here to download the PDF file.</a>
           </object>
         </div>
         <div className="vsplitbar" unselectable="on">
-          <a href="javascript:void(0)" accesskey="" tabindex="0" title="vsplitbar"></a>
+          <a href="#" accesskey="" tabindex="0" title="vsplitbar" onClick={e => e.preventDefault()}></a>
         </div>
       </div>
       <div className="form-submit text-right">
-        <button className="btn btn-default hideViewer" onClick={this.togglePDF}>Toggle PDF</button>
+        <button className="btn btn-default hideViewer" onClick={this.handleTogglePDF}>Toggle PDF</button>
         <input type="submit" name="_action_update" value="Save" className="btn btn-primary" />
       </div>
       </div>

@@ -28,13 +28,13 @@ class HeaderMenu extends React.Component {
   }
 
   toggleDropDown() {
-    var css = (this.state.showHideDropdown === "dropdown open") ? "dropdown" : "dropdown open";
-    this.setState({"showHideDropdown":css});
-    //debugger;
+    this.setState({
+      showHideDropdown: (this.state.showHideDropdown === "dropdown open") ? "dropdown" : "dropdown open"
+    });
   }
 
   render() {
-    let { currentUserInfo: userInfo,  } = this.props;
+    let { currentUserInfo: userInfo } = this.props;
     return (
       <div className="navbar navbar-default navbar-main-menu" style={{ paddingRight: '25px' }}>
         <div className="navbar-header pull-right">
@@ -48,7 +48,12 @@ class HeaderMenu extends React.Component {
           </form>
           <ul className="nav navbar-nav navbar-no-collapse navbar-right">
             <li className={this.state.showHideDropdown}>
-              <a className="dropdown-toggle hidden-sm hidden-xs" onClick={this.toggleDropDown.bind(this)}  data-toggle="dropdown" href="#">
+              <a
+                className="dropdown-toggle hidden-sm hidden-xs"
+                onClick={this.toggleDropDown.bind(this)}
+                data-toggle="dropdown"
+                href="#"
+              >
                 {userInfo.username}
                 <b className="caret"></b>
               </a>

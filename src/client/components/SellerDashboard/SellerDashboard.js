@@ -1,14 +1,13 @@
 import React from 'react';
-import {Tabs, Tab, TabContent, Table,  Col, Row, Image, ButtonToolbar, Button, Panel} from 'react-bootstrap';
-import {Pie, PieChart, Cell} from 'recharts';
+import { Table, Col, Row, Image, Button } from 'react-bootstrap';
+import { Pie, PieChart, Cell } from 'recharts';
 
 export default class SellerDashboard extends React.Component {
-  static contextTypes = {
-    simUrl: React.PropTypes.string
-  };
-
-  gaugeData = [{name: 'Low', value: 300}, {name: 'Medium', value: 300},
-    {name: 'High', value: 300}];
+  gaugeData = [
+    { name: 'Low', value: 300 },
+    { name: 'Medium', value: 300 },
+    { name: 'High', value: 300 }
+  ];
 
   colors = ['#E81319', '#FDC938', '#3FA47C'];
 
@@ -21,7 +20,7 @@ export default class SellerDashboard extends React.Component {
             <div className="panel panel-success">
               <div className="panel-heading"><h4>Company profile strength</h4></div>
               <div className="panel-body">
-                <Col xs={6}><Image src="/img/mockup/sellerDashboardGauge.png" responsive/></Col>
+                <Col xs={6}><Image src="/img/mockup/sellerDashboardGauge.png" responsive={true}/></Col>
                 <PieChart className="col-xs-6 hidden" width={250} height={200}>
                 <Pie
                   data={this.gaugeData}
@@ -35,13 +34,16 @@ export default class SellerDashboard extends React.Component {
                   paddingAngle={5}
                 >
                   {
-                    this.gaugeData.map((entry, index) => <Cell fill={this.colors[index % this.colors.length]}/>)
+                    this.gaugeData.map((entry, index) =>
+                      <Cell key={index} fill={this.colors[index % this.colors.length]} />
+                    )
                   }
                 </Pie>
               </PieChart>
                 <div className="col-xs-6">
                   <h4>
-                    Continue to fill your profile in order to benefit from better visibility in the network and get more business opportunities.
+                    Continue to fill your profile in order to benefit from better visibility in the network
+                    and get more business opportunities.
                   </h4>
                   <Button bsStyle="warning">Add financial data</Button>&nbsp;
                   <Button bsStyle="warning">Add users</Button>&nbsp;
@@ -52,7 +54,7 @@ export default class SellerDashboard extends React.Component {
             <div className="panel panel-success">
               <div className="panel-heading"><h4>Orders</h4></div>
               <div className="panel-body">
-                <Table responsive>
+                <Table responsive={true}>
                   <thead>
                     <tr>
                       <th>Order ID</th>
@@ -100,7 +102,7 @@ export default class SellerDashboard extends React.Component {
                     </tr>
                   </tbody>
                 </Table>
-                <a className="pull-right" href="#" style={{color: "#FAA94F"}}><h4>More</h4></a>
+                <a className="pull-right" href="#" style={{ color: "#FAA94F" }}><h4>More</h4></a>
               </div>
             </div>
           </Col>
@@ -109,23 +111,35 @@ export default class SellerDashboard extends React.Component {
               <div className="panel-heading"><h4>Connections</h4></div>
               <div className="panel-body">
                 <Row>
-                  <Col xs={1}><Image src="/img/mockup/plugged.png"   responsive/></Col><Col xs={4}><h4>eInvoice</h4></Col>
-                  <Col xs={1}><Image src="/img/mockup/unplugged.png" responsive/></Col><Col xs={2}><h4>EDI</h4></Col><Col xs={2}><Button bsStyle="warning">Connect</Button></Col>
+                  <Col xs={1}><Image src="/img/mockup/plugged.png" responsive={true}/></Col>
+                  <Col xs={4}><h4>eInvoice</h4></Col>
+                  <Col xs={1}><Image src="/img/mockup/unplugged.png" responsive={true}/></Col>
+                  <Col xs={2}><h4>EDI</h4></Col>
+                  <Col xs={2}><Button bsStyle="warning">Connect</Button></Col>
                 </Row>
                 <Row>
-                  <Col xs={1}><Image src="/img/mockup/plugged.png"   responsive/></Col><Col xs={4}><h4>Orders</h4></Col>
-                  <Col xs={1}><Image src="/img/mockup/unplugged.png" responsive/></Col><Col xs={2}><h4>RFQ</h4></Col><Col xs={2}><Button bsStyle="warning">Connect</Button></Col>
+                  <Col xs={1}><Image src="/img/mockup/plugged.png" responsive={true}/></Col>
+                  <Col xs={4}><h4>Orders</h4></Col>
+                  <Col xs={1}><Image src="/img/mockup/unplugged.png" responsive={true}/></Col>
+                  <Col xs={2}><h4>RFQ</h4></Col>
+                  <Col xs={2}><Button bsStyle="warning">Connect</Button></Col>
                 </Row>
                 <Row>
-                  <Col xs={12}><h4>Save by connecting additional services offered by the Business Network.
-                    This will allow you to benefit from synergies and give you a central management console for all your documents</h4><br/></Col>
+                  <Col xs={12}>
+                    <h4>
+                      Save by connecting additional services offered by the Business Network.
+                      This will allow you to benefit from synergies and give you a central management
+                      console for all your documents
+                    </h4>
+                    <br/>
+                  </Col>
                 </Row>
               </div>
             </div>
             <div className="panel panel-success">
               <div className="panel-heading"><h4>Invoices</h4></div>
               <div className="panel-body">
-                <Table responsive>
+                <Table responsive={true}>
                   <thead>
                   <tr>
                     <th>Payer</th>
@@ -173,7 +187,7 @@ export default class SellerDashboard extends React.Component {
                   </tr>
                   </tbody>
                 </Table>
-                <a className="pull-right" href="#" style={{color: "#FAA94F"}}><h4>More</h4></a>
+                <a className="pull-right" href="#" style={{ color: "#FAA94F" }}><h4>More</h4></a>
               </div>
             </div>
           </Col>

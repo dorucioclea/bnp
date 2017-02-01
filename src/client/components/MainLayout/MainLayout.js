@@ -2,7 +2,7 @@ import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import SidebarMenu from '../SidebarMenu';
 import HeaderMenu from '../Header';
-import { Navbar, Nav, NavDropdown, MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
+import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 
 class MainLayout extends React.Component {
   static propTypes = {
@@ -15,33 +15,49 @@ class MainLayout extends React.Component {
 
     let header = isOnboarding ?
       (
-        <nav className="navbar navbar-default" style={{
-          height: "100px",
-          backgroundColor: "white",
-          padding: "2% 2% 0 0"
-        }}>
+        <nav
+          className="navbar navbar-default"
+          style={{
+            height: "100px",
+            backgroundColor: "white",
+            padding: "2% 2% 0 0"
+          }}
+        >
         <div className="container-fluid">
           <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button
+              type="button"
+              className="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1"
+              aria-expanded="false"
+            >
               <span className="sr-only">Toggle navigation</span>
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <img src="/img/OC-logo-BN-orange-gray.svg" style={{
-              position: "absolute",
-              width: "15%",
-              top: "8%"
-            }} />
-            <p style={{
-              display: "table",
-              position: "absolute",
-              top: "10%",
-              left: "38%",
-              fontSize: "200%",
-              color: "#67707C",
-              opacity: "0.75"
-            }}>Welcome to OpusCapita<br/> Supplier Onboarding</p>
+            <img
+              src="/img/OC-logo-BN-orange-gray.svg"
+              style={{
+                position: "absolute",
+                width: "15%",
+                top: "8%"
+              }}
+            />
+            <p
+              style={{
+                display: "table",
+                position: "absolute",
+                top: "10%",
+                left: "38%",
+                fontSize: "200%",
+                color: "#67707C",
+                opacity: "0.75"
+              }}
+            >
+              Welcome to OpusCapita<br/> Supplier Onboarding
+            </p>
           </div>
 
 
@@ -54,8 +70,8 @@ class MainLayout extends React.Component {
               <Dropdown.Menu className="super-colors">
                 <MenuItem eventKey="1">Suomi</MenuItem>
                 <MenuItem eventKey="2">German</MenuItem>
-                <MenuItem eventKey="3" active>English</MenuItem>
-                <MenuItem divider />
+                <MenuItem eventKey="3" active={true}>English</MenuItem>
+                <MenuItem divider={true} />
                 <MenuItem eventKey="4">Separated link</MenuItem>
               </Dropdown.Menu>
             </Dropdown>
@@ -108,7 +124,7 @@ class MainLayout extends React.Component {
 
     if (isOnboarding) {
       return (
-        <div style={{height: "100%"}}>
+        <div style={{ height: "100%" }}>
           <section
             className="content"
             style={{
@@ -121,15 +137,19 @@ class MainLayout extends React.Component {
             {header}
             <div className="content-wrap" style={{ padding: '0px !important' }}>
               <div className="container" id="container">
-                <div className="box col-xs-12"  style={{
-                  // width: "87%",
-                  // marginTop: "2%",
-                  // // marginLeft: "10%",
-                  // padding: "3%",
-                  // textAlign: "left",
-                  // zIndex: 3,
-                  // backgroundColor: "white"
-                }} id="bluebox">
+                <div
+                  className="box col-xs-12"
+                  style={{
+                    // width: "87%",
+                    // marginTop: "2%",
+                    // // marginLeft: "10%",
+                    // padding: "3%",
+                    // textAlign: "left",
+                    // zIndex: 3,
+                    // backgroundColor: "white"
+                  }}
+                  id="bluebox"
+                >
                   <form className="form-horizontal">
                     {this.props.children}
                   </form>

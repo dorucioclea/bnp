@@ -1,5 +1,5 @@
 import React from 'react';
-import UserRegistrationService from './../../service/UserRegistrationService'
+import createUser from './../../service/UserRegistrationService'
 import Label from './../Labels/Label.js';
 import './styles/spinner.css';
 import locales from './i18n/locales.js'
@@ -17,22 +17,21 @@ function getCookie(name) {
 
 export default class Registration extends React.Component {
   static contextTypes = {
-    userRegistrationService: React.PropTypes.object,
     i18n: React.PropTypes.object
   };
 
   static childContextTypes = {
     locale: React.PropTypes.string,
-    userRegistrationService: React.PropTypes.object,
     i18n: React.PropTypes.object
   };
 
   constructor(props, context) {
     super(props, context);
-    //document.cookie = 'CAMPAIGN_INFO={"companyName":"NCC Svenska","contactEmail":"test@arne-graeper.de"}';
+    // document.cookie = 'CAMPAIGN_INFO={"companyName":"NCC Svenska","contactEmail":"test@arne-graeper.de"}';
     let match = JSON.parse(getCookie('CAMPAIGN_INFO') || '{}');
 
     this.state = {
+      isLoading: false,
       email: match && match.contactEmail || '',
       formErrors: {
         email: null,
@@ -43,13 +42,13 @@ export default class Registration extends React.Component {
   }
 
   getChildContext() {
-    if (!this.context.userRegistrationService) {
-      this.context.userRegistrationService = new UserRegistrationService();
-    }
     return {
-      i18n: this.i18n,
-      userRegistrationService: this.context.userRegistrationService
+      i18n: this.i18n
     };
+  }
+
+  componentWillUnmount() {
+    this.ignoreAjax = true;
   }
 
   i18n = this.context.i18n.register('Registration', locales);
@@ -105,37 +104,43 @@ export default class Registration extends React.Component {
       return;
     }
 
-    let user = {
-      "EMail": this.state.email,
-      "Password": CryptoJS.AES.encrypt(this.state.passwordHash, 'SecretJcatalogPasswordKey').toString()
-    };
-
     this.setState({
-      loading: true
+      isLoading: true
     });
 
-    this.context.userRegistrationService.createUser(user).
-      then(response => {
-        switch (response.status) {
+    createUser({
+      EMail: this.state.email,
+      Password: CryptoJS.AES.encrypt(this.state.passwordHash, 'SecretJcatalogPasswordKey').toString()
+    }).
+      then(({ status, message }) => {
+        if (this.ignoreAjax) {
+          return;
+        }
+
+        switch (status) {
           case 201:
             browserHistory.push(`${window.simContextPath}/registration/success`);
             break;
           default:
             this.setState({
-              loading: false,
+              isLoading: false,
               isWarningsExists: true,
-              warningMessage: response.data
+              warningMessage: message
             });
             break;
         }
       }).
-      catch(err => {
+      catch(errors => {
+        if (this.ignoreAjax) {
+          return;
+        }
+
         let newState = {
-          loading: false
+          isLoading: false
         };
 
-        if (err && err.data && err.data.data && err.data.data.errors && err.data.data.errors.length > 0) {
-          newState.formErrors = err.data.data.errors.reduce((rez, error) => {
+        if (errors && errors.length > 0) {
+          newState.formErrors = errors.reduce((rez, error) => {
             if (!rez[error.field]) {
               rez[error.field] = []; // eslint-disable-line no-param-reassign
             }
@@ -199,7 +204,7 @@ export default class Registration extends React.Component {
   render() {
     let i18n = this.getChildContext().i18n;
 
-    let spinner = this.state.loading ?
+    let spinner = this.state.isLoading ?
       <Spinner className="spinner" spinnerName='three-bounce' noFadeIn={true}/> :
       '';
 
@@ -224,25 +229,25 @@ export default class Registration extends React.Component {
           <div className="col-md-12">
             <div className="form-group">
               <Label
-              className="col-sm-4 control-label"
-              htmlFor="email"
-              objectName="RegistrationLabel"
-              fieldName="email"
-              isRequired={true}
+                className="col-sm-4 control-label"
+                htmlFor="email"
+                objectName="RegistrationLabel"
+                fieldName="email"
+                isRequired={true}
               />
               <div className="col-sm-8">
                 <input
-                type="text"
-                id="email"
-                className="form-control"
-                value={this.state.email}
-                placeholder="Your eMail"
-                onBlur={this.handleValidateField}
-                onChange={e => this.setState({ email: e.target.value })}
-                autoFocus={true}
+                  type="text"
+                  id="email"
+                  className="form-control"
+                  value={this.state.email}
+                  placeholder="Your eMail"
+                  onBlur={this.handleValidateField}
+                  onChange={e => this.setState({ email: e.target.value })}
+                  autoFocus={true}
                 />
                 <small>
-                  {/*i18n.getMessage('RegistrationLabel.email.comment')*/}
+                  {/* i18n.getMessage('RegistrationLabel.email.comment') */}
                 </small>
                 {emailErrorMessage}
               </div>
@@ -251,23 +256,23 @@ export default class Registration extends React.Component {
           <div className="col-md-12">
             <div className="form-group">
               <Label
-              className="col-sm-4 control-label"
-              htmlFor="passwordHash"
-              objectName="RegistrationLabel"
-              fieldName="password"
-              isRequired={true}
+                className="col-sm-4 control-label"
+                htmlFor="passwordHash"
+                objectName="RegistrationLabel"
+                fieldName="password"
+                isRequired={true}
               />
               <div className="col-sm-8">
                 <input
-                type='password'
-                id="passwordHash"
-                className="form-control"
-                placeholder="Choose a Password"
-                onBlur={this.handleValidateField}
-                onChange={e => this.setState({ passwordHash: e.target.value })}
+                  type='password'
+                  id="passwordHash"
+                  className="form-control"
+                  placeholder="Choose a Password"
+                  onBlur={this.handleValidateField}
+                  onChange={e => this.setState({ passwordHash: e.target.value })}
                 />
                 <small>
-                  {/*i18n.getMessage('RegistrationLabel.password.comment')*/}
+                  {/* i18n.getMessage('RegistrationLabel.password.comment') */}
                 </small>
                 {passwordErrorMessage}
               </div>
@@ -276,46 +281,57 @@ export default class Registration extends React.Component {
           <div className="col-md-12">
             <div className="form-submit text-right">
               <Button
-              bsStyle="link"
-              onClick={this.handleCancelClick}
+                bsStyle="link"
+                disabled={this.state.isLoading}
+                onClick={this.handleCancelClick}
               >{this.i18n.getMessage('CommonButtonLabel.cancel')}</Button>
               <Button
-              bsStyle="primary"
-              onClick={this.handleRegisterClick}
+                bsStyle="primary"
+                disabled={this.state.isLoading}
+                onClick={this.handleRegisterClick}
               >{this.i18n.getMessage('RegistrationButtonLabel.register')}</Button>
             </div>
             {spinner}
           </div>
         </div>
         <div className="col-md-4">
-          <p style={{
-            margin: "25% 0 0 10%",
-            fontSize: "150%"
-          }}>Registration</p>
-          <br />
-          <p>
-            Registration requires a valid e-mail address. Once your registration has been submitted, you will receive an e-mail containing a link for account activation.
+          <p
+            style={{
+              margin: "25% 0 0 10%",
+              fontSize: "150%"
+            }}
+          >
+            Registration
           </p>
-          <p style={{
+        <br />
+        <p>
+          Registration requires a valid e-mail address. Once your registration has been submitted,
+          you will receive an e-mail containing a link for account activation.
+        </p>
+        <p
+          style={{
             marginLeft: "10%",
             fontSize: "150%"
-          }}>Password</p>
-          <ul>
-            <li>
-              Consist of at least 8 characters
-            </li>
-            <li>
-              Has a number and capital letter
-            </li>
-            <li>
-              Has a special character
-            </li>
-            <li>
-              Be unlike username
-            </li>
-          </ul>
-        </div>
-      </div>
+          }}
+        >
+          Password
+        </p>
+      <ul>
+        <li>
+          Consist of at least 8 characters
+        </li>
+        <li>
+          Has a number and capital letter
+        </li>
+        <li>
+          Has a special character
+        </li>
+        <li>
+          Be unlike username
+        </li>
+      </ul>
+    </div>
+  </div>
     )
   }
 }

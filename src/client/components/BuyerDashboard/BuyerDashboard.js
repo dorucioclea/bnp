@@ -8,11 +8,6 @@ require('highcharts-more')(ReactHighcharts.Highcharts)
 require('highcharts-funnel')(ReactHighcharts.Highcharts)
 
 export default class BuyerDashboard extends React.Component {
-  static contextTypes = {
-    simUrl: React.PropTypes.string
-  };
-
-
   pieColors = ['#459FD2', '#F7783A', '#A5A5A5', '#FFBB30'];
   // charts in order: Area, pie, stack, bar+line
   // actions in order: invoice, rfq, stamp, news

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ajaxRequest from 'superagent';
 import browserHistory from 'react-router/lib/browserHistory';
 
 export default class AuthenticationService {
@@ -8,77 +8,64 @@ export default class AuthenticationService {
     this.resetCurrentUserInfo = resetCurrentUserInfo;
   }
 
-  isAuthenticated() {
-    return axios.get(`${window.simContextPath}/isAuthenticated`);
-  }
+  isAuthenticated = () => ajaxRequest.
+    get(`${window.simContextPath}/isAuthenticated`).
+    then(res => res.body.username);
 
-  login(user) {
-    return axios.post(`${window.simContextPath}/login`, user).then(response => {
-      console.log('===== AuthenticationService.login response.data', JSON.stringify(response.data));
-      console.log(`===== AuthenticationService.login redirect to ${window.simContextPath}${
-        response.data.returnTo ||
-        (response.data.userInfo.supplierId ? '/dashboard' : '/supplierInformation')
-      }`);
-      browserHistory.push(`${window.simContextPath}${
-        response.data.returnTo ||
-        (response.data.userInfo.supplierId ? '/dashboard' : '/supplierInformation')
-      }`);
-    });
-  }
+  login = user => ajaxRequest.
+    post(`${window.simContextPath}/login`).
+    send(user).
+    then(res => browserHistory.push(
+      `${
+        window.simContextPath
+      }${
+        res.body.returnTo ||
+        (res.body.userInfo.supplierId ? '/dashboard' : '/supplierInformation')
+      }`
+    )).
+    catch(err => Promise.reject(err.status));
 
   logout() {
-    return axios.get(`${window.simContextPath}/logout`).then(() => {
-      this.resetCurrentUserInfo();
-    }).catch(this.httpResponseHandler);
+    return ajaxRequest.
+      get(`${window.simContextPath}/logout`).
+      then(() => this.resetCurrentUserInfo()).
+      catch(err => this.httpResponseHandler({
+        status: err.status,
+        message: err.response.body || err.response.text
+      }));
   }
 
   onboardingDone() {
-    return axios.get(`${window.simContextPath}/onboardingDone`).then(() => {
-      browserHistory.push(`${window.simContextPath}/dashboard`);
-    }).catch(this.httpResponseHandler);
+    return ajaxRequest.
+      get(`${window.simContextPath}/onboardingDone`).
+      then(() => browserHistory.push(`${window.simContextPath}/dashboard`)).
+      catch(err => this.httpResponseHandler({
+        status: err.status,
+        message: err.response.body || err.response.text
+      }));
   }
 
-  verifyUser(verificationToken) {
-    return axios.post(`${window.simContextPath}/user/verify`,
-      JSON.stringify({
-        verificationToken
-      }),
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-  }
+  verifyUser = verificationToken => ajaxRequest.
+    post(`${window.simContextPath}/user/verify`).
+    send({ verificationToken });
 
-  currentUserInfo(forceReload) {
-    return axios.get(`${window.simContextPath}/user/currentUserInfo?reload=${!!forceReload}`, {
-      headers: {
-        Accept: 'application/json'
-      }
-    });
-  }
+  currentUserInfo = forceReload => ajaxRequest.
+    get(`${window.simContextPath}/user/currentUserInfo`).
+    query({ reload: !!forceReload }).
+    accept('json').
+    then(res => res.body && res.body.currentUserInfo || {});
 
-  applicationUrl() {
-    return axios.get(`${window.simContextPath}/applicationConfig/url`, {
-      headers: {
-        Accept: 'application/json'
-      }
-    });
-  }
+  applicationUrl = () => ajaxRequest.
+    get(`${window.simContextPath}/applicationConfig/url`).
+    then(res => res.text);
 
-  formatPatterns() {
-    return axios.get(`${window.simContextPath}/applicationConfig/formatPatterns`, {
-      headers: {
-        Accept: 'application/json'
-      }
-    });
-  }
+  formatPatterns = () => ajaxRequest.
+    get(`${window.simContextPath}/applicationConfig/formatPatterns`).
+    accept('json').
+    then(res => res.body.formatPatterns);
 
-  defaultLocale() {
-    return axios.get(`${window.simContextPath}/applicationConfig/defaultLocale`, {
-      headers: {
-        Accept: 'application/json'
-      }
-    });
-  }
+  defaultLocale = () => ajaxRequest.
+    get(`${window.simContextPath}/applicationConfig/defaultLocale`).
+    accept('json').
+    then(res => res.body);
 }

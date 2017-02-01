@@ -1,4 +1,4 @@
-import request from 'superagent-bluebird-promise';
+import ajaxRequest from 'superagent';
 
 export default class ApplicationFormService {
   constructor(actionUrl) {
@@ -6,8 +6,12 @@ export default class ApplicationFormService {
   }
 
   getCountryList() {
-    return request.
+    return ajaxRequest.
       get(`${this._applicationFormRestEndpoint}/gateway/supplier/api/countries`).
-      promise();
+      then(res => res.body).
+      catch(err => ({
+        status: err.status,
+        message: err.response.body || err.response.text
+      }))
   }
 }

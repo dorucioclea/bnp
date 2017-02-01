@@ -34,27 +34,24 @@ class SupplierApplicationForm extends React.Component {
   state = {
     countries: [],
     key: 1,
-    isLoaded: false  // A flag showing whether necessary inicial AJAX calls are returned.
+    isLoading: true
   }
 
   componentDidMount() {
-    this.ajaxPromise = new ApplicationFormService(this.context.simUrl).getCountryList();
-
-    this.ajaxPromise.
-      then(res => this.setState({
-        isLoaded: true,
-        countries: res.body.
+    new ApplicationFormService(this.context.simUrl).getCountryList().
+      then(countryList => this.ignoreAjax || this.setState({
+        isLoading: false,
+        countries: countryList.
           map(({ countryId: id, countryName: name }) => ({ id, name })).
           sort((a, b) => a.name.localeCompare(b.name))
       })).
-      catch(err => this.context.httpResponseHandler(err));
+      catch(err => this.ignoreAjax || this.context.httpResponseHandler(err));
   }
 
   componentWillUnmount() {
-    this.ajaxPromise.cancel();
+    this.ignoreAjax = true;
   }
 
-  ajaxPromise = null;
   i18n = this.context.i18n.register('SupplierApplicationForm', locales)
   _confirmLeaveChangesUnsaved = () => window.confirm(this.i18n.getMessage('ApplicationFormConfirmation.unsavedChanges'))
   isShowWelcomePage = () => true;
@@ -66,7 +63,6 @@ class SupplierApplicationForm extends React.Component {
   handleSupplierUpdate = newSupplier => {
     this.isDirty = false;
     let wasSupplierlessUser = !this.props.currentUserInfo.supplierId;
-    console.log('===== SupplierApplicationForm newSupplier', JSON.stringify(newSupplier));
 
     this.props.dispatch(setCurrentUserInfo({
       ...this.props.currentUserInfo,
@@ -75,7 +71,6 @@ class SupplierApplicationForm extends React.Component {
       companyRole: newSupplier.companyRole
     }));
 
-    console.log('===== wasSupplierlessUser', wasSupplierlessUser);
     if (wasSupplierlessUser) {
       browserHistory.push(`${window.simContextPath}/dashboard`);
     }
@@ -95,7 +90,7 @@ class SupplierApplicationForm extends React.Component {
   };
 
   render() {
-    if (!this.state.isLoaded) {
+    if (this.state.isLoading) {
       return null;
     }
 

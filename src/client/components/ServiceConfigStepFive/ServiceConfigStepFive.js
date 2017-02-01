@@ -1,14 +1,13 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import browserHistory from 'react-router/lib/browserHistory';
 
 export default class ServiceConfigStepFive extends React.Component {
-  static contextTypes = {
-    authenticationService: React.PropTypes.object
-  };
-
   static propTypes = {
     onPreviousTab: React.PropTypes.func
+  };
+
+  static contextTypes = {
+    authenticationService: React.PropTypes.object
   };
 
   state = {
@@ -33,7 +32,8 @@ export default class ServiceConfigStepFive extends React.Component {
             <a href="#" onClick={e => {
               this.setState({ isAccepted: !this.state.isAccepted });
               e.preventDefault();
-            }}>
+            }}
+            >
               I have read and understood the terms and conditions for the invoice portal.
             </a>
           </label>

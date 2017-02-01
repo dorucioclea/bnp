@@ -100,9 +100,8 @@ module.exports = function(app, db) {
           return res.sendStatus(401);
         }
 
-        req.session.currentUserInfo.showWelcomePage = false;
-        res.sendStatus(205);
-        return;  // The same as return Promise.resolve();
+        req.session.currentUserInfo.showWelcomePage = false;  // eslint-disable-line no-param-reassign
+        return res.sendStatus(205);
       }).
       catch(err => {
         console.log(`Error unsetting "showWelcomePage" for ${req.session.currentUserInfo.username}`, err);

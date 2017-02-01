@@ -5,11 +5,10 @@ const session = require('express-session');
 const onHeaders = require('on-headers');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const history = require('connect-history-api-fallback');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const lessMiddleware = require('less-middleware');
-const axios = require('axios');
+const ajaxRequest = require('superagent');
 
 const COOKIE_SECRET = 'keyboard cat';
 const JCATALOG_RESOURCES = '../../../resources/jcatalog';
@@ -19,7 +18,7 @@ const SIM_VIEWS = '../../../resources/bnp/views';
 const MAIN_CSS = '../../client/main.css';
 const WEBPACK_DEV_CONFIG = './../../../webpack.development.config.js';
 const bnpInternalUrl = 'http://127.0.0.1:' + process.env.PORT;
-const getOriginalProtocolHostPort = require('../../client-server/lib.js').getOriginalProtocolHostPort;
+const getOriginalProtocolHostPort = require('../utils/lib.js').getOriginalProtocolHostPort;
 
 function scrubETag(res) {
   onHeaders(res, function() {
@@ -28,7 +27,6 @@ function scrubETag(res) {
 }
 
 function initRequestHelpers(app) {
-  app.use(history());
   app.use(bodyParser.json());
   app.use(cookieParser(COOKIE_SECRET));
   app.use(helmet());
@@ -194,17 +192,15 @@ function initDevWebpack(app) {
     noInfo: true
   }));
 
-  app.use('/[0-9]+\.chunk\.js', (req, res) => axios.get(`${bnpInternalUrl}/static${req.originalUrl}`, {
-    headers: {
-      Accept: 'application/javascript',
-      'Content-Type': 'application/javascript'
-    }
-  }).then(response => {
-    res.header('Content-Type', 'application/javascript');
-    res.send(response.data);
-  }).catch(err => {
-    throw err;
-  }));
+  app.use('/[0-9]+\.chunk\.js', (req, res) => ajaxRequest.
+    get(`${bnpInternalUrl}/static${req.originalUrl}`).
+    accept('json').
+    then(response => {
+      res.header('Content-Type', 'application/javascript');
+      res.send(response.body);
+    }).
+    catch(err => { throw err })
+  );
 }
 
 module.exports = {

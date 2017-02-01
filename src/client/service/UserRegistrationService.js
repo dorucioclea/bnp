@@ -1,16 +1,16 @@
-import axios from 'axios';
+import ajaxRequest from 'superagent';
 
-export default class UserRegistrationService {
+export default userInfo => ajaxRequest.
+  post('user/createUser').
+  send(userInfo).
+  then(res => ({
+    status: res.status,
+    message: res.body || res.text
+  })).
+  catch(err => Promise.reject(
+    err &&
+    err.response &&
+    err.response.body &&
+    err.response.body.errors
+  ));
 
-  constructor() {
-    this._createUser = 'user/createUser';
-  }
-
-  createUser = (object) => {
-    return axios.post(this._createUser, JSON.stringify(object), {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  };
-}

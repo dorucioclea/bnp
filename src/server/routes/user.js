@@ -1,6 +1,6 @@
 const sendMail = require('./../mailer');
 const currentUserInfoService = require('../service/currentUserInfoService');
-const getOriginalProtocolHostPort = require('../../client-server/lib.js').getOriginalProtocolHostPort;
+const getOriginalProtocolHostPort = require('../utils/lib.js').getOriginalProtocolHostPort;
 
 let md5 = require('md5');
 let serviceErrorHandlingService = require('./../service/serviceErrorHandlingService');
@@ -89,9 +89,7 @@ function getCurrentUserInfo(req, res) {
     currentUserInfoService(db, req.session, req.session.currentUserInfo.username) :
     Promise.resolve(req.session.currentUserInfo)
   ).  // eslint-disable-line dot-location
-  then(currentUserInfo => res.send({
-    currentUserInfo
-  })).
+  then(currentUserInfo => res.send({ currentUserInfo })).
   catch(err => res.status(err.status).send(err.data));
 }
 

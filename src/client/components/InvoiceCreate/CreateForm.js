@@ -153,7 +153,7 @@ export default class CreateForm extends React.Component {
             <div className="col-md-6 input-group">
 
             </div>
-          </div> {/*11*/}
+          </div> {/* 11 */}
           <div className="col-md-6">
             <div className="col-md-6">
                 <label>Method of Payment</label>
@@ -174,7 +174,7 @@ export default class CreateForm extends React.Component {
             <div className="col-md-6 input-group">
 
             </div>
-          </div> {/*13*/}
+          </div> {/* 13 */}
           <div className="col-md-6">
             <div className="col-md-6">
                 <label>Terms of delivery</label>
@@ -195,7 +195,7 @@ export default class CreateForm extends React.Component {
             <div className="col-md-6 input-group">
                 <input type="text" className="form-control" />
             </div>
-          </div> {/*15*/}
+          </div> {/* 15 */}
           <div className="col-md-6">
             <div className="col-md-6">
                 <label>Comment</label>
