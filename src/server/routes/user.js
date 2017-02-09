@@ -85,15 +85,6 @@ function createUser(req, res) {
 }
 
 function getCurrentUserInfo(req, res) {
-  console.log('**************************');
-  console.log('**************************');
-  console.log('**************************');
-  console.log('**************************');
-  console.log(req.cookies.userData);
-  console.log('**************************');
-  console.log('**************************');
-  console.log('**************************');
-  console.log('**************************');
   (req.query.reload === 'true' && req.cookies.userData ?
     currentUserInfoService(db, JSON.parse(req.cookies.userData), JSON.parse(req.cookies.userData).email) :
     Promise.resolve(JSON.parse(req.cookies.userData))

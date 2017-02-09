@@ -103,7 +103,10 @@ class ApplicationContext extends React.Component {
       this.i18n = new I18nManager(cookie.load('LANGUAGE_COOKIE_KEY'), validateMessages, this.state.formatPatterns);
       this.i18n.register('Common', locales);
       this.setState({
-        dateTimePattern: this.state.formatPatterns[cookie.load('LANGUAGE_COOKIE_KEY').toString()].dateTimePattern
+        // #TODO hardcoded, until setting this informations in the server
+        dateTimePattern: this.state.formatPatterns[cookie.load('LANGUAGE_COOKIE_KEY').toString()] ?
+          this.state.formatPatterns[cookie.load('LANGUAGE_COOKIE_KEY').toString()].dateTimePattern :
+          this.state.formatPatterns['en'].dateTimePattern
       });
     }
   };
