@@ -18,7 +18,8 @@ const SIM_VIEWS = '../../../resources/bnp/views';
 const MAIN_CSS = '../../client/main.css';
 const WEBPACK_DEV_CONFIG = './../../../webpack.development.config.js';
 const bnpInternalUrl = 'http://127.0.0.1:' + process.env.PORT;
-const getOriginalProtocolHostPort = require('../utils/lib.js').getOriginalProtocolHostPort;
+const {getOriginalProtocolHostPort, getCurrentServiceHost, getSupplierServiceHost} = require('../utils/lib.js');
+import _ from 'lodash';
 
 function scrubETag(res) {
   onHeaders(res, function() {
@@ -45,6 +46,15 @@ function initRequestInterceptor(app, bundle) {
       res.header('Cache-Control', 'max-age=0, must-revalidate');
       res.header('Expires', 0);
     }
+
+    var userData = {};
+    _.each(req.headers, function(value, key) {
+      if (key.indexOf('x-user-') > -1) {
+        userData[key.replace('x-user-', '')] = value;
+      }
+    });
+
+    res.cookie('userData', JSON.stringify(userData));
 
     next();
   });
@@ -149,6 +159,7 @@ function initSecurityManager(app, db) {
   require('./../routes/securityManager')(app, db);
 }
 
+
 function initTemplate(app, bundle, chunksManifest) {
   app.engine('handlebars', expressHandlebars());
   app.set('view engine', 'handlebars');
@@ -156,28 +167,14 @@ function initTemplate(app, bundle, chunksManifest) {
   app.set('trust proxy', true);
 
   app.use('/', function(req, res) {
-    // eslint-disable-next-line no-param-reassign
-    req.session.returnTo = (
-      !req.session.currentUserInfo &&
-      req.originalUrl.indexOf('/login') === -1 &&
-      req.originalUrl.indexOf('/logout') === -1 &&
-      req.originalUrl.indexOf('/registration') === -1 &&
-      req.originalUrl.indexOf('/registration/confirmation') === -1
-    ) ?
-      req.originalUrl :  // Unknown user wants to view portal internal resources.
-      null;
-
-    if (req.session.currentUserInfo && req.originalUrl.indexOf('/login') !== -1) {
-      // Known user is at login-page.
-      res.redirect(getOriginalProtocolHostPort(req) + '/dashboard');
-    } else {
-      res.render('home', {
-        simPublicUrl: getOriginalProtocolHostPort(req),
-        bundle: bundle,
-        chunksManifest: JSON.stringify(chunksManifest),
-        isProductionMode: (process.env.NODE_ENV === 'production')
-      });
-    }
+    res.render('home', {
+      simPublicUrl: getOriginalProtocolHostPort(req),
+      simUrl: getCurrentServiceHost(req),
+      simSupplierUrl: getSupplierServiceHost(req),
+      bundle: bundle,
+      chunksManifest: JSON.stringify(chunksManifest),
+      isProductionMode: (process.env.NODE_ENV === 'production')
+    });
   });
 }
 

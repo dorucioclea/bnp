@@ -45,6 +45,7 @@ class ApplicationContext extends React.Component {
           userInfo.supplierId = this.props.currentUserInfo.supplierId;
           userInfo.supplierName = this.props.currentUserInfo.supplierName;
           userInfo.companyRole = this.props.currentUserInfo.companyRole;
+          userInfo.username = this.props.currentUserInfo.username
         }
 
         if (JSON.stringify(userInfo) !== JSON.stringify(this.props.currentUserInfo)) {

@@ -139,7 +139,7 @@ export default class LoginPage extends React.Component {
                 <span className="icon-bar"></span>
               </button>
               <img
-                src="/img/OC-logo-BN-orange-gray.svg"
+                src={`${window.simUrl}/img/OC-logo-BN-orange-gray.svg`}
                 style={{
                   position: "absolute",
                   width: "15%",

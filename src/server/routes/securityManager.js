@@ -57,8 +57,8 @@ module.exports = function(app, db) {
 
         return currentUserInfoService(
           db,
-          req.session,
-          req.session.passport.user,
+          JSON.parse(req.cookie.userData),
+          JSON.parse(req.cookie.userData).email,
           req.body.language
         ).
           then(userInfo => res.send({
@@ -80,7 +80,7 @@ module.exports = function(app, db) {
   app.get('/isAuthenticated', (req, res) => {
     return req.isAuthenticated && req.isAuthenticated() ?
       res.send({
-        username: req.session.currentUserInfo.username,
+        username: req.cookie.userData && JSON.parse(req.cookie.userData).email ? JSON.parse(req.cookie.userData).email : null,
       }) :
       res.sendStatus(401);
   });
@@ -90,12 +90,12 @@ module.exports = function(app, db) {
       update({
         showWelcomePage: false
       }, {
-        where: { LoginName: req.session.currentUserInfo.username }
+        where: { LoginName: JSON.parse(req.cookie.userData).email }
       }).
       then(([affectedCount]) => {
         if (affectedCount === 0) {
           console.warn(
-            `Onboarding final submit has failed. User ${req.session.currentUserInfo.username} not found`
+            `Onboarding final submit has failed. User ${JSON.parse(req.cookie.userData).email} not found`
           );
           return res.sendStatus(401);
         }
@@ -104,7 +104,7 @@ module.exports = function(app, db) {
         return res.sendStatus(205);
       }).
       catch(err => {
-        console.log(`Error unsetting "showWelcomePage" for ${req.session.currentUserInfo.username}`, err);
+        console.log(`Error unsetting "showWelcomePage" for ${JSON.parse(req.cookie.userData).email}`, err);
         res.status(403).send(err);
       });
   });

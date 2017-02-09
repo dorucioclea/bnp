@@ -23,8 +23,10 @@ WORKDIR /home/node/bnp
 COPY . tmp
 
 # Change owner since COPY/ADD assignes UID/GID 0 to all copied content.
-RUN chown -Rf node:node tmp
-RUN rsync -a tmp/* ./ && rm -rf tmp && chown node:node .
+#RUN chown -Rf node:node tmp
+#RUN rsync -a tmp/* ./ && rm -rf tmp && chown node:node .
+
+RUN rsync -a tmp/* ./ && rm -rf
 
 # Set the user name or UID to use when running the image and for any RUN, CMD and ENTRYPOINT instructions that follow
 USER node
@@ -34,4 +36,3 @@ USER node
 # NOTE: a port can be any, not necessarily different from exposed ports of other containers.
 EXPOSE 3000
 CMD [ "npm", "start" ]
-

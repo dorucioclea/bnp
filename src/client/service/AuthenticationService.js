@@ -1,5 +1,6 @@
 import ajaxRequest from 'superagent';
 import browserHistory from 'react-router/lib/browserHistory';
+import Promise from 'promise';
 
 export default class AuthenticationService {
 

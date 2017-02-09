@@ -119,8 +119,18 @@ function getOriginalProtocolHostPort(req) {
   return req.protocol + '://' + externalHost;  // URL used by web client.
 }
 
+function getCurrentServiceHost(req) {
+  return getOriginalProtocolHostPort(req) + '/bnp';
+}
+
+function getSupplierServiceHost(req) {
+  return getOriginalProtocolHostPort(req) + '/supplier';
+}
+
 module.exports = {
   propDeepSearch,
   valueDeepSearch,
-  getOriginalProtocolHostPort
+  getOriginalProtocolHostPort,
+  getCurrentServiceHost,
+  getSupplierServiceHost
 }

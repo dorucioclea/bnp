@@ -7,7 +7,7 @@ export default class ApplicationFormService {
 
   getCountryList() {
     return ajaxRequest.
-      get(`${this._applicationFormRestEndpoint}/gateway/supplier/api/countries`).
+      get(`${window.simSupplierUrl}/api/countries`).
       then(res => res.body).
       catch(err => ({
         status: err.status,

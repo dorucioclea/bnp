@@ -20,7 +20,7 @@ export default class SellerDashboard extends React.Component {
             <div className="panel panel-success">
               <div className="panel-heading"><h4>Company profile strength</h4></div>
               <div className="panel-body">
-                <Col xs={6}><Image src="/img/mockup/sellerDashboardGauge.png" responsive={true}/></Col>
+                <Col xs={6}><Image src={`${window.simUrl}/img/mockup/sellerDashboardGauge.png`} responsive={true}/></Col>
                 <PieChart className="col-xs-6 hidden" width={250} height={200}>
                 <Pie
                   data={this.gaugeData}
@@ -111,16 +111,16 @@ export default class SellerDashboard extends React.Component {
               <div className="panel-heading"><h4>Connections</h4></div>
               <div className="panel-body">
                 <Row>
-                  <Col xs={1}><Image src="/img/mockup/plugged.png" responsive={true}/></Col>
+                  <Col xs={1}><Image src=`${window.simUrl}/img/mockup/plugged.png` responsive={true}/></Col>
                   <Col xs={4}><h4>eInvoice</h4></Col>
-                  <Col xs={1}><Image src="/img/mockup/unplugged.png" responsive={true}/></Col>
+                  <Col xs={1}><Image src=`${window.simUrl}/img/mockup/unplugged.png` responsive={true}/></Col>
                   <Col xs={2}><h4>EDI</h4></Col>
                   <Col xs={2}><Button bsStyle="warning">Connect</Button></Col>
                 </Row>
                 <Row>
-                  <Col xs={1}><Image src="/img/mockup/plugged.png" responsive={true}/></Col>
+                  <Col xs={1}><Image src=`${window.simUrl}/img/mockup/plugged.png` responsive={true}/></Col>
                   <Col xs={4}><h4>Orders</h4></Col>
-                  <Col xs={1}><Image src="/img/mockup/unplugged.png" responsive={true}/></Col>
+                  <Col xs={1}><Image src=`${window.simUrl}/img/mockup/unplugged.png` responsive={true}/></Col>
                   <Col xs={2}><h4>RFQ</h4></Col>
                   <Col xs={2}><Button bsStyle="warning">Connect</Button></Col>
                 </Row>
