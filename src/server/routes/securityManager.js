@@ -57,8 +57,8 @@ module.exports = function(app, db) {
 
         return currentUserInfoService(
           db,
-          JSON.parse(req.cookie.userData),
-          JSON.parse(req.cookie.userData).email,
+          req.userData(),
+          req.userData('username'),
           req.body.language
         ).
           then(userInfo => res.send({
@@ -78,9 +78,9 @@ module.exports = function(app, db) {
   });
 
   app.get('/isAuthenticated', (req, res) => {
-    return req.isAuthenticated && req.isAuthenticated() ?
+    return req.isAuthenticated ?
       res.send({
-        username: req.cookie.userData && JSON.parse(req.cookie.userData).email ? JSON.parse(req.cookie.userData).email : null,
+        username: req.userData('username'),
       }) :
       res.sendStatus(401);
   });
@@ -90,12 +90,12 @@ module.exports = function(app, db) {
       update({
         showWelcomePage: false
       }, {
-        where: { LoginName: JSON.parse(req.cookie.userData).email }
+        where: { LoginName: req.userData('email')}
       }).
       then(([affectedCount]) => {
         if (affectedCount === 0) {
           console.warn(
-            `Onboarding final submit has failed. User ${JSON.parse(req.cookie.userData).email} not found`
+            `Onboarding final submit has failed. User ${req.userData('username')} not found`
           );
           return res.sendStatus(401);
         }
@@ -104,13 +104,13 @@ module.exports = function(app, db) {
         return res.sendStatus(205);
       }).
       catch(err => {
-        console.log(`Error unsetting "showWelcomePage" for ${JSON.parse(req.cookie.userData).email}`, err);
+        console.log(`Error unsetting "showWelcomePage" for ${req.userData('username')}`, err);
         res.status(403).send(err);
       });
   });
 
   app.use('/api/*', (req, res, next) => {
-    if (!req.isAuthenticated || !req.isAuthenticated()) {
+    if (!req.isAuthenticated) {
       console.warn(`Not authenticated user rejected to use api`);
       return res.sendStatus(401);
     }

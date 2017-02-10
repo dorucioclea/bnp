@@ -28,12 +28,13 @@ class ApplicationContext extends React.Component {
   }
 
   getChildContext() {
-    if (cookie.load('LANGUAGE_COOKIE_KEY')) {
+    let language = cookie.load('LANGUAGE_COOKIE_KEY') && cookie.load('LANGUAGE_COOKIE_KEY') != "null" ? cookie.load('LANGUAGE_COOKIE_KEY') : 'en';
+    if (language) {
       let forceReload = this.props.currentUserInfo.username === undefined;  // Quering the server for the 1st time.
 
       this.props.route.context.authenticationService.currentUserInfo(forceReload).then(currentUserInfo => {
         let userInfo = currentUserInfo || {
-          locale: cookie.load('LANGUAGE_COOKIE_KEY'),
+          locale: language,
           user: null,
           username: null,
           supplierId: null
@@ -45,7 +46,6 @@ class ApplicationContext extends React.Component {
           userInfo.supplierId = this.props.currentUserInfo.supplierId;
           userInfo.supplierName = this.props.currentUserInfo.supplierName;
           userInfo.companyRole = this.props.currentUserInfo.companyRole;
-          userInfo.username = this.props.currentUserInfo.username
         }
 
         if (JSON.stringify(userInfo) !== JSON.stringify(this.props.currentUserInfo)) {
@@ -53,7 +53,7 @@ class ApplicationContext extends React.Component {
         }
       });
 
-      this._initI18n();
+      this._initI18n(language);
     }
 
     return {
@@ -61,7 +61,7 @@ class ApplicationContext extends React.Component {
       formatPatterns: this.state.formatPatterns,
       dateTimePattern: this.state.dateTimePattern,
       simUrl: this.state.simUrl,
-      supplierUrl: this.state.simUrl + '/gateway/supplier',
+      supplierUrl: this.state.simSupplierUrl,
       httpResponseHandler,
       authenticationService: this.props.route.context.authenticationService
     };
@@ -81,7 +81,7 @@ class ApplicationContext extends React.Component {
 
     // Fetch SIM application url.
     this.props.route.context.authenticationService.applicationUrl().
-      then(simUrl => this.ignoreAjax || this.setState({ simUrl }));
+      then(res => this.ignoreAjax || this.setState({ simUrl: res.simUrl, simSupplierUrl: res.simSupplierUrl }));
 
     // Fetch format patterns.
     this.props.route.context.authenticationService.formatPatterns().
@@ -92,28 +92,24 @@ class ApplicationContext extends React.Component {
     this.ignoreAjax = true;
   }
 
-  _initI18n = () => {
+  _initI18n = (language) => {
     if (
       (
         !this.i18n ||
-        this.i18n.locale !== cookie.load('LANGUAGE_COOKIE_KEY')
+        this.i18n.locale !== language
       ) &&
       this.state.formatPatterns
     ) {
-      this.i18n = new I18nManager(cookie.load('LANGUAGE_COOKIE_KEY'), validateMessages, this.state.formatPatterns);
+      this.i18n = new I18nManager(language, validateMessages, this.state.formatPatterns);
       this.i18n.register('Common', locales);
       this.setState({
-        // #TODO hardcoded, until setting this informations in the server
-        dateTimePattern: this.state.formatPatterns[cookie.load('LANGUAGE_COOKIE_KEY').toString()] ?
-          this.state.formatPatterns[cookie.load('LANGUAGE_COOKIE_KEY').toString()].dateTimePattern :
-          this.state.formatPatterns['en'].dateTimePattern
+        dateTimePattern: this.state.formatPatterns[language].dateTimePattern
       });
     }
   };
 
   render() {
     let { location, currentUserInfo, children } = this.props;
-
     // TODO: check conditions.
     if (
       (
@@ -122,7 +118,7 @@ class ApplicationContext extends React.Component {
         location.pathname === `${window.simContextPath}/buyerDashboard` ||
         location.pathname === `${window.simContextPath}/sellerDashboard`
       ) &&
-      !currentUserInfo.user ||
+      !currentUserInfo.username ||
       !this.state.locale ||
       !this.state.simUrl ||
       !this.i18n

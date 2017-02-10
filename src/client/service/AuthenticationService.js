@@ -58,7 +58,8 @@ export default class AuthenticationService {
 
   applicationUrl = () => ajaxRequest.
     get(`${window.simContextPath}/applicationConfig/url`).
-    then(res => res.text);
+    accept('json').
+    then(res => res.body);
 
   formatPatterns = () => ajaxRequest.
     get(`${window.simContextPath}/applicationConfig/formatPatterns`).

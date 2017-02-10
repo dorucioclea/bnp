@@ -19,6 +19,8 @@ const MAIN_CSS = '../../client/main.css';
 const WEBPACK_DEV_CONFIG = './../../../webpack.development.config.js';
 const bnpInternalUrl = 'http://127.0.0.1:' + process.env.PORT;
 const {getOriginalProtocolHostPort, getCurrentServiceHost, getSupplierServiceHost} = require('../utils/lib.js');
+const UserIdentity = require('../utils/userIdentityMiddleware');
+
 import _ from 'lodash';
 
 function scrubETag(res) {
@@ -31,6 +33,7 @@ function initRequestHelpers(app) {
   app.use(bodyParser.json());
   app.use(cookieParser(COOKIE_SECRET));
   app.use(helmet());
+  app.use(UserIdentity);
 }
 
 function initRequestInterceptor(app, bundle) {
@@ -46,15 +49,6 @@ function initRequestInterceptor(app, bundle) {
       res.header('Cache-Control', 'max-age=0, must-revalidate');
       res.header('Expires', 0);
     }
-
-    var userData = {};
-    _.each(req.headers, function(value, key) {
-      if (key.indexOf('x-user-') > -1) {
-        userData[key.replace('x-user-', '')] = value;
-      }
-    });
-
-    res.cookie('userData', JSON.stringify(userData));
 
     next();
   });
@@ -150,7 +144,10 @@ function initRoutes(app, db) {
   app.get('/user/currentUserInfo', userRoutes.getCurrentUserInfo);
 
   let applicationConfigRoutes = require('./../routes/applicationConfig');
-  app.get('/applicationConfig/url', (req, res) => res.send(getOriginalProtocolHostPort(req)));
+  app.get('/applicationConfig/url', (req, res) => res.send({
+    simUrl: getCurrentServiceHost(req),
+    simSupplierUrl: getSupplierServiceHost(req)
+  }));
   app.get('/applicationConfig/defaultLocale', applicationConfigRoutes.getDefaultLocale);
   app.get('/applicationConfig/formatPatterns', applicationConfigRoutes.getFormatPatterns);
 }

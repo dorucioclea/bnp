@@ -312,7 +312,7 @@ ReactDOM.render(
             component={BuyerDashboard}
           />
           <Route
-            onEnter={beforeRegularComponentEnterInterceptor}
+            // onEnter={beforeRegularComponentEnterInterceptor}
             path={`${window.simContextPath}/sellerDashboard`}
             component={SellerDashboard}
           />

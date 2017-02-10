@@ -85,9 +85,9 @@ function createUser(req, res) {
 }
 
 function getCurrentUserInfo(req, res) {
-  (req.query.reload === 'true' && req.cookies.userData ?
-    currentUserInfoService(db, JSON.parse(req.cookies.userData), JSON.parse(req.cookies.userData).email) :
-    Promise.resolve(JSON.parse(req.cookies.userData))
+  (req.query.reload === 'true' && req.isAuthenticated ?
+    currentUserInfoService(db, req.userData(), req.userData('username')) :
+    Promise.resolve(req.userData())
   ).  // eslint-disable-line dot-location
   then(currentUserInfo => res.send({ currentUserInfo })).
   catch(err => res.status(err.status).send(err.data));

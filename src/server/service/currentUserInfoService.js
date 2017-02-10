@@ -47,7 +47,7 @@ module.exports = function(db, userdata, username, locale) {
     let suppliersData = suppliers.body;
 
     return {
-      username: userdata.email,
+      username: userdata.username,
       supplierId: suppliersData.length ? suppliersData[0].supplierId : null,
       supplierName: suppliersData.length ? suppliersData[0].supplierName : null,
       companyRole: suppliersData.length ? suppliersData[0].role : null,
