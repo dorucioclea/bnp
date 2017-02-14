@@ -41,8 +41,6 @@ services:
 
   apigw:
     image: ocbesbn/api-gw:0.1
-    depends_on:
-      - postgres
     environment:
       KONG_DATABASE: 'postgres'
       KONG_PG_HOST: $KONG_PG_HOST
@@ -98,7 +96,7 @@ services:
       KONG_PORT: $KONG_PORT
       API_REGISTRY_PORT: $API_REGISTRY_PORT
     depends_on:
-      - idpro
+      - apigw
 
   mysql:
     image: gr4per/mysql
