@@ -1,16 +1,5 @@
 version: '2'
 services:
-  nginx:
-    image: gr4per/nginx-rp:latest
-    ports:
-     - "8080:8080"
-    depends_on:
-     - bnp
-    labels:
-      SERVICE_NAME: 'nginx'
-    extra_hosts:
-     - 'consul:172.17.0.1'
-
   bnp:
     build: .
     #restart: on-failure:5
@@ -38,6 +27,78 @@ services:
      - "3001:3001"
     extra_hosts:
      - 'consul:172.17.0.1'
+
+  postgres:
+    image: postgres:9.4
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: $POSTGRES_DB
+      POSTGRES_DB: $POSTGRES_USER
+    depends_on:
+      - registrator
+
+  apigw:
+    image: ocbesbn/api-gw:0.1
+    depends_on:
+      - postgres
+    environment:
+      KONG_DATABASE: 'postgres'
+      KONG_PG_HOST: $KONG_PG_HOST
+      KONG_PG_PORT: $KONG_PG_PORT
+      APP_HOST: $HOST
+      APP_HOST_PROTOCOL: $APP_HOST_PROTOCOL
+      APP_HOST_PORT: $APP_HOST_PORT
+      GATEWAY_SCHEME: $GATEWAY_SCHEME
+      GATEWAY_IP: $GATEWAY_IP
+      GATEWAY_PORT: $GATEWAY_PORT
+      GATEWAY_CALLBACK: $GATEWAY_CALLBACK
+    ports:
+      - "$GATEWAY_PORT:$GATEWAY_PORT"
+      - "8443:8443"
+      - "8001:8001"
+      - "7946:7946"
+      - "7946:7946/udp"
+    depends_on:
+      - postgres
+
+  idpro:
+    image: ocbesbn/idpro:0.1
+    ports:
+     - "APP_HOST_PORT:APP_HOST_PORT"
+    environment:
+      NODE_ENV: $NODE_ENV
+      MYSQL_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_PORT: $MYSQL_PORT
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_DIALECT: $MYSQL_DIALECT
+      MYSQL_SERVICE_NAME: $MYSQL_HOST
+      APP_HOST: '0.0.0.0'
+      APP_HOST_PROTOCOL: $APP_HOST_PROTOCOL
+      APP_HOST_PORT: $APP_HOST_PORT
+      GATEWAY_SCHEME: $GATEWAY_SCHEME
+      GATEWAY_IP: $GATEWAY_IP
+      GATEWAY_PORT: $GATEWAY_PORT
+      GATEWAY_CALLBACK: $GATEWAY_CALLBACK
+    depends_on:
+      - apigw
+
+  api-registry:
+    image: ocbesbn/api-registrator:0.1
+    ports:
+      - "$API_REGISTRY_PORT:$API_REGISTRY_PORT"
+    environment:
+      CONSUL_HOST: $HOST
+      AUTH_SERVER: $AUTH_SERVER
+      AUTH_SERVER_PORT: $AUTH_SERVER_PORT
+      GATEWAY_CALLBACK: $GATEWAY_CALLBACK
+      KONG_HOST: $KONG_HOST
+      KONG_PORT: $KONG_PORT
+      API_REGISTRY_PORT: $API_REGISTRY_PORT
+    depends_on:
+      - idpro
 
   mysql:
     image: gr4per/mysql
