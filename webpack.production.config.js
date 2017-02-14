@@ -66,12 +66,12 @@ module.exports = {
   ],
 
   resolve: {
-    modules: ['node_modules'],
+    modules: [process.env.NODE_PATH, 'node_modules'],
     extensions: ['.json', '.jsx', '.js']
   },
 
   resolveLoader: {
-    modules: ['node_modules'],
+    modules: [process.env.NODE_PATH, 'node_modules'],
     extensions: ['.js']
   },
 
