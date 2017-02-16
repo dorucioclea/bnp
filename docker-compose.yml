@@ -40,7 +40,7 @@ services:
       - registrator
 
   apigw:
-    image: ocbesbn/api-gw:0.1
+    image: ocbesbn/api-gw:0.2
     environment:
       KONG_DATABASE: 'postgres'
       KONG_PG_HOST: $KONG_PG_HOST
@@ -62,7 +62,7 @@ services:
       - postgres
 
   idpro:
-    image: ocbesbn/idpro:0.1
+    image: ocbesbn/idpro:0.2
     ports:
      - "$APP_HOST_PORT:$APP_HOST_PORT"
     environment:
