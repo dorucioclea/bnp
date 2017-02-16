@@ -110,14 +110,6 @@ module.exports = {
           field: 'Room',
           type: Sequelize.STRING(40)
         },
-        mayChangeSupplier: {
-          field: 'MayChangeSupplier',
-          type: Sequelize.BOOLEAN
-        },
-        mayChangeCustomer: {
-          field: 'MayChangeCustomer',
-          type: Sequelize.BOOLEAN
-        },
         showWelcomePage: {
           field: 'ShowWelcomePage',
           type: Sequelize.BOOLEAN,
@@ -128,25 +120,45 @@ module.exports = {
           field: 'VerificationToken',
           type: Sequelize.STRING()
         },
+        mayChangeSupplier: {
+          field: 'MayChangeSupplier',
+          type: Sequelize.BOOLEAN
+        },
+        mayChangeCustomer: {
+          field: 'MayChangeCustomer',
+          type: Sequelize.BOOLEAN
+        },
         createdBy: {
           field: 'CreatedBy',
           type: Sequelize.STRING(60),
+          defaultValue: 'OpusCapita user',
           allowNull: false
         },
         changedBy: {
           field: 'ChangedBy',
           type: Sequelize.STRING(60),
+          defaultValue: 'OpusCapita user',
           allowNull: false
         },
         createdOn: {
-          field: "CreatedOn",
+          field: 'CreatedOn',
           type: Sequelize.DATE,
+          defaultValue: Sequelize.NOW,
           allowNull: false
         },
         changedOn: {
-          field: "ChangedOn",
+          field: 'ChangedOn',
           type: Sequelize.DATE,
+          defaultValue: Sequelize.NOW,
           allowNull: false
+        },
+        verificationToken: {
+          field: 'VerificationToken',
+          type: Sequelize.STRING()
+        },
+        emailVerified: {
+          field: 'EmailVerified',
+          type: Sequelize.BOOLEAN
         }
       })
     ]);
