@@ -14,6 +14,10 @@ services:
       PORT: '3000'
     ports:
      - "3000:3000"
+    logging:
+      driver: gelf
+      options:
+        gelf-address: 'udp://${LOG_HOST}:12201'
 
   suppliers:
     image: gr4per/supplierdir:20170125 #TODO: change back to latest once supplierdir is fixed
@@ -54,7 +58,7 @@ services:
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_DB: $POSTGRES_DB
-      LOG_PORT: $LOG_PORT
+      LOG_PORT: 5000
       LOG_HOST: $LOG_HOST
       HOST: $HOST
     ports:
