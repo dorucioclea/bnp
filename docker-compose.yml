@@ -40,7 +40,7 @@ services:
       - registrator
 
   apigw:
-    image: ocbesbn/api-gw:0.2
+    image: ocbesbn/api-gw:latest
     environment:
       KONG_DATABASE: 'postgres'
       KONG_PG_HOST: $KONG_PG_HOST
@@ -52,6 +52,11 @@ services:
       GATEWAY_IP: $GATEWAY_IP
       GATEWAY_PORT: $GATEWAY_PORT
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_DB: $POSTGRES_DB
+      LOG_PORT: $LOG_PORT
+      LOG_HOST: $LOG_HOST
+      HOST: $HOST
     ports:
       - "$GATEWAY_PORT:$GATEWAY_PORT"
       - "8443:8443"
@@ -62,7 +67,7 @@ services:
       - postgres
 
   idpro:
-    image: ocbesbn/idpro:0.3
+    image: ocbesbn/idpro:latest
     ports:
      - "$APP_HOST_PORT:$APP_HOST_PORT"
     environment:
@@ -81,7 +86,7 @@ services:
       - apigw
 
   api-registry:
-    image: ocbesbn/api-registrator:0.2
+    image: ocbesbn/api-registrator:latest
     ports:
       - "$API_REGISTRY_PORT:$API_REGISTRY_PORT"
     environment:
@@ -94,6 +99,39 @@ services:
       API_REGISTRY_PORT: $API_REGISTRY_PORT
     depends_on:
       - apigw
+
+
+  #ELK stack
+  elasticsearch:
+    image: ocbesbn/elasticsearch:latest
+    environment:
+      # This helps ES out with memory usage
+      - ES_JAVA_OPTS=-Xmx1g -Xms1g
+    depends_on:
+      - registrator
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  logstash:
+    image: ocbesbn/logstash:latest
+    depends_on:
+      - registrator
+    ports:
+      - "5000:5000/udp"
+      - "12201:12201/udp"
+    environment:
+      ELASTICSEARCH_IP: $HOST
+
+  kibana:
+    image: ocbesbn/kibana:latest
+    depends_on:
+      - registrator
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_IP: $HOST
+  #ELK stack
 
   mysql:
     image: gr4per/mysql
