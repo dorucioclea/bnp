@@ -15,7 +15,7 @@ are ready please navigate to [https://13.95.89.43/id_rsa.php](https://13.95.89.4
 type authorization token and save downloaded key where you wish (if you use Putty, you will propably need to convert it 
 to PPK format).
 
-[Download page](https://github.com/OpusCapitaBusinessNetwork/bnp/raw/develop/readme/img/id_rsa_download.png "Download page")
+[[https://github.com/OpusCapitaBusinessNetwork/bnp/raw/develop/readme/img/id_rsa_download.png|"Download page"]]
 
 ##Connecting to Azure
 Current master host is available under IP 13.95.89.43. Remember about using downloaded key, not your own! You probably 
@@ -53,7 +53,7 @@ For now it is only possible to determine amount and addresses of instances from 
 
 Now if you have X forwarding configured you can just run `cssh all` to connect to all nodes in cluster with ClusterSSH GUI app. Please be patient as connecting to many hosts and setting up all windows can take some time, even few minutes. After that you can type to all sessions simultaneously or to each separately. For more advanced use please refer to Cluster SSH manual.
 
-[Cluster SSH](https://github.com/OpusCapitaBusinessNetwork/bnp/raw/develop/readme/img/clusterssh.gif "Cluster SSH")
+[[https://github.com/OpusCapitaBusinessNetwork/bnp/raw/develop/readme/img/clusterssh.gif|alt=ClusterSSH]]
 
 #####CLI method
 If your device or client does not support X forwarding you unfortunatelly need to connect to each node one by one.
@@ -62,7 +62,7 @@ If your device or client does not support X forwarding you unfortunatelly need t
 >You will need to have local SSH tunnel on port 8080 set up
 
 Web access panel can be found under http://localhost:8080/ui/ on your machine. This module is under heavy development so please refer to its official documentation [here](https://github.com/kubernetes/dashboard).
-[Dashboard](https://github.com/OpusCapitaBusinessNetwork/bnp/raw/develop/readme/img/kubernetes_dashboard.png "Dashboard")
+[[https://github.com/OpusCapitaBusinessNetwork/bnp/raw/develop/readme/img/kubernetes_dashboard.png|"Dashboard"]]
 
 ###Deploying
 ####Deployments
