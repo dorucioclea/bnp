@@ -23,6 +23,10 @@ would like to set up SSH tunnels and X forwarding
 during this step. Commonly used ports are:
 
   * 8080 - Kubernetes management
+  * 8300 - Serf RPC
+  * 8301 - Serf LAN
+  * 8302 - Serf WAN
+  * 8600 - DNS
   * 8500 - Consul dashboard
   * 5432 - PostgreSQL
   * 3306 - MySQL
@@ -35,13 +39,12 @@ From this host you can jump around whole infrastructure to hosts which are usual
 
 ##Available hosts
 
-DNS Name/Address   | Description
---------- | -----------
-k8s-master <br/> (Public: 13.95.89.43) | Kubernetes master & jump host
-k8s-kong | Kong master
-k8s-consul | Consul master
+DNS Name/Address   | Description | Impact
+--------- | ----------- | -------
+k8s-master <br/> (Public: 13.95.89.43) | Kubernetes master & jump host | Loss of maganement and ochestration
+k8s-consul | Consul master | Full outage of environment
 k8s-postgres | PostgreSQL master
-k8s-mysql | MySQL master
+k8s-mysql | MySQL master | Full outage of environment
 40.68.103.106 | Kubernetes slaves load balancer
 	
 ##Managing kubernetes nodes
