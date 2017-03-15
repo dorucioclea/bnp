@@ -18,8 +18,8 @@ to PPK format).
 ![id_rsa Download](https://github.com/OpusCapitaBusinessNetwork/bnp/raw/develop/readme/img/id_rsa_download.png)
 
 ##Connecting to Azure
-Current master host is available under IP 13.95.89.43. Remember about using downloaded key, not your own! You probably 
-would like to set up SSH tunnels and X forwarding 
+Current master host is available under IP 13.95.89.43. Remember about using downloaded key, not your own! Demployment manager user is `dm`  so the command you would like to use is probably `ssh dm@13.95.89.43`. You probably 
+would like to also set up SSH tunnels and X forwarding 
 during this step. Commonly used ports are:
 
   * 8080 - Kubernetes management
