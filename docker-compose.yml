@@ -40,6 +40,7 @@ services:
     environment:
       POSTGRES_USER: $POSTGRES_DB
       POSTGRES_DB: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     depends_on:
       - registrator
 
@@ -58,6 +59,7 @@ services:
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       LOG_PORT: 5000
       LOG_HOST: $LOG_HOST
       HOST: $HOST
@@ -101,6 +103,7 @@ services:
       KONG_HOST: $KONG_HOST
       KONG_PORT: $KONG_PORT
       API_REGISTRY_PORT: $API_REGISTRY_PORT
+      GATEWAY_CALLBACK: $GATEWAY_CALLBACK
     depends_on:
       - apigw
 
