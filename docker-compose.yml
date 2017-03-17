@@ -73,22 +73,7 @@ services:
       - postgres
 
   idpro:
-    # image: ocbesbn/idpro:latest
-    build:
-      context: ../idpro
-      args:
-        NODE_ENV: $NODE_ENV
-        MYSQL_PORT: $MYSQL_PORT
-        MYSQL_DIALECT: 'mysql'
-        APP_HOST: '0.0.0.0'
-        APP_HOST_PROTOCOL: $APP_HOST_PROTOCOL
-        APP_HOST_PORT: $APP_HOST_PORT
-        GATEWAY_SCHEME: $GATEWAY_SCHEME
-        GATEWAY_IP: $GATEWAY_IP
-        GATEWAY_PORT: $GATEWAY_PORT
-        GATEWAY_CALLBACK: $GATEWAY_CALLBACK
-        MYSQL_HOST: $MYSQL_HOST
-        CONSUL_HOST: $CONSUL_HOST
+    image: ocbesbn/idpro:latest
     ports:
      - "$APP_HOST_PORT:$APP_HOST_PORT"
     environment:
@@ -107,8 +92,6 @@ services:
       CONSUL_HOST: $CONSUL_HOST
     depends_on:
       - apigw
-    volumes:
-     - ../idpro:/idpro
 
   api-registry:
     image: ocbesbn/api-registrator:latest
@@ -128,35 +111,35 @@ services:
 
 
   #ELK stack
-  # elasticsearch:
-  #   image: ocbesbn/elasticsearch:latest
-  #   environment:
-  #     # This helps ES out with memory usage
-  #     - ES_JAVA_OPTS=-Xmx1g -Xms1g
-  #   depends_on:
-  #     - registrator
-  #   ports:
-  #     - "9200:9200"
-  #     - "9300:9300"
-  #
-  # logstash:
-  #   image: ocbesbn/logstash:latest
-  #   depends_on:
-  #     - registrator
-  #   ports:
-  #     - "5000:5000/udp"
-  #     - "12201:12201/udp"
-  #   environment:
-  #     ELASTICSEARCH_IP: $HOST
-  #
-  # kibana:
-  #   image: ocbesbn/kibana:latest
-  #   depends_on:
-  #     - registrator
-  #   ports:
-  #     - "5601:5601"
-  #   environment:
-  #     ELASTICSEARCH_IP: $HOST
+  elasticsearch:
+    image: ocbesbn/elasticsearch:latest
+    environment:
+      # This helps ES out with memory usage
+      - ES_JAVA_OPTS=-Xmx1g -Xms1g
+    depends_on:
+      - registrator
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  logstash:
+    image: ocbesbn/logstash:latest
+    depends_on:
+      - registrator
+    ports:
+      - "5000:5000/udp"
+      - "12201:12201/udp"
+    environment:
+      ELASTICSEARCH_IP: $HOST
+
+  kibana:
+    image: ocbesbn/kibana:latest
+    depends_on:
+      - registrator
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_IP: $HOST
   #ELK stack
 
   mysql:
