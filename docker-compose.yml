@@ -63,8 +63,11 @@ services:
       LOG_PORT: 5000
       LOG_HOST: $LOG_HOST
       HOST: $HOST
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: $REDIS_PORT
+      REDIS_AUTH: $REDIS_AUTH
     ports:
-      - "$GATEWAY_PORT:$GATEWAY_PORT"
+      - "8080:8080"
       - "8443:8443"
       - "8001:8001"
       - "7946:7946"
@@ -108,6 +111,15 @@ services:
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
     depends_on:
       - apigw
+
+  redis:
+    image: ocbesbn/redis:latest
+    ports:
+      - "$REDIS_PORT:$REDIS_PORT"
+    environment:
+      REDIS_AUTH: $REDIS_AUTH
+    depends_on:
+      - registrator
 
 
   #ELK stack
