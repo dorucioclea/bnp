@@ -40,6 +40,7 @@ services:
     environment:
       POSTGRES_USER: $POSTGRES_DB
       POSTGRES_DB: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     depends_on:
       - registrator
 
@@ -58,11 +59,15 @@ services:
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       LOG_PORT: 5000
       LOG_HOST: $LOG_HOST
       HOST: $HOST
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: $REDIS_PORT
+      REDIS_AUTH: $REDIS_AUTH
     ports:
-      - "$GATEWAY_PORT:$GATEWAY_PORT"
+      - "8080:8080"
       - "8443:8443"
       - "8001:8001"
       - "7946:7946"
@@ -86,6 +91,8 @@ services:
       GATEWAY_IP: $GATEWAY_IP
       GATEWAY_PORT: $GATEWAY_PORT
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
+      MYSQL_HOST: $MYSQL_HOST
+      CONSUL_HOST: $CONSUL_HOST
     depends_on:
       - apigw
 
@@ -101,8 +108,18 @@ services:
       KONG_HOST: $KONG_HOST
       KONG_PORT: $KONG_PORT
       API_REGISTRY_PORT: $API_REGISTRY_PORT
+      GATEWAY_CALLBACK: $GATEWAY_CALLBACK
     depends_on:
       - apigw
+
+  redis:
+    image: ocbesbn/redis:latest
+    ports:
+      - "$REDIS_PORT:$REDIS_PORT"
+    environment:
+      REDIS_AUTH: $REDIS_AUTH
+    depends_on:
+      - registrator
 
 
   #ELK stack
