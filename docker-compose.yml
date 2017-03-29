@@ -12,15 +12,18 @@ services:
       SERVICE_NAME: 'bnp'
     environment:
       PORT: '3000'
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
     ports:
      - "3000:3000"
-    logging:
-      driver: gelf
-      options:
-        gelf-address: 'udp://${LOG_HOST}:12201'
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: 'udp://${LOG_HOST}:12201'
 
   suppliers:
-    image: gr4per/supplierdir:20170125 #TODO: change back to latest once supplierdir is fixed
+    #image: opuscapita/supplier:latest
+    build: ../supplierDir
     #restart: on-failure:5
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
      - mysql
@@ -29,6 +32,9 @@ services:
       SERVICE_TAGS: 'external'
     ports:
      - "3001:3001"
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
     extra_hosts:
      - 'consul:172.17.0.1'
 
@@ -76,7 +82,7 @@ services:
       - postgres
 
   idpro:
-    image: ocbesbn/idpro:latest
+    image: ocbesbn/idpro:dev
     ports:
      - "$APP_HOST_PORT:$APP_HOST_PORT"
     environment:
@@ -123,35 +129,35 @@ services:
 
 
   #ELK stack
-  elasticsearch:
-    image: ocbesbn/elasticsearch:latest
-    environment:
-      # This helps ES out with memory usage
-      - ES_JAVA_OPTS=-Xmx1g -Xms1g
-    depends_on:
-      - registrator
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-
-  logstash:
-    image: ocbesbn/logstash:latest
-    depends_on:
-      - registrator
-    ports:
-      - "5000:5000/udp"
-      - "12201:12201/udp"
-    environment:
-      ELASTICSEARCH_IP: $HOST
-
-  kibana:
-    image: ocbesbn/kibana:latest
-    depends_on:
-      - registrator
-    ports:
-      - "5601:5601"
-    environment:
-      ELASTICSEARCH_IP: $HOST
+#  elasticsearch:
+#    image: ocbesbn/elasticsearch:latest
+#    environment:
+#      # This helps ES out with memory usage
+#      - ES_JAVA_OPTS=-Xmx1g -Xms1g
+#    depends_on:
+#      - registrator
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#
+#  logstash:
+#    image: ocbesbn/logstash:latest
+#    depends_on:
+#      - registrator
+#    ports:
+#      - "5000:5000/udp"
+#      - "12201:12201/udp"
+#    environment:
+#      ELASTICSEARCH_IP: $HOST
+#
+#  kibana:
+#    image: ocbesbn/kibana:latest
+#    depends_on:
+#      - registrator
+#    ports:
+#      - "5601:5601"
+#    environment:
+#      ELASTICSEARCH_IP: $HOST
   #ELK stack
 
   mysql:
