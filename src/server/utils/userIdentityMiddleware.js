@@ -5,8 +5,9 @@
 
 import _ from 'lodash';
 
-function userIdentity(req, res, next) {
-  var userData = {};
+function userIdentity(_req, res, next) {
+  let userData = {};
+  let req = _req;
   _.each(req.headers, function(value, key) {
     if (key.indexOf('x-user-') > -1) {
       userData[key.replace('x-user-', '')] = value;
@@ -22,11 +23,12 @@ function userIdentity(req, res, next) {
    * @return userData
    */
   req.userData = function(key) {
-    if (key)
+    if (key) {
       return userData[key];
+    }
 
     return userData;
-  }
+  };
 
   if (userData['username']) {
     req.isAuthenticated = true;

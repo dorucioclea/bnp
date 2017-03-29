@@ -28,7 +28,8 @@ class ApplicationContext extends React.Component {
   }
 
   getChildContext() {
-    let language = cookie.load('LANGUAGE_COOKIE_KEY') && cookie.load('LANGUAGE_COOKIE_KEY') != "null" ? cookie.load('LANGUAGE_COOKIE_KEY') : 'en';
+    let language = cookie.load('LANGUAGE_COOKIE_KEY') &&
+      cookie.load('LANGUAGE_COOKIE_KEY') !== "null" ? cookie.load('LANGUAGE_COOKIE_KEY') : 'en';
     if (language) {
       let forceReload = this.props.currentUserInfo.username === undefined;  // Quering the server for the 1st time.
 

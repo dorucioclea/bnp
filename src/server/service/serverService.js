@@ -18,10 +18,9 @@ const SIM_VIEWS = '../../../resources/bnp/views';
 const MAIN_CSS = '../../client/main.css';
 const WEBPACK_DEV_CONFIG = './../../../webpack.development.config.js';
 const bnpInternalUrl = 'http://127.0.0.1:' + process.env.PORT;
-const {getOriginalProtocolHostPort, getCurrentServiceHost, getSupplierServiceHost} = require('../utils/lib.js');
+const { getOriginalProtocolHostPort, getCurrentServiceHost, getSupplierServiceHost } = require('../utils/lib.js');
 const UserIdentity = require('../utils/userIdentityMiddleware');
 
-import _ from 'lodash';
 
 function scrubETag(res) {
   onHeaders(res, function() {
@@ -134,11 +133,11 @@ function initCssBundle(app) {
   app.use('/static/main.css', express.static(path.join(__dirname, MAIN_CSS)));
 }
 
-function initRoutes(app, db) {
+function initRoutes(app, db, config) {
   let viewLogRoutes = require('./../routes/viewLog');
   app.get('/viewLog/*', viewLogRoutes.downloadLogs);
 
-  let userRoutes = require('./../routes/user')(db);
+  let userRoutes = require('./../routes/user')(db, config);
   app.post('/user/verify', userRoutes.verify);
   app.post('/user/createUser', userRoutes.createUser);
   app.get('/user/currentUserInfo', userRoutes.getCurrentUserInfo);
@@ -152,8 +151,8 @@ function initRoutes(app, db) {
   app.get('/applicationConfig/formatPatterns', applicationConfigRoutes.getFormatPatterns);
 }
 
-function initSecurityManager(app, db) {
-  require('./../routes/securityManager')(app, db);
+function initSecurityManager(app, db, config) {
+  require('./../routes/securityManager')(app, db, config);
 }
 
 

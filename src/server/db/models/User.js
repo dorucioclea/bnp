@@ -153,10 +153,6 @@ module.exports = function(sequelize) {
       defaultValue: Sequelize.NOW,
       allowNull: false
     },
-    verificationToken: {
-      field: 'VerificationToken',
-      type: Sequelize.STRING()
-    },
     emailVerified: {
       field: 'EmailVerified',
       type: Sequelize.BOOLEAN

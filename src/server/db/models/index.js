@@ -3,8 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
-
 function findModels(base, dir) {
   return fs.readdirSync(dir).reduce((list, file) => {
     let name = path.join(dir, file);
@@ -19,10 +17,10 @@ function findModels(base, dir) {
 }
 
 function associateModels(db) {
-  var promises = [];
+  let promises = [];
   findModels('', __dirname).forEach(moduleName => {
     let m = require(`./${moduleName}`)(db);
-    db[m.name] = m;
+    db[m.name] = m; // eslint-disable-line no-param-reassign
 
     db[m.name].beforeCreate(object => {
       if (!object.createdBy) {
@@ -36,8 +34,10 @@ function associateModels(db) {
   });
 
 
-  Object.keys(db).forEach(function (modelName) {
-    db[modelName].associate && promises.push(db[modelName].associate(db));
+  Object.keys(db).forEach(function(modelName) {
+    if (db[modelName].associate) {
+      promises.push(db[modelName].associate(db));
+    }
   });
 
   return Promise.all(promises);

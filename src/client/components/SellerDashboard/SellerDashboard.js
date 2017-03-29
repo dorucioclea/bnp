@@ -20,7 +20,9 @@ export default class SellerDashboard extends React.Component {
             <div className="panel panel-success">
               <div className="panel-heading"><h4>Company profile strength</h4></div>
               <div className="panel-body">
-                <Col xs={6}><Image src={`${window.simUrl}/img/mockup/sellerDashboardGauge.png`} responsive={true}/></Col>
+                <Col xs={6}>
+                  <Image src={`${window.simUrl}/img/mockup/sellerDashboardGauge.png`} responsive={true}/>
+                </Col>
                 <PieChart className="col-xs-6 hidden" width={250} height={200}>
                 <Pie
                   data={this.gaugeData}
