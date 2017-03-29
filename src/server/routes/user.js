@@ -7,6 +7,7 @@ let serviceErrorHandlingService = require('./../service/serviceErrorHandlingServ
 let databaseErrorHandlingService = require('./../service/databaseErrorHandlingService');
 let CryptoJS = require('crypto-js');
 let db;
+let config;
 
 function verify(req, res) {
   db.User.update({
@@ -86,16 +87,16 @@ function createUser(req, res) {
 
 function getCurrentUserInfo(req, res) {
   (req.query.reload === 'true' && req.isAuthenticated ?
-    currentUserInfoService(db, req.userData(), req.userData('username')) :
+    currentUserInfoService(db, config, req.userData(), req.userData('username')) :
     Promise.resolve(req.userData())
   ).  // eslint-disable-line dot-location
   then(currentUserInfo => res.send({ currentUserInfo })).
   catch(err => res.status(err.status).send(err.data));
 }
 
-module.exports = function(dbObj) {
+module.exports = function(dbObj, configObj) {
   db = dbObj;
-
+  config = configObj;
   return {
     verify,
     createUser,

@@ -4,7 +4,7 @@ import md5 from 'md5';
 import databaseErrorHandlingService from '../service/databaseErrorHandlingService';
 const currentUserInfoService = require('../service/currentUserInfoService');
 
-module.exports = function(app, db) {
+module.exports = function(app, db, config) {
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -57,9 +57,10 @@ module.exports = function(app, db) {
 
         return currentUserInfoService(
           db,
+          config,
           req.userData(),
           req.userData('username'),
-          req.body.language
+          req.body.language,
         ).
           then(userInfo => res.send({
             userInfo,
@@ -90,7 +91,7 @@ module.exports = function(app, db) {
       update({
         showWelcomePage: false
       }, {
-        where: { LoginName: req.userData('email')}
+        where: { LoginName: req.userData('email') }
       }).
       then(([affectedCount]) => {
         if (affectedCount === 0) {

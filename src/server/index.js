@@ -1,13 +1,13 @@
-var express = require('express');
-var serverService = require('./service/serverService');
-var app = express();
-var network = require('network');
-var Promise = require('bluebird');
+let express = require('express');
+let serverService = require('./service/serverService');
+let app = express();
+let network = require('network');
+let Promise = require('bluebird');
+let server;
 
 import db from "ocbesbn-dbinit";
 import config from "ocbesbn-config";
 
-var server;
 
 let bundle = (process.env.NODE_ENV === 'production') ?
   require(__dirname + '/../client/assets.json').main.js :
@@ -15,28 +15,9 @@ let bundle = (process.env.NODE_ENV === 'production') ?
 
 serverService.initRequestHelpers(app);
 serverService.initSession(app);
-serverService.initRequestInterceptor(app, bundle);  // Init global request interceptor for adding headers.
+serverService.initRequestInterceptor(app, bundle);  /* Init global request interceptor for adding headers. */
 
 let chunksManifest;
-
-if (process.env.NODE_ENV === 'production') {
-  chunksManifest = require(__dirname + '/../client/chunk-manifest.json');
-  serverService.initChunksStatic(app, chunksManifest);
-  serverService.initBundleStatic(app, bundle);
-  serverService.initCssBundle(app);
-} else {
-  serverService.initMorganLogger(app);
-
-  if (process.env.NODE_ENV !== 'test') {
-    serverService.initDevWebpack(app);
-  }
-}
-if (process.env.NODE_ENV !== 'test') {
-  //launch aplication
-  getConsulAddress(function (address) {
-    launchApplication(address, server);
-  })
-}
 
 function getConsulAddress(callback) {
   if (process.env.CONSUL_HOST) {
@@ -53,11 +34,22 @@ function getConsulAddress(callback) {
   }
 }
 
-function launchApplication(consulAddress, server) {
+function gracefulShutdown(msg) {
+  if (msg) {
+    console.log('SERVER GRACEFUL SHUTDONW:', msg);
+  }
+
+  if (server) {
+    server.close(() => process.exit(0));
+  }
+}
+
+
+function launchApplication(consulAddress) {
   console.log("Initializing Consul connection.");
   config.init({ host: consulAddress })
-    .tap(function() {console.log("Consul connection initialized!")})
-    .then(function (config) {
+    .tap(function() {console.log("Consul connection initialized!")}) // eslint-disable-line dot-location
+    .then(function(config) { // eslint-disable-line dot-location
       return Promise.props({
         database: config.get("mysql/database"),
         username: config.get("mysql/username"),
@@ -65,7 +57,8 @@ function launchApplication(consulAddress, server) {
         _service: config.getEndPoint("mysql")
       });
     })
-    .then(function (credentials) {
+    .then(function(_credentials) { // eslint-disable-line dot-location
+      let credentials = _credentials;
       console.log("Initializing Database connection.");
       credentials.host = credentials._service.host;
       credentials.port = credentials._service.port;
@@ -78,27 +71,27 @@ function launchApplication(consulAddress, server) {
 
       return db.init(credentials);
     })
-    .tap(function() {console.log("DB connection initialized!")})
-    .then(function () {
+    .tap(function() {console.log("DB connection initialized!")}) // eslint-disable-line dot-location
+    .then(function() { // eslint-disable-line dot-location
       console.log("Migrating Database.");
       return db.migrate(`./src/server/db/migrations`);
     })
-    .tap(function() {console.log("DB migrated!")})
-    .then(db => {
-      console.log("Preparing models.")
+    .tap(function() {console.log("DB migrated!")}) // eslint-disable-line dot-location
+    .then(db => { // eslint-disable-line dot-location
+      console.log("Preparing models.");
       require(`./db/models`).associateModels(db.getConnection());  // prepare models
       return db;
     })
-    .then(db => {
-      console.log("Populating data.")
+    .then(db => { // eslint-disable-line dot-location
+      console.log("Populating data.");
       require(`./db/data`)(db.getConnection());  // populate data
     })
-    .then(db => {
+    .then(db => { // eslint-disable-line dot-location
       serverService.initSecurityManager(app, db, config);
       serverService.initRoutes(app, db, config);
       serverService.initTemplate(app, bundle, chunksManifest);
     })
-    .then(function () {
+    .then(function() { // eslint-disable-line dot-location
       server = app.listen(process.env.PORT, err => {
         if (err) {
           console.log(err);
@@ -113,12 +106,23 @@ function launchApplication(consulAddress, server) {
     }).catch(gracefulShutdown);
 }
 
-function gracefulShutdown(msg) {
-  if (msg) {
-    console.log('SERVER GRACEFUL SHUTDONW:', msg);
-  }
+if (process.env.NODE_ENV === 'production') {
+  chunksManifest = require(__dirname + '/../client/chunk-manifest.json');
+  serverService.initChunksStatic(app, chunksManifest);
+  serverService.initBundleStatic(app, bundle);
+  serverService.initCssBundle(app);
+} else {
+  serverService.initMorganLogger(app);
 
-  server && server.close(() => process.exit(0));
+  if (process.env.NODE_ENV !== 'test') {
+    serverService.initDevWebpack(app);
+  }
+}
+if (process.env.NODE_ENV !== 'test') {
+  /* launch aplication */
+  getConsulAddress(function(address) {
+    launchApplication(address);
+  })
 }
 
 // listen for TERM signal .e.g. "kill" or "docker[-compose] stop" commands.

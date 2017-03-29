@@ -1,28 +1,16 @@
 import ajaxRequest from 'superagent';
 
-const consulEmitter = require('./consulService.js').emitter;
-let supplierUrl = null;
+module.exports = function(db, config, userdata, username, locale) {
+  let supplierUrl;
+  config.getEndPoint("supplier")
+    .then(function(endpoint) { // eslint-disable-line dot-location
+      supplierUrl = "http://" + endpoint.host + ":" + endpoint.port;
+    })
+    .catch(function(err) { // eslint-disable-line dot-location
+      throw err;
+    });
 
-consulEmitter.on('service', (action, details) => {
-  if (details.name === 'supplier') {
-    switch (action) {
-      case 'add':
-        supplierUrl = 'http://' + details.ip + ':' + details.port;
-        break;
-      case 'delete':
-        supplierUrl = null;
-        break;
-      case 'update':
-        supplierUrl = 'http://' + details.ip + ':' + details.port;
-        break;
-      default:
-        break;
-    }
-    console.log('===== supplierUrl =====', supplierUrl);
-  }
-});
 
-module.exports = function(db, userdata, username, locale) {
   if (!username) {
     return Promise.reject({
       status: 404,
@@ -86,8 +74,11 @@ module.exports = function(db, userdata, username, locale) {
     // };
     //
     // return session.currentUserInfo;  // The same as return Promise.resolve(session.currentUserInfo);
-  }).catch(err => Promise.reject({
-    status: err.status || 500,
-    data: err.data || err.message
-  }));
+  }).catch(function(err) {
+    console.log(err);
+    return Promise.reject({
+      status: err.status || 500,
+      data: err.data || err.message
+    })
+  });
 };
