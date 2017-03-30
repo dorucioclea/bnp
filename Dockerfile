@@ -1,4 +1,4 @@
-FROM gr4per/bnp-base
+FROM opuscapita/bnp-base
 MAINTAINER gr4per
 
 # go to base image folder first and add any missing modules there with npm install

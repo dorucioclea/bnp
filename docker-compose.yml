@@ -22,8 +22,8 @@ services:
 #        gelf-address: 'udp://${LOG_HOST}:12201'
 
   suppliers:
-    #image: opuscapita/supplier:latest
-    build: ../supplierDir
+    image: opuscapita/supplier:latest
+    #build: ../supplier
     #restart: on-failure:5
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
      - mysql
