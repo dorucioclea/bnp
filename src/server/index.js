@@ -43,7 +43,6 @@ function gracefulShutdown(msg) {
   }
 }
 
-
 function launchApplication(consulAddress) {
   config.init({ host: consulAddress })
     .then(function(config) { // eslint-disable-line dot-location
