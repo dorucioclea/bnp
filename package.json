@@ -73,7 +73,7 @@
     "nodemailer": "2.6.4",
     "nodemailer-smtp-transport": "2.7.2",
     "on-headers": "1.0.1",
-    "ocbesbn-dbinit": "1.0.3-SNAPSHOT",
+    "ocbesbn-db-init": "1.0.7",
     "ocbesbn-config": "2.0.5",
     "opuscapita-i18n": "^1.0.7",
     "passport": "0.3.2",

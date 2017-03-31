@@ -5,7 +5,7 @@ let network = require('network');
 let Promise = require('bluebird');
 let server;
 
-import db from "ocbesbn-dbinit";
+import db from "ocbesbn-db-init";
 import config from "ocbesbn-config";
 
 
