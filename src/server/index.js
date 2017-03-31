@@ -2,7 +2,6 @@ let express = require('express');
 let serverService = require('./service/serverService');
 let app = express();
 let network = require('network');
-let Promise = require('bluebird');
 let server;
 
 import db from "ocbesbn-db-init";
@@ -46,47 +45,11 @@ function gracefulShutdown(msg) {
 
 
 function launchApplication(consulAddress) {
-  console.log("Initializing Consul connection.");
   config.init({ host: consulAddress })
-    .tap(function() {console.log("Consul connection initialized!")}) // eslint-disable-line dot-location
     .then(function(config) { // eslint-disable-line dot-location
-      return Promise.props({
-        database: config.get("mysql/database"),
-        username: config.get("mysql/username"),
-        password: config.get("mysql/password"),
-        _service: config.getEndPoint("mysql")
-      });
+      return db.init({ consul: { host: consulAddress } });
     })
-    .then(function(_credentials) { // eslint-disable-line dot-location
-      let credentials = _credentials;
-      console.log("Initializing Database connection.");
-      credentials.host = credentials._service.host;
-      credentials.port = credentials._service.port;
-
-      if (process.env.NODE_ENV !== 'production') {
-        credentials.username = credentials.username || "root";
-        credentials.password = credentials.password || process.env.MYSQL_ROOT_PASSWORD;
-        credentials.database = credentials.database || process.env.MYSQL_DATABASE;
-      }
-
-      return db.init(credentials);
-    })
-    .tap(function() {console.log("DB connection initialized!")}) // eslint-disable-line dot-location
-    .then(function() { // eslint-disable-line dot-location
-      console.log("Migrating Database.");
-      return db.migrate(`./src/server/db/migrations`);
-    })
-    .tap(function() {console.log("DB migrated!")}) // eslint-disable-line dot-location
-    .then(db => { // eslint-disable-line dot-location
-      console.log("Preparing models.");
-      require(`./db/models`).associateModels(db.getConnection());  // prepare models
-      return db;
-    })
-    .then(db => { // eslint-disable-line dot-location
-      console.log("Populating data.");
-      require(`./db/data`)(db.getConnection());  // populate data
-    })
-    .then(db => { // eslint-disable-line dot-location
+    .then(function(db) { // eslint-disable-line dot-location
       serverService.initSecurityManager(app, db, config);
       serverService.initRoutes(app, db, config);
       serverService.initTemplate(app, bundle, chunksManifest);

@@ -1,46 +1,10 @@
 'use strict';
-const fs = require('fs');
-const path = require('path');
 const Promise = require('bluebird');
 
-function findModels(base, dir) {
-  return fs.readdirSync(dir).reduce((list, file) => {
-    let name = path.join(dir, file);
-    let isDir = fs.statSync(name).isDirectory();
-    let moduleName = file.replace(/\.[^/.]+$/, '');
-
-    return list.concat(isDir ?
-      findModels(base + moduleName + '/', name) :
-      (moduleName === 'index' || moduleName.charAt(0) === '.' ? [] : [base + moduleName])
-    );
-  }, []);
-}
-
-function associateModels(db) {
-  let promises = [];
-  findModels('', __dirname).forEach(moduleName => {
-    let m = require(`./${moduleName}`)(db);
-    db[m.name] = m; // eslint-disable-line no-param-reassign
-
-    db[m.name].beforeCreate(object => {
-      if (!object.createdBy) {
-        object.createdBy = 'jcadmin';  // eslint-disable-line no-param-reassign
-      }
-
-      if (!object.changedBy) {
-        object.changedBy = 'jcadmin';  // eslint-disable-line no-param-reassign
-      }
-    });
-  });
+const User = require('./User');
 
 
-  Object.keys(db).forEach(function(modelName) {
-    if (db[modelName].associate) {
-      promises.push(db[modelName].associate(db));
-    }
-  });
-
-  return Promise.all(promises);
-}
-
-module.exports.associateModels = associateModels;
+module.exports.init = function(db) {
+  db.import('User', User);
+  return Promise.resolve();
+};
