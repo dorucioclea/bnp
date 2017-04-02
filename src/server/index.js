@@ -69,8 +69,8 @@ function launchApplication(consulAddress) {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  chunksManifest = require(__dirname + '/../client/chunk-manifest.json');
-  serverService.initChunksStatic(app, chunksManifest);
+  /* chunksManifest = require(__dirname + '/../client/chunk-manifest.json'); */
+  /* serverService.initChunksStatic(app, chunksManifest); */
   serverService.initBundleStatic(app, bundle);
   serverService.initCssBundle(app);
 } else {
