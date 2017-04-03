@@ -9,13 +9,15 @@ function updateIfCreated(data, entity, created) {
 }
 
 module.exports = function(db) {
-  users.forEach(data => {
-    db.User.findOrCreate({
+  const userPromises = users.map(data => {
+    return db.models.User.findOrCreate({
       where: {
         loginName: data.loginName
       },
       defaults: data
     }).spread(updateIfCreated.bind(this, data));
   });
+
+  return Promise.all(userPromises);
 };
 

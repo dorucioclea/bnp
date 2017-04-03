@@ -1,5 +1,9 @@
+const Sequelize = require("sequelize");
+
 module.exports = {
-  up(queryInterface, Sequelize) {
+  up(db) {
+    const queryInterface = db.getQueryInterface();
+
     return Promise.all([
       queryInterface.createTable('CatalogUser', {
         loginName: {
@@ -160,7 +164,9 @@ module.exports = {
     ]);
   },
 
-  down(queryInterface, Sequelize) {
+  down(db) {
+    const queryInterface = db.getQueryInterface();
+
     return Promise.all([
       queryInterface.dropTable('CatalogUser')
     ]);
