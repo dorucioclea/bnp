@@ -16,6 +16,8 @@ serverService.initRequestHelpers(app);
 serverService.initSession(app);
 serverService.initRequestInterceptor(app, bundle);  /* Init global request interceptor for adding headers. */
 
+serverService.initResources(app);
+
 let chunksManifest;
 
 function getConsulAddress(callback) {

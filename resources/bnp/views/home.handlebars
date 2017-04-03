@@ -12,11 +12,13 @@
     <link rel="stylesheet" type="text/css" href="{{simUrl}}/css/jcatalog.css">
     {{#if isProductionMode}}
         <link rel="stylesheet" type="text/css" href="{{simUrl}}/static/main.css">
-        <script>
-          //<![CDATA[
-          window.webpackManifest = {{{chunksManifest}}};
-          //]]>
-        </script>
+        {{#if chunksManifest}}
+          <script>
+            //<![CDATA[
+            window.webpackManifest = {{{chunksManifest}}};
+            //]]>
+          </script>
+        {{/if}}
     {{/if}}
     <script type="application/javascript">
         var urlArray = '{{simUrl}}'.split('/');
