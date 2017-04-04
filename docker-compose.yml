@@ -5,25 +5,28 @@ services:
     #restart: on-failure:5
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
      - mysql
-     - suppliers
+     - supplier
     volumes:
      - .:/home/node/bnp
     labels:
       SERVICE_NAME: 'bnp'
     environment:
+      HOST: $HOST
       PORT: '3000'
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
     ports:
-     - "3000:3000"
+      - "3000:3000"
+    extra_hosts:
+     - 'consul:${HOST}'
 #    logging:
 #      driver: gelf
 #      options:
 #        gelf-address: 'udp://${LOG_HOST}:12201'
 
-  suppliers:
-    image: opuscapita/supplier:latest
-    #build: ../supplier
+  supplier:
+    image: opuscapita/supplier:dev
+#    build: ../supplier
     #restart: on-failure:5
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
      - mysql
@@ -31,12 +34,15 @@ services:
       SERVICE_NAME: 'supplier'  # Service name used by Registrator for adding to Consul's service discovery registry.
       SERVICE_TAGS: 'external'
     ports:
-     - "3001:3001"
+      - "3001:3001"
     environment:
+      PORT: '3001'
+      HOST_IP: $HOST
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
     extra_hosts:
-     - 'consul:172.17.0.1'
+      - 'consul:${HOST}'
+    command: 'npm run dev'
 
   postgres:
     image: postgres:9.4
@@ -175,16 +181,15 @@ services:
      - consul
     volumes:
      - /var/run/docker.sock:/tmp/docker.sock
-    command: ['-ip=172.17.0.1', 'consul://localhost:8500']
+    command: ['-ip=${HOST}', 'consul://localhost:8500']
 
   consul:
-    image: consul:latest
-    network_mode: host
-    #restart: always
-    ports:
-      - '8400:8400'
-      - '8500:8500'
-      - '8600:53/udp'
+    command: -bootstrap -ui
+    image: gliderlabs/consul-server
     labels:
-      SERVICE_IGNORE: 'true'  # Do not add any of Consul's services to Consul's service discovery registry.
-    command: [agent, '-server', '-ui', '-bootstrap-expect=1', '-bind=172.17.0.1', '-client=0.0.0.0']
+     - 'SERVICE_NAME=consul'
+    ports:
+     - "8400:8400"
+     - "8500:8500"
+     - "53:8600/udp"
+     - "53:8600"
