@@ -27,6 +27,8 @@ export default class AuthenticationService {
     catch(err => Promise.reject(err.status));
 
   logout() {
+    console.log('logout-window.simContextPath', window.simContextPath);
+    
     return ajaxRequest.
       get(`${window.simContextPath}/logout`).
       then(() => this.resetCurrentUserInfo()).
@@ -37,6 +39,8 @@ export default class AuthenticationService {
   }
 
   onboardingDone() {
+    console.log('window.simContextPath', window.simContextPath);
+    
     return ajaxRequest.
       get(`${window.simContextPath}/onboardingDone`).
       then(() => browserHistory.push(`${window.simContextPath}/dashboard`)).

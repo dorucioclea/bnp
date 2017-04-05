@@ -68,6 +68,7 @@ let authenticationService = new AuthenticationService({
 function beforeSupplierComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.isAuthenticated().then(username => {
     console.log('===== beforeSupplierComponentEnterInterceptor', JSON.stringify(username));
+    
     if (!username) {
       replace(`${window.simContextPath}/login`);
     }
@@ -87,7 +88,7 @@ function beforeRegularComponentEnterInterceptor(nextState, replace, done) {
       replace(`${window.simContextPath}/login`);
     } else if (!currentUserInfo.supplierId) {
       replace(`${window.simContextPath}/supplierInformation`);
-    } else if (currentUserInfo.showWelcomePage) {
+    } else if (currentUserInfo.showWelcomePage || currentUserInfo.user.showWelcomePage) {
       replace(`${window.simContextPath}/welcome`);
     }
 
@@ -116,8 +117,7 @@ function beforeServiceConfigComponentEnterInterceptor(nextState, replace, done) 
 }
 function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.currentUserInfo(true).then(currentUserInfo => {
-    console.log('===== beforeDashboardComponentEnterInterceptor', JSON.stringify(currentUserInfo));
-
+    console.log('===== beforeDashboardComponentEnterInterceptor', currentUserInfo, JSON.stringify(currentUserInfo));
     if (!currentUserInfo.username) {
       replace(`${window.simContextPath}/login`);
     } else if (!currentUserInfo.supplierId) {
@@ -140,7 +140,7 @@ function beforeDashboardComponentEnterInterceptor(nextState, replace, done) {
 function beforeWelcomeComponentEnterInterceptor(nextState, replace, done) {
   authenticationService.currentUserInfo(true).then(currentUserInfo => {
     console.log('===== beforeWelcomeComponentEnterInterceptor', JSON.stringify(currentUserInfo));
-
+    
     if (!currentUserInfo.username) {
       replace(`${window.simContextPath}/login`);
     } else if (!currentUserInfo.supplierId) {

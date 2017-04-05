@@ -1,4 +1,5 @@
 import ajaxRequest from 'superagent';
+const { getUserData } = require('../routes/userDetail.js');
 
 module.exports = function(db, config, userdata, username, locale) {
   let supplierUrl;
@@ -28,12 +29,12 @@ module.exports = function(db, config, userdata, username, locale) {
         query({ userId: username }) :
       Promise.resolve({
         body: []
-      })
+      }),
+      getUserData(db, username, userdata)
   ];
 
-  return Promise.all(promises).then(([suppliers]) => {
+  return Promise.all(promises).then(([suppliers, userData]) => {
     let suppliersData = suppliers.body;
-
     return {
       username: userdata.username,
       supplierId: suppliersData.length ? suppliersData[0].supplierId : null,
@@ -41,6 +42,7 @@ module.exports = function(db, config, userdata, username, locale) {
       companyRole: suppliersData.length ? suppliersData[0].role : null,
       locale: locale || userdata && userdata.locale,
       readOnly: false,  // TODO:
+      showWelcomePage: userData.showWelcomePage,
       user: userdata
     }
 

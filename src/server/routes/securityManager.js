@@ -3,6 +3,7 @@ import passport from 'passport';
 import md5 from 'md5';
 import databaseErrorHandlingService from '../service/databaseErrorHandlingService';
 const currentUserInfoService = require('../service/currentUserInfoService');
+const redisConfig = require("./redisConfig.js");
 
 module.exports = function(app, db, config) {
   app.use(passport.initialize());
@@ -86,6 +87,22 @@ module.exports = function(app, db, config) {
       res.sendStatus(401);
   });
 
+  /*
+    Event propagation code start here with redis
+    ### TODO: Check for which event to publish.
+  */ 
+  const populateEvent = (username) => {
+    const onboardingUser = JSON.parse(req.cookies.ONBOARDING_DATA);
+    if(onboardingUser.campaignId && onboardingUser.userId == username) {
+      redisConfig.publish("onboarding", JSON.stringify({
+        "email": onboardingUser.userId,
+        "transition":"onboarded",
+        "contactId": onboardingUser.contactId,
+        "campaignId": onboardingUser.campaignId
+      }));   
+    }       
+  }
+
   app.get('/onboardingDone', (req, res) => {
     db.User.
       update({
@@ -100,7 +117,7 @@ module.exports = function(app, db, config) {
           );
           return res.sendStatus(401);
         }
-
+        populateEvent(req.userData('username'));
         req.session.currentUserInfo.showWelcomePage = false;  // eslint-disable-line no-param-reassign
         return res.sendStatus(205);
       }).

@@ -14,6 +14,7 @@ import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
 import ApplicationFormService from '../../service/ApplicationFormService';
+import OnboardingUserService from '../../service/OnboardingUserService';
 
 class SupplierApplicationForm extends React.Component {
 
@@ -37,7 +38,15 @@ class SupplierApplicationForm extends React.Component {
     isLoading: true
   }
 
+  setCookieData(cname,cvalue,exdays) {
+    var date = new Date();
+    date.setTime(date.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + date.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
   componentDidMount() {
+    console.log('----currentUserInfo----', this.props.currentUserInfo);
     new ApplicationFormService(this.context.simUrl).getCountryList().
       then(countryList => this.ignoreAjax || this.setState({
         isLoading: false,
@@ -46,6 +55,23 @@ class SupplierApplicationForm extends React.Component {
           sort((a, b) => a.name.localeCompare(b.name))
       })).
       catch(err => this.ignoreAjax || this.context.httpResponseHandler(err));
+    
+    /*
+      calling IDPRO API to get onboarding user's data and saving in cookie
+    */
+    new OnboardingUserService(this.context.simUrl).getOnboardingUserData(this.props.currentUserInfo.username).
+      then(userDetail => {
+        if(!this.ignoreAjax){
+          this.setCookieData('ONBOARDING_DATA', JSON.stringify(userDetail.onboardData), 5);
+          this.setState({
+            isLoading: false,
+            onboardData: userDetail.onboardData
+          });
+        }
+      }).
+      catch(err => this.ignoreAjax || this.context.httpResponseHandler(err));
+
+    console.log('this.state', this.state);
   }
 
   componentWillUnmount() {
@@ -114,6 +140,7 @@ class SupplierApplicationForm extends React.Component {
           onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}
           isOnboarding={!userInfo.supplierId}
+          onboardData={this.state.onboardData}
         />
       </I18nBundle>
     );

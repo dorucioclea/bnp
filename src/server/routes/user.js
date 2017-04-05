@@ -1,6 +1,7 @@
 const sendMail = require('./../mailer');
 const currentUserInfoService = require('../service/currentUserInfoService');
 const getOriginalProtocolHostPort = require('../utils/lib.js').getOriginalProtocolHostPort;
+const { getUserData } = require('./userDetail.js');
 
 let md5 = require('md5');
 let serviceErrorHandlingService = require('./../service/serviceErrorHandlingService');
@@ -85,10 +86,11 @@ function createUser(req, res) {
   }).catch(err => databaseErrorHandlingService.generateErrorAndSendResponse(err, res));
 }
 
+
 function getCurrentUserInfo(req, res) {
   (req.query.reload === 'true' && req.isAuthenticated ?
     currentUserInfoService(db, config, req.userData(), req.userData('username')) :
-    Promise.resolve(req.userData())
+    getUserData(db, req.userData('username'), req.userData())
   ).  // eslint-disable-line dot-location
   then(currentUserInfo => res.send({ currentUserInfo })).
   catch(err => res.status(err.status).send(err.data));
