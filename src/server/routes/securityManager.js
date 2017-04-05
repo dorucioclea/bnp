@@ -90,7 +90,7 @@ module.exports = function(app, db, config) {
   /*
     Event propagation code start here with redis
     ### TODO: Check for which event to publish.
-  */ 
+  */
   const populateEvent = (username) => {
     const onboardingUser = JSON.parse(req.cookies.ONBOARDING_DATA);
     if(onboardingUser.campaignId && onboardingUser.userId == username) {
@@ -99,8 +99,8 @@ module.exports = function(app, db, config) {
         "transition":"onboarded",
         "contactId": onboardingUser.contactId,
         "campaignId": onboardingUser.campaignId
-      }));   
-    }       
+      }));
+    }
   }
 
   app.get('/onboardingDone', (req, res) => {

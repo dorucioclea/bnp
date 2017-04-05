@@ -15,11 +15,9 @@ services:
       PORT: '3000'
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
-      REDIS_HOST: $REDIS_HOST
-      REDIS_PORT: $REDIS_PORT
       REDIS_AUTH: $REDIS_AUTH
     ports:
-      - "3000:3000"
+      - '3000:3000'
     extra_hosts:
      - 'consul:${HOST}'
 #    logging:
@@ -30,9 +28,10 @@ services:
   supplier:
     image: opuscapita/supplier:dev
 #    build: ../supplier
-    #restart: on-failure:5
+#    volumes:
+#     - ../supplier:/home/node/supplier
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
-     - mysql
+      - mysql
     labels:
       SERVICE_NAME: 'supplier'  # Service name used by Registrator for adding to Consul's service discovery registry.
       SERVICE_TAGS: 'external'
@@ -41,8 +40,8 @@ services:
     environment:
       PORT: '3001'
       HOST_IP: $HOST
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     extra_hosts:
       - 'consul:${HOST}'
     command: 'npm run dev'
@@ -51,7 +50,7 @@ services:
     image: postgres:9.4
     container_name: postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       POSTGRES_USER: $POSTGRES_DB
       POSTGRES_DB: $POSTGRES_USER
@@ -78,27 +77,29 @@ services:
       LOG_PORT: 5000
       LOG_HOST: $LOG_HOST
       HOST: $HOST
-      REDIS_HOST: $REDIS_HOST
-      REDIS_PORT: $REDIS_PORT
+      REDIS_HOST: '172.17.0.1' # TODO: remove after api-gw is using config
+      REDIS_PORT: 6379 # TODO: remove after api-gw is using config
       REDIS_AUTH: $REDIS_AUTH
     ports:
-      - "8080:8080"
-      - "8443:8443"
-      - "8001:8001"
-      - "7946:7946"
-      - "7946:7946/udp"
+      - '8080:8080'
+      - '8443:8443'
+      - '8001:8001'
+      - '7946:7946'
+      - '7946:7946/udp'
     depends_on:
       - postgres
+      - mysql
 
   idpro:
     image: ocbesbn/idpro:dev
+#    build: ../idpro
+#    volumes:
+#     - ../idpro:/home/node/idpro
     ports:
-     - "$APP_HOST_PORT:$APP_HOST_PORT"
+     - '$APP_HOST_PORT:$APP_HOST_PORT'
     environment:
+      HOST_IP: $HOST
       NODE_ENV: $NODE_ENV
-      MYSQL_PORT: $MYSQL_PORT
-      MYSQL_DIALECT: 'mysql'
-      MYSQL_SERVICE_NAME: $MYSQL_HOST
       APP_HOST: '0.0.0.0'
       APP_HOST_PROTOCOL: $APP_HOST_PROTOCOL
       APP_HOST_PORT: $APP_HOST_PORT
@@ -106,15 +107,20 @@ services:
       GATEWAY_IP: $GATEWAY_IP
       GATEWAY_PORT: $GATEWAY_PORT
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
-      MYSQL_HOST: $MYSQL_HOST
-      CONSUL_HOST: $CONSUL_HOST
+      MYSQL_PORT: '3306'
+      MYSQL_DIALECT: 'mysql'
+      MYSQL_SERVICE_NAME: 'mysql'
+      MYSQL_HOST: 'mysql'
     depends_on:
       - apigw
+    extra_hosts:
+      - 'consul:${HOST}'
+#    command: 'npm run dev'
 
   api-registry:
     image: ocbesbn/api-registrator:latest
     ports:
-      - "$API_REGISTRY_PORT:$API_REGISTRY_PORT"
+      - '$API_REGISTRY_PORT:$API_REGISTRY_PORT'
     environment:
       CONSUL_HOST: $HOST
       AUTH_SERVER: $AUTH_SERVER
@@ -130,7 +136,7 @@ services:
   redis:
     image: ocbesbn/redis:latest
     ports:
-      - "$REDIS_PORT:$REDIS_PORT"
+      - '6379:6379'
     environment:
       REDIS_AUTH: $REDIS_AUTH
     depends_on:
@@ -146,16 +152,16 @@ services:
 #    depends_on:
 #      - registrator
 #    ports:
-#      - "9200:9200"
-#      - "9300:9300"
+#      - '9200:9200'
+#      - '9300:9300'
 #
 #  logstash:
 #    image: ocbesbn/logstash:latest
 #    depends_on:
 #      - registrator
 #    ports:
-#      - "5000:5000/udp"
-#      - "12201:12201/udp"
+#      - '5000:5000/udp'
+#      - '12201:12201/udp'
 #    environment:
 #      ELASTICSEARCH_IP: $HOST
 #
@@ -164,17 +170,20 @@ services:
 #    depends_on:
 #      - registrator
 #    ports:
-#      - "5601:5601"
+#      - '5601:5601'
 #    environment:
 #      ELASTICSEARCH_IP: $HOST
   #ELK stack
 
   mysql:
-    image: gr4per/mysql
-    depends_on:
-     - registrator
+    image: 'mysql:5.6'
     ports:
-     - "3306:3306"
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    depends_on:
+      - registrator
 
   registrator:
     image: gliderlabs/registrator:latest
@@ -192,7 +201,7 @@ services:
     labels:
      - 'SERVICE_NAME=consul'
     ports:
-     - "8400:8400"
-     - "8500:8500"
-     - "53:8600/udp"
-     - "53:8600"
+     - '8400:8400'
+     - '8500:8500'
+     - '53:8600/udp'
+     - '53:8600'

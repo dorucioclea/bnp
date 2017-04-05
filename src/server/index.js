@@ -20,21 +20,6 @@ serverService.initResources(app);
 
 let chunksManifest;
 
-function getConsulAddress(callback) {
-  if (process.env.CONSUL_HOST) {
-    callback(process.env.CONSUL_HOST);
-  } else {
-    network.get_gateway_ip(function(err, ip) {
-      if (err) {
-        console.log('warn: Gateway IP not found');
-        callback('consul');
-      } else {
-        callback(ip);
-      }
-    })
-  }
-}
-
 function gracefulShutdown(msg) {
   if (msg) {
     console.log('SERVER GRACEFUL SHUTDONW:', msg);
@@ -45,11 +30,8 @@ function gracefulShutdown(msg) {
   }
 }
 
-function launchApplication(consulAddress) {
-  config.init({ host: consulAddress })
-    .then(function(config) { // eslint-disable-line dot-location
-      return db.init({ consul: { host: consulAddress } });
-    })
+function launchApplication() {
+  db.init({ consul : { host: 'consul' }, retryCount: 50 })
     .then(function(db) { // eslint-disable-line dot-location
       serverService.initSecurityManager(app, db, config);
       serverService.initRoutes(app, db, config);
@@ -84,9 +66,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 if (process.env.NODE_ENV !== 'test') {
   /* launch aplication */
-  getConsulAddress(function(address) {
-    launchApplication(address);
-  })
+  launchApplication();
 }
 
 // listen for TERM signal .e.g. "kill" or "docker[-compose] stop" commands.
