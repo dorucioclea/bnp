@@ -107,10 +107,8 @@ services:
       GATEWAY_IP: $GATEWAY_IP
       GATEWAY_PORT: $GATEWAY_PORT
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
-      MYSQL_PORT: '3306'
-      MYSQL_DIALECT: 'mysql'
-      MYSQL_SERVICE_NAME: 'mysql'
-      MYSQL_HOST: 'mysql'
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     depends_on:
       - apigw
     extra_hosts:
