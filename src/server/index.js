@@ -1,13 +1,11 @@
-let express = require('express');
-let serverService = require('./service/serverService');
-let app = express();
-let network = require('network');
+const express = require('express');
+const db = require('ocbesbn-db-init');
+const config = require ('ocbesbn-config');
+const serverService = require('./service/serverService');
+
+const app = express();
+
 let server;
-
-import db from "ocbesbn-db-init";
-import config from "ocbesbn-config";
-
-
 let bundle = (process.env.NODE_ENV === 'production') ?
   require(__dirname + '/../client/assets.json').main.js :
   'bundle.js';
