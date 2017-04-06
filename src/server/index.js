@@ -1,5 +1,4 @@
 const express = require('express');
-const network = require('network');
 const db = require('ocbesbn-db-init');
 const config = require ('ocbesbn-config');
 const serverService = require('./service/serverService');
