@@ -110,7 +110,7 @@ export default class LoginPage extends React.Component {
         <section
           className="content"
           style={{
-            backgroundImage: "url('/img/service-config-welcome.jpg')",
+            backgroundImage: `url("${window.simContextPath}/img/service-config-welcome.jpg")`,
             maxWidth: "100%",
             backgroundSize: "100%"
           }}
@@ -291,7 +291,7 @@ export default class LoginPage extends React.Component {
           <ul className="nav navbar-nav navbar-left">
             <li>
               <img
-                src="/img/oc-logo-white.svg"
+                src={`${window.simContextPath}/img/oc-logo-white.svg`}
                 style={{
                   width: "40%",
                   marginTop: "10%"

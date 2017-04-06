@@ -169,7 +169,7 @@ class RegistrationLayout extends React.Component {
       <ul className="nav navbar-nav navbar-left">
         <li>
           <img
-            src="/img/oc-logo-white.svg"
+            src={`${window.simContextPath}/img/oc-logo-white.svg`}
             style={{
               width: "40%",
               marginTop: "10%"

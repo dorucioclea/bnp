@@ -3,7 +3,7 @@ import passport from 'passport';
 import md5 from 'md5';
 import databaseErrorHandlingService from '../service/databaseErrorHandlingService';
 const currentUserInfoService = require('../service/currentUserInfoService');
-const redisConfig = require("./redisConfig.js");
+const { getPublisher } = require("./redisConfig");
 
 module.exports = function(app, db, config) {
   app.use(passport.initialize());
@@ -94,12 +94,14 @@ module.exports = function(app, db, config) {
   const populateEvent = (username) => {
     const onboardingUser = JSON.parse(req.cookies.ONBOARDING_DATA);
     if(onboardingUser.campaignId && onboardingUser.userId == username) {
-      redisConfig.publish("onboarding", JSON.stringify({
-        "email": onboardingUser.userId,
-        "transition":"onboarded",
-        "contactId": onboardingUser.contactId,
-        "campaignId": onboardingUser.campaignId
-      }));
+      getPublisher().then((publisher) => {
+        publisher.publish("onboarding", JSON.stringify({
+          "email": onboardingUser.userId,
+          "transition":"onboarded",
+          "contactId": onboardingUser.contactId,
+          "campaignId": onboardingUser.campaignId
+        }));
+      })
     }
   }
 

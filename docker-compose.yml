@@ -113,7 +113,7 @@ services:
       - apigw
     extra_hosts:
       - 'consul:${HOST}'
-#    command: 'npm run dev'
+    command: 'npm run dev'
 
   api-registry:
     image: ocbesbn/api-registrator:latest
