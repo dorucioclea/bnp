@@ -66,18 +66,6 @@ function initSession(app) {
   }));
 }
 
-function initMorganLogger(app) {
-  // TODO: replace "morgan" with "express-winston".
-  app.use(morgan('dev', {
-    stream: {
-      write: console.log
-    },
-    skip(req, res) {
-      return (req.originalUrl === '/user/isSessionExpired');
-    }
-  }));
-}
-
 function initResources(app) {
   // NOTE: less-middleware MUST be declared before static middleware, since the same JCATALOG_RESOURCES dir is used.
   // For more details see
@@ -134,9 +122,6 @@ function initCssBundle(app) {
 }
 
 function initRoutes(app, db, config) {
-  let viewLogRoutes = require('./../routes/viewLog');
-  app.get('/viewLog/*', viewLogRoutes.downloadLogs);
-
   let applicationConfigRoutes = require('./../routes/applicationConfig');
   app.get('/applicationConfig/url', (req, res) => res.send({
     simUrl: getCurrentServiceHost(req),
@@ -195,7 +180,6 @@ module.exports = {
   initRequestHelpers,
   initRequestInterceptor,
   initSession,
-  initMorganLogger,
   initResources,
   initChunksStatic,
   initBundleStatic,

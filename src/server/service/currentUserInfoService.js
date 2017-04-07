@@ -1,4 +1,4 @@
-import ajaxRequest from 'superagent';
+const ajaxRequest = require('superagent');
 const { getUserData } = require('../routes/userDetail.js');
 
 module.exports = function(db, config, userdata, username, locale) {

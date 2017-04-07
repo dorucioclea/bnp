@@ -1,7 +1,7 @@
-import LocalStrategy from 'passport-local';
-import passport from 'passport';
-import md5 from 'md5';
-import databaseErrorHandlingService from '../service/databaseErrorHandlingService';
+const LocalStrategy = require('passport-local');
+const passport = require('passport');
+const md5 = require('md5');
+const databaseErrorHandlingService = require('../service/databaseErrorHandlingService');
 const currentUserInfoService = require('../service/currentUserInfoService');
 const { getPublisher } = require("./redisConfig");
 
@@ -61,7 +61,7 @@ module.exports = function(app, db, config) {
           config,
           req.userData(),
           req.userData('username'),
-          req.body.language,
+          req.body.language
         ).
           then(userInfo => res.send({
             userInfo,
