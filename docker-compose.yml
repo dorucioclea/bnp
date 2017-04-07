@@ -2,7 +2,7 @@ version: '2'
 services:
   bnp:
     build: .
-    image: opuscapita/bnp:dev
+#    image: opuscapita/bnp:dev
     #restart: on-failure:5
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
      - mysql
@@ -21,10 +21,7 @@ services:
       - '3000:3000'
     extra_hosts:
      - 'consul:${HOST}'
-#    logging:
-#      driver: gelf
-#      options:
-#        gelf-address: 'udp://${LOG_HOST}:12201'
+    command: 'npm run dev'
 
   supplier:
     image: opuscapita/supplier:dev

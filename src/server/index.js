@@ -56,8 +56,6 @@ if (process.env.NODE_ENV === 'production') {
   serverService.initBundleStatic(app, bundle);
   serverService.initCssBundle(app);
 } else {
-  serverService.initMorganLogger(app);
-
   if (process.env.NODE_ENV !== 'test') {
     serverService.initDevWebpack(app);
   }
@@ -74,4 +72,4 @@ process.on('SIGTERM', gracefulShutdown);
 process.on('SIGINT', gracefulShutdown);
 
 // Export below is needed for the sake of testing (see "request(app)" in "test/utils/testUtils.js", line 21).
-export default app;
+module.exports = app;

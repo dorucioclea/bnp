@@ -3,7 +3,7 @@
  * the user data from gatway and append them inside the request header
  */
 
-import _ from 'lodash';
+const _  = require('lodash');
 
 function userIdentity(_req, res, next) {
   let userData = {};
