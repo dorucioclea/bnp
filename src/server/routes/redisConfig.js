@@ -6,11 +6,13 @@ let publisher;
 
 const initRedisConfig = () => new Promise((resolve, reject) => {
   config.init({})
-    .then((config) => Promise.all([config.getEndPoint('redis'), config.get('redis-auth')]))
-    .then(([redisConfig, redisAuth = process.env.REDIS_AUTH]) => {
+    .then(function(config) { // eslint-disable-line dot-location
+      Promise.all([config.getEndPoint('redis'), config.get('redis-auth')])
+    })
+    .then(([redisConfig, redisAuth = process.env.REDIS_AUTH]) => { // eslint-disable-line dot-location
       publisher = redis.createClient(redisConfig.port, redisConfig.host);
       publisher.auth(redisAuth, (error) => {
-        if (error) reject(error);
+        if (error) { reject(error) }
 
         resolve();
       });
@@ -25,8 +27,3 @@ exports.getPublisher = () => {
 
   return Promise.resolve(publisher);
 };
-
-
-
-
-

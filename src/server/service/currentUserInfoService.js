@@ -30,7 +30,7 @@ module.exports = function(db, config, userdata, username, locale) {
       Promise.resolve({
         body: []
       }),
-      getUserData(db, username, userdata)
+    getUserData(db, username, userdata)
   ];
 
   return Promise.all(promises).then(([suppliers, userData]) => {

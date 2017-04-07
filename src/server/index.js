@@ -1,6 +1,6 @@
 const express = require('express');
 const db = require('ocbesbn-db-init');
-const config = require ('ocbesbn-config');
+const config = require('ocbesbn-config');
 const serverService = require('./service/serverService');
 
 const app = express();
@@ -29,7 +29,7 @@ function gracefulShutdown(msg) {
 }
 
 function launchApplication() {
-  db.init({ consul : { host: 'consul' }, retryCount: 50 })
+  db.init({ consul: { host: 'consul' }, retryCount: 50 })
     .then(function(db) { // eslint-disable-line dot-location
       serverService.initSecurityManager(app, db, config);
       serverService.initRoutes(app, db, config);

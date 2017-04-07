@@ -29,20 +29,12 @@ class SupplierApplicationForm extends React.Component {
     simUrl: React.PropTypes.string,
     supplierUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
-    authenticationService: React.PropTypes.object
   }
 
   state = {
     countries: [],
     key: 1,
     isLoading: true
-  }
-
-  setCookieData(cname,cvalue,exdays) {
-    var date = new Date();
-    date.setTime(date.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires=" + date.toGMTString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
   componentDidMount() {
@@ -55,13 +47,13 @@ class SupplierApplicationForm extends React.Component {
           sort((a, b) => a.name.localeCompare(b.name))
       })).
       catch(err => this.ignoreAjax || this.context.httpResponseHandler(err));
-    
+
     /*
       calling IDPRO API to get onboarding user's data and saving in cookie
     */
     new OnboardingUserService(this.context.simUrl).getOnboardingUserData(this.props.currentUserInfo.username).
       then(userDetail => {
-        if(!this.ignoreAjax){
+        if (!this.ignoreAjax) {
           this.setCookieData('ONBOARDING_DATA', JSON.stringify(userDetail.onboardData), 5);
           this.setState({
             isLoading: false,
@@ -76,6 +68,13 @@ class SupplierApplicationForm extends React.Component {
 
   componentWillUnmount() {
     this.ignoreAjax = true;
+  }
+
+  setCookieData(cname, cvalue, exdays) {
+    let date = new Date();
+    date.setTime(date.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + date.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
   i18n = this.context.i18n.register('SupplierApplicationForm', locales)
@@ -102,7 +101,9 @@ class SupplierApplicationForm extends React.Component {
     }
   }
 
-  handleLogout = () => this.context.authenticationService.logout()
+  handleLogout = function() {
+    console.log("logout has no handler");
+  };
 
   handleSelect = key => {
     if (!this.isDirty || this._confirmLeaveChangesUnsaved()) {

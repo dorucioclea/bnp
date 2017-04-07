@@ -93,11 +93,11 @@ module.exports = function(app, db, config) {
   */
   const populateEvent = (username) => {
     const onboardingUser = JSON.parse(req.cookies.ONBOARDING_DATA);
-    if(onboardingUser.campaignId && onboardingUser.userId == username) {
+    if (onboardingUser.campaignId && onboardingUser.userId === username) {
       getPublisher().then((publisher) => {
         publisher.publish("onboarding", JSON.stringify({
           "email": onboardingUser.userId,
-          "transition":"onboarded",
+          "transition": "onboarded",
           "contactId": onboardingUser.contactId,
           "campaignId": onboardingUser.campaignId
         }));

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import browserHistory from 'react-router/lib/browserHistory';
 
 export default class ServiceConfigStepFive extends React.Component {
   static propTypes = {
@@ -7,7 +8,6 @@ export default class ServiceConfigStepFive extends React.Component {
   };
 
   static contextTypes = {
-    authenticationService: React.PropTypes.object
   };
 
   state = {
@@ -15,7 +15,7 @@ export default class ServiceConfigStepFive extends React.Component {
   }
 
   handleSubmit = () => {
-    this.context.authenticationService.onboardingDone();
+    browserHistory.push(`${window.simContextPath}/dashboard`)
   }
 
   render() {

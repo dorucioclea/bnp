@@ -137,11 +137,6 @@ function initRoutes(app, db, config) {
   let viewLogRoutes = require('./../routes/viewLog');
   app.get('/viewLog/*', viewLogRoutes.downloadLogs);
 
-  let userRoutes = require('./../routes/user')(db, config);
-  app.post('/user/verify', userRoutes.verify);
-  app.post('/user/createUser', userRoutes.createUser);
-  app.get('/user/currentUserInfo', userRoutes.getCurrentUserInfo);
-
   let applicationConfigRoutes = require('./../routes/applicationConfig');
   app.get('/applicationConfig/url', (req, res) => res.send({
     simUrl: getCurrentServiceHost(req),

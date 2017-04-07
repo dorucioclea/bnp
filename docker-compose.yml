@@ -58,6 +58,26 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     depends_on:
       - registrator
+  user:
+    image: ocbesbn/user:latest
+    #build: ../user
+    depends_on:
+     - mysql
+     - consul
+     - registrator
+    volumes:
+     - ../user:/home/node/user
+    labels:
+      SERVICE_NAME: 'user'
+    extra_hosts:
+     - 'consul:${HOST}'
+    environment:
+      PORT: 3008
+      HOST_IP: $HOST
+    ports:
+     - '3008:3008'
+    command: 'npm start'
+
 
   apigw:
     image: ocbesbn/api-gw:latest
