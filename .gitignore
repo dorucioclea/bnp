@@ -4,10 +4,12 @@ awsProject.zip
 *.swp
 *.kate-swp
 
+/src/server/static/bundle.*.js
 /src/server/static/jcatalog/less/jquery-ui-bundle.css
 /src/server/static/jcatalog/less/jcatalog-bootstrap-bundle.css
 /src/server/static/jcatalog/less/jcatalog-bootstrap-extensions-bundle.css
 
+yarn.lock
 /db.config.json
 #/app.config.json
 #/formatPatterns.config.json

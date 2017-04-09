@@ -76,18 +76,6 @@ function initChunksStatic(app, chunksManifest) {
   }
 }
 
-function initBundleStatic(app, bundle) {
-  console.error('init bundle', bundle);
-
-  app.use(`/static/${bundle}`, express.static(path.join(__dirname, `/../../client/${bundle}`), {
-    'setHeaders': function(res) {
-      res.header('Cache-Control', 'public, s-maxage=31536000, max-age=31536000');
-      res.header('Expires', new Date(Date.now() + 31536000000).toUTCString());
-      res.header('Content-Type', 'application/javascript');
-    }
-  }));
-}
-
 function initCssBundle(app) {
   app.use('/static/main.css', express.static(path.join(__dirname, MAIN_CSS)));
 }
@@ -105,7 +93,6 @@ function initRoutes(app, db, config) {
 function initSecurityManager(app, db, config) {
   require('../routes/securityManager')(app, db, config);
 }
-
 
 function initTemplate(app, bundle, chunksManifest) {
   app.engine('handlebars', expressHandlebars());
@@ -130,7 +117,6 @@ module.exports = {
   initSession,
   initResources,
   initChunksStatic,
-  initBundleStatic,
   initCssBundle,
   initRoutes,
   initSecurityManager,
