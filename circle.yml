@@ -1,7 +1,7 @@
 machine:
   pre:
-   - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
-   - sudo pip install docker-compose
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+    - pip install --force-reinstall -U docker-compose==1.10.0
   services:
     - docker
 
@@ -16,10 +16,13 @@ dependencies:
 
 test:
   override:
-    - docker run opuscapita/bnp:latest npm run test
-  post:
-    - sudo mkdir $CIRCLE_TEST_REPORTS/junit
-    - sudo cp test-results.xml $CIRCLE_TEST_REPORTS/junit
+    - >
+      sudo service mysql stop ;
+      export HOST_IP=$(ifconfig | grep "docker0" -A1 | grep -o -P "inet addr:.*? " | grep -o -P "\d+\.\d+\.\d+\.\d+") ;
+#      docker-compose run main npm run test
+#  post:
+#    - sudo mkdir $CIRCLE_TEST_REPORTS/junit
+#    - sudo cp test-results.xml $CIRCLE_TEST_REPORTS/junit
 
 deployment:
   development:
@@ -42,7 +45,7 @@ deployment:
       - >
         if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
           echo "running base img deploy..." && docker push opuscapita/bnp-base:latest
-        fi      
+        fi
       - docker push opuscapita/bnp:latest
       - chmod +x deploy.sh
       - ./deploy.sh

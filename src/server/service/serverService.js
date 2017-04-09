@@ -3,24 +3,16 @@ const expressHandlebars = require('express-handlebars');
 const path = require('path');
 const session = require('express-session');
 const onHeaders = require('on-headers');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const helmet = require('helmet');
-const morgan = require('morgan');
 const lessMiddleware = require('less-middleware');
-const ajaxRequest = require('superagent');
 
 const COOKIE_SECRET = 'keyboard cat';
-const JCATALOG_RESOURCES = '../../../resources/jcatalog';
-const BNP_STATIC = '../../../resources/bnp/static';
+const JCATALOG_RESOURCES = '../static/jcatalog';
+const BNP_STATIC = '../static/bnp/static';
 const FAVICON_ICO = path.join(JCATALOG_RESOURCES, 'favicon.ico');
-const SIM_VIEWS = '../../../resources/bnp/views';
+const SIM_VIEWS = '../static/bnp/views';
 const MAIN_CSS = '../../client/main.css';
-const WEBPACK_DEV_CONFIG = './../../../webpack.development.config.js';
-const bnpInternalUrl = 'http://127.0.0.1:' + process.env.PORT;
 const { getOriginalProtocolHostPort, getCurrentServiceHost, getSupplierServiceHost } = require('../utils/lib.js');
 const UserIdentity = require('../utils/userIdentityMiddleware');
-
 
 function scrubETag(res) {
   onHeaders(res, function() {
@@ -29,28 +21,7 @@ function scrubETag(res) {
 }
 
 function initRequestHelpers(app) {
-  app.use(bodyParser.json());
-  app.use(cookieParser(COOKIE_SECRET));
-  app.use(helmet());
   app.use(UserIdentity);
-}
-
-function initRequestInterceptor(app, bundle) {
-  app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-
-    res.header('Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept, Cache-control, Expires, ETag, Last-Modified');
-
-    res.header('Access-Control-Request-Method', 'GET, POST, PUT, DELETE, OPTIONS');
-
-    if (req.originalUrl.indexOf(bundle) === -1 || process.env.NODE_ENV !== 'production') {
-      res.header('Cache-Control', 'max-age=0, must-revalidate');
-      res.header('Expires', 0);
-    }
-
-    next();
-  });
 }
 
 function initSession(app) {
@@ -132,7 +103,7 @@ function initRoutes(app, db, config) {
 }
 
 function initSecurityManager(app, db, config) {
-  require('./../routes/securityManager')(app, db, config);
+  require('../routes/securityManager')(app, db, config);
 }
 
 
@@ -154,31 +125,8 @@ function initTemplate(app, bundle, chunksManifest) {
   });
 }
 
-function initDevWebpack(app) {
-  const webpack = require('webpack');
-  const webpackMiddleware = require('webpack-dev-middleware');
-  const compiler = webpack(require(WEBPACK_DEV_CONFIG));
-
-  app.use(webpackMiddleware(compiler, {
-    publicPath: '/static',
-    stats: { colors: true },
-    noInfo: true
-  }));
-
-  app.use('/[0-9]+\.chunk\.js', (req, res) => ajaxRequest.
-    get(`${bnpInternalUrl}/static${req.originalUrl}`).
-    accept('json').
-    then(response => {
-      res.header('Content-Type', 'application/javascript');
-      res.send(response.body);
-    }).
-    catch(err => { throw err })
-  );
-}
-
 module.exports = {
   initRequestHelpers,
-  initRequestInterceptor,
   initSession,
   initResources,
   initChunksStatic,
@@ -186,6 +134,5 @@ module.exports = {
   initCssBundle,
   initRoutes,
   initSecurityManager,
-  initTemplate,
-  initDevWebpack
+  initTemplate
 }
