@@ -12,7 +12,6 @@ const FAVICON_ICO = path.join(JCATALOG_RESOURCES, 'favicon.ico');
 const SIM_VIEWS = '../static/bnp/views';
 const MAIN_CSS = '../../client/main.css';
 const { getOriginalProtocolHostPort, getCurrentServiceHost, getSupplierServiceHost } = require('../utils/lib.js');
-const UserIdentity = require('../utils/userIdentityMiddleware');
 
 function scrubETag(res) {
   onHeaders(res, function() {
@@ -21,7 +20,8 @@ function scrubETag(res) {
 }
 
 function initRequestHelpers(app) {
-  app.use(UserIdentity);
+  let userIdentityMiddleware = require('useridentity-middleware');
+  app.use(userIdentityMiddleware);
 }
 
 function initSession(app) {
@@ -91,7 +91,7 @@ function initRoutes(app, db, config) {
 }
 
 function initSecurityManager(app, db, config) {
-  require('../routes/securityManager')(app, db, config);
+  //require('../routes/securityManager')(app, db, config);
 }
 
 function initTemplate(app, bundle, chunksManifest) {
@@ -108,7 +108,12 @@ function initTemplate(app, bundle, chunksManifest) {
       bundle: bundle,
       chunksManifest: JSON.stringify(chunksManifest),
       isProductionMode: (process.env.NODE_ENV === 'production'),
-      userData
+      userData: req.userData(),
+      helpers: {
+        json: function (obj) {
+          return JSON.stringify(obj);
+        }
+      }
     });
   });
 }

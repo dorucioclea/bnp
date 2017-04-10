@@ -22,6 +22,7 @@ module.exports.init = function(app, db, config)
 
     let chunksManifest;
 
+    serverService.initRequestHelpers(app);
     serverService.initSession(app);
     serverService.initResources(app);
     serverService.initSecurityManager(app, db, config);
