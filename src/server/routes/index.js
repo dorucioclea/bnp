@@ -3,7 +3,7 @@
 const Promise = require('bluebird');
 
 const serverService = require('../service/serverService');
-const bundle = (process.env.NODE_ENV === 'production') ? require(__dirname + '/../../client/assets.json').main.js : 'bundle.js';
+const bundle = (process.env.NODE_ENV === 'production') ? require(__dirname + '/../../../build/client/assets.json').main.js : 'bundle.js';
 
 /**
  * Initializes all routes for RESTful access.
@@ -30,9 +30,8 @@ module.exports.init = function(app, db, config)
 
 
     if (process.env.NODE_ENV === 'production') {
-      /* chunksManifest = require(__dirname + '/../client/chunk-manifest.json'); */
-      /* serverService.initChunksStatic(app, chunksManifest); */
-      serverService.initBundleStatic(app, bundle);
+      // chunksManifest = require(__dirname + '/../../../build/client/chunk-manifest.json');
+      // serverService.initChunksStatic(app, chunksManifest);
       serverService.initCssBundle(app);
     }
 
