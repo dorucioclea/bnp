@@ -36,12 +36,18 @@ import simRootApplicationReducer from './../redux/reducers.js';
 import SupplierApplicationForm from './SupplierApplicationForm';
 
 
+const BUYING_ROLE = 'buying';
+const SELLING_ROLE = 'selling';
+
 function getInitialCurrentUserInfo() {
-  return {
-    locale: 'en',
-    username: undefined,
-    supplierId: undefined
-  };
+  let initialState =  window.userData;
+  initialState.locale = 'en';
+
+  return initialState;
+}
+
+function getCurrentUserInfo() {
+  return window.userData;
 }
 
 let store = createStore(
@@ -49,6 +55,21 @@ let store = createStore(
   { currentUserInfo: getInitialCurrentUserInfo() },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
+function companyRoleInterceptor(nextState, replace, done) {
+  let currentUserInfo = getCurrentUserInfo();
+  if (false &&!currentUserInfo.supplierId) { /* TODO remove false statement after supplierInformation is fixed */
+    replace(`${window.simContextPath}/supplierInformation`);
+  } else if (currentUserInfo.showWelcomePage) {
+    replace(`${window.simContextPath}/welcome`);
+  } else if (currentUserInfo.companyRole === BUYING_ROLE) {
+    replace(`${window.simContextPath}/buyerDashboard`);
+  } else if (currentUserInfo.companyRole === SELLING_ROLE) {
+    replace(`${window.simContextPath}/sellerDashboard`);
+  }
+
+  done();
+}
 
 
 ReactDOM.render(
@@ -61,6 +82,7 @@ ReactDOM.render(
         <Route
           path={`${window.simContextPath}/welcome`}
           component={Welcome}
+          onEnter={companyRoleInterceptor}
         />
         <Route
           path={`${window.simContextPath}/serviceConfigFlow`}
@@ -153,6 +175,7 @@ ReactDOM.render(
           />
           <Route
             path={`${window.simContextPath}/dashboard`}
+            onEnter={companyRoleInterceptor}
           />
           <Route
             path={`${window.simContextPath}/buyerDashboard`}

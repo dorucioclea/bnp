@@ -31,7 +31,7 @@ function gracefulShutdown(msg) {
 function launchApplication() {
   db.init({ consul: { host: 'consul' }, retryCount: 50 })
     .then(function(db) { // eslint-disable-line dot-location
-      serverService.initSecurityManager(app, db, config);
+      serverService.initUserIdentityMiddleware(app);
       serverService.initRoutes(app, db, config);
       serverService.initTemplate(app, bundle, chunksManifest);
     })

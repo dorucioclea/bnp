@@ -35,6 +35,9 @@
         window.simRootContextPath = contextPath;
         window.simContextPath = (contextPath === '/' ? "" : contextPath);
     </script>
+    <script>
+      window.userData = {{{json userData}}};
+    </script>
 </head>
 <body style="overflow: auto; height: 100%;">
     <div id="rootApplicationComponent" style="height: 100%"></div>

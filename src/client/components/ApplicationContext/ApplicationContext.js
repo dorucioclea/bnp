@@ -1,7 +1,6 @@
 import httpResponseHandler from '../../httpResponseHandler';
 import React from 'react';
 import connect from 'react-redux/lib/components/connect';
-import cookie from 'react-cookie';
 import I18nManager from 'opuscapita-i18n/lib/utils/I18nManager';
 import locales from './../i18n/locales';
 import validateMessages from './i18n';
@@ -21,16 +20,9 @@ class ApplicationContext extends React.Component {
     httpResponseHandler: React.PropTypes.func
   };
 
-  state = {
-    locale: cookie.load('LANGUAGE_COOKIE_KEY')
-  }
+  state = {}
 
   getChildContext() {
-    let language = cookie.load('LANGUAGE_COOKIE_KEY') &&
-      cookie.load('LANGUAGE_COOKIE_KEY') !== "null" ? cookie.load('LANGUAGE_COOKIE_KEY') : 'en';
-    if (language) {
-      this._initI18n(language);
-    }
 
     return {
       i18n: this.i18n,

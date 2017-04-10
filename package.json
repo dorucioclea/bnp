@@ -154,6 +154,7 @@
     "rimraf": "2.5.4",
     "sqlite3": "3.1.8",
     "style-loader": "0.13.1",
+    "useridentity-middleware": "OpusCapitaBusinessNetwork/useridentity-middleware#develop",
     "webpack": "^2.2.0",
     "webpack-dev-middleware": "1.9.0",
     "webpack-md5-hash": "0.0.5",

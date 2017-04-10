@@ -19,7 +19,6 @@ const MAIN_CSS = '../../client/main.css';
 const WEBPACK_DEV_CONFIG = './../../../webpack.development.config.js';
 const bnpInternalUrl = 'http://127.0.0.1:' + process.env.PORT;
 const { getOriginalProtocolHostPort, getCurrentServiceHost, getSupplierServiceHost } = require('../utils/lib.js');
-const UserIdentity = require('../utils/userIdentityMiddleware');
 
 
 function scrubETag(res) {
@@ -32,7 +31,6 @@ function initRequestHelpers(app) {
   app.use(bodyParser.json());
   app.use(cookieParser(COOKIE_SECRET));
   app.use(helmet());
-  app.use(UserIdentity);
 }
 
 function initRequestInterceptor(app, bundle) {
@@ -150,9 +148,15 @@ function initSecurityManager(app, db, config) {
   require('./../routes/securityManager')(app, db, config);
 }
 
+function initUserIdentityMiddleware(app) {
+  let userIdentityMiddleware = require('useridentity-middleware');
+  app.use(userIdentityMiddleware);
+}
 
 function initTemplate(app, bundle, chunksManifest) {
-  app.engine('handlebars', expressHandlebars());
+  let hbsengine = expressHandlebars();
+  app.engine('handlebars', hbsengine);
+
   app.set('view engine', 'handlebars');
   app.set('views', path.resolve(path.join(__dirname, SIM_VIEWS)));
   app.set('trust proxy', true);
@@ -163,8 +167,14 @@ function initTemplate(app, bundle, chunksManifest) {
       simUrl: getCurrentServiceHost(req),
       simSupplierUrl: getSupplierServiceHost(req),
       bundle: bundle,
+      userData: req.userData(),
       chunksManifest: JSON.stringify(chunksManifest),
-      isProductionMode: (process.env.NODE_ENV === 'production')
+      isProductionMode: (process.env.NODE_ENV === 'production'),
+      helpers: {
+        json: function (obj) {
+          return JSON.stringify(obj);
+        }
+      }
     });
   });
 }
@@ -202,6 +212,7 @@ module.exports = {
   initCssBundle,
   initRoutes,
   initSecurityManager,
+  initUserIdentityMiddleware,
   initTemplate,
   initDevWebpack
 }

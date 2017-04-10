@@ -41,6 +41,7 @@ services:
     environment:
       PORT: '3001'
       HOST_IP: $HOST
+      NODE_ENV: 'development'
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     extra_hosts:
