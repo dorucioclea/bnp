@@ -1,4 +1,4 @@
-FROM opuscapita/bnp-base
+FROM opuscapita/bnp-base:dev
 MAINTAINER gr4per
 
 # NOTE: "node" user and corresponding "/home/node" dir are created by "node:6-alpine" image.
