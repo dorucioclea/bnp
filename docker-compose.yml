@@ -1,8 +1,8 @@
 version: '2'
 services:
-  bnp:
+  main:
     build: .
-    image: opuscapita/bnp:dev
+#    image: opuscapita/bnp:dev
     #restart: on-failure:5
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
      - mysql
@@ -12,7 +12,7 @@ services:
     labels:
       SERVICE_NAME: 'bnp'
     environment:
-      HOST: $HOST
+      HOST_IP: $HOST_IP
       PORT: '3000'
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
@@ -20,11 +20,8 @@ services:
     ports:
       - '3000:3000'
     extra_hosts:
-     - 'consul:${HOST}'
-#    logging:
-#      driver: gelf
-#      options:
-#        gelf-address: 'udp://${LOG_HOST}:12201'
+     - 'consul:${HOST_IP}'
+    command: 'npm run dev'
 
   supplier:
     image: opuscapita/supplier:dev
@@ -40,12 +37,11 @@ services:
       - "3001:3001"
     environment:
       PORT: '3001'
-      HOST_IP: $HOST
-      NODE_ENV: 'development'
+      HOST_IP: $HOST_IP
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     extra_hosts:
-      - 'consul:${HOST}'
+      - 'consul:${HOST_IP}'
     command: 'npm run dev'
 
   postgres:
@@ -60,25 +56,24 @@ services:
     depends_on:
       - registrator
   user:
-    image: ocbesbn/user:latest
-    #build: ../user
+    image: opuscapita/user:dev
+#    build: ../user
+#    volumes:
+#     - ../user:/home/node/user
     depends_on:
      - mysql
      - consul
      - registrator
-    volumes:
-     - ../user:/home/node/user
     labels:
       SERVICE_NAME: 'user'
     extra_hosts:
-     - 'consul:${HOST}'
+     - 'consul:${HOST_IP}'
     environment:
       PORT: 3008
-      HOST_IP: $HOST
+      HOST_IP: $HOST_IP
     ports:
      - '3008:3008'
-    command: 'npm start'
-
+    command: 'npm run dev'
 
   apigw:
     image: ocbesbn/api-gw:latest
@@ -86,7 +81,7 @@ services:
       KONG_DATABASE: 'postgres'
       KONG_PG_HOST: $KONG_PG_HOST
       KONG_PG_PORT: $KONG_PG_PORT
-      APP_HOST: $HOST
+      APP_HOST: $HOST_IP
       APP_HOST_PROTOCOL: $APP_HOST_PROTOCOL
       APP_HOST_PORT: $APP_HOST_PORT
       GATEWAY_SCHEME: $GATEWAY_SCHEME
@@ -98,10 +93,10 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       LOG_PORT: 5000
       LOG_HOST: $LOG_HOST
-      HOST: $HOST
-      REDIS_HOST: '172.17.0.1' # TODO: remove after api-gw is using config
+      HOST: $HOST_IP
+      REDIS_HOST: $HOST_IP # TODO: remove after api-gw is using config
       REDIS_PORT: 6379 # TODO: remove after api-gw is using config
-      REDIS_AUTH: $REDIS_AUTH
+      REDIS_AUTH: $REDIS_AUTH # TODO: remove after api-gw is using config
     ports:
       - '8080:8080'
       - '8443:8443'
@@ -112,15 +107,15 @@ services:
       - postgres
       - mysql
 
-  idpro:
-    image: ocbesbn/idpro:dev
-#    build: ../idpro
+  auth:
+    image: opuscapita/auth:dev
+#    build: ../auth
 #    volumes:
-#     - ../idpro:/home/node/idpro
+#     - ../auth:/home/node/auth
     ports:
      - '$APP_HOST_PORT:$APP_HOST_PORT'
     environment:
-      HOST_IP: $HOST
+      HOST_IP: $HOST_IP
       NODE_ENV: $NODE_ENV
       APP_HOST: '0.0.0.0'
       APP_HOST_PROTOCOL: $APP_HOST_PROTOCOL
@@ -129,12 +124,12 @@ services:
       GATEWAY_IP: $GATEWAY_IP
       GATEWAY_PORT: $GATEWAY_PORT
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
     depends_on:
       - apigw
     extra_hosts:
-      - 'consul:${HOST}'
+      - 'consul:${HOST_IP}'
     command: 'npm run dev'
 
   api-registry:
@@ -142,10 +137,9 @@ services:
     ports:
       - '$API_REGISTRY_PORT:$API_REGISTRY_PORT'
     environment:
-      CONSUL_HOST: $HOST
+      CONSUL_HOST: $HOST_IP
       AUTH_SERVER: $AUTH_SERVER
       AUTH_SERVER_PORT: $AUTH_SERVER_PORT
-      GATEWAY_CALLBACK: $GATEWAY_CALLBACK
       KONG_HOST: $KONG_HOST
       KONG_PORT: $KONG_PORT
       API_REGISTRY_PORT: $API_REGISTRY_PORT
@@ -183,7 +177,7 @@ services:
 #      - '5000:5000/udp'
 #      - '12201:12201/udp'
 #    environment:
-#      ELASTICSEARCH_IP: $HOST
+#      ELASTICSEARCH_IP: $HOST_IP
 #
 #  kibana:
 #    image: ocbesbn/kibana:latest
@@ -192,7 +186,7 @@ services:
 #    ports:
 #      - '5601:5601'
 #    environment:
-#      ELASTICSEARCH_IP: $HOST
+#      ELASTICSEARCH_IP: $HOST_IP
   #ELK stack
 
   mysql:
@@ -213,7 +207,7 @@ services:
      - consul
     volumes:
      - /var/run/docker.sock:/tmp/docker.sock
-    command: ['-ip=${HOST}', 'consul://localhost:8500']
+    command: ['-ip=${HOST_IP}', 'consul://localhost:8500']
 
   consul:
     command: -bootstrap -ui
