@@ -4,8 +4,23 @@ import connect from 'react-redux/lib/components/connect';
 import I18nManager from 'opuscapita-i18n/lib/utils/I18nManager';
 import locales from './../i18n/locales';
 import validateMessages from './i18n';
+import { formatPatterns } from '../../../../formatPatterns.config.json'
 
 class ApplicationContext extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const locale = cookie.load('LANGUAGE_COOKIE_KEY') || 'en';
+    const i18n = new I18nManager(locale, validateMessages, formatPatterns);
+    i18n.register('Common', locales);
+
+    this.state = {
+      i18n: i18n,
+      locale: locale,
+      formatPatterns: formatPatterns,
+      dateTimePattern: formatPatterns[locale].dateTimePattern
+    }
+  }
 
   static propTypes = {
     currentUserInfo: React.PropTypes.object
@@ -20,40 +35,16 @@ class ApplicationContext extends React.Component {
     httpResponseHandler: React.PropTypes.func
   };
 
-  state = {}
-
   getChildContext() {
-
     return {
-      i18n: this.i18n,
+      i18n: this.state.i18n,
       formatPatterns: this.state.formatPatterns,
       dateTimePattern: this.state.dateTimePattern,
-      simUrl: this.state.simUrl,
-      supplierUrl: this.state.simSupplierUrl,
+      simUrl: window.simUrl,
+      supplierUrl: window.simSupplierUrl,
       httpResponseHandler
     };
   }
-
-
-  componentWillUnmount() {
-    this.ignoreAjax = true;
-  }
-
-  _initI18n = (language) => {
-    if (
-      (
-        !this.i18n ||
-        this.i18n.locale !== language
-      ) &&
-      this.state.formatPatterns
-    ) {
-      this.i18n = new I18nManager(language, validateMessages, this.state.formatPatterns);
-      this.i18n.register('Common', locales);
-      this.setState({
-        dateTimePattern: this.state.formatPatterns[language].dateTimePattern
-      });
-    }
-  };
 
   render() {
     let { children } = this.props;

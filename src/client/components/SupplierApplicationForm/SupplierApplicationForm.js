@@ -5,11 +5,7 @@ import locales from './i18n/locales.js'
 import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import {
-  SupplierEditor,
-  SupplierAddressEditor,
-  SupplierContactEditor
-} from 'supplier';
+import { SupplierEditor, SupplierAddressEditor, SupplierContactEditor } from 'supplier';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
@@ -78,7 +74,9 @@ class SupplierApplicationForm extends React.Component {
   }
 
   i18n = this.context.i18n.register('SupplierApplicationForm', locales)
+
   _confirmLeaveChangesUnsaved = () => window.confirm(this.i18n.getMessage('ApplicationFormConfirmation.unsavedChanges'))
+
   isShowWelcomePage = () => true;
 
   handleDirtyState = event => {
