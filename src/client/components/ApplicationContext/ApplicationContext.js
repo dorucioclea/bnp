@@ -10,7 +10,7 @@ class ApplicationContext extends React.Component {
   constructor(props) {
     super(props);
 
-    const locale = cookie.load('LANGUAGE_COOKIE_KEY') || 'en';
+    const locale = 'en';
     const i18n = new I18nManager(locale, validateMessages, formatPatterns);
     i18n.register('Common', locales);
 

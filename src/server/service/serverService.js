@@ -91,7 +91,6 @@ function initRoutes(app, db, config) {
 }
 
 function initSecurityManager(app, db, config) {
-  //require('../routes/securityManager')(app, db, config);
 }
 
 function initTemplate(app, bundle, chunksManifest) {
