@@ -55,7 +55,7 @@ class RegistrationLayout extends React.Component {
         <section
           className="content"
           style={{
-            backgroundImage: "url('/img/service-config-welcome.jpg')",
+            backgroundImage: "url('/static/jcatalog/img/service-config-welcome.jpg')",
             maxWidth: "100%",
             backgroundSize: "100%"
           }}
@@ -84,7 +84,7 @@ class RegistrationLayout extends React.Component {
               <span className="icon-bar"></span>
             </button>
             <img
-              src={`${window.simUrl}/img/OC-logo-BN-orange-gray.svg`}
+              src={`${window.simUrl}/static/jcatalog/img/OC-logo-BN-orange-gray.svg`}
               style={{
                 position: "absolute",
                 width: "15%",
@@ -169,7 +169,7 @@ class RegistrationLayout extends React.Component {
       <ul className="nav navbar-nav navbar-left">
         <li>
           <img
-            src={`${window.simContextPath}/img/oc-logo-white.svg`}
+            src={`${window.simContextPath}/static/jcatalog/img/oc-logo-white.svg`}
             style={{
               width: "40%",
               marginTop: "10%"

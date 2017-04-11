@@ -17,7 +17,7 @@ export default class Welcome extends React.Component {
           <div
             className="content-wrap"
             style={{
-              background: `url(${window.simContextPath}/img/service-config-welcome.jpg) top center`,
+              background: `url(${window.simContextPath}/static/jcatalog/img/service-config-welcome.jpg) top center`,
               backgroundSize: 'cover',
               backgroundAttachment: 'fixed',
               minHeight: '100vh',
