@@ -76,7 +76,7 @@ services:
     command: 'npm run dev'
 
   apigw:
-    image: ocbesbn/api-gw:latest
+    image: ocbesbn/api-gw:dev
     environment:
       KONG_DATABASE: 'postgres'
       KONG_PG_HOST: $KONG_PG_HOST
@@ -133,7 +133,7 @@ services:
     command: 'npm run dev'
 
   api-registry:
-    image: ocbesbn/api-registrator:latest
+    image: ocbesbn/api-registrator:dev
     ports:
       - '$API_REGISTRY_PORT:$API_REGISTRY_PORT'
     environment:
