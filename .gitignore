@@ -75,3 +75,9 @@ node_modules
 # wiki
 /bnp.wiki
 .DS_Store
+
+# kong logs
+error.log
+access.log
+admin_access.log
+serf.log
