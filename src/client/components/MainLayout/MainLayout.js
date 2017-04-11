@@ -11,9 +11,9 @@ class MainLayout extends React.Component {
 
   render() {
     let isOnboarding = this.props.currentUserInfo &&
-      (!this.props.currentUserInfo.supplierid && !this.props.currentUserInfo.buyerid) ;
+      (!this.props.currentUserInfo.supplierid && !this.props.currentUserInfo.customerid) ;
     let showSidebarMenu = this.props.currentUserInfo &&
-      (this.props.currentUserInfo.supplierid || this.props.currentUserInfo.buyerid);
+      (this.props.currentUserInfo.supplierid || this.props.currentUserInfo.customerid);
 
     console.log(isOnboarding, showSidebarMenu)
 
