@@ -54,7 +54,7 @@ class HeaderMenu extends React.Component {
                 data-toggle="dropdown"
                 href="#"
               >
-                {userInfo.username}
+                {userInfo.id}
                 <b className="caret"></b>
               </a>
               <a className="dropdown-toggle icon-nav-item visible-sm visible-xs" data-toggle="dropdown" href="#">
