@@ -47,7 +47,7 @@ class SupplierApplicationForm extends React.Component {
     /*
       calling IDPRO API to get onboarding user's data and saving in cookie
     */
-    new OnboardingUserService(this.context.simUrl).getOnboardingUserData(this.props.currentUserInfo.username).
+    new OnboardingUserService(this.context.simUrl).getOnboardingUserData(this.props.currentUserInfo.id).
       then(userDetail => {
         if (!this.ignoreAjax) {
           this.setCookieData('ONBOARDING_DATA', JSON.stringify(userDetail.onboardData), 5);
@@ -85,11 +85,11 @@ class SupplierApplicationForm extends React.Component {
 
   handleSupplierUpdate = newSupplier => {
     this.isDirty = false;
-    let wasSupplierlessUser = !this.props.currentUserInfo.supplierId;
+    let wasSupplierlessUser = !this.props.currentUserInfo.supplierid;
 
     this.props.dispatch(setCurrentUserInfo({
       ...this.props.currentUserInfo,
-      supplierId: newSupplier.supplierId,
+      supplierId: newSupplier.supplierid,
       supplierName: newSupplier.supplierName,
       companyRole: newSupplier.companyRole
     }));
@@ -128,7 +128,7 @@ class SupplierApplicationForm extends React.Component {
           onUnauthorized={this.handleUnauthorized}
           readOnly={false /* TODO: only supplier creator can edit his supplier info */}
           actionUrl={this.context.supplierUrl}
-          supplierId={userInfo.supplierId}
+          supplierId={userInfo.supplierid}
           supplierName={userInfo.supplierName}
           companyRole={userInfo.companyRole}
           locale={userInfo.locale}
@@ -138,13 +138,13 @@ class SupplierApplicationForm extends React.Component {
           onChange={this.handleDirtyState}
           onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}
-          isOnboarding={!userInfo.supplierId}
+          isOnboarding={!userInfo.supplierid}
           onboardData={this.state.onboardData}
         />
       </I18nBundle>
     );
 
-    if (!userInfo.supplierId) {
+    if (!userInfo.supplierid) {
       return company;
     }
 
