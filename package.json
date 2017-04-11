@@ -49,7 +49,7 @@
     "ocbesbn-db-init": "^1.1.5",
     "ocbesbn-web-init": "^1.0.3",
     "on-headers": "1.0.1",
-    "opuscapita-i18n": "^1.0.11",
+    "opuscapita-i18n": "github:patrykkopycinski/js-i18n",
     "passport": "0.3.2",
     "passport-local": "1.0.0",
     "react": "^15.4.2",

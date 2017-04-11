@@ -1,9 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import locales from './i18n/locales.js'
-import browserHistory from 'react-router/lib/browserHistory';
 import {Tabs, Tab, TabContent, Col, Row, Image, ButtonToolbar, Button} from 'react-bootstrap'
-import I18nBundle from '../Widgets/components/I18nBundle';
 
 export default class EInvoice extends React.Component {
 
