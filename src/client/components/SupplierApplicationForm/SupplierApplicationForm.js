@@ -156,7 +156,7 @@ class SupplierApplicationForm extends React.Component {
           dateTimePattern={this.context.dateTimePattern}
           readOnly={false /* TODO: only supplier creator can edit his supplier info */}
           actionUrl={this.context.supplierUrl}
-          supplierId={userInfo.supplierId}
+          supplierId={userInfo.supplierid}
           locale={userInfo.locale}
           username={userInfo.username}
           countries={this.state.countries}
@@ -173,7 +173,7 @@ class SupplierApplicationForm extends React.Component {
           dateTimePattern={this.context.dateTimePattern}
           readOnly={false /* TODO: only supplier creator can edit his supplier info */}
           actionUrl={this.context.supplierUrl}
-          supplierId={userInfo.supplierId}
+          supplierId={userInfo.supplierid}
           locale={userInfo.locale}
           username={userInfo.username}
           onChange={this.handleDirtyState}

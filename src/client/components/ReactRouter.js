@@ -58,7 +58,7 @@ let store = createStore(
 
 function companyRoleInterceptor(nextState, replace, done) {
   let currentUserInfo = getCurrentUserInfo();
-  if (false &&!currentUserInfo.supplierid) { /* TODO remove false statement after supplierInformation is fixed */
+  if (!currentUserInfo.supplierid) {
     replace(`${window.simContextPath}/supplierInformation`);
   } else if (currentUserInfo.showWelcomePage) {
     replace(`${window.simContextPath}/welcome`);
