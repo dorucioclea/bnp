@@ -432,18 +432,18 @@ class SidebarMenu extends React.Component {
                     }`}
                   >
                     <a
-                      href={`/onboarding/campaigns/dashboard`}
+                      href={`/onboarding/dashboard`}
                     >
                       Onboarding Dashboard
                     </a>
                   </li>
                   <li>
-                    <a href={`/onboarding/campaigns/`}>
+                    <a href={`/onboarding/`}>
                       Onboarding Campaigns
                     </a>
                   </li>
                   <li>
-                    <a href={`/onboarding/campaigns/create`}>
+                    <a href={`/onboarding/create`}>
                       Create Onboarding Campaign
                     </a>
                   </li>
