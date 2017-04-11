@@ -69,13 +69,13 @@ class HeaderMenu extends React.Component {
                   <a className="hidden" href="#">Change Assignment</a>
                 </li>
                 <li>
-                  <a href="/logout">Logout</a>
+                  <a href="/auth/logout">Logout</a>
                 </li>
               </ul>
             </li>
             <li className="dropdown">
               <a className="dropdown-toggle hidden-sm hidden-xs" data-toggle="dropdown" href="#">
-                {userInfo.supplierName}
+                {userInfo.supplierid}
               </a>
             </li>
           </ul>
