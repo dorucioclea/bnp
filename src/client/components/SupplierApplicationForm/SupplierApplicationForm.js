@@ -1,6 +1,8 @@
 // TODO: need to remove unnecessary code.
+// TODO: agree
 
 import React from 'react';
+import _ from 'lodash';
 import locales from './i18n/locales.js'
 import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
@@ -114,6 +116,22 @@ class SupplierApplicationForm extends React.Component {
     browserHistory.push(`${window.simContextPath}/login`);
   };
 
+  handleGetSupplierData = () => {
+    const { onboardData } = this.state;
+
+    if (!onboardData) return null;
+
+    return _.merge({}, {
+      supplierName: onboardData.tradingPartnerDetails.name,
+      cityOfRegistration: onboardData.tradingPartnerDetails.city,
+      countryOfRegistration: onboardData.tradingPartnerDetails.country,
+      taxId: onboardData.tradingPartnerDetails.taxIdentNo,
+      vatRegNo: onboardData.tradingPartnerDetails.vatIdentNo,
+      dunsNo: onboardData.tradingPartnerDetails.dunsNo,
+      registrationNumber: onboardData.tradingPartnerDetails.commercialRegisterNo
+    });
+  }
+
   render() {
     if (this.state.isLoading) {
       return null;
@@ -139,7 +157,7 @@ class SupplierApplicationForm extends React.Component {
           onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}
           isOnboarding={!userInfo.supplierid}
-          onboardData={this.state.onboardData}
+          supplier={this.handleGetSupplierData()}
         />
       </I18nBundle>
     );
