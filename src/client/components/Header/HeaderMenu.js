@@ -75,7 +75,7 @@ class HeaderMenu extends React.Component {
             </li>
             <li className="dropdown">
               <a className="dropdown-toggle hidden-sm hidden-xs" data-toggle="dropdown" href="#">
-                {userInfo.supplierid != null ? userInfo.supplierid : userInfo.customerid != null ? userInfo.customerid : "no tenant"}
+                {userInfo.supplierid ? userInfo.supplierid : userInfo.customerid ? userInfo.customerid : "no tenant"}
               </a>
             </li>
           </ul>
