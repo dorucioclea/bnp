@@ -38,29 +38,33 @@ class SupplierApplicationForm extends React.Component {
 
   componentDidMount() {
     console.log('----currentUserInfo----', this.props.currentUserInfo);
-    new ApplicationFormService(this.context.simUrl).getCountryList().
-      then(countryList => this.ignoreAjax || this.setState({
-        isLoading: false,
-        countries: countryList.
-          map(({ countryId: id, countryName: name }) => ({ id, name })).
-          sort((a, b) => a.name.localeCompare(b.name))
-      })).
-      catch(err => this.ignoreAjax || this.context.httpResponseHandler(err));
+
+    const countriesPromise = new ApplicationFormService(this.context.simUrl).getCountryList()
+      .then(countryList => {
+        return countryList.map(({ countryId: id, countryName: name }) => ({ id, name }))
+          .sort((a, b) => a.name.localeCompare(b.name))
+      })
+      .catch(err => this.context.httpResponseHandler(err));
 
     /*
       calling IDPRO API to get onboarding user's data and saving in cookie
     */
-    new OnboardingUserService(this.context.simUrl).getOnboardingUserData(this.props.currentUserInfo.id).
-      then(userDetail => {
-        if (!this.ignoreAjax) {
-          this.setCookieData('ONBOARDING_DATA', JSON.stringify(userDetail.onboardData), 5);
-          this.setState({
-            isLoading: false,
-            onboardData: userDetail.onboardData
-          });
-        }
-      }).
-      catch(err => this.ignoreAjax || this.context.httpResponseHandler(err));
+
+    const onboardDataPromise = new OnboardingUserService(this.context.simUrl)
+      .getOnboardingUserData(this.props.currentUserInfo.id)
+      .then(userDetail => userDetail.onboardData)
+      .catch(err => this.context.httpResponseHandler(err));
+
+    Promise.all([countriesPromise, onboardDataPromise])
+      .then(([countries, onboardData]) => {
+        this.setCookieData('ONBOARDING_DATA', JSON.stringify(onboardData), 5);
+
+        this.setState({
+          isLoading: false,
+          countries,
+          onboardData
+        })
+      });
 
     console.log('this.state', this.state);
   }
