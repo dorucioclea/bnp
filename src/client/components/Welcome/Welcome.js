@@ -68,7 +68,7 @@ export default class Welcome extends React.Component {
                 </div>
                 <div className="col-md-4 col-md-offset-1" style={{ margin: '10% 8% 0 -15%' }}>
                   <img
-                    src={`${window.simContextPath}/img/cog-lighter.svg`}
+                    src={`${window.simContextPath}/static/jcatalog/img/cog-lighter.svg`}
                     style={{
                       position: 'fixed',
                       zIndex: '2',
@@ -78,7 +78,7 @@ export default class Welcome extends React.Component {
                       opacity: '0.6'
                     }}
                   />
-                  <img src={`${window.simContextPath}/img/cog.svg`} style={{ width: '250%' }} />
+                  <img src={`${window.simContextPath}/static/jcatalog/img/cog.svg`} style={{ width: '250%' }} />
                 </div>
               </div>
             </div>
