@@ -65,9 +65,9 @@ function companyRoleInterceptor(nextState, replace, done) {
     replace(`${window.simContextPath}/supplierInformation`);
   } else if (currentUserInfo.showWelcomePage) {
     replace(`${window.simContextPath}/welcome`);
-  } else if (currentUserInfo.companyRole === BUYING_ROLE) {
+  } else if (currentUserInfo.companyRole === BUYING_ROLE || currentUserInfo.customerid) {
     replace(`${window.simContextPath}/buyerDashboard`);
-  } else if (currentUserInfo.companyRole === SELLING_ROLE) {
+  } else if (currentUserInfo.companyRole === SELLING_ROLE || currentUserInfo.supplierid) {
     replace(`${window.simContextPath}/sellerDashboard`);
   }
 
