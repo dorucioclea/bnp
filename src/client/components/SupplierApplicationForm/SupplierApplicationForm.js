@@ -94,7 +94,7 @@ class SupplierApplicationForm extends React.Component {
     this.isDirty = false;
     let wasSupplierlessUser = !this.props.currentUserInfo.supplierid;
 
-    request.put(`${simPublicUrl}/user/users/${this.props.currentUserInfo.id}?tokenUpdate=true`, { supplierId: newSupplier.supplierId })
+    request.put(`${simPublicUrl}/user/users/${this.props.currentUserInfo.id}?tokenUpdate=true`, { supplierId: newSupplier.supplierId, status: 'onboarding' })
       .then(() => {
         this.props.dispatch(setCurrentUserInfo({
           ...this.props.currentUserInfo,
