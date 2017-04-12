@@ -105,7 +105,7 @@ class SupplierApplicationForm extends React.Component {
         }));
 
         if (wasSupplierlessUser) {
-          browserHistory.push(`${window.simContextPath}/dashboard`);
+          browserHistory.push(`${window.simContextPath}/welcome`);
         }
       })
       .catch((err) => console.log('err', err));
