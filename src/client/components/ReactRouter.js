@@ -56,7 +56,7 @@ let store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-function companyRoleInterceptor(nextState, replace, done) {
+function companyRoleInterceptor(nextState, replace) {
   let currentUserInfo = getCurrentUserInfo();
 
   console.log('currentUserInfo', currentUserInfo);
@@ -70,9 +70,8 @@ function companyRoleInterceptor(nextState, replace, done) {
   } else if (currentUserInfo.companyRole === SELLING_ROLE || currentUserInfo.supplierid) {
     replace(`${window.simContextPath}/sellerDashboard`);
   }
-
-  done();
 }
+
 
 
 ReactDOM.render(
@@ -85,7 +84,6 @@ ReactDOM.render(
         <Route
           path={`${window.simContextPath}/welcome`}
           component={Welcome}
-          onEnter={companyRoleInterceptor}
         />
         <Route
           path={`${window.simContextPath}/serviceConfigFlow`}

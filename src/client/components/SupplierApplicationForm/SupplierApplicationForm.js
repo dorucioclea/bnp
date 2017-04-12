@@ -101,7 +101,8 @@ class SupplierApplicationForm extends React.Component {
           ...this.props.currentUserInfo,
           supplierid: newSupplier.supplierId,
           supplierName: newSupplier.supplierName,
-          companyRole: newSupplier.companyRole
+          companyRole: newSupplier.companyRole,
+          showWelcomePage: true
         }));
 
         if (wasSupplierlessUser) {
