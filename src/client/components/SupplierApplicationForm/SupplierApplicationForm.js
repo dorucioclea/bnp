@@ -3,6 +3,7 @@
 
 import React from 'react';
 import _ from 'lodash';
+import request from 'superagent-bluebird-promise';
 import locales from './i18n/locales.js'
 import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
@@ -13,7 +14,6 @@ import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
 import ApplicationFormService from '../../service/ApplicationFormService';
 import OnboardingUserService from '../../service/OnboardingUserService';
-
 class SupplierApplicationForm extends React.Component {
 
   static propTypes = {
@@ -24,6 +24,7 @@ class SupplierApplicationForm extends React.Component {
     i18n: React.PropTypes.object,
     formatPatterns: React.PropTypes.object,
     dateTimePattern: React.PropTypes.string,
+    simPublicUrl: React.PropTypes.string,
     simUrl: React.PropTypes.string,
     supplierUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
@@ -89,16 +90,20 @@ class SupplierApplicationForm extends React.Component {
     this.isDirty = false;
     let wasSupplierlessUser = !this.props.currentUserInfo.supplierid;
 
-    this.props.dispatch(setCurrentUserInfo({
-      ...this.props.currentUserInfo,
-      supplierId: newSupplier.supplierid,
-      supplierName: newSupplier.supplierName,
-      companyRole: newSupplier.companyRole
-    }));
+    request.put(`${simPublicUrl}/user/users/${this.props.currentUserInfo.id}`, { supplierId: newSupplier.supplierId })
+      .then(() => {
+        this.props.dispatch(setCurrentUserInfo({
+          ...this.props.currentUserInfo,
+          supplierid: newSupplier.supplierId,
+          supplierName: newSupplier.supplierName,
+          companyRole: newSupplier.companyRole
+        }));
 
-    if (wasSupplierlessUser) {
-      browserHistory.push(`${window.simContextPath}/dashboard`);
-    }
+        if (wasSupplierlessUser) {
+          browserHistory.push(`${window.simContextPath}/dashboard`);
+        }
+      })
+      .catch((err) => console.log('err', err));
   }
 
   handleLogout = function() {
@@ -150,7 +155,7 @@ class SupplierApplicationForm extends React.Component {
           supplierName={userInfo.supplierName}
           companyRole={userInfo.companyRole}
           locale={userInfo.locale}
-          username={userInfo.username}
+          username={userInfo.id}
           dateTimePattern={this.context.dateTimePattern}
           countries={this.state.countries}
           onChange={this.handleDirtyState}
