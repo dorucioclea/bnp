@@ -7,7 +7,7 @@ export default class OnboardingUserService {
       then(res => res.body).
       catch(err => ({
         status: err.status,
-        message: err.response.body || err.response.text
-      }))
+        message: err.body.message || err.body.text
+      }));
   }
 }
