@@ -42,7 +42,7 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     extra_hosts:
       - 'consul:${HOST_IP}'
-    command: 'npm run dev'
+    command: 'npm run dev:production'
 
   postgres:
     image: postgres:9.4
@@ -71,6 +71,7 @@ services:
     environment:
       PORT: 3008
       HOST_IP: $HOST_IP
+      MYSQL_DATABASE: $MYSQL_DATABASE
     ports:
      - '3008:3008'
     command: 'npm run dev'
@@ -138,6 +139,7 @@ services:
 
   api-registry:
     image: ocbesbn/api-registrator:dev
+#    build: ../api-registrator
     ports:
       - '$API_REGISTRY_PORT:$API_REGISTRY_PORT'
     environment:
