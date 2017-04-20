@@ -47,7 +47,7 @@
     "nodemon": "1.11.0",
     "ocbesbn-config": "^2.2.5",
     "ocbesbn-db-init": "^1.1.5",
-    "ocbesbn-web-init": "^1.0.3",
+    "ocbesbn-web-init": "^1.1.2",
     "on-headers": "1.0.1",
     "opuscapita-i18n": "github:patrykkopycinski/js-i18n",
     "passport": "0.3.2",
@@ -106,7 +106,6 @@
     "nyc": "^10.0.0",
     "style-loader": "0.13.1",
     "url-loader": "^0.5.8",
-    "useridentity-middleware": "OpusCapitaBusinessNetwork/useridentity-middleware#develop",
     "webpack": "^2.2.0",
     "webpack-dev-middleware": "1.9.0",
     "webpack-md5-hash": "0.0.5"

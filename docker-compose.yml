@@ -97,6 +97,8 @@ services:
       REDIS_HOST: $HOST_IP # TODO: remove after api-gw is using config
       REDIS_PORT: 6379 # TODO: remove after api-gw is using config
       REDIS_AUTH: $REDIS_AUTH # TODO: remove after api-gw is using config
+      SERVICE_8001_NAME: 'kong-api'
+      SERVICE_8080_NAME: 'kong'
     ports:
       - '8080:8080'
       - '8443:8443'
@@ -139,11 +141,8 @@ services:
     ports:
       - '$API_REGISTRY_PORT:$API_REGISTRY_PORT'
     environment:
-      CONSUL_HOST: $HOST_IP
       AUTH_SERVER: $AUTH_SERVER
       AUTH_SERVER_PORT: $AUTH_SERVER_PORT
-      KONG_HOST: $KONG_HOST
-      KONG_PORT: $KONG_PORT
       API_REGISTRY_PORT: $API_REGISTRY_PORT
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
     depends_on:
