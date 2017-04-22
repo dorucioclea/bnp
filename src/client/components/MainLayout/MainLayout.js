@@ -1,24 +1,16 @@
 import React from 'react';
 import connect from 'react-redux/lib/components/connect';
-import SidebarMenu from '../SidebarMenu';
-import HeaderMenu from '../Header';
+import { HeaderMenu, SidebarMenu } from 'ocbesbn-react-components';
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 
 class MainLayout extends React.Component {
   static propTypes = {
-    currentUserInfo: React.PropTypes.object
+    currentUserData: React.PropTypes.object
   }
 
-  render() {
-    let isOnboarding = this.props.currentUserInfo &&
-      (!this.props.currentUserInfo.supplierid && !this.props.currentUserInfo.customerid) ;
-    let showSidebarMenu = this.props.currentUserInfo &&
-      (this.props.currentUserInfo.supplierid || this.props.currentUserInfo.customerid);
-
-    console.log(isOnboarding, showSidebarMenu)
-
-    let header = isOnboarding ?
-      (
+  renderHeader(isOnboarding) {
+    if (isOnboarding) {
+      return (
         <nav
           className="navbar navbar-default"
           style={{
@@ -27,70 +19,74 @@ class MainLayout extends React.Component {
             padding: "2% 2% 0 0"
           }}
         >
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <button
-              type="button"
-              className="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
-            <img
-              src={`${window.simUrl}/static/jcatalog/img/OC-logo-BN-orange-gray.svg`}
-              style={{
-                position: "absolute",
-                width: "15%",
-                top: "8%"
-              }}
-            />
-            <p
-              style={{
-                display: "table",
-                position: "absolute",
-                top: "10%",
-                left: "38%",
-                fontSize: "200%",
-                color: "#67707C",
-                opacity: "0.75"
-              }}
-            >
-              Welcome to OpusCapita<br/> Supplier Onboarding
-            </p>
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <button
+                type="button"
+                className="navbar-toggle collapsed"
+                data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Toggle navigation</span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+              <img
+                src={`${window.simUrl}/static/jcatalog/img/OC-logo-BN-orange-gray.svg`}
+                style={{
+                  position: "absolute",
+                  width: "15%",
+                  top: "8%"
+                }}
+              />
+              <p
+                style={{
+                  display: "table",
+                  position: "absolute",
+                  top: "10%",
+                  left: "38%",
+                  fontSize: "200%",
+                  color: "#67707C",
+                  opacity: "0.75"
+                }}
+              >
+                Welcome to OpusCapita<br/> Supplier Onboarding
+              </p>
+            </div>
+
+
+            <ul className="nav navbar-nav navbar-right">
+              <Dropdown id="dropdown-custom-1">
+                <Dropdown.Toggle>
+                  <Glyphicon glyph="star" />
+                  English
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="super-colors">
+                  <MenuItem eventKey="1">Suomi</MenuItem>
+                  <MenuItem eventKey="2">German</MenuItem>
+                  <MenuItem eventKey="3" active={true}>English</MenuItem>
+                  <MenuItem divider={true} />
+                  <MenuItem eventKey="4">Separated link</MenuItem>
+                </Dropdown.Menu>
+              </Dropdown>
+            </ul>
           </div>
+        </nav>
+      )
+    }
 
+    return (
+      <a className="applogo visible-md visible-sm visible-xs" href="http://www.opuscapita.com/">
+        <img src={`${window.simContextPath}/img/oc-logo-rgb.svg`} />
+      </a>
+    )
+  }
 
-          <ul className="nav navbar-nav navbar-right">
-            <Dropdown id="dropdown-custom-1">
-              <Dropdown.Toggle>
-                <Glyphicon glyph="star" />
-                English
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="super-colors">
-                <MenuItem eventKey="1">Suomi</MenuItem>
-                <MenuItem eventKey="2">German</MenuItem>
-                <MenuItem eventKey="3" active={true}>English</MenuItem>
-                <MenuItem divider={true} />
-                <MenuItem eventKey="4">Separated link</MenuItem>
-              </Dropdown.Menu>
-            </Dropdown>
-          </ul>
-        </div>
-      </nav>
-      ) :
-      (
-        <a className="applogo visible-md visible-sm visible-xs" href="http://www.opuscapita.com/">
-          <img src={`${window.simContextPath}/img/oc-logo-rgb.svg`} />
-        </a>
-      );
-
-    let footer = isOnboarding ?
-      (
+  renderFooter(isOnboarding) {
+    if (isOnboarding) {
+      return (
         <footer
           style={{
             position: 'absolute',
@@ -111,20 +107,30 @@ class MainLayout extends React.Component {
             </li>
           </ul>
         </footer>
-      ) :
-      (
-        <footer>
-          <div className="container copyright text-center">
-            &copy; 2001 &mdash; 2016&nbsp;&nbsp;
-            <a href="http://www.opuscapita.com/">
-              <img
-                src={`${window.simContextPath}/img/oc-logo-rgb.svg`}
-                style={{ height: '1.2em' }}
-              />
-            </a>
-          </div>
-        </footer>
-      );
+      )
+    }
+
+    return (
+      <footer>
+        <div className="container copyright text-center">
+          &copy; 2001 &mdash; 2016&nbsp;&nbsp;
+          <a href="http://www.opuscapita.com/">
+            <img
+              src={`${window.simContextPath}/img/oc-logo-rgb.svg`}
+              style={{ height: '1.2em' }}
+            />
+          </a>
+        </div>
+      </footer>
+    )
+  }
+
+  render() {
+    const { currentUserData } = this.props;
+    const isOnboarding = currentUserData && (!currentUserData.supplierid && !currentUserData.customerid);
+    const showSidebarMenu = currentUserData && (currentUserData.supplierid || currentUserData.customerid);
+    const header = this.renderHeader(isOnboarding);
+    const footer = this.renderFooter(isOnboarding);
 
     if (isOnboarding) {
       return (
@@ -168,10 +174,10 @@ class MainLayout extends React.Component {
 
     return (
       <div style={{ minHeight: '100vh' }}>
-        {showSidebarMenu && <SidebarMenu/>}
+        {showSidebarMenu && <SidebarMenu isBuyer={currentUserData.customerid} />}
         <div className="container-fluid">
         <section className="content" style={{ overflow: 'visible' }}>
-          <HeaderMenu/>
+          <HeaderMenu currentUserData={currentUserData} />
           {header}
           <div className="content-wrap" style={{ paddingLeft: '250px' }}>
             {this.props.children}
@@ -186,7 +192,7 @@ class MainLayout extends React.Component {
 
 function injectState(store) {
   return {
-    currentUserInfo: store.currentUserInfo
+    currentUserData: store.currentUserData
   };
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import SidebarMenu from '../SidebarMenu';
+import { SidebarMenu } from 'ocbesbn-react-components';
 import browserHistory from 'react-router/lib/browserHistory';
 
 export default class Welcome extends React.Component {

@@ -23,7 +23,7 @@ class ApplicationContext extends React.Component {
   }
 
   static propTypes = {
-    currentUserInfo: React.PropTypes.object
+    currentUserData: React.PropTypes.object
   };
 
   static childContextTypes = {
@@ -56,8 +56,8 @@ class ApplicationContext extends React.Component {
   }
 }
 
-function injectState({ currentUserInfo }) {  // Transform the current Redux store state into the component's props.
-  return { currentUserInfo };
+function injectState({ currentUserData }) {  // Transform the current Redux store state into the component's props.
+  return { currentUserData };
 }
 
 export default connect(injectState)(ApplicationContext);

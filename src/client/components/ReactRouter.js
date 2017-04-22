@@ -40,34 +40,34 @@ const BUYING_ROLE = 'buying';
 const SELLING_ROLE = 'selling';
 
 function getInitialCurrentUserInfo() {
-  let initialState =  window.userData;
+  let initialState =  window.currentUserData;
   initialState.locale = 'en';
 
   return initialState;
 }
 
 function getCurrentUserInfo() {
-  return window.userData;
+  return window.currentUserData;
 }
 
 let store = createStore(
   simRootApplicationReducer,
-  { currentUserInfo: getInitialCurrentUserInfo() },
+  { currentUserData: getInitialCurrentUserInfo() },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 function companyRoleInterceptor(nextState, replace) {
-  let currentUserInfo = getCurrentUserInfo();
+  let currentUserData = getCurrentUserInfo();
 
-  console.log('currentUserInfo', currentUserInfo);
+  console.log('currentUserData', currentUserData);
 
-  if (!currentUserInfo.supplierid && !currentUserInfo.customerid) {
+  if (!currentUserData.supplierid && !currentUserData.customerid) {
     replace(`${window.simContextPath}/supplierInformation`);
-  } else if (currentUserInfo.showWelcomePage) {
+  } else if (currentUserData.showWelcomePage) {
     replace(`${window.simContextPath}/welcome`);
-  } else if (currentUserInfo.companyRole === BUYING_ROLE || currentUserInfo.customerid) {
+  } else if (currentUserData.companyRole === BUYING_ROLE || currentUserData.customerid) {
     replace(`${window.simContextPath}/buyerDashboard`);
-  } else if (currentUserInfo.companyRole === SELLING_ROLE || currentUserInfo.supplierid) {
+  } else if (currentUserData.companyRole === SELLING_ROLE || currentUserData.supplierid) {
     replace(`${window.simContextPath}/sellerDashboard`);
   }
 }

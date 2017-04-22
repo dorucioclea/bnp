@@ -17,7 +17,7 @@ import OnboardingUserService from '../../service/OnboardingUserService';
 class SupplierApplicationForm extends React.Component {
 
   static propTypes = {
-    currentUserInfo: React.PropTypes.object
+    currentUserData: React.PropTypes.object
   }
 
   static contextTypes = {
@@ -37,7 +37,7 @@ class SupplierApplicationForm extends React.Component {
   }
 
   componentDidMount() {
-    console.log('----currentUserInfo----', this.props.currentUserInfo);
+    console.log('----currentUserData----', this.props.currentUserData);
 
     const countriesPromise = new ApplicationFormService(this.context.simUrl).getCountryList()
       .then(countryList => {
@@ -51,7 +51,7 @@ class SupplierApplicationForm extends React.Component {
     */
 
     const onboardDataPromise = new OnboardingUserService(this.context.simUrl)
-      .getOnboardingUserData(this.props.currentUserInfo.id)
+      .getOnboardingUserData(this.props.currentUserData.id)
       .then(userDetail => userDetail.onboardData)
       .catch(err => this.context.httpResponseHandler(err));
 
@@ -92,13 +92,13 @@ class SupplierApplicationForm extends React.Component {
 
   handleSupplierUpdate = newSupplier => {
     this.isDirty = false;
-    let wasSupplierlessUser = !this.props.currentUserInfo.supplierid;
+    let wasSupplierlessUser = !this.props.currentUserData.supplierid;
 
-    request.put(`${simPublicUrl}/user/users/${this.props.currentUserInfo.id}?tokenUpdate=true`, { supplierId: newSupplier.supplierId, status: 'onboarding' })
+    request.put(`${simPublicUrl}/user/users/${this.props.currentUserData.id}?tokenUpdate=true`, { supplierId: newSupplier.supplierId, status: 'onboarding' })
       .set('Content-Type', 'application/json')
       .then(() => {
         this.props.dispatch(setCurrentUserInfo({
-          ...this.props.currentUserInfo,
+          ...this.props.currentUserData,
           supplierid: newSupplier.supplierId,
           supplierName: newSupplier.supplierName,
           companyRole: newSupplier.companyRole,
@@ -148,7 +148,7 @@ class SupplierApplicationForm extends React.Component {
       return null;
     }
 
-    let userInfo = this.props.currentUserInfo;
+    let userInfo = this.props.currentUserData;
 
     let company = (
       <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
@@ -230,7 +230,7 @@ class SupplierApplicationForm extends React.Component {
 
 function injectState(store) {
   return {
-    currentUserInfo: store.currentUserInfo
+    currentUserData: store.currentUserData
   };
 }
 

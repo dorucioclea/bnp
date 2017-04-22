@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Nav, NavItem, Tab, Row } from 'react-bootstrap';
-import SidebarMenu from '../SidebarMenu';
+import { SidebarMenu } from 'ocbesbn-react-components';
 import ServiceConfigStepOne from '../ServiceConfigStepOne';
 import ServiceConfigStepTwo from '../ServiceConfigStepTwo';
 import ServiceConfigStepThree from '../ServiceConfigStepThree';
