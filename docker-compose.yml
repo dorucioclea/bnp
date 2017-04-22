@@ -24,7 +24,7 @@ services:
     command: 'npm run dev'
 
   supplier:
-    image: opuscapita/supplier:dev
+    image: opuscapita/supplier:working # TODO: Use :dev when it's working again
 #    build: ../supplier
 #    volumes:
 #     - ../supplier:/home/node/supplier
@@ -42,7 +42,7 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     extra_hosts:
       - 'consul:${HOST_IP}'
-    command: 'npm run dev:production'
+    command: 'npm run dev'
 
   postgres:
     image: postgres:9.4
