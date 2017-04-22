@@ -5,7 +5,7 @@ function simRootApplicationReducer(state, action) {
     case SET_CURRENT_USER_INFO:
       {
         return {
-          currentUserInfo: action.currentUserInfo
+          currentUserData: action.currentUserData
         };
       }
     default:
