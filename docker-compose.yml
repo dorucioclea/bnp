@@ -41,7 +41,7 @@ services:
       HOST_IP: $HOST_IP
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      NODE_ENV: 'external'
+      NODE_ENV: 'production'
     extra_hosts:
       - 'consul:${HOST_IP}'
     command: 'npm run dev'
