@@ -24,12 +24,13 @@ services:
     command: 'npm run dev'
 
   supplier:
-    image: opuscapita/supplier:working # TODO: Use :dev when it's working again
+    image: opuscapita/supplier:dev
 #    build: ../supplier
 #    volumes:
 #     - ../supplier:/home/node/supplier
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
       - mysql
+      - isodata
     labels:
       SERVICE_NAME: 'supplier'  # Service name used by Registrator for adding to Consul's service discovery registry.
       SERVICE_TAGS: 'external'
@@ -40,6 +41,7 @@ services:
       HOST_IP: $HOST_IP
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+      NODE_ENV: 'production'
     extra_hosts:
       - 'consul:${HOST_IP}'
     command: 'npm run dev'
@@ -222,3 +224,18 @@ services:
      - '8500:8500'
      - '53:8600/udp'
      - '53:8600'
+
+  isodata:
+    image: ocbesbn/isodata:latest
+    ports:
+      - '3006:3006'
+    extra_hosts:
+      - 'consul:${HOST_IP}'
+    labels:
+      SERVICE_NAME: isodata
+    environment:
+      HOST_IP: ${HOST_IP}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      PORT: '3006'
+    command: 'npm run dev'
