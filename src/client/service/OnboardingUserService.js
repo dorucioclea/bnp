@@ -3,7 +3,7 @@ import ajaxRequest from 'superagent';
 export default class OnboardingUserService {
   getOnboardingUserData(user) {
     return ajaxRequest.
-      get(`/interaction/api/onboardData/${user}`).
+      get(`/user/onboardData/${user}`).
       then(res => res.body).
       catch(err => ({
         status: err.status,
