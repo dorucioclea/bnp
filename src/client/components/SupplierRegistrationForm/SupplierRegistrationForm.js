@@ -8,13 +8,13 @@ import locales from './i18n/locales.js'
 import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import { SupplierEditor, SupplierAddressEditor, SupplierContactEditor } from 'supplier';
+import { SupplierRegistrationEditor } from 'supplier';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
 import ApplicationFormService from '../../service/ApplicationFormService';
 import OnboardingUserService from '../../service/OnboardingUserService';
-class SupplierApplicationForm extends React.Component {
+class SupplierRegistrationForm extends React.Component {
 
   static propTypes = {
     currentUserData: React.PropTypes.object
@@ -46,11 +46,23 @@ class SupplierApplicationForm extends React.Component {
       })
       .catch(err => this.context.httpResponseHandler(err));
 
-    Promise.all([countriesPromise])
-      .then(([countries]) => {
+    /*
+      calling IDPRO API to get onboarding user's data and saving in cookie
+    */
+
+    const onboardDataPromise = new OnboardingUserService(this.context.simUrl)
+      .getOnboardingUserData(this.props.currentUserData.id)
+      .then(userDetail => userDetail.onboardData)
+      .catch(err => this.context.httpResponseHandler(err));
+
+    Promise.all([countriesPromise, onboardDataPromise])
+      .then(([countries, onboardData]) => {
+        this.setCookieData('ONBOARDING_DATA', JSON.stringify(onboardData), 5);
+
         this.setState({
           isLoading: false,
-          countries
+          countries,
+          onboardData
         })
       });
 
@@ -68,7 +80,7 @@ class SupplierApplicationForm extends React.Component {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
-  i18n = this.context.i18n.register('SupplierApplicationForm', locales)
+  i18n = this.context.i18n.register('SupplierRegistrationForm', locales)
 
   _confirmLeaveChangesUnsaved = () => window.confirm(this.i18n.getMessage('ApplicationFormConfirmation.unsavedChanges'))
 
@@ -115,6 +127,24 @@ class SupplierApplicationForm extends React.Component {
     browserHistory.push(`${window.simContextPath}/login`);
   };
 
+  handleGetSupplierData = () => {
+    const { onboardData } = this.state;
+
+    if (!onboardData) return null;
+
+    console.log(onboardData);
+
+    return _.merge({}, {
+      supplierName: onboardData.tradingPartnerDetails.name,
+      cityOfRegistration: onboardData.tradingPartnerDetails.city,
+      countryOfRegistration: onboardData.tradingPartnerDetails.country,
+      taxId: onboardData.tradingPartnerDetails.taxIdentNo,
+      vatRegNo: onboardData.tradingPartnerDetails.vatIdentNo,
+      dunsNo: onboardData.tradingPartnerDetails.dunsNo,
+      registrationNumber: onboardData.tradingPartnerDetails.commercialRegisterNo
+    });
+  }
+
   render() {
     if (this.state.isLoading) {
       return null;
@@ -122,19 +152,16 @@ class SupplierApplicationForm extends React.Component {
 
     let userInfo = this.props.currentUserData;
 
-    if (!userInfo.supplierid) {
-      return <p>Supplier Does not exist! Please register first</p>
+    if (userInfo.supplierid) {
+      return <p>Supplier Already Exist!</p>
     }
 
-    let company = (
+    return (
       <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierEditor
+        <SupplierRegistrationEditor
           key='company'
           onUnauthorized={this.handleUnauthorized}
-          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
           actionUrl={this.context.supplierUrl}
-          supplierId={userInfo.supplierid}
-          supplierName={userInfo.supplierName}
           locale={userInfo.locale}
           username={userInfo.id}
           dateTimePattern={this.context.dateTimePattern}
@@ -142,57 +169,9 @@ class SupplierApplicationForm extends React.Component {
           onChange={this.handleDirtyState}
           onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}
+          supplier={this.handleGetSupplierData() || {}}
         />
       </I18nBundle>
-    );
-
-    let address = (
-      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierAddressEditor
-          key='address'
-          onUnauthorized={this.handleUnauthorized}
-          dateTimePattern={this.context.dateTimePattern}
-          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.supplierUrl}
-          supplierId={userInfo.supplierid}
-          locale={userInfo.locale}
-          username={userInfo.username}
-          countries={this.state.countries}
-          onChange={this.handleDirtyState}
-        />
-      </I18nBundle>
-    );
-
-    let contact = (
-      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierContactEditor
-          key='contact'
-          onUnauthorized={this.handleUnauthorized}
-          dateTimePattern={this.context.dateTimePattern}
-          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.supplierUrl}
-          supplierId={userInfo.supplierid}
-          locale={userInfo.locale}
-          username={userInfo.username}
-          onChange={this.handleDirtyState}
-        />
-      </I18nBundle>
-    );
-
-    return (
-      <div>
-        <Tabs id="supplierTabs" activeKey={this.state.key} onSelect={this.handleSelect}>
-          <Tab eventKey={1} title={this.i18n.getMessage('ApplicationFormTab.company')}>
-            {(this.state.key === 1) ? company : null}
-          </Tab>
-          <Tab eventKey={2} title={this.i18n.getMessage('ApplicationFormTab.address')}>
-            {(this.state.key === 2) ? address : null}
-          </Tab>
-          <Tab eventKey={3} title={this.i18n.getMessage('ApplicationFormTab.contact')}>
-            {(this.state.key === 3) ? contact : null}
-          </Tab>
-        </Tabs>
-      </div>
     )
   }
 }
@@ -203,4 +182,4 @@ function injectState(store) {
   };
 }
 
-export default connect(injectState)(SupplierApplicationForm);
+export default connect(injectState)(SupplierRegistrationForm);

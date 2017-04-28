@@ -34,6 +34,7 @@ import createStore from 'redux/lib/createStore';
 import ApplicationContext from './ApplicationContext';
 import simRootApplicationReducer from './../redux/reducers.js';
 import SupplierApplicationForm from './SupplierApplicationForm';
+import SupplierRegistrationForm from './SupplierRegistrationForm';
 
 
 const BUYING_ROLE = 'buying';
@@ -62,7 +63,7 @@ function companyRoleInterceptor(nextState, replace) {
   console.log('currentUserData', currentUserData);
 
   if (!currentUserData.supplierid && !currentUserData.customerid) {
-    replace(`${window.simContextPath}/supplierInformation`);
+    replace(`${window.simContextPath}/supplierRegistration`);
   } else if (currentUserData.showWelcomePage) {
     replace(`${window.simContextPath}/welcome`);
   } else if (currentUserData.companyRole === BUYING_ROLE || currentUserData.customerid) {
@@ -93,6 +94,10 @@ ReactDOM.render(
           <Route
             path={`${window.simContextPath}/supplierInformation`}
             getComponent={(location, cb) => SupplierApplicationForm(location, cb)}
+          />
+          <Route
+            path={`${window.simContextPath}/supplierRegistration`}
+            getComponent={(location, cb) => SupplierRegistrationForm(location, cb)}
           />
           <Route
             path={`${window.simContextPath}/invoiceApproval`}
