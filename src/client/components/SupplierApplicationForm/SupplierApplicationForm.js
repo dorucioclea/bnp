@@ -46,13 +46,12 @@ class SupplierApplicationForm extends React.Component {
       })
       .catch(err => this.context.httpResponseHandler(err));
 
-    Promise.all([countriesPromise])
-      .then(([countries]) => {
-        this.setState({
-          isLoading: false,
-          countries
-        })
-      });
+    countriesPromise.then(countries => {
+      this.setState({
+        isLoading: false,
+        countries
+      })
+    });
 
     console.log('this.state', this.state);
   }
