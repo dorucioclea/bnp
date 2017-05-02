@@ -29,7 +29,7 @@ class SupplierApplicationForm extends React.Component {
     httpResponseHandler: React.PropTypes.func,
   }
 
-  state = { key: 1 }
+  state = { tabKey: 1 }
 
   componentWillUnmount() {
     this.ignoreAjax = true;
@@ -78,10 +78,10 @@ class SupplierApplicationForm extends React.Component {
     console.log("logout has no handler");
   };
 
-  handleSelect = key => {
+  handleSelect = tabKey => {
     if (!this.isDirty || this._confirmLeaveChangesUnsaved()) {
       this.isDirty = false;
-      this.setState({ key });
+      this.setState({ tabKey });
     }
   }
 
@@ -149,7 +149,7 @@ class SupplierApplicationForm extends React.Component {
 
     return (
       <div>
-        <Tabs id="supplierTabs" activeKey={this.state.key} onSelect={this.handleSelect}>
+        <Tabs id="supplierTabs" activeKey={this.state.tabKey} onSelect={this.handleSelect}>
           <Tab eventKey={1} title={this.i18n.getMessage('ApplicationFormTab.company')}>
             {company}
           </Tab>
