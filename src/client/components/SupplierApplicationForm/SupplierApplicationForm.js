@@ -12,7 +12,6 @@ import { SupplierEditor, SupplierAddressEditor, SupplierContactEditor } from 'su
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
-import ApplicationFormService from '../../service/ApplicationFormService';
 import OnboardingUserService from '../../service/OnboardingUserService';
 class SupplierApplicationForm extends React.Component {
 
@@ -30,31 +29,7 @@ class SupplierApplicationForm extends React.Component {
     httpResponseHandler: React.PropTypes.func,
   }
 
-  state = {
-    countries: [],
-    key: 1,
-    isLoading: true
-  }
-
-  componentDidMount() {
-    console.log('----currentUserData----', this.props.currentUserData);
-
-    const countriesPromise = new ApplicationFormService(this.context.simUrl).getCountryList()
-      .then(countryList => {
-        return countryList.map(({ countryId: id, countryName: name }) => ({ id, name }))
-          .sort((a, b) => a.name.localeCompare(b.name))
-      })
-      .catch(err => this.context.httpResponseHandler(err));
-
-    countriesPromise.then(countries => {
-      this.setState({
-        isLoading: false,
-        countries
-      })
-    });
-
-    console.log('this.state', this.state);
-  }
+  state = { key: 1 }
 
   componentWillUnmount() {
     this.ignoreAjax = true;
@@ -88,7 +63,7 @@ class SupplierApplicationForm extends React.Component {
           ...this.props.currentUserData,
           supplierid: newSupplier.supplierId,
           supplierName: newSupplier.supplierName,
-          companyRole: newSupplier.companyRole,
+          companyRole: 'selling',
           showWelcomePage: true
         }));
 
@@ -115,10 +90,6 @@ class SupplierApplicationForm extends React.Component {
   };
 
   render() {
-    if (this.state.isLoading) {
-      return null;
-    }
-
     let userInfo = this.props.currentUserData;
 
     if (!userInfo.supplierid) {
@@ -137,7 +108,6 @@ class SupplierApplicationForm extends React.Component {
           locale={userInfo.locale}
           username={userInfo.id}
           dateTimePattern={this.context.dateTimePattern}
-          countries={this.state.countries}
           onChange={this.handleDirtyState}
           onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}
@@ -156,7 +126,6 @@ class SupplierApplicationForm extends React.Component {
           supplierId={userInfo.supplierid}
           locale={userInfo.locale}
           username={userInfo.username}
-          countries={this.state.countries}
           onChange={this.handleDirtyState}
         />
       </I18nBundle>
