@@ -151,13 +151,13 @@ class SupplierApplicationForm extends React.Component {
       <div>
         <Tabs id="supplierTabs" activeKey={this.state.key} onSelect={this.handleSelect}>
           <Tab eventKey={1} title={this.i18n.getMessage('ApplicationFormTab.company')}>
-            {(this.state.key === 1) ? company : null}
+            {company}
           </Tab>
           <Tab eventKey={2} title={this.i18n.getMessage('ApplicationFormTab.address')}>
-            {(this.state.key === 2) ? address : null}
+            {address}
           </Tab>
           <Tab eventKey={3} title={this.i18n.getMessage('ApplicationFormTab.contact')}>
-            {(this.state.key === 3) ? contact : null}
+            {contact}
           </Tab>
         </Tabs>
       </div>

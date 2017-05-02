@@ -30,8 +30,8 @@ class SupplierRegistrationForm extends React.Component {
   }
 
   state = {
-    key: 1,
-    isLoading: true
+    isLoading: true,
+    onboardData: {}
   }
 
   componentDidMount() {
@@ -50,11 +50,9 @@ class SupplierRegistrationForm extends React.Component {
 
       this.setState({
         isLoading: false,
-        onboardData
+        onboardData: onboardData
       })
     });
-
-    console.log('this.state', this.state);
   }
 
   componentWillUnmount() {
@@ -104,13 +102,6 @@ class SupplierRegistrationForm extends React.Component {
     console.log("logout has no handler");
   };
 
-  handleSelect = key => {
-    if (!this.isDirty || this._confirmLeaveChangesUnsaved()) {
-      this.isDirty = false;
-      this.setState({ key });
-    }
-  }
-
   handleUnauthorized = () => {
     browserHistory.push(`${window.simContextPath}/login`);
   };
@@ -122,7 +113,7 @@ class SupplierRegistrationForm extends React.Component {
 
     console.log(onboardData);
 
-    return _.merge({}, {
+    return {
       supplierName: onboardData.tradingPartnerDetails.name,
       cityOfRegistration: onboardData.tradingPartnerDetails.city,
       countryOfRegistration: onboardData.tradingPartnerDetails.country,
@@ -130,7 +121,7 @@ class SupplierRegistrationForm extends React.Component {
       vatRegNo: onboardData.tradingPartnerDetails.vatIdentNo,
       dunsNo: onboardData.tradingPartnerDetails.dunsNo,
       registrationNumber: onboardData.tradingPartnerDetails.commercialRegisterNo
-    });
+    };
   }
 
   render() {
