@@ -12,7 +12,6 @@ import { SupplierRegistrationEditor } from 'supplier';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
-import ApplicationFormService from '../../service/ApplicationFormService';
 import OnboardingUserService from '../../service/OnboardingUserService';
 class SupplierRegistrationForm extends React.Component {
 
@@ -31,21 +30,12 @@ class SupplierRegistrationForm extends React.Component {
   }
 
   state = {
-    countries: [],
-    key: 1,
-    isLoading: true
+    isLoading: true,
+    onboardData: {}
   }
 
   componentDidMount() {
     console.log('----currentUserData----', this.props.currentUserData);
-
-    const countriesPromise = new ApplicationFormService(this.context.simUrl).getCountryList()
-      .then(countryList => {
-        return countryList.map(({ countryId: id, countryName: name }) => ({ id, name }))
-          .sort((a, b) => a.name.localeCompare(b.name))
-      })
-      .catch(err => this.context.httpResponseHandler(err));
-
     /*
       calling IDPRO API to get onboarding user's data and saving in cookie
     */
@@ -55,18 +45,14 @@ class SupplierRegistrationForm extends React.Component {
       .then(userDetail => userDetail.onboardData)
       .catch(err => this.context.httpResponseHandler(err));
 
-    Promise.all([countriesPromise, onboardDataPromise])
-      .then(([countries, onboardData]) => {
-        this.setCookieData('ONBOARDING_DATA', JSON.stringify(onboardData), 5);
+    onboardDataPromise.then(onboardData => {
+      this.setCookieData('ONBOARDING_DATA', JSON.stringify(onboardData), 5);
 
-        this.setState({
-          isLoading: false,
-          countries,
-          onboardData
-        })
-      });
-
-    console.log('this.state', this.state);
+      this.setState({
+        isLoading: false,
+        onboardData: onboardData
+      })
+    });
   }
 
   componentWillUnmount() {
@@ -101,7 +87,7 @@ class SupplierRegistrationForm extends React.Component {
           ...this.props.currentUserData,
           supplierid: newSupplier.supplierId,
           supplierName: newSupplier.supplierName,
-          companyRole: newSupplier.companyRole,
+          companyRole: 'selling',
           showWelcomePage: true
         }));
 
@@ -116,13 +102,6 @@ class SupplierRegistrationForm extends React.Component {
     console.log("logout has no handler");
   };
 
-  handleSelect = key => {
-    if (!this.isDirty || this._confirmLeaveChangesUnsaved()) {
-      this.isDirty = false;
-      this.setState({ key });
-    }
-  }
-
   handleUnauthorized = () => {
     browserHistory.push(`${window.simContextPath}/login`);
   };
@@ -134,7 +113,7 @@ class SupplierRegistrationForm extends React.Component {
 
     console.log(onboardData);
 
-    return _.merge({}, {
+    return {
       supplierName: onboardData.tradingPartnerDetails.name,
       cityOfRegistration: onboardData.tradingPartnerDetails.city,
       countryOfRegistration: onboardData.tradingPartnerDetails.country,
@@ -142,7 +121,7 @@ class SupplierRegistrationForm extends React.Component {
       vatRegNo: onboardData.tradingPartnerDetails.vatIdentNo,
       dunsNo: onboardData.tradingPartnerDetails.dunsNo,
       registrationNumber: onboardData.tradingPartnerDetails.commercialRegisterNo
-    });
+    };
   }
 
   render() {
@@ -165,7 +144,6 @@ class SupplierRegistrationForm extends React.Component {
           locale={userInfo.locale}
           username={userInfo.id}
           dateTimePattern={this.context.dateTimePattern}
-          countries={this.state.countries}
           onChange={this.handleDirtyState}
           onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}

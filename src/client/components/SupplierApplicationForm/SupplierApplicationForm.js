@@ -12,7 +12,6 @@ import { SupplierEditor, SupplierAddressEditor, SupplierContactEditor } from 'su
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
-import ApplicationFormService from '../../service/ApplicationFormService';
 import OnboardingUserService from '../../service/OnboardingUserService';
 class SupplierApplicationForm extends React.Component {
 
@@ -30,31 +29,7 @@ class SupplierApplicationForm extends React.Component {
     httpResponseHandler: React.PropTypes.func,
   }
 
-  state = {
-    countries: [],
-    key: 1,
-    isLoading: true
-  }
-
-  componentDidMount() {
-    console.log('----currentUserData----', this.props.currentUserData);
-
-    const countriesPromise = new ApplicationFormService(this.context.simUrl).getCountryList()
-      .then(countryList => {
-        return countryList.map(({ countryId: id, countryName: name }) => ({ id, name }))
-          .sort((a, b) => a.name.localeCompare(b.name))
-      })
-      .catch(err => this.context.httpResponseHandler(err));
-
-    countriesPromise.then(countries => {
-      this.setState({
-        isLoading: false,
-        countries
-      })
-    });
-
-    console.log('this.state', this.state);
-  }
+  state = { tabKey: 1 }
 
   componentWillUnmount() {
     this.ignoreAjax = true;
@@ -88,7 +63,7 @@ class SupplierApplicationForm extends React.Component {
           ...this.props.currentUserData,
           supplierid: newSupplier.supplierId,
           supplierName: newSupplier.supplierName,
-          companyRole: newSupplier.companyRole,
+          companyRole: 'selling',
           showWelcomePage: true
         }));
 
@@ -103,10 +78,10 @@ class SupplierApplicationForm extends React.Component {
     console.log("logout has no handler");
   };
 
-  handleSelect = key => {
+  handleSelect = tabKey => {
     if (!this.isDirty || this._confirmLeaveChangesUnsaved()) {
       this.isDirty = false;
-      this.setState({ key });
+      this.setState({ tabKey });
     }
   }
 
@@ -115,10 +90,6 @@ class SupplierApplicationForm extends React.Component {
   };
 
   render() {
-    if (this.state.isLoading) {
-      return null;
-    }
-
     let userInfo = this.props.currentUserData;
 
     if (!userInfo.supplierid) {
@@ -137,7 +108,6 @@ class SupplierApplicationForm extends React.Component {
           locale={userInfo.locale}
           username={userInfo.id}
           dateTimePattern={this.context.dateTimePattern}
-          countries={this.state.countries}
           onChange={this.handleDirtyState}
           onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}
@@ -156,7 +126,6 @@ class SupplierApplicationForm extends React.Component {
           supplierId={userInfo.supplierid}
           locale={userInfo.locale}
           username={userInfo.username}
-          countries={this.state.countries}
           onChange={this.handleDirtyState}
         />
       </I18nBundle>
@@ -180,15 +149,15 @@ class SupplierApplicationForm extends React.Component {
 
     return (
       <div>
-        <Tabs id="supplierTabs" activeKey={this.state.key} onSelect={this.handleSelect}>
+        <Tabs id="supplierTabs" activeKey={this.state.tabKey} onSelect={this.handleSelect}>
           <Tab eventKey={1} title={this.i18n.getMessage('ApplicationFormTab.company')}>
-            {(this.state.key === 1) ? company : null}
+            {company}
           </Tab>
           <Tab eventKey={2} title={this.i18n.getMessage('ApplicationFormTab.address')}>
-            {(this.state.key === 2) ? address : null}
+            {address}
           </Tab>
           <Tab eventKey={3} title={this.i18n.getMessage('ApplicationFormTab.contact')}>
-            {(this.state.key === 3) ? contact : null}
+            {contact}
           </Tab>
         </Tabs>
       </div>
