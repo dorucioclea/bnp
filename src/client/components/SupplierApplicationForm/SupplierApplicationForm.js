@@ -52,26 +52,13 @@ class SupplierApplicationForm extends React.Component {
     this.isDirty = event.isDirty;
   }
 
-  handleSupplierUpdate = newSupplier => {
-    this.isDirty = false;
-    let wasSupplierlessUser = !this.props.currentUserData.supplierid;
-
-    request.put(`${simPublicUrl}/user/users/${this.props.currentUserData.id}?tokenUpdate=true`, { supplierId: newSupplier.supplierId, status: 'onboarding' })
-      .set('Content-Type', 'application/json')
-      .then(() => {
-        this.props.dispatch(setCurrentUserInfo({
-          ...this.props.currentUserData,
-          supplierid: newSupplier.supplierId,
-          supplierName: newSupplier.supplierName,
-          companyRole: 'selling',
-          showWelcomePage: true
-        }));
-
-        if (wasSupplierlessUser) {
-          browserHistory.push(`${window.simContextPath}/welcome`);
-        }
-      })
-      .catch((err) => console.log('err', err));
+  handleSupplierUpdate = updatedSupplier => {
+    this.props.dispatch(setCurrentUserInfo({
+      ...this.props.currentUserData,
+      supplierid: updatedSupplier.supplierId,
+      supplierName: updatedSupplier.supplierName,
+      companyRole: 'selling'
+    }));
   }
 
   handleLogout = function() {

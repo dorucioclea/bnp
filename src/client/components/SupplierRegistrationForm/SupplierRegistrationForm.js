@@ -78,22 +78,17 @@ class SupplierRegistrationForm extends React.Component {
     this.isDirty = false;
     let wasSupplierlessUser = !this.props.currentUserData.supplierid;
 
-    request.put(`${simPublicUrl}/user/users/${this.props.currentUserData.id}?tokenUpdate=true`, { supplierId: newSupplier.supplierId, status: 'onboarding' })
-      .set('Content-Type', 'application/json')
-      .then(() => {
-        this.props.dispatch(setCurrentUserInfo({
-          ...this.props.currentUserData,
-          supplierid: newSupplier.supplierId,
-          supplierName: newSupplier.supplierName,
-          companyRole: 'selling',
-          showWelcomePage: true
-        }));
+    this.props.dispatch(setCurrentUserInfo({
+      ...this.props.currentUserData,
+      supplierid: newSupplier.supplierId,
+      supplierName: newSupplier.supplierName,
+      companyRole: 'selling',
+      showWelcomePage: true
+    }));
 
-        if (wasSupplierlessUser) {
-          browserHistory.push(`${window.simContextPath}/welcome`);
-        }
-      })
-      .catch((err) => console.log('err', err));
+    if (wasSupplierlessUser) {
+      browserHistory.push(`${window.simContextPath}/welcome`);
+    }
   }
 
   handleLogout = function() {
