@@ -42,8 +42,6 @@ class SupplierRegistrationForm extends React.Component {
 
     const onboardDataPromise = new OnboardingUserService(this.context.simUrl)
       .getOnboardingUserData(this.props.currentUserData.id)
-      .then(userDetail => userDetail.onboardData)
-      .catch(err => this.context.httpResponseHandler(err));
 
     onboardDataPromise.then(onboardData => {
       this.setCookieData('ONBOARDING_DATA', JSON.stringify(onboardData), 5);
@@ -52,7 +50,7 @@ class SupplierRegistrationForm extends React.Component {
         isLoading: false,
         onboardData: onboardData
       })
-    });
+    }).catch(err => this.context.httpResponseHandler(err));
   }
 
   componentWillUnmount() {
