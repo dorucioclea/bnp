@@ -83,8 +83,8 @@ function initCssBundle(app) {
 function initRoutes(app, db, config) {
   let applicationConfigRoutes = require('./../routes/applicationConfig');
   app.get('/applicationConfig/url', (req, res) => res.send({
-    simUrl: getCurrentServiceHost(req),
-    simSupplierUrl: getSupplierServiceHost(req)
+    simPublicUrl: getOriginalProtocolHostPort(req),
+    simUrl: getCurrentServiceHost(req)
   }));
   app.get('/applicationConfig/defaultLocale', applicationConfigRoutes.getDefaultLocale);
   app.get('/applicationConfig/formatPatterns', applicationConfigRoutes.getFormatPatterns);
@@ -103,7 +103,6 @@ function initTemplate(app, bundle, chunksManifest) {
     res.render('home', {
       simPublicUrl: getOriginalProtocolHostPort(req),
       simUrl: getCurrentServiceHost(req),
-      simSupplierUrl: getSupplierServiceHost(req),
       bundle: bundle,
       chunksManifest: JSON.stringify(chunksManifest),
       isProductionMode: (process.env.NODE_ENV === 'production'),

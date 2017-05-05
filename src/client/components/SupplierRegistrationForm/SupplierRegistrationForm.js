@@ -25,7 +25,6 @@ class SupplierRegistrationForm extends React.Component {
     dateTimePattern: React.PropTypes.string,
     simPublicUrl: React.PropTypes.string,
     simUrl: React.PropTypes.string,
-    supplierUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
   }
 
@@ -133,7 +132,7 @@ class SupplierRegistrationForm extends React.Component {
         <SupplierRegistrationEditor
           key='company'
           onUnauthorized={this.handleUnauthorized}
-          actionUrl={this.context.supplierUrl}
+          actionUrl={this.context.simPublicUrl}
           locale={userInfo.locale}
           username={userInfo.id}
           dateTimePattern={this.context.dateTimePattern}

@@ -25,7 +25,6 @@ class SupplierApplicationForm extends React.Component {
     dateTimePattern: React.PropTypes.string,
     simPublicUrl: React.PropTypes.string,
     simUrl: React.PropTypes.string,
-    supplierUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
   }
 
@@ -89,7 +88,7 @@ class SupplierApplicationForm extends React.Component {
           key='company'
           onUnauthorized={this.handleUnauthorized}
           readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.supplierUrl}
+          actionUrl={this.context.simPublicUrl}
           supplierId={userInfo.supplierid}
           supplierName={userInfo.supplierName}
           locale={userInfo.locale}
@@ -109,7 +108,7 @@ class SupplierApplicationForm extends React.Component {
           onUnauthorized={this.handleUnauthorized}
           dateTimePattern={this.context.dateTimePattern}
           readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.supplierUrl}
+          actionUrl={this.context.simPublicUrl}
           supplierId={userInfo.supplierid}
           locale={userInfo.locale}
           username={userInfo.username}
@@ -125,7 +124,7 @@ class SupplierApplicationForm extends React.Component {
           onUnauthorized={this.handleUnauthorized}
           dateTimePattern={this.context.dateTimePattern}
           readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.supplierUrl}
+          actionUrl={this.context.simPublicUrl}
           supplierId={userInfo.supplierid}
           locale={userInfo.locale}
           username={userInfo.username}
