@@ -123,14 +123,9 @@ function getCurrentServiceHost(req) {
   return getOriginalProtocolHostPort(req) + '/bnp';
 }
 
-function getSupplierServiceHost(req) {
-  return getOriginalProtocolHostPort(req) + '/supplier';
-}
-
 module.exports = {
   propDeepSearch,
   valueDeepSearch,
   getOriginalProtocolHostPort,
-  getCurrentServiceHost,
-  getSupplierServiceHost
+  getCurrentServiceHost
 }

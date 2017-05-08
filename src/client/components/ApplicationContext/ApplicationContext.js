@@ -31,7 +31,7 @@ class ApplicationContext extends React.Component {
     formatPatterns: React.PropTypes.object,
     dateTimePattern: React.PropTypes.string,
     simUrl: React.PropTypes.string,
-    supplierUrl: React.PropTypes.string,
+    simPublicUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func
   };
 
@@ -41,7 +41,7 @@ class ApplicationContext extends React.Component {
       formatPatterns: this.state.formatPatterns,
       dateTimePattern: this.state.dateTimePattern,
       simUrl: window.simUrl,
-      supplierUrl: window.simSupplierUrl,
+      simPublicUrl: window.simPublicUrl,
       httpResponseHandler
     };
   }
