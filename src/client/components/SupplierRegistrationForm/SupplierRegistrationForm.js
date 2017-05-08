@@ -105,6 +105,8 @@ class SupplierRegistrationForm extends React.Component {
 
     console.log(onboardData);
 
+    if (!onboardData.tradingPartnerDetails) return null;
+
     return {
       supplierName: onboardData.tradingPartnerDetails.name,
       cityOfRegistration: onboardData.tradingPartnerDetails.city,
