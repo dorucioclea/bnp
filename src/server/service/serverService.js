@@ -11,7 +11,7 @@ const BNP_STATIC = '../static/bnp/static';
 const FAVICON_ICO = path.join(JCATALOG_RESOURCES, 'favicon.ico');
 const SIM_VIEWS = '../static/bnp/views';
 const MAIN_CSS = '../../client/main.css';
-const { getOriginalProtocolHostPort, getCurrentServiceHost, getSupplierServiceHost } = require('../utils/lib.js');
+const { getOriginalProtocolHostPort, getCurrentServiceHost } = require('../utils/lib.js');
 
 function scrubETag(res) {
   onHeaders(res, function() {
