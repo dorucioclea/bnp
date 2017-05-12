@@ -67,8 +67,6 @@ class SupplierRegistrationForm extends React.Component {
 
   _confirmLeaveChangesUnsaved = () => window.confirm(this.i18n.getMessage('ApplicationFormConfirmation.unsavedChanges'))
 
-  isShowWelcomePage = () => true;
-
   handleDirtyState = event => {
     this.isDirty = event.isDirty;
   }
