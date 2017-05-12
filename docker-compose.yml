@@ -275,3 +275,21 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       PORT: '3006'
     command: 'npm run dev'
+
+  einvoice-send:
+    image: opuscapita/einvoice-send:dev
+    ports:
+      - '3007:3007'
+    extra_hosts:
+      - 'consul:${HOST_IP}'
+    depends_on:
+      - consul
+      - mysql
+    labels:
+      SERVICE_NAME: einvoice-send
+    environment:
+      HOST_IP: ${HOST_IP}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      PORT: '3007'
+    command: 'npm run dev'
