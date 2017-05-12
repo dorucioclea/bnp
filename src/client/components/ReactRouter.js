@@ -8,7 +8,6 @@ import MainLayout from './MainLayout';
 import SellerDashboard from './SellerDashboard';
 import BuyerDashboard from './BuyerDashboard';
 import Welcome from './Welcome';
-import ServiceConfigFlow from './ServiceConfigFlow';
 import Settings from './Settings';
 import InvoiceCreate from './InvoiceCreate';
 import InvoiceApproval from './InvoiceApproval';
@@ -85,10 +84,6 @@ ReactDOM.render(
         <Route
           path={`${window.simContextPath}/welcome`}
           component={Welcome}
-        />
-        <Route
-          path={`${window.simContextPath}/serviceConfigFlow`}
-          component={ServiceConfigFlow}
         />
         <Route path={window.simRootContextPath} component={MainLayout}>
           <Route

@@ -2,8 +2,28 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { SidebarMenu } from 'ocbesbn-react-components';
 import browserHistory from 'react-router/lib/browserHistory';
+import ajax from 'superagent-bluebird-promise';
 
 export default class Welcome extends React.Component {
+
+  static defaultProps = {
+    showWelcomePage : true
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showWelcomePage : this.props.showWelcomePage
+    }
+  }
+
+  handleShowWelcomePage = (event) => {
+      this.setState({ showWelcomePage : !this.state.showWelcomePage });
+      ajax.put('/bnp/api/users/current/profile').set('Content-Type', 'application-json')
+        .send({ showWelcomePage : this.state.showWelcomePage }).promise();
+  }
+
   render() {
     return (
       <div style={{ minHeight: '100vh' }}>
@@ -55,11 +75,15 @@ export default class Welcome extends React.Component {
                   </p>
                   <br/>
                   <div className="form-submit text-right" style={{ marginTop: '25%', zIndex: '3' }}>
+                    <label className="oc-check">
+                      <input type="checkbox" value="1" checked={ this.state.showWelcomePage === false } onChange={ this.handleShowWelcomePage } />
+                        Do not show this page again.
+                    </label>
+                    &nbsp;&nbsp;
                     <a
-                      href="#"
+                      href="/einvoice-send"
                       onClick={e => {
-                        e.preventDefault();
-                        browserHistory.push(`${window.simContextPath}/serviceConfigFlow`);
+                        browserHistory.push('/einvoice-send');
                       }}
                     >
                       <Button bsStyle="primary" bsSize="lg">Start</Button>

@@ -88,6 +88,8 @@ function initRoutes(app, db, config) {
   }));
   app.get('/applicationConfig/defaultLocale', applicationConfigRoutes.getDefaultLocale);
   app.get('/applicationConfig/formatPatterns', applicationConfigRoutes.getFormatPatterns);
+  app.get('/api/users/current/profile', sendCurrentUserProfile);
+  app.put('/api/users/current/profile', updateCurrentUserProfile);
 }
 
 function initSecurityManager(app, db, config) {
@@ -114,6 +116,18 @@ function initTemplate(app, bundle, chunksManifest) {
       }
     });
   });
+}
+
+function sendCurrentUserProfile(req, res) {
+  req.ocbesbn.serviceClient.get('user', '/users/' + req.ocbesbn.userData('id') + '/profile')
+    .spread((result, response) => res.status(response.statusCode).json(result))
+    .catch(e => res.status(e.response.statusCode).json(e.response.result));
+}
+
+function updateCurrentUserProfile(req, res) {
+  req.ocbesbn.serviceClient.put('user', '/users/' + req.ocbesbn.userData('id') + '/profile', req.body)
+    .spread((result, response) => res.status(response.statusCode).json(result))
+    .catch(e => res.status(e.response.statusCode).json(e.response.result));
 }
 
 module.exports = {
