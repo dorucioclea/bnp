@@ -257,7 +257,7 @@ services:
       - '53:8600'
 
   isodata:
-    image: ocbesbn/isodata:latest
+    image: opuscapita/isodata:dev
 #    build: '../isodata'
 #    volumes:
 #      - ../isodata:/home/node/isodata
