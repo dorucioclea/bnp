@@ -19,9 +19,11 @@ export default class Welcome extends React.Component {
   }
 
   handleShowWelcomePage = (event) => {
-      this.setState({ showWelcomePage : !this.state.showWelcomePage });
-      ajax.put('/bnp/api/users/current/profile').set('Content-Type', 'application-json')
-        .send({ showWelcomePage : this.state.showWelcomePage }).promise();
+      return ajax.put('/user/users/current/profile')
+        .set('Content-Type', 'application/json')
+        .send({ showWelcomePage : !this.state.showWelcomePage })
+        .promise()
+        .then(() => this.setState({ showWelcomePage : !this.state.showWelcomePage }));
   }
 
   render() {
