@@ -16,13 +16,17 @@ export default class Welcome extends React.Component {
     this.state = {
       showWelcomePage : this.props.showWelcomePage
     }
+
+    ajax.get('/user/users/current/profile')
+      .set('Content-Type', 'application/json')
+      .then(res => JSON.parse(res.text))
+      .then(res => this.setState({ showWelcomePage : res.showWelcomePage }));
   }
 
   handleShowWelcomePage = (event) => {
       return ajax.put('/user/users/current/profile')
         .set('Content-Type', 'application/json')
         .send({ showWelcomePage : !this.state.showWelcomePage })
-        .promise()
         .then(() => this.setState({ showWelcomePage : !this.state.showWelcomePage }));
   }
 
