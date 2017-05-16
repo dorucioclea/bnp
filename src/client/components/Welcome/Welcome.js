@@ -14,13 +14,13 @@ class Welcome extends Component {
     }
   }
 
-  handleShowWelcomePage = () => {
-    ajax
-      .put('/bnp/api/users/current/profile')
-      .set('Content-Type', 'application-json')
-      .send({ showWelcomePage : this.state.showWelcomePage })
-      .promise();
-    this.setState({ showWelcomePage : !this.state.showWelcomePage });
+
+  handleShowWelcomePage = (event) => {
+      return ajax.put('/user/users/current/profile')
+        .set('Content-Type', 'application/json')
+        .send({ showWelcomePage : !this.state.showWelcomePage })
+        .promise()
+        .then(() => this.setState({ showWelcomePage : !this.state.showWelcomePage }));
   }
 
   render() {

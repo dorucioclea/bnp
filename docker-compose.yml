@@ -71,6 +71,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       NODE_ENV: 'production'
+      REDIS_AUTH: $REDIS_AUTH
     extra_hosts:
       - 'consul:${HOST_IP}'
     command: 'npm run dev'
@@ -256,7 +257,7 @@ services:
       - '53:8600'
 
   isodata:
-    image: ocbesbn/isodata:latest
+    image: opuscapita/isodata:dev
 #    build: '../isodata'
 #    volumes:
 #      - ../isodata:/home/node/isodata
