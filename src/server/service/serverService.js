@@ -106,7 +106,7 @@ function initTemplate(app, bundle, chunksManifest) {
       bundle: bundle,
       chunksManifest: JSON.stringify(chunksManifest),
       isProductionMode: (process.env.NODE_ENV === 'production'),
-      currentUserData: req.ocbesbn.userData(),
+      currentUserData: req.opuscapita.userData(),
       helpers: {
         json: function (obj) {
           return JSON.stringify(obj);
