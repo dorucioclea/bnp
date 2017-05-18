@@ -50,21 +50,17 @@ function getCurrentUserInfo() {
   return window.currentUserData;
 }
 
-let store = createStore(
+const store = createStore(
   simRootApplicationReducer,
   { currentUserData: getInitialCurrentUserInfo() },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 function companyRoleInterceptor(nextState, replace) {
-  let currentUserData = getCurrentUserInfo();
-
-  console.log('currentUserData', currentUserData);
+  const currentUserData = getCurrentUserInfo();
 
   if (!currentUserData.supplierid && !currentUserData.customerid) {
     replace(`${window.simContextPath}/supplierRegistration`);
-  } else if (currentUserData.showWelcomePage) {
-    replace(`${window.simContextPath}/welcome`);
   } else if (currentUserData.companyRole === BUYING_ROLE || currentUserData.customerid) {
     replace(`${window.simContextPath}/buyerDashboard`);
   } else if (currentUserData.companyRole === SELLING_ROLE || currentUserData.supplierid) {
@@ -72,13 +68,22 @@ function companyRoleInterceptor(nextState, replace) {
   }
 }
 
+function handleShowWelcomePage(nextState, replace) {
+  const currentUserData = getCurrentUserInfo();
+  const welcomePagePath = `${window.simContextPath}/welcome`;
 
+  if (currentUserData.showWelcomePage && nextState.location.pathname !== welcomePagePath) {
+    replace(welcomePagePath);
+  }
+}
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route
-        path={window.simRootContextPath} component={ApplicationContext}
+        path={window.simRootContextPath}
+        component={ApplicationContext}
+        onEnter={handleShowWelcomePage}
       >
         <IndexRedirect to={`${window.simContextPath}/dashboard`}/>
         <Route
