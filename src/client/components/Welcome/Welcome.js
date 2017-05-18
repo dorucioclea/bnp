@@ -12,6 +12,11 @@ class Welcome extends Component {
     this.state = {
       showWelcomePage: true
     }
+
+    ajax.get('/user/users/current/profile')
+      .set('Content-Type', 'application/json')
+      .then(res => JSON.parse(res.text))
+      .then(res => this.setState({ showWelcomePage : res.showWelcomePage }));
   }
 
 
@@ -19,7 +24,6 @@ class Welcome extends Component {
       return ajax.put('/user/users/current/profile')
         .set('Content-Type', 'application/json')
         .send({ showWelcomePage : !this.state.showWelcomePage })
-        .promise()
         .then(() => this.setState({ showWelcomePage : !this.state.showWelcomePage }));
   }
 
