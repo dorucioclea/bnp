@@ -2,7 +2,6 @@
 // TODO: agree
 
 import React from 'react';
-import _ from 'lodash';
 import request from 'superagent-bluebird-promise';
 import locales from './i18n/locales.js'
 import browserHistory from 'react-router/lib/browserHistory';
