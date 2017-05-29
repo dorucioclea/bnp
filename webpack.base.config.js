@@ -7,7 +7,7 @@ module.exports = new Config().merge({
   entry: './src/client/components/ReactRouter.js',
 
   externals: {
-    'supplier': 'supplier',
+    'supplier': 'supplier'
   },
 
   // exclude empty dependencies, require for Joi
