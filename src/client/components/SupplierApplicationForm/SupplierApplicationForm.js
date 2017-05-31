@@ -7,11 +7,12 @@ import locales from './i18n/locales.js'
 import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import { SupplierEditor, SupplierAddressEditor, SupplierContactEditor } from 'supplier';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
 import OnboardingUserService from '../../service/OnboardingUserService';
+import serviceComponent from '../serviceComponent.react';
+
 class SupplierApplicationForm extends React.Component {
 
   static propTypes = {
@@ -28,6 +29,32 @@ class SupplierApplicationForm extends React.Component {
   }
 
   state = { tabKey: 1 }
+
+  componentWillMount() {
+    let serviceRegistry = (service) => ({ url: `${this.context.simPublicUrl}/supplier` });
+    const SupplierEditor = serviceComponent({
+      serviceRegistry,
+      serviceName: 'supplier' ,
+      moduleName: 'supplier-information',
+      jsFileName: 'information-bundle'
+    });
+
+    const SupplierAddressEditor = serviceComponent({
+      serviceRegistry,
+      serviceName: 'supplier' ,
+      moduleName: 'supplier-address',
+      jsFileName: 'address-bundle'
+    });
+
+    const SupplierContactEditor = serviceComponent({
+      serviceRegistry,
+      serviceName: 'supplier' ,
+      moduleName: 'supplier-contact',
+      jsFileName: 'contact-bundle'
+    });
+
+    this.externalComponents = { SupplierEditor, SupplierAddressEditor, SupplierContactEditor };
+  }
 
   componentWillUnmount() {
     this.ignoreAjax = true;
@@ -78,6 +105,8 @@ class SupplierApplicationForm extends React.Component {
     if (!userInfo.supplierid) {
       return <p>Supplier Does not exist! Please register first</p>
     }
+
+    const { SupplierEditor, SupplierAddressEditor, SupplierContactEditor } = this.externalComponents;
 
     let company = (
       <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>

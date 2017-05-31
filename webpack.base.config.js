@@ -6,10 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = new Config().merge({
   entry: './src/client/components/ReactRouter.js',
 
-  externals: {
-    'supplier': 'supplier'
-  },
-
   // exclude empty dependencies, require for Joi
   node: {
     net: 'empty',
