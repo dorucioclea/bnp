@@ -7,11 +7,12 @@ import locales from './i18n/locales.js'
 import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import { SupplierRegistrationEditor } from 'supplier';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
 import OnboardingUserService from '../../service/OnboardingUserService';
+import serviceComponent from '../serviceComponent.react';
+
 class SupplierRegistrationForm extends React.Component {
 
   static propTypes = {
@@ -30,6 +31,18 @@ class SupplierRegistrationForm extends React.Component {
   state = {
     isLoading: true,
     onboardData: {}
+  }
+
+  componentWillMount() {
+    let serviceRegistry = (service) => ({ url: `${this.context.simPublicUrl}/supplier` });
+    const SupplierRegistrationEditor = serviceComponent({
+      serviceRegistry,
+      serviceName: 'supplier' ,
+      moduleName: 'supplier-registration',
+      jsFileName: 'registration-bundle'
+    });
+
+    this.externalComponents = { SupplierRegistrationEditor };
   }
 
   componentDidMount() {
@@ -119,6 +132,8 @@ class SupplierRegistrationForm extends React.Component {
     if (this.state.isLoading) {
       return null;
     }
+
+    const { SupplierRegistrationEditor } = this.externalComponents;
 
     let userInfo = this.props.currentUserData;
 
