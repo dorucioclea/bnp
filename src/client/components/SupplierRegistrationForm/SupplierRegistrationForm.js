@@ -128,6 +128,20 @@ class SupplierRegistrationForm extends React.Component {
     };
   }
 
+  handleGetUserData = () => {
+    const { onboardData } = this.state;
+
+    if (!onboardData) return null;
+
+    if (!onboardData.userDetails) return null;
+
+    return {
+      firstName: onboardData.userDetails.firstName,
+      lastName: onboardData.userDetails.lastName,
+      email: onboardData.userDetails.email
+    };
+  }
+
   render() {
     if (this.state.isLoading) {
       return null;
@@ -149,11 +163,11 @@ class SupplierRegistrationForm extends React.Component {
           actionUrl={this.context.simPublicUrl}
           locale={userInfo.locale}
           username={userInfo.id}
-          dateTimePattern={this.context.dateTimePattern}
           onChange={this.handleDirtyState}
           onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}
           supplier={this.handleGetSupplierData() || {}}
+          user={this.handleGetUserData() || {}}
         />
       </I18nBundle>
     )
