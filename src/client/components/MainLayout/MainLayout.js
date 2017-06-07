@@ -1,11 +1,40 @@
 import React from 'react';
 import connect from 'react-redux/lib/components/connect';
-import { HeaderMenu, SidebarMenu } from 'ocbesbn-react-components';
+import { SidebarMenu } from 'ocbesbn-react-components';
+import HeaderMenu from '../HeaderMenu'
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 
 class MainLayout extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeLanguage: 'English'
+    }
+  }
+
   static propTypes = {
     currentUserData: React.PropTypes.object
+  }
+
+  static contextTypes = {
+    i18n: React.PropTypes.object,
+    formatPatterns: React.PropTypes.object,
+    dateTimePattern: React.PropTypes.string,
+    setLocale: React.PropTypes.func
+  }
+
+  onLanguageChange = (key, event, test) => {
+    let lang = ['su', 'de', 'en'];
+    let language = ['Suomi', 'German', 'English']
+    let locale = lang[key - 1];
+    let activeLanguage = language[key - 1];
+    console.log(locale);
+    this.setState({
+      ...this.state,
+      activeLanguage: activeLanguage
+    })
+    this.context.setLocale(locale)
   }
 
   renderHeader(isOnboarding) {
@@ -63,7 +92,7 @@ class MainLayout extends React.Component {
                   <Glyphicon glyph="star" />
                   English
                 </Dropdown.Toggle>
-                <Dropdown.Menu className="super-colors">
+                <Dropdown.Menu className="super-colors" onSelect={this.onLanguageChange}>
                   <MenuItem eventKey="1">Suomi</MenuItem>
                   <MenuItem eventKey="2">German</MenuItem>
                   <MenuItem eventKey="3" active={true}>English</MenuItem>
