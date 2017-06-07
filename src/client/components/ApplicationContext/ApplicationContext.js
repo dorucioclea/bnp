@@ -61,12 +61,8 @@ class ApplicationContext extends React.Component {
     this.setState({
       ...this.state,
       i18n: i18n
-    }, console.log(this.state.i18n))
-    request.post('/refreshIdToken').set('Content-Type', 'application/json').then(() => {
-      request.get('/user/users/current/profile')
-          .set('Content-Type', 'application/json')
-          .then(res => console.log(JSON.parse(res.text)))
-    });
+    })
+    request.post('/refreshIdToken').set('Content-Type', 'application/json').then(() => null);
   }
 
   render() {

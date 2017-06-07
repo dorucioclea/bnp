@@ -1,7 +1,6 @@
 import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import { SidebarMenu } from 'ocbesbn-react-components';
-import HeaderMenu from '../HeaderMenu'
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 
 class MainLayout extends React.Component {
@@ -90,12 +89,12 @@ class MainLayout extends React.Component {
               <Dropdown id="dropdown-custom-1">
                 <Dropdown.Toggle>
                   <Glyphicon glyph="star" />
-                  English
+                  {this.state.activeLanguage}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="super-colors" onSelect={this.onLanguageChange}>
                   <MenuItem eventKey="1">Suomi</MenuItem>
                   <MenuItem eventKey="2">German</MenuItem>
-                  <MenuItem eventKey="3" active={true}>English</MenuItem>
+                  <MenuItem eventKey="3">English</MenuItem>
                   <MenuItem divider={true} />
                   <MenuItem eventKey="4">Separated link</MenuItem>
                 </Dropdown.Menu>
