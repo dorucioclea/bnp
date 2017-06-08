@@ -11,7 +11,7 @@ import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
 import OnboardingUserService from '../../service/OnboardingUserService';
-import serviceComponent from '../serviceComponent.react';
+import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class SupplierRegistrationForm extends React.Component {
 
