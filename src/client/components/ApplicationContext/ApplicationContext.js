@@ -12,7 +12,7 @@ class ApplicationContext extends React.Component {
   constructor(props) {
     super(props);
 
-    const locale = 'en';
+    const locale = props.currentUserData.locale;
     const i18n = new I18nManager(locale, validateMessages, formatPatterns);
     i18n.register('Common', locales);
 
@@ -59,10 +59,17 @@ class ApplicationContext extends React.Component {
      locale: locale
     }));
     this.setState({
-      ...this.state,
-      i18n: i18n
+      i18n: i18n,
+      locale: locale
     })
-    request.post('/refreshIdToken').set('Content-Type', 'application/json').then(() => null);
+    request.put('/user/users/' + this.props.currentUserData.id + '/profile')
+    .set('Content-Type', 'application/json')
+    .send({
+      languageId: locale
+    })
+    .then(data => {
+      console.log(data);
+    });
   }
 
   render() {
