@@ -1,8 +1,8 @@
 let MainLayoutLabel = {};
 MainLayoutLabel.changeAssignment = 'Zuweisung ändern';
 MainLayoutLabel.simVersion = 'Supplier Information Manager';
-MainLayoutLabel.jcatalogActivityTime = '2000-2016';
-MainLayoutLabel.jcatalog = 'OpusCapita Software AG';
+MainLayoutLabel.jcatalogActivityTime = '2000-2017';
+MainLayoutLabel.jcatalog = 'OpusCapita Software GmbH';
 
 let MainLayoutHeader = {};
 MainLayoutHeader.supplierApplication = 'Lieferantenbewerbung';

@@ -3,14 +3,16 @@ import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import I18nManager from 'opuscapita-i18n/lib/utils/I18nManager';
 import locales from './../i18n/locales';
+import { setCurrentUserInfo } from './../../redux/actions.js';
 import validateMessages from './i18n';
 import { formatPatterns } from '../../../../formatPatterns.config.json'
+import request from 'superagent-bluebird-promise';
 
 class ApplicationContext extends React.Component {
   constructor(props) {
     super(props);
-
-    const locale = 'en';
+    console.log("ReMounting : ", props.currentUserData.locale)
+    const locale = props.currentUserData.locale;
     const i18n = new I18nManager(locale, validateMessages, formatPatterns);
     i18n.register('Common', locales);
 
@@ -32,7 +34,9 @@ class ApplicationContext extends React.Component {
     dateTimePattern: React.PropTypes.string,
     simUrl: React.PropTypes.string,
     simPublicUrl: React.PropTypes.string,
-    httpResponseHandler: React.PropTypes.func
+    httpResponseHandler: React.PropTypes.func,
+    locale: React.PropTypes.string,
+    setLocale: React.PropTypes.func
   };
 
   getChildContext() {
@@ -42,8 +46,30 @@ class ApplicationContext extends React.Component {
       dateTimePattern: this.state.dateTimePattern,
       simUrl: window.simUrl,
       simPublicUrl: window.simPublicUrl,
-      httpResponseHandler
+      httpResponseHandler,
+      locale: this.props.currentUserData.locale,
+      setLocale: this.setLocale
     };
+  }
+
+  setLocale = (locale) => {
+    let i18n = new I18nManager(locale, validateMessages, formatPatterns);
+    this.props.dispatch(changeUserLanguage({
+      ...this.props.currentUserData,
+     locale: locale
+    }));
+    this.setState({
+      i18n: i18n,
+      locale: locale
+    })
+    request.put('/user/users/' + this.props.currentUserData.id + '/profile')
+    .set('Content-Type', 'application/json')
+    .send({
+      languageId: locale
+    })
+    .then(data => {
+      console.log(data);
+    });
   }
 
   render() {
