@@ -11,7 +11,7 @@ import request from 'superagent-bluebird-promise';
 class ApplicationContext extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log("ReMounting : ", props.currentUserData.locale)
     const locale = props.currentUserData.locale;
     const i18n = new I18nManager(locale, validateMessages, formatPatterns);
     i18n.register('Common', locales);
@@ -54,7 +54,7 @@ class ApplicationContext extends React.Component {
 
   setLocale = (locale) => {
     let i18n = new I18nManager(locale, validateMessages, formatPatterns);
-    this.props.dispatch(setCurrentUserInfo({
+    this.props.dispatch(changeUserLanguage({
       ...this.props.currentUserData,
      locale: locale
     }));

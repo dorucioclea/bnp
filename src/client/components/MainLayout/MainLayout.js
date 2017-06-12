@@ -1,6 +1,6 @@
 import React from 'react';
 import connect from 'react-redux/lib/components/connect';
-import { SidebarMenu } from 'ocbesbn-react-components';
+import { HeaderMenu, SidebarMenu } from 'ocbesbn-react-components';
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 
 class MainLayout extends React.Component {
