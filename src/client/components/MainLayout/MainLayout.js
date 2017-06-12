@@ -24,8 +24,8 @@ class MainLayout extends React.Component {
   }
 
   onLanguageChange = (key, event, test) => {
-    let lang = ['su', 'de', 'en'];
-    let language = ['Suomi', 'German', 'English']
+    let lang = ['de', 'en'];
+    let language = ['German', 'English']
     let locale = lang[key - 1];
     let activeLanguage = language[key - 1];
     console.log(locale);
@@ -92,11 +92,10 @@ class MainLayout extends React.Component {
                   {this.state.activeLanguage}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="super-colors" onSelect={this.onLanguageChange}>
-                  <MenuItem eventKey="1">Suomi</MenuItem>
-                  <MenuItem eventKey="2">German</MenuItem>
-                  <MenuItem eventKey="3">English</MenuItem>
-                  <MenuItem divider={true} />
-                  <MenuItem eventKey="4">Separated link</MenuItem>
+                  <MenuItem eventKey="1">German</MenuItem>
+                  <MenuItem eventKey="2">English</MenuItem>
+                  {/*<MenuItem divider={true} />
+                  <MenuItem eventKey="4">Separated link</MenuItem>*/}
                 </Dropdown.Menu>
               </Dropdown>
             </ul>
