@@ -11,7 +11,7 @@ import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import I18nBundle from '../Widgets/components/I18nBundle';
 import OnboardingUserService from '../../service/OnboardingUserService';
-import serviceComponent from '../serviceComponent.react';
+import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class SupplierRegistrationForm extends React.Component {
 
@@ -128,6 +128,17 @@ class SupplierRegistrationForm extends React.Component {
     };
   }
 
+  userData = () => {
+    const userInfo = this.props.currentUserData;
+
+    return {
+      id: userInfo.id,
+      firstName: userInfo.firstname,
+      lastName: userInfo.lastname,
+      email: userInfo.email
+    };
+  }
+
   render() {
     if (this.state.isLoading) {
       return null;
@@ -154,6 +165,7 @@ class SupplierRegistrationForm extends React.Component {
           onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}
           supplier={this.handleGetSupplierData() || {}}
+          user={this.userData()}
         />
       </I18nBundle>
     )
