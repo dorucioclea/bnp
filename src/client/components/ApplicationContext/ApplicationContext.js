@@ -3,7 +3,7 @@ import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import I18nManager from 'opuscapita-i18n/lib/utils/I18nManager';
 import locales from './../i18n/locales';
-import { setCurrentUserInfo } from './../../redux/actions.js';
+import { changeUserLanguage } from './../../redux/actions.js';
 import validateMessages from './i18n';
 import { formatPatterns } from '../../../../formatPatterns.config.json'
 import request from 'superagent-bluebird-promise';
