@@ -151,14 +151,16 @@ class SupplierRegistrationForm extends React.Component {
     if (userInfo.supplierid) {
       return <p>Supplier Already Exist!</p>
     }
-
+    
     return (
       <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
         <SupplierRegistrationEditor
           key='company'
           onUnauthorized={this.handleUnauthorized}
           actionUrl={this.context.simPublicUrl}
-          locale={userInfo.locale}
+          locale={this.context.i18n.locale}
+          username={userInfo.id}
+          dateTimePattern={this.context.dateTimePattern}
           onChange={this.handleDirtyState}
           onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}

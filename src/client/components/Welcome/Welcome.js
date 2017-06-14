@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/lib/Button';
 import { SidebarMenu } from 'ocbesbn-react-components';
 import browserHistory from 'react-router/lib/browserHistory';
 import ajax from 'superagent-bluebird-promise';
+import connect from 'react-redux/lib/components/connect';
 import WelcomeCloseButton from './WelcomeCloseButton';
 
 class Welcome extends Component {
@@ -25,6 +26,13 @@ class Welcome extends Component {
         .set('Content-Type', 'application/json')
         .send({ showWelcomePage : !this.state.showWelcomePage })
         .then(() => this.setState({ showWelcomePage : !this.state.showWelcomePage }));
+  }
+
+  componentDidMount(){
+    if(window.currentUserData){
+      console.log("Updating user data");
+      window.currentUserData = this.props.currentUserData;
+    }
   }
 
   render() {
@@ -118,4 +126,10 @@ class Welcome extends Component {
   }
 }
 
-export default Welcome;
+function injectState(store) {
+  return {
+    currentUserData: store.currentUserData
+  };
+}
+
+export default connect(injectState)(Welcome);

@@ -4,8 +4,36 @@ import { HeaderMenu, SidebarMenu } from 'ocbesbn-react-components';
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 
 class MainLayout extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeLanguage: 'English'
+    }
+  }
+
   static propTypes = {
     currentUserData: React.PropTypes.object
+  }
+
+  static contextTypes = {
+    i18n: React.PropTypes.object,
+    formatPatterns: React.PropTypes.object,
+    dateTimePattern: React.PropTypes.string,
+    setLocale: React.PropTypes.func
+  }
+
+  onLanguageChange = (key, event, test) => {
+    let lang = ['de', 'en'];
+    let language = ['German', 'English']
+    let locale = lang[key - 1];
+    let activeLanguage = language[key - 1];
+    console.log(locale);
+    this.setState({
+      ...this.state,
+      activeLanguage: activeLanguage
+    })
+    this.context.setLocale(locale)
   }
 
   renderHeader(isOnboarding) {
@@ -61,14 +89,13 @@ class MainLayout extends React.Component {
               <Dropdown id="dropdown-custom-1">
                 <Dropdown.Toggle>
                   <Glyphicon glyph="star" />
-                  English
+                  {this.state.activeLanguage}
                 </Dropdown.Toggle>
-                <Dropdown.Menu className="super-colors">
-                  <MenuItem eventKey="1">Suomi</MenuItem>
-                  <MenuItem eventKey="2">German</MenuItem>
-                  <MenuItem eventKey="3" active={true}>English</MenuItem>
-                  <MenuItem divider={true} />
-                  <MenuItem eventKey="4">Separated link</MenuItem>
+                <Dropdown.Menu className="super-colors" onSelect={this.onLanguageChange}>
+                  <MenuItem eventKey="1">German</MenuItem>
+                  <MenuItem eventKey="2">English</MenuItem>
+                  {/*<MenuItem divider={true} />
+                  <MenuItem eventKey="4">Separated link</MenuItem>*/}
                 </Dropdown.Menu>
               </Dropdown>
             </ul>
