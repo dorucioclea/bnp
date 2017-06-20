@@ -13,7 +13,6 @@ services:
     labels:
       SERVICE_NAME: 'bnp'
     environment:
-      APPLICATION_NAME: 'bnp'
       HOST_IP: $HOST_IP
       PORT: '3000'
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
