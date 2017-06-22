@@ -175,7 +175,7 @@ class SupplierApplicationForm extends React.Component {
           actionUrl={this.context.simPublicUrl}
           supplierId={userInfo.supplierid}
           locale={userInfo.locale}
-          username={userInfo.username}
+          username={userInfo.id}
           onChange={this.handleDirtyState}
         />
       </I18nBundle>
