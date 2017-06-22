@@ -8,7 +8,6 @@ import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
-import I18nBundle from '../Widgets/components/I18nBundle';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class SupplierApplicationForm extends React.Component {
@@ -115,70 +114,59 @@ class SupplierApplicationForm extends React.Component {
     const { SupplierEditor, SupplierAddressEditor, SupplierContactEditor, SupplierBankAccountEditor } = this.externalComponents;
 
     let company = (
-      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierEditor
-          key='company'
-          onUnauthorized={this.handleUnauthorized}
-          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.simPublicUrl}
-          supplierId={userInfo.supplierid}
-          supplierName={userInfo.supplierName}
-          locale={userInfo.locale}
-          username={userInfo.id}
-          dateTimePattern={this.context.dateTimePattern}
-          onChange={this.handleDirtyState}
-          onUpdate={this.handleSupplierUpdate}
-          onLogout={this.handleLogout}
-        />
-      </I18nBundle>
+      <SupplierEditor
+        key='company'
+        onUnauthorized={this.handleUnauthorized}
+        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
+        actionUrl={this.context.simPublicUrl}
+        supplierId={userInfo.supplierid}
+        supplierName={userInfo.supplierName}
+        locale={this.context.locale}
+        username={userInfo.id}
+        dateTimePattern={this.context.dateTimePattern}
+        onChange={this.handleDirtyState}
+        onUpdate={this.handleSupplierUpdate}
+        onLogout={this.handleLogout}
+      />
     );
 
     let address = (
-      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierAddressEditor
-          key='address'
-          onUnauthorized={this.handleUnauthorized}
-          dateTimePattern={this.context.dateTimePattern}
-          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.simPublicUrl}
-          supplierId={userInfo.supplierid}
-          locale={userInfo.locale}
-          username={userInfo.username}
-          onChange={this.handleDirtyState}
-        />
-      </I18nBundle>
+      <SupplierAddressEditor
+        key='address'
+        onUnauthorized={this.handleUnauthorized}
+        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
+        actionUrl={this.context.simPublicUrl}
+        supplierId={userInfo.supplierid}
+        locale={this.context.locale}
+        username={userInfo.username}
+        onChange={this.handleDirtyState}
+      />
     );
 
     let contact = (
-      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierContactEditor
-          key='contact'
-          onUnauthorized={this.handleUnauthorized}
-          dateTimePattern={this.context.dateTimePattern}
-          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.simPublicUrl}
-          supplierId={userInfo.supplierid}
-          locale={userInfo.locale}
-          username={userInfo.username}
-          onChange={this.handleDirtyState}
-        />
-      </I18nBundle>
+      <SupplierContactEditor
+        key='contact'
+        onUnauthorized={this.handleUnauthorized}
+        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
+        actionUrl={this.context.simPublicUrl}
+        supplierId={userInfo.supplierid}
+        locale={this.context.locale}
+        username={userInfo.username}
+        onChange={this.handleDirtyState}
+      />
     );
 
     let banks = (
-      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierBankAccountEditor
-          key='bank_accounts'
-          onUnauthorized={this.handleUnauthorized}
-          dateTimePattern={this.context.dateTimePattern}
-          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.simPublicUrl}
-          supplierId={userInfo.supplierid}
-          locale={userInfo.locale}
-          username={userInfo.id}
-          onChange={this.handleDirtyState}
-        />
-      </I18nBundle>
+      <SupplierBankAccountEditor
+        key='bank_accounts'
+        onUnauthorized={this.handleUnauthorized}
+        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
+        actionUrl={this.context.simPublicUrl}
+        supplierId={userInfo.supplierid}
+        locale={this.context.locale}
+        username={userInfo.id}
+        onChange={this.handleDirtyState}
+      />
     );
 
     return (
