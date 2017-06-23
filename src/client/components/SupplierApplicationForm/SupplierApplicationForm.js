@@ -20,6 +20,7 @@ class SupplierApplicationForm extends React.Component {
     i18n: React.PropTypes.object,
     formatPatterns: React.PropTypes.object,
     dateTimePattern: React.PropTypes.string,
+    datePattern: React.PropTypes.string,
     simPublicUrl: React.PropTypes.string,
     simUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
@@ -59,6 +60,13 @@ class SupplierApplicationForm extends React.Component {
     });
 
     this.externalComponents = { SupplierEditor, SupplierAddressEditor, SupplierContactEditor, SupplierBankAccountEditor };
+    this.setState({ i18n: this.context.i18n.register('SupplierApplicationForm', locales) });
+  }
+
+  componentWillReceiveProps(nextProps, nextContext){
+    if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
+      this.setState({ i18n: nextContext.i18n.register('SupplierApplicationForm', locales) });
+    }
   }
 
   componentWillUnmount() {
@@ -72,9 +80,7 @@ class SupplierApplicationForm extends React.Component {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
-  i18n = this.context.i18n.register('SupplierApplicationForm', locales);
-
-  _confirmLeaveChangesUnsaved = () => window.confirm(this.i18n.getMessage('ApplicationFormConfirmation.unsavedChanges'));
+  _confirmLeaveChangesUnsaved = () => window.confirm(this.state.i18n.getMessage('ApplicationFormConfirmation.unsavedChanges'));
 
   handleDirtyState = event => {
     this.isDirty = event.isDirty;
@@ -121,9 +127,9 @@ class SupplierApplicationForm extends React.Component {
         actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
         supplierName={userInfo.supplierName}
-        locale={this.context.locale}
+        locale={this.context.i18n.locale}
         username={userInfo.id}
-        dateTimePattern={this.context.dateTimePattern}
+        dateTimePattern={this.context.datePattern}
         onChange={this.handleDirtyState}
         onUpdate={this.handleSupplierUpdate}
         onLogout={this.handleLogout}
@@ -137,7 +143,7 @@ class SupplierApplicationForm extends React.Component {
         readOnly={false /* TODO: only supplier creator can edit his supplier info */}
         actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
-        locale={this.context.locale}
+        locale={this.context.i18n.locale}
         username={userInfo.username}
         onChange={this.handleDirtyState}
       />
@@ -150,7 +156,7 @@ class SupplierApplicationForm extends React.Component {
         readOnly={false /* TODO: only supplier creator can edit his supplier info */}
         actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
-        locale={this.context.locale}
+        locale={this.context.i18n.locale}
         username={userInfo.username}
         onChange={this.handleDirtyState}
       />
@@ -163,7 +169,7 @@ class SupplierApplicationForm extends React.Component {
         readOnly={false /* TODO: only supplier creator can edit his supplier info */}
         actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
-        locale={this.context.locale}
+        locale={this.context.i18n.locale}
         username={userInfo.id}
         onChange={this.handleDirtyState}
       />
@@ -172,16 +178,16 @@ class SupplierApplicationForm extends React.Component {
     return (
       <div>
         <Tabs id="supplierTabs" activeKey={this.state.tabKey} onSelect={this.handleSelect}>
-          <Tab eventKey={1} title={this.i18n.getMessage('ApplicationFormTab.company')}>
+          <Tab eventKey={1} title={this.state.i18n.getMessage('ApplicationFormTab.company')}>
             {company}
           </Tab>
-          <Tab eventKey={2} title={this.i18n.getMessage('ApplicationFormTab.address')}>
+          <Tab eventKey={2} title={this.state.i18n.getMessage('ApplicationFormTab.address')}>
             {address}
           </Tab>
-          <Tab eventKey={3} title={this.i18n.getMessage('ApplicationFormTab.contact')}>
+          <Tab eventKey={3} title={this.state.i18n.getMessage('ApplicationFormTab.contact')}>
             {contact}
           </Tab>
-          <Tab eventKey={4} title={this.i18n.getMessage('ApplicationFormTab.bankAccount')}>
+          <Tab eventKey={4} title={this.state.i18n.getMessage('ApplicationFormTab.bankAccount')}>
             {banks}
           </Tab>
         </Tabs>

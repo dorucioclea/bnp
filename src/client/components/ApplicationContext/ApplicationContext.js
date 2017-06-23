@@ -20,7 +20,8 @@ class ApplicationContext extends React.Component {
       i18n: i18n,
       locale: locale,
       formatPatterns: formatPatterns,
-      dateTimePattern: formatPatterns[locale].dateTimePattern
+      dateTimePattern: formatPatterns[locale].dateTimePattern,
+      datePattern: formatPatterns[locale].datePattern
     }
   }
 
@@ -32,6 +33,7 @@ class ApplicationContext extends React.Component {
     i18n: React.PropTypes.object,
     formatPatterns: React.PropTypes.object,
     dateTimePattern: React.PropTypes.string,
+    datePattern: React.PropTypes.string,
     simUrl: React.PropTypes.string,
     simPublicUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
@@ -44,6 +46,7 @@ class ApplicationContext extends React.Component {
       i18n: this.state.i18n,
       formatPatterns: this.state.formatPatterns,
       dateTimePattern: this.state.dateTimePattern,
+      datePattern: this.state.datePattern,
       simUrl: window.simUrl,
       simPublicUrl: window.simPublicUrl,
       httpResponseHandler,
