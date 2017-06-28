@@ -10,7 +10,7 @@
     "start": "node src/server/index.js",
     "dev": "npm run setup-consul ; ${NODE_PATH}/.bin/nodemon --watch src/server src/server/index.js",
     "dev:production": "npm run setup-consul ; npm start",
-    "setup-consul": "curl -X PUT -d ${MYSQL_DATABASE} http://${HOST_IP}:8500/v1/kv/bnp/db-init/database ; curl -X PUT -d 'root' http://${HOST_IP}:8500/v1/kv/bnp/db-init/user ; curl -X PUT -d ${MYSQL_ROOT_PASSWORD} http://${HOST_IP}:8500/v1/kv/bnp/db-init/password ; curl -X PUT -d 'true' http://${HOST_IP}:8500/v1/kv/bnp/db-init/populate-test-data; curl -X PUT -d ${REDIS_AUTH} http://${HOST_IP}:8500/v1/kv/auth/redis/password",
+    "setup-consul": "curl -X PUT -d ${MYSQL_DATABASE} http://consul:8500/v1/kv/bnp/db-init/database ; curl -X PUT -d 'root' http://consul:8500/v1/kv/bnp/db-init/user ; curl -X PUT -d ${MYSQL_ROOT_PASSWORD} http://consul:8500/v1/kv/bnp/db-init/password ; curl -X PUT -d 'true' http://consul:8500/v1/kv/bnp/db-init/populate-test-data; curl -X PUT -d ${REDIS_AUTH} http://consul:8500/v1/kv/auth/redis/password",
     "esdoc": "esdoc -c esdoc.json",
     "build:client": "${NODE_PATH}/.bin/cross-env NODE_ENV=production ; ${NODE_PATH}/.bin/webpack -p --config ./webpack.production.config.js --profile --colors --bail",
     "stats": "webpack --config ./webpack.production.config.js --profile --json > stats.json",

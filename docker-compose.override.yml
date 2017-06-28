@@ -1,0 +1,7 @@
+version: '3'
+services:
+  main:
+    build: .
+    volumes:
+     - .:/home/node/customer
+    command: 'npm run dev'
