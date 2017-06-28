@@ -1,171 +1,194 @@
 // TODO: need to remove unnecessary code.
+// TODO: agree
 
 import React from 'react';
 import locales from './i18n/locales.js'
 import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import {
-  SupplierEditor,
-  SupplierAddressEditor,
-  SupplierContactEditor
-} from 'supplier';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
-import I18nBundle from '../Widgets/components/I18nBundle';
-import ApplicationFormService from '../../service/ApplicationFormService';
+import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class SupplierApplicationForm extends React.Component {
 
   static propTypes = {
-    currentUserInfo: React.PropTypes.object
-  }
+    currentUserData: React.PropTypes.object
+  };
 
   static contextTypes = {
     i18n: React.PropTypes.object,
     formatPatterns: React.PropTypes.object,
     dateTimePattern: React.PropTypes.string,
+    datePattern: React.PropTypes.string,
+    simPublicUrl: React.PropTypes.string,
     simUrl: React.PropTypes.string,
-    supplierUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
-    authenticationService: React.PropTypes.object
+  };
+
+  state = { tabKey: 1 };
+
+  componentWillMount() {
+    let serviceRegistry = (service) => ({ url: `${this.context.simPublicUrl}/supplier` });
+
+    const SupplierEditor = serviceComponent({
+      serviceRegistry,
+      serviceName: 'supplier' ,
+      moduleName: 'supplier-information',
+      jsFileName: 'information-bundle'
+    });
+
+    const SupplierAddressEditor = serviceComponent({
+      serviceRegistry,
+      serviceName: 'supplier' ,
+      moduleName: 'supplier-address',
+      jsFileName: 'address-bundle'
+    });
+
+    const SupplierContactEditor = serviceComponent({
+      serviceRegistry,
+      serviceName: 'supplier' ,
+      moduleName: 'supplier-contact',
+      jsFileName: 'contact-bundle'
+    });
+
+    const SupplierBankAccountEditor = serviceComponent({
+      serviceRegistry,
+      serviceName: 'supplier' ,
+      moduleName: 'supplier-bank_accounts',
+      jsFileName: 'bank_accounts-bundle'
+    });
+
+    this.externalComponents = { SupplierEditor, SupplierAddressEditor, SupplierContactEditor, SupplierBankAccountEditor };
+    this.setState({ i18n: this.context.i18n.register('SupplierApplicationForm', locales) });
   }
 
-  state = {
-    countries: [],
-    key: 1,
-    isLoading: true
-  }
-
-  componentDidMount() {
-    new ApplicationFormService(this.context.simUrl).getCountryList().
-      then(countryList => this.ignoreAjax || this.setState({
-        isLoading: false,
-        countries: countryList.
-          map(({ countryId: id, countryName: name }) => ({ id, name })).
-          sort((a, b) => a.name.localeCompare(b.name))
-      })).
-      catch(err => this.ignoreAjax || this.context.httpResponseHandler(err));
+  componentWillReceiveProps(nextProps, nextContext){
+    if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
+      this.setState({ i18n: nextContext.i18n.register('SupplierApplicationForm', locales) });
+    }
   }
 
   componentWillUnmount() {
     this.ignoreAjax = true;
   }
 
-  i18n = this.context.i18n.register('SupplierApplicationForm', locales)
-  _confirmLeaveChangesUnsaved = () => window.confirm(this.i18n.getMessage('ApplicationFormConfirmation.unsavedChanges'))
-  isShowWelcomePage = () => true;
+  setCookieData(cname, cvalue, exdays) {
+    let date = new Date();
+    date.setTime(date.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + date.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  _confirmLeaveChangesUnsaved = () => window.confirm(this.state.i18n.getMessage('ApplicationFormConfirmation.unsavedChanges'));
 
   handleDirtyState = event => {
     this.isDirty = event.isDirty;
-  }
+  };
 
-  handleSupplierUpdate = newSupplier => {
-    this.isDirty = false;
-    let wasSupplierlessUser = !this.props.currentUserInfo.supplierId;
-
+  handleSupplierUpdate = updatedSupplier => {
     this.props.dispatch(setCurrentUserInfo({
-      ...this.props.currentUserInfo,
-      supplierId: newSupplier.supplierId,
-      supplierName: newSupplier.supplierName,
-      companyRole: newSupplier.companyRole
+      ...this.props.currentUserData,
+      supplierid: updatedSupplier.supplierId,
+      supplierName: updatedSupplier.supplierName,
+      companyRole: 'selling'
     }));
+  };
 
-    if (wasSupplierlessUser) {
-      browserHistory.push(`${window.simContextPath}/dashboard`);
-    }
-  }
+  handleLogout = function() {
+    console.log("logout has no handler");
+  };
 
-  handleLogout = () => this.context.authenticationService.logout()
-
-  handleSelect = key => {
+  handleSelect = tabKey => {
     if (!this.isDirty || this._confirmLeaveChangesUnsaved()) {
       this.isDirty = false;
-      this.setState({ key });
+      this.setState({ tabKey });
     }
-  }
+  };
 
   handleUnauthorized = () => {
     browserHistory.push(`${window.simContextPath}/login`);
   };
 
   render() {
-    if (this.state.isLoading) {
-      return null;
+    let userInfo = this.props.currentUserData;
+
+    if (!userInfo.supplierid) {
+      return <p>Supplier Does not exist! Please register first</p>
     }
 
-    let userInfo = this.props.currentUserInfo;
+    const { SupplierEditor, SupplierAddressEditor, SupplierContactEditor, SupplierBankAccountEditor } = this.externalComponents;
 
     let company = (
-      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierEditor
-          key='company'
-          onUnauthorized={this.handleUnauthorized}
-          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.supplierUrl}
-          supplierId={userInfo.supplierId}
-          supplierName={userInfo.supplierName}
-          companyRole={userInfo.companyRole}
-          locale={userInfo.locale}
-          username={userInfo.username}
-          dateTimePattern={this.context.dateTimePattern}
-          countries={this.state.countries}
-          onChange={this.handleDirtyState}
-          onUpdate={this.handleSupplierUpdate}
-          onLogout={this.handleLogout}
-          isOnboarding={!userInfo.supplierId}
-        />
-      </I18nBundle>
+      <SupplierEditor
+        key='company'
+        onUnauthorized={this.handleUnauthorized}
+        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
+        actionUrl={this.context.simPublicUrl}
+        supplierId={userInfo.supplierid}
+        supplierName={userInfo.supplierName}
+        locale={this.context.i18n.locale}
+        username={userInfo.id}
+        dateTimePattern={this.context.datePattern}
+        onChange={this.handleDirtyState}
+        onUpdate={this.handleSupplierUpdate}
+        onLogout={this.handleLogout}
+      />
     );
 
-    if (!userInfo.supplierId) {
-      return company;
-    }
-
     let address = (
-      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierAddressEditor
-          key='address'
-          onUnauthorized={this.handleUnauthorized}
-          dateTimePattern={this.context.dateTimePattern}
-          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.supplierUrl}
-          supplierId={userInfo.supplierId}
-          locale={userInfo.locale}
-          username={userInfo.username}
-          countries={this.state.countries}
-          onChange={this.handleDirtyState}
-        />
-      </I18nBundle>
+      <SupplierAddressEditor
+        key='address'
+        onUnauthorized={this.handleUnauthorized}
+        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
+        actionUrl={this.context.simPublicUrl}
+        supplierId={userInfo.supplierid}
+        locale={this.context.i18n.locale}
+        username={userInfo.username}
+        onChange={this.handleDirtyState}
+      />
     );
 
     let contact = (
-      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierContactEditor
-          key='contact'
-          onUnauthorized={this.handleUnauthorized}
-          dateTimePattern={this.context.dateTimePattern}
-          readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-          actionUrl={this.context.supplierUrl}
-          supplierId={userInfo.supplierId}
-          locale={userInfo.locale}
-          username={userInfo.username}
-          onChange={this.handleDirtyState}
-        />
-      </I18nBundle>
+      <SupplierContactEditor
+        key='contact'
+        onUnauthorized={this.handleUnauthorized}
+        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
+        actionUrl={this.context.simPublicUrl}
+        supplierId={userInfo.supplierid}
+        locale={this.context.i18n.locale}
+        username={userInfo.username}
+        onChange={this.handleDirtyState}
+      />
+    );
+
+    let banks = (
+      <SupplierBankAccountEditor
+        key='bank_accounts'
+        onUnauthorized={this.handleUnauthorized}
+        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
+        actionUrl={this.context.simPublicUrl}
+        supplierId={userInfo.supplierid}
+        locale={this.context.i18n.locale}
+        username={userInfo.id}
+        onChange={this.handleDirtyState}
+      />
     );
 
     return (
       <div>
-        <Tabs id="supplierTabs" activeKey={this.state.key} onSelect={this.handleSelect}>
-          <Tab eventKey={1} title={this.i18n.getMessage('ApplicationFormTab.company')}>
-            {(this.state.key === 1) ? company : null}
+        <Tabs id="supplierTabs" activeKey={this.state.tabKey} onSelect={this.handleSelect}>
+          <Tab eventKey={1} title={this.state.i18n.getMessage('ApplicationFormTab.company')}>
+            {company}
           </Tab>
-          <Tab eventKey={2} title={this.i18n.getMessage('ApplicationFormTab.address')}>
-            {(this.state.key === 2) ? address : null}
+          <Tab eventKey={2} title={this.state.i18n.getMessage('ApplicationFormTab.address')}>
+            {address}
           </Tab>
-          <Tab eventKey={3} title={this.i18n.getMessage('ApplicationFormTab.contact')}>
-            {(this.state.key === 3) ? contact : null}
+          <Tab eventKey={3} title={this.state.i18n.getMessage('ApplicationFormTab.contact')}>
+            {contact}
+          </Tab>
+          <Tab eventKey={4} title={this.state.i18n.getMessage('ApplicationFormTab.bankAccount')}>
+            {banks}
           </Tab>
         </Tabs>
       </div>
@@ -175,7 +198,7 @@ class SupplierApplicationForm extends React.Component {
 
 function injectState(store) {
   return {
-    currentUserInfo: store.currentUserInfo
+    currentUserData: store.currentUserData
   };
 }
 

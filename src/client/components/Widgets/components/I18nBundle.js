@@ -17,7 +17,7 @@ export default class I18nBundle extends React.Component {
     i18n: React.PropTypes.object.isRequired
   };
 
-  getChildContext = () => {
+  getChildContext() {
     if (!this.context.i18n) {
       if (!this.props.formatInfos) {
         console.warn('attribute [formatInfos] must be require, because I18nManager not defined in parent context');

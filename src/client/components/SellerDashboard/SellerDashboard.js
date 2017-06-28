@@ -1,17 +1,32 @@
 import React from 'react';
 import { Table, Col, Row, Image, Button } from 'react-bootstrap';
-import { Pie, PieChart, Cell } from 'recharts';
+import connect from 'react-redux/lib/components/connect';
+import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
-export default class SellerDashboard extends React.Component {
-  gaugeData = [
-    { name: 'Low', value: 300 },
-    { name: 'Medium', value: 300 },
-    { name: 'High', value: 300 }
-  ];
+class SellerDashboard extends React.Component {
+  static propTypes = {
+    currentUserData: React.PropTypes.object
+  }
 
-  colors = ['#E81319', '#FDC938', '#3FA47C'];
+  static contextTypes = {
+    simPublicUrl: React.PropTypes.string
+  }
+
+  componentWillMount() {
+    let serviceRegistry = (service) => ({ url: `${this.context.simPublicUrl}/supplier` });
+    const SupplierProfileStrength = serviceComponent({
+      serviceRegistry,
+      serviceName: 'supplier' ,
+      moduleName: 'supplier-profile_strength',
+      jsFileName: 'profile_strength-bundle'
+    });
+
+    this.externalComponents = { SupplierProfileStrength };
+  }
 
   render() {
+    const { SupplierProfileStrength } = this.externalComponents;
+
     return (
       <div>
         <br/>
@@ -20,26 +35,13 @@ export default class SellerDashboard extends React.Component {
             <div className="panel panel-success">
               <div className="panel-heading"><h4>Company profile strength</h4></div>
               <div className="panel-body">
-                <Col xs={6}><Image src={`${window.simUrl}/img/mockup/sellerDashboardGauge.png`} responsive={true}/></Col>
-                <PieChart className="col-xs-6 hidden" width={250} height={200}>
-                <Pie
-                  data={this.gaugeData}
-                  cx={120}
-                  cy={150}
-                  startAngle={180}
-                  endAngle={40}
-                  innerRadius={80}
-                  outerRadius={100}
-                  fill="#8884d8"
-                  paddingAngle={5}
-                >
-                  {
-                    this.gaugeData.map((entry, index) =>
-                      <Cell key={index} fill={this.colors[index % this.colors.length]} />
-                    )
-                  }
-                </Pie>
-              </PieChart>
+                <Col xs={6}>
+                  <SupplierProfileStrength
+                    key='profile_strength'
+                    actionUrl={this.context.simPublicUrl}
+                    supplierId={this.props.currentUserData.supplierid}
+                  />
+                </Col>
                 <div className="col-xs-6">
                   <h4>
                     Continue to fill your profile in order to benefit from better visibility in the network
@@ -196,3 +198,11 @@ export default class SellerDashboard extends React.Component {
     )
   }
 }
+
+function injectState(store) {
+  return {
+    currentUserData: store.currentUserData
+  };
+}
+
+export default connect(injectState)(SellerDashboard);

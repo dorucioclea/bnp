@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Business Network Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="{{simUrl}}/static/favicon.ico">
+    <!--<link rel="stylesheet" type="text/css" href="{{simPublicUrl}}/less/jcatalog-bootstrap-bundle.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="{{simPublicUrl}}/less/jcatalog-bootstrap-extensions-bundle.css">-->
+    <link rel="stylesheet" type="text/css" href="{{simUrl}}/static/jcatalog/less/jquery-ui-bundle.css">
+    <link rel="stylesheet" type="text/css" href="{{simUrl}}/static/jcatalog/css/ocui-bootstrap-bundle-0.1.2.css">
+    <link rel="stylesheet" type="text/css" href="{{simUrl}}/static/jcatalog/css/jcatalog.css">
+    {{#if isProductionMode}}
+        <link rel="stylesheet" type="text/css" href="{{simUrl}}/static/main.css">
+        {{#if chunksManifest}}
+          <script>
+            //<![CDATA[
+            window.webpackManifest = {{{chunksManifest}}};
+            //]]>
+          </script>
+        {{/if}}
+    {{/if}}
+    <script type="application/javascript">
+        var urlArray = '{{simUrl}}'.split('/');
+        var contextPath = "/";
+        for (var i = 3; i < urlArray.length; i++) {
+            if (contextPath !== '/') {
+                contextPath += '/';
+            }
+            contextPath += urlArray[i];
+        }
+        window.simPublicUrl = "{{simPublicUrl}}";
+        window.simUrl = "{{simUrl}}";
+        window.simRootContextPath = contextPath;
+        window.simContextPath = (contextPath === '/' ? "" : contextPath);
+        window.currentUserData = {{{json currentUserData}}};
+    </script>
+</head>
+<body style="overflow: auto; height: 100%;">
+    <div id="rootApplicationComponent" style="height: 100%"></div>
+    <script type="application/javascript" src="{{simUrl}}/static/{{bundle}}"></script>
+</body>
+</html>

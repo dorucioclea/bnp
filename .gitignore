@@ -4,14 +4,15 @@ awsProject.zip
 *.swp
 *.kate-swp
 
-/resources/jcatalog/less/jquery-ui-bundle.css
-/resources/jcatalog/less/jcatalog-bootstrap-bundle.css
-/resources/jcatalog/less/jcatalog-bootstrap-extensions-bundle.css
+/src/server/static/bundle.*.js
+/src/server/static/jcatalog/less/jquery-ui-bundle.css
+/src/server/static/jcatalog/less/jcatalog-bootstrap-bundle.css
+/src/server/static/jcatalog/less/jcatalog-bootstrap-extensions-bundle.css
 
+yarn.lock
 /db.config.json
 #/app.config.json
 #/formatPatterns.config.json
-#/logging.config.json
 
 *.out
 *.iml
@@ -48,6 +49,7 @@ coverage
 
 # nyc test coverage
 .nyc_output
+test-results.xml
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -59,8 +61,7 @@ coverage
 build/Release
 
 # Dependency directories
-jspm_packages/
-/node_modules/*
+node_modules
 
 # Optional npm cache directory
 .npm
@@ -70,4 +71,13 @@ jspm_packages/
 
 # Optional REPL history
 .node_repl_history
+
+# wiki
+/bnp.wiki
 .DS_Store
+
+# kong logs
+error.log
+access.log
+admin_access.log
+serf.log

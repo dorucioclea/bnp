@@ -1,56 +1,106 @@
-version: '2'
+version: '3'
 services:
-  bnp:
-    build: .
+  main:
     #restart: on-failure:5
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
-     - mysql
-     - suppliers
-    volumes:
-     - .:/home/node/bnp
+      - mysql
+      - supplier
+      - consul
     labels:
       SERVICE_NAME: 'bnp'
     environment:
-      PORT: '3000'
+      SERVICE_3000_CHECK_HTTP: /api/health/check
+      SERVICE_3000_CHECK_INTERVAL: 15s
+      SERVICE_3000_CHECK_TIMEOUT: 3s
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      REDIS_AUTH: $REDIS_AUTH
     ports:
-     - "3000:3000"
-    logging:
-      driver: gelf
-      options:
-        gelf-address: 'udp://${LOG_HOST}:12201'
+      - '3000:3000'
 
-  suppliers:
-    image: gr4per/supplierdir:20170125 #TODO: change back to latest once supplierdir is fixed
-    #restart: on-failure:5
+#  onboarding:
+#    image: opuscapita/onboarding:dev
+##    build: ../onboarding
+#    volumes:
+##      - .:/home/node/onboarding
+#      - ../react-components:/var/tmp/base/node_modules/ocbesbn-react-components
+#    environment:
+#      APPLICATION_NAME: 'onboarding'
+#      NODE_ENV: $NODE_ENV
+#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#      MYSQL_DATABASE: ${MYSQL_DATABASE}
+#      EXTERNAL_HOST: 52.174.28.41
+#      EXTERNAL_PORT: 8080
+#      REDIS_AUTH: ${REDIS_AUTH}
+#      HOST_IP: ${HOST_IP}
+#    depends_on:
+#      - redis
+#      - registrator
+#    labels:
+#      - 'SERVICE_NAME=onboarding'
+#      - 'SERVICE_TAGS=external,kong'
+#    extra_hosts:
+#      - 'consul:${HOST_IP}'
+#    ports:
+#      - '3002:3002'
+#    command: 'npm run dev'
+
+  supplier:
+    image: opuscapita/supplier:dev
+#    build: ../supplier
+#    volumes:
+#     - ../supplier:/home/node/supplier
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
-     - mysql
+      - mysql
+      - isodata
     labels:
       SERVICE_NAME: 'supplier'  # Service name used by Registrator for adding to Consul's service discovery registry.
       SERVICE_TAGS: 'external'
     ports:
-     - "3001:3001"
-    extra_hosts:
-     - 'consul:172.17.0.1'
+      - "3001:3001"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      NODE_ENV: 'production'
+      REDIS_AUTH: $REDIS_AUTH
+    command: 'npm run dev'
 
   postgres:
     image: postgres:9.4
     container_name: postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       POSTGRES_USER: $POSTGRES_DB
       POSTGRES_DB: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     depends_on:
       - registrator
+  user:
+    image: opuscapita/user:dev
+#    build: ../user
+#    volumes:
+#     - ../user:/home/node/user
+    depends_on:
+      - mysql
+      - consul
+      - registrator
+    labels:
+      SERVICE_NAME: 'user'
+    environment:
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      REDIS_AUTH: $REDIS_AUTH
+    ports:
+      - '3008:3008'
+    command: 'npm run dev'
 
-  apigw:
-    image: ocbesbn/api-gw:latest
+  kong:
+    image: opuscapita/kong:dev
     environment:
       KONG_DATABASE: 'postgres'
       KONG_PG_HOST: $KONG_PG_HOST
       KONG_PG_PORT: $KONG_PG_PORT
-      APP_HOST: $HOST
+      APP_HOST: $HOST_IP
       APP_HOST_PROTOCOL: $APP_HOST_PROTOCOL
       APP_HOST_PORT: $APP_HOST_PORT
       GATEWAY_SCHEME: $GATEWAY_SCHEME
@@ -62,28 +112,32 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       LOG_PORT: 5000
       LOG_HOST: $LOG_HOST
-      HOST: $HOST
-      REDIS_HOST: $REDIS_HOST
-      REDIS_PORT: $REDIS_PORT
-      REDIS_AUTH: $REDIS_AUTH
+      REDIS_HOST: $HOST_IP # TODO: remove after api-gw is using config
+      REDIS_PORT: 6379 # TODO: remove after api-gw is using config
+      REDIS_AUTH: $REDIS_AUTH # TODO: remove after api-gw is using config
+      SERVICE_8001_NAME: 'kong'
+      SERVICE_8080_NAME: 'kong-http'
     ports:
-      - "8080:8080"
-      - "8443:8443"
-      - "8001:8001"
-      - "7946:7946"
-      - "7946:7946/udp"
+      - '8080:8080'
+      - '8443:8443'
+      - '8001:8001'
+      - '7946:7946'
+      - '7946:7946/udp'
     depends_on:
       - postgres
+      - mysql
+    volumes:
+      - .:/usr/local/kong/logs
 
-  idpro:
-    image: ocbesbn/idpro:latest
+  auth:
+    image: opuscapita/auth:dev
+#    build: ../auth
+#    volumes:
+#     - ../auth:/home/node/auth
     ports:
-     - "$APP_HOST_PORT:$APP_HOST_PORT"
+     - '$APP_HOST_PORT:$APP_HOST_PORT'
     environment:
       NODE_ENV: $NODE_ENV
-      MYSQL_PORT: $MYSQL_PORT
-      MYSQL_DIALECT: 'mysql'
-      MYSQL_SERVICE_NAME: $MYSQL_HOST
       APP_HOST: '0.0.0.0'
       APP_HOST_PROTOCOL: $APP_HOST_PROTOCOL
       APP_HOST_PORT: $APP_HOST_PORT
@@ -91,31 +145,30 @@ services:
       GATEWAY_IP: $GATEWAY_IP
       GATEWAY_PORT: $GATEWAY_PORT
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
-      MYSQL_HOST: $MYSQL_HOST
-      CONSUL_HOST: $CONSUL_HOST
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      REDIS_AUTH: $REDIS_AUTH
     depends_on:
-      - apigw
+      - kong
+    command: 'npm run dev'
 
   api-registry:
-    image: ocbesbn/api-registrator:latest
+    image: opuscapita/api-registrator:dev
+#    build: ../api-registrator
     ports:
-      - "$API_REGISTRY_PORT:$API_REGISTRY_PORT"
+      - '$API_REGISTRY_PORT:$API_REGISTRY_PORT'
     environment:
-      CONSUL_HOST: $HOST
       AUTH_SERVER: $AUTH_SERVER
       AUTH_SERVER_PORT: $AUTH_SERVER_PORT
-      GATEWAY_CALLBACK: $GATEWAY_CALLBACK
-      KONG_HOST: $KONG_HOST
-      KONG_PORT: $KONG_PORT
       API_REGISTRY_PORT: $API_REGISTRY_PORT
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
     depends_on:
-      - apigw
+      - kong
 
   redis:
-    image: ocbesbn/redis:latest
+    image: opuscapita/redis:dev
     ports:
-      - "$REDIS_PORT:$REDIS_PORT"
+      - '6379:6379'
     environment:
       REDIS_AUTH: $REDIS_AUTH
     depends_on:
@@ -123,62 +176,108 @@ services:
 
 
   #ELK stack
-  elasticsearch:
-    image: ocbesbn/elasticsearch:latest
-    environment:
-      # This helps ES out with memory usage
-      - ES_JAVA_OPTS=-Xmx1g -Xms1g
-    depends_on:
-      - registrator
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-
-  logstash:
-    image: ocbesbn/logstash:latest
-    depends_on:
-      - registrator
-    ports:
-      - "5000:5000/udp"
-      - "12201:12201/udp"
-    environment:
-      ELASTICSEARCH_IP: $HOST
-
-  kibana:
-    image: ocbesbn/kibana:latest
-    depends_on:
-      - registrator
-    ports:
-      - "5601:5601"
-    environment:
-      ELASTICSEARCH_IP: $HOST
+#  elasticsearch:
+#    image: ocbesbn/elasticsearch:latest
+#    environment:
+#      # This helps ES out with memory usage
+#      - ES_JAVA_OPTS=-Xmx1g -Xms1g
+#    depends_on:
+#      - registrator
+#    ports:
+#      - '9200:9200'
+#      - '9300:9300'
+#
+#  logstash:
+#    image: ocbesbn/logstash:latest
+#    depends_on:
+#      - registrator
+#    ports:
+#      - '5000:5000/udp'
+#      - '12201:12201/udp'
+#    environment:
+#      ELASTICSEARCH_IP: $HOST_IP
+#
+#  kibana:
+#    image: ocbesbn/kibana:latest
+#    depends_on:
+#      - registrator
+#    ports:
+#      - '5601:5601'
+#    environment:
+#      ELASTICSEARCH_IP: $HOST_IP
   #ELK stack
 
   mysql:
-    image: gr4per/mysql
-    depends_on:
-     - registrator
+    image: 'mysql:5.6'
     ports:
-     - "3306:3306"
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    depends_on:
+      - registrator
+
+  isodata:
+    image: opuscapita/isodata:dev
+#    build: '../isodata'
+#    volumes:
+#      - ../isodata:/home/node/isodata
+    ports:
+      - '3006:3006'
+    depends_on:
+      - consul
+      - mysql
+    labels:
+      SERVICE_NAME: isodata
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      PORT: '3006'
+    command: 'npm run dev'
+
+  einvoice-send:
+    image: opuscapita/einvoice-send:dev
+    ports:
+      - '3007:3007'
+    depends_on:
+      - consul
+      - mysql
+    labels:
+      SERVICE_NAME: einvoice-send
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      PORT: '3007'
+    command: 'npm run dev'
+
+  acl:
+    image: opuscapita/acl:dev
+    labels:
+      - 'SERVICE_NAME=acl'
+      - 'SERVICE_TAGS=external,kong'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+     - '3013:3013'
+    depends_on:
+      - kong 
+    command: 'npm run dev'
 
   registrator:
-    image: gliderlabs/registrator:latest
-    network_mode: host
-    #restart: always
-    depends_on:
-     - consul
+    image: gliderlabs/registrator
+    command: consul://consul:8500
     volumes:
-     - /var/run/docker.sock:/tmp/docker.sock
-    command: ['-ip=172.17.0.1', 'consul://localhost:8500']
+      - /var/run/docker.sock:/tmp/docker.sock
+    depends_on:
+      - consul
 
   consul:
     image: consul:latest
-    network_mode: host
-    #restart: always
     ports:
       - '8400:8400'
       - '8500:8500'
       - '8600:53/udp'
     labels:
       SERVICE_IGNORE: 'true'  # Do not add any of Consul's services to Consul's service discovery registry.
-    command: [agent, '-server', '-ui', '-bootstrap-expect=1', '-bind=172.17.0.1', '-client=0.0.0.0']
+    command: [agent, '-server', '-ui', '-bootstrap', '-client=0.0.0.0']

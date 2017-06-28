@@ -1,7 +1,7 @@
-import config from './../../../app.config.json';
-import nodemailer from 'nodemailer';
-import path from 'path';
-import { EmailTemplate } from 'email-templates';
+const config = require('./../../../app.config.json');
+const nodemailer = require('nodemailer');
+const path = require('path');
+const { EmailTemplate } = require('email-templates');
 
 let smtpTransport = nodemailer.createTransport(config.mail.options);
 

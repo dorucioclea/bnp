@@ -7,7 +7,6 @@ export default class SuccessConfirmation extends React.Component {
 
   static contextTypes = {
     i18n: React.PropTypes.object,
-    authenticationService: React.PropTypes.object
   }
 
   constructor(props, context) {
@@ -19,14 +18,6 @@ export default class SuccessConfirmation extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.isLoading) {
-      this.context.authenticationService.verifyUser(this.props.routeParams.verificationToken).
-        then(() => this.setState({ isLoading: false })).
-        catch(() => this.ignoreAjax || this.setState({
-          serverErrorMessage: this.i18n.getMessage('CommonMessages.systemError'),
-          isLoading: false
-        }));
-    }
   }
 
   componentWillUnmount() {
