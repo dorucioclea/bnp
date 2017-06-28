@@ -3,5 +3,5 @@ services:
   main:
     build: .
     volumes:
-     - .:/home/node/customer
+     - .:/home/node/bnp
     command: 'npm run dev'
