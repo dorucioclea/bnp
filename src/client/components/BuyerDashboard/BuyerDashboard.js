@@ -243,7 +243,7 @@ export default class BuyerDashboard extends React.Component {
       <div>
       <br/>
         <Row>
-          <Col md={6}>
+          {/*<Col md={6}>
             <div className="panel panel-success">
               <div className="panel-heading"><h4>eTransition Development</h4></div>
               <div className="panel-body">
@@ -281,7 +281,7 @@ export default class BuyerDashboard extends React.Component {
                 </PieChart>
               </div>
             </div>
-          </Col>
+          </Col>*/}
           <Col md={6}>
             <div className="panel panel-success">
               <div className="panel-heading"><h4>eTransition Today</h4></div>
