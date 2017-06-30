@@ -12,7 +12,7 @@ class ApplicationContext extends React.Component {
   constructor(props) {
     super(props);
     console.log("ReMounting : ", props.currentUserData.languageid)
-    const locale = props.currentUserData.languageid;
+    const locale = props.currentUserData.languageid || 'en';
     const i18n = new I18nManager(locale, validateMessages, formatPatterns);
     i18n.register('Common', locales);
 
@@ -50,7 +50,7 @@ class ApplicationContext extends React.Component {
       simUrl: window.simUrl,
       simPublicUrl: window.simPublicUrl,
       httpResponseHandler,
-      locale: this.props.currentUserData.languageid,
+      locale: this.props.currentUserData.languageid || 'en',
       setLocale: this.setLocale
     };
   }
