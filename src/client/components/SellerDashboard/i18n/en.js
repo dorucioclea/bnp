@@ -2,7 +2,7 @@ let SellerDashboard = {};
 
 let profileStrength = {};
 profileStrength.heading = 'Company Profile Strength';
-profileStrength.editButton = 'Edit Profile';
+profileStrength.editButton = 'Company Profile';
 profileStrength.content = 'Continue to fill your profile in order to benefit from better visibility in the network and get more business opportunities.';
 
 SellerDashboard.profileStrength = profileStrength;
