@@ -63,6 +63,11 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       NODE_ENV: 'production'
       REDIS_AUTH: $REDIS_AUTH
+      USER_NAME: 'svc_supplier'
+      PASSWORD: 'test'
+      CLIENT_KEY: $CLIENT_KEY
+      CLIENT_SECRET: $CLIENT_SECRET
+      SCOPE: $SCOPE
     command: 'npm run dev'
 
   postgres:
@@ -90,6 +95,11 @@ services:
     environment:
       MYSQL_DATABASE: $MYSQL_DATABASE
       REDIS_AUTH: $REDIS_AUTH
+      USER_NAME: 'svc_user'
+      PASSWORD: 'test'
+      CLIENT_KEY: $CLIENT_KEY
+      CLIENT_SECRET: $CLIENT_SECRET
+      SCOPE: $SCOPE
     ports:
       - '3008:3008'
     command: 'npm run dev'
@@ -148,6 +158,11 @@ services:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
       REDIS_AUTH: $REDIS_AUTH
+      USER_NAME: 'svc_auth'
+      PASSWORD: 'test'
+      CLIENT_KEY: $CLIENT_KEY
+      CLIENT_SECRET: $CLIENT_SECRET
+      SCOPE: $SCOPE
     depends_on:
       - kong
     command: 'npm run dev'
@@ -248,6 +263,11 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       PORT: '3007'
+      USER_NAME: 'svc_einvoice-send'
+      PASSWORD: 'test'
+      CLIENT_KEY: $CLIENT_KEY
+      CLIENT_SECRET: $CLIENT_SECRET
+      SCOPE: $SCOPE
     command: 'npm run dev'
 
   acl:
@@ -261,7 +281,7 @@ services:
     ports:
      - '3013:3013'
     depends_on:
-      - kong 
+      - kong
     command: 'npm run dev'
 
   registrator:

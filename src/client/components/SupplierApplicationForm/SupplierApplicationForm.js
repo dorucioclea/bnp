@@ -123,10 +123,8 @@ class SupplierApplicationForm extends React.Component {
       <SupplierEditor
         key='company'
         onUnauthorized={this.handleUnauthorized}
-        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
         actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
-        supplierName={userInfo.supplierName}
         locale={this.context.i18n.locale}
         username={userInfo.id}
         dateTimePattern={this.context.datePattern}
