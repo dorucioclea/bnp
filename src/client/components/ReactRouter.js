@@ -38,6 +38,7 @@ import SupplierRegistrationForm from './SupplierRegistrationForm';
 
 const BUYING_ROLE = 'buying';
 const SELLING_ROLE = 'selling';
+const ADMIN_ROLE = 'admin';
 
 function getInitialCurrentUserInfo() {
   let initialState =  window.currentUserData;
@@ -59,7 +60,7 @@ const store = createStore(
 function companyRoleInterceptor(nextState, replace) {
   const currentUserData = getCurrentUserInfo();
 
-  if (!currentUserData.supplierid && !currentUserData.customerid) {
+  if (!currentUserData.supplierid && !currentUserData.customerid && currentUserData.roles.indexOf(ADMIN_ROLE) < 0) {
     replace(`${window.simContextPath}/supplierRegistration`);
   } else if (currentUserData.companyRole === BUYING_ROLE || currentUserData.customerid) {
     replace(`${window.simContextPath}/buyerDashboard`);

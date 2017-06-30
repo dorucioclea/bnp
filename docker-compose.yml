@@ -1,28 +1,22 @@
-version: '2'
+version: '3'
 services:
   main:
-    build: .
-#    image: opuscapita/bnp:dev
     #restart: on-failure:5
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
       - mysql
       - supplier
-    volumes:
-      - .:/home/node/bnp
-#      - ../react-components:/var/tmp/base/node_modules/ocbesbn-react-components
+      - consul
     labels:
       SERVICE_NAME: 'bnp'
     environment:
-      HOST_IP: $HOST_IP
-      PORT: '3000'
+      SERVICE_3000_CHECK_HTTP: /api/health/check
+      SERVICE_3000_CHECK_INTERVAL: 15s
+      SERVICE_3000_CHECK_TIMEOUT: 3s
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
       REDIS_AUTH: $REDIS_AUTH
     ports:
       - '3000:3000'
-    extra_hosts:
-      - 'consul:${HOST_IP}'
-    command: 'npm run dev'
 
 #  onboarding:
 #    image: opuscapita/onboarding:dev
@@ -40,7 +34,6 @@ services:
 #      REDIS_AUTH: ${REDIS_AUTH}
 #      HOST_IP: ${HOST_IP}
 #    depends_on:
-#      - mysql
 #      - redis
 #      - registrator
 #    labels:
@@ -66,14 +59,15 @@ services:
     ports:
       - "3001:3001"
     environment:
-      PORT: '3001'
-      HOST_IP: $HOST_IP
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       NODE_ENV: 'production'
       REDIS_AUTH: $REDIS_AUTH
-    extra_hosts:
-      - 'consul:${HOST_IP}'
+      USER_NAME: 'svc_supplier'
+      PASSWORD: 'test'
+      CLIENT_KEY: $CLIENT_KEY
+      CLIENT_SECRET: $CLIENT_SECRET
+      SCOPE: $SCOPE
     command: 'npm run dev'
 
   postgres:
@@ -98,19 +92,20 @@ services:
       - registrator
     labels:
       SERVICE_NAME: 'user'
-    extra_hosts:
-       - 'consul:${HOST_IP}'
     environment:
-      PORT: 3008
-      HOST_IP: $HOST_IP
       MYSQL_DATABASE: $MYSQL_DATABASE
       REDIS_AUTH: $REDIS_AUTH
+      USER_NAME: 'svc_user'
+      PASSWORD: 'test'
+      CLIENT_KEY: $CLIENT_KEY
+      CLIENT_SECRET: $CLIENT_SECRET
+      SCOPE: $SCOPE
     ports:
       - '3008:3008'
     command: 'npm run dev'
 
-  apigw:
-    image: ocbesbn/api-gw:dev
+  kong:
+    image: opuscapita/kong:dev
     environment:
       KONG_DATABASE: 'postgres'
       KONG_PG_HOST: $KONG_PG_HOST
@@ -127,12 +122,11 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       LOG_PORT: 5000
       LOG_HOST: $LOG_HOST
-      HOST: $HOST_IP
       REDIS_HOST: $HOST_IP # TODO: remove after api-gw is using config
       REDIS_PORT: 6379 # TODO: remove after api-gw is using config
       REDIS_AUTH: $REDIS_AUTH # TODO: remove after api-gw is using config
-      SERVICE_8001_NAME: 'kong-api'
-      SERVICE_8080_NAME: 'kong'
+      SERVICE_8001_NAME: 'kong'
+      SERVICE_8080_NAME: 'kong-http'
     ports:
       - '8080:8080'
       - '8443:8443'
@@ -153,7 +147,6 @@ services:
     ports:
      - '$APP_HOST_PORT:$APP_HOST_PORT'
     environment:
-      HOST_IP: $HOST_IP
       NODE_ENV: $NODE_ENV
       APP_HOST: '0.0.0.0'
       APP_HOST_PROTOCOL: $APP_HOST_PROTOCOL
@@ -165,14 +158,17 @@ services:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
       REDIS_AUTH: $REDIS_AUTH
+      USER_NAME: 'svc_auth'
+      PASSWORD: 'test'
+      CLIENT_KEY: $CLIENT_KEY
+      CLIENT_SECRET: $CLIENT_SECRET
+      SCOPE: $SCOPE
     depends_on:
-      - apigw
-    extra_hosts:
-      - 'consul:${HOST_IP}'
+      - kong
     command: 'npm run dev'
 
   api-registry:
-    image: ocbesbn/api-registrator:dev
+    image: opuscapita/api-registrator:dev
 #    build: ../api-registrator
     ports:
       - '$API_REGISTRY_PORT:$API_REGISTRY_PORT'
@@ -182,10 +178,10 @@ services:
       API_REGISTRY_PORT: $API_REGISTRY_PORT
       GATEWAY_CALLBACK: $GATEWAY_CALLBACK
     depends_on:
-      - apigw
+      - kong
 
   redis:
-    image: ocbesbn/redis:latest
+    image: opuscapita/redis:dev
     ports:
       - '6379:6379'
     environment:
@@ -236,27 +232,6 @@ services:
     depends_on:
       - registrator
 
-  registrator:
-    image: gliderlabs/registrator:latest
-    network_mode: host
-    #restart: always
-    depends_on:
-      - consul
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock
-    command: ['-ip=${HOST_IP}', 'consul://localhost:8500']
-
-  consul:
-    command: -bootstrap -ui
-    image: gliderlabs/consul-server
-    labels:
-      - 'SERVICE_NAME=consul'
-    ports:
-      - '8400:8400'
-      - '8500:8500'
-      - '53:8600/udp'
-      - '53:8600'
-
   isodata:
     image: opuscapita/isodata:dev
 #    build: '../isodata'
@@ -264,15 +239,12 @@ services:
 #      - ../isodata:/home/node/isodata
     ports:
       - '3006:3006'
-    extra_hosts:
-      - 'consul:${HOST_IP}'
     depends_on:
       - consul
       - mysql
     labels:
       SERVICE_NAME: isodata
     environment:
-      HOST_IP: ${HOST_IP}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       PORT: '3006'
@@ -282,16 +254,50 @@ services:
     image: opuscapita/einvoice-send:dev
     ports:
       - '3007:3007'
-    extra_hosts:
-      - 'consul:${HOST_IP}'
     depends_on:
       - consul
       - mysql
     labels:
       SERVICE_NAME: einvoice-send
     environment:
-      HOST_IP: ${HOST_IP}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       PORT: '3007'
+      USER_NAME: 'svc_einvoice-send'
+      PASSWORD: 'test'
+      CLIENT_KEY: $CLIENT_KEY
+      CLIENT_SECRET: $CLIENT_SECRET
+      SCOPE: $SCOPE
     command: 'npm run dev'
+
+  acl:
+    image: opuscapita/acl:dev
+    labels:
+      - 'SERVICE_NAME=acl'
+      - 'SERVICE_TAGS=external,kong'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+     - '3013:3013'
+    depends_on:
+      - kong
+    command: 'npm run dev'
+
+  registrator:
+    image: gliderlabs/registrator
+    command: consul://consul:8500
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    depends_on:
+      - consul
+
+  consul:
+    image: consul:latest
+    ports:
+      - '8400:8400'
+      - '8500:8500'
+      - '8600:53/udp'
+    labels:
+      SERVICE_IGNORE: 'true'  # Do not add any of Consul's services to Consul's service discovery registry.
+    command: [agent, '-server', '-ui', '-bootstrap', '-client=0.0.0.0']
