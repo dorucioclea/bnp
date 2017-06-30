@@ -8,12 +8,14 @@ import browserHistory from 'react-router/lib/browserHistory';
 class SellerDashboard extends React.Component {
   static propTypes = {
     currentUserData: React.PropTypes.object
-  }
+  };
 
   static contextTypes = {
     i18n: React.PropTypes.object,
     simPublicUrl: React.PropTypes.string
-  }
+  };
+
+  state = { connectType: -1 };
 
   componentWillMount() {
     let serviceRegistry = (service) => ({ url: `${this.context.simPublicUrl}/supplier` });
@@ -38,6 +40,19 @@ class SellerDashboard extends React.Component {
     browserHistory.push(`${window.simContextPath}/supplierInformation`);
   };
 
+  connectionStatus = () => {
+    if (this.state.connectType === 0) return this.state.i18n.getMessage('SellerDashboard.connections.notConnectedStatus');
+    if (this.state.connectType === 1) return this.state.i18n.getMessage('SellerDashboard.connections.connectingStatus');
+    if (this.state.connectType === 2) return this.state.i18n.getMessage('SellerDashboard.connections.connectedStatus');
+    return this.state.i18n.getMessage('SellerDashboard.connections.loading');
+  };
+
+  connectionImageSrc = () => {
+    if (this.state.connectType === 2) return `${window.simUrl}/img/mockup/plugged.png`;
+
+    return `${window.simUrl}/img/mockup/unplugged.png`;
+  }
+
   render() {
     const { SupplierProfileStrength } = this.externalComponents;
 
@@ -59,9 +74,7 @@ class SellerDashboard extends React.Component {
                   />
                 </Col>
                 <div className="col-xs-6">
-                  <h4>
-                    {this.state.i18n.getMessage('SellerDashboard.profileStrength.content')}
-                  </h4>
+                  <p>{this.state.i18n.getMessage('SellerDashboard.profileStrength.content')}</p>
                   <Button bsStyle="warning" onClick={this.handleClick}>
                     {this.state.i18n.getMessage('SellerDashboard.profileStrength.editButton')}
                   </Button>
@@ -71,29 +84,18 @@ class SellerDashboard extends React.Component {
           </Col>
           <Col md={6}>
             <div className="panel panel-success">
-              <div className="panel-heading"><h4>Connections</h4></div>
+              <div className="panel-heading">
+                <h4>{this.state.i18n.getMessage('SellerDashboard.connections.heading')}</h4>
+              </div>
               <div className="panel-body">
                 <Row>
-                  <Col xs={1}><Image src={`${window.simUrl}/img/mockup/plugged.png`} responsive={true}/></Col>
+                  <Col xs={4}><Image src={this.connectionImageSrc()} responsive={true}/></Col>
                   <Col xs={4}><h4>eInvoice</h4></Col>
-                  <Col xs={1}><Image src={`${window.simUrl}/img/mockup/unplugged.png`} responsive={true}/></Col>
-                  <Col xs={2}><h4>EDI</h4></Col>
-                  <Col xs={2}><Button bsStyle="warning">Connect</Button></Col>
-                </Row>
-                <Row>
-                  <Col xs={1}><Image src={`${window.simUrl}/img/mockup/plugged.png`} responsive={true}/></Col>
-                  <Col xs={4}><h4>Orders</h4></Col>
-                  <Col xs={1}><Image src={`${window.simUrl}/img/mockup/unplugged.png`} responsive={true}/></Col>
-                  <Col xs={2}><h4>RFQ</h4></Col>
-                  <Col xs={2}><Button bsStyle="warning">Connect</Button></Col>
+                  <Col xs={4}><Button bsStyle="warning">{this.connectionStatus()}</Button></Col>
                 </Row>
                 <Row>
                   <Col xs={12}>
-                    <h4>
-                      Save by connecting additional services offered by the Business Network.
-                      This will allow you to benefit from synergies and give you a central management
-                      console for all your documents
-                    </h4>
+                    <p>{this.state.i18n.getMessage('SellerDashboard.connections.content')}</p>
                     <br/>
                   </Col>
                 </Row>
