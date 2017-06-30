@@ -61,15 +61,14 @@ class ApplicationContext extends React.Component {
     this.setState({
       i18n: i18n,
       locale: locale
-    })
-    request.put('/user/users/' + this.props.currentUserData.id + '/profile')
+    });
+
+    return request.put('/user/users/' + this.props.currentUserData.id + '/profile')
     .set('Content-Type', 'application/json')
     .send({
       languageId: locale
     })
-    .then(data => {
-      console.log(data);
-    });
+    .then(data => request.post('/refreshIdToken').set('Content-Type', 'application/json').promise());
   }
 
   render() {
