@@ -1,7 +1,9 @@
 import React from 'react';
-import { Table, Col, Row, Image, Button } from 'react-bootstrap';
+import locales from './i18n/locales.js';
+import { Col, Row, Image, Button } from 'react-bootstrap';
 import connect from 'react-redux/lib/components/connect';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
+import browserHistory from 'react-router/lib/browserHistory';
 
 class SellerDashboard extends React.Component {
   static propTypes = {
@@ -9,6 +11,7 @@ class SellerDashboard extends React.Component {
   }
 
   static contextTypes = {
+    i18n: React.PropTypes.object,
     simPublicUrl: React.PropTypes.string
   }
 
@@ -22,7 +25,18 @@ class SellerDashboard extends React.Component {
     });
 
     this.externalComponents = { SupplierProfileStrength };
+    this.setState({ i18n: this.context.i18n.register('SellerDashboard', locales) });
   }
+
+  componentWillReceiveProps(nextProps, nextContext){
+    if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
+      this.setState({ i18n: nextContext.i18n.register('SellerDashboard', locales) });
+    }
+  }
+
+  handleClick = () => {
+    browserHistory.push(`${window.simContextPath}/supplierInformation`);
+  };
 
   render() {
     const { SupplierProfileStrength } = this.externalComponents;
@@ -33,7 +47,9 @@ class SellerDashboard extends React.Component {
         <Row>
           <Col md={6}>
             <div className="panel panel-success">
-              <div className="panel-heading"><h4>Company profile strength</h4></div>
+              <div className="panel-heading">
+                <h4>{this.state.i18n.getMessage('SellerDashboard.profileStrength.heading')}</h4>
+              </div>
               <div className="panel-body">
                 <Col xs={6}>
                   <SupplierProfileStrength
@@ -44,67 +60,12 @@ class SellerDashboard extends React.Component {
                 </Col>
                 <div className="col-xs-6">
                   <h4>
-                    Continue to fill your profile in order to benefit from better visibility in the network
-                    and get more business opportunities.
+                    {this.state.i18n.getMessage('SellerDashboard.profileStrength.content')}
                   </h4>
-                  <Button bsStyle="warning">Add financial data</Button>&nbsp;
-                  <Button bsStyle="warning">Add users</Button>&nbsp;
-                  <Button bsStyle="warning">Add certificates</Button>
+                  <Button bsStyle="warning" onClick={this.handleClick}>
+                    {this.state.i18n.getMessage('SellerDashboard.profileStrength.editButton')}
+                  </Button>
               </div>
-              </div>
-            </div>
-            <div className="panel panel-success">
-              <div className="panel-heading"><h4>Orders</h4></div>
-              <div className="panel-body">
-                <Table responsive={true}>
-                  <thead>
-                    <tr>
-                      <th>Order ID</th>
-                      <th>Created</th>
-                      <th>Description</th>
-                      <th>Items</th>
-                      <th>Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>PO 170013313</td>
-                      <td>01.01.2017</td>
-                      <td>Smasung Notebook</td>
-                      <td>1</td>
-                      <td>724,00 EUR</td>
-                    </tr>
-                    <tr>
-                      <td>PO 170013313</td>
-                      <td>01.01.2017</td>
-                      <td>Smasung Notebook</td>
-                      <td>1</td>
-                      <td>724,00 EUR</td>
-                    </tr>
-                    <tr>
-                      <td>PO 170013313</td>
-                      <td>01.01.2017</td>
-                      <td>Smasung Notebook</td>
-                      <td>1</td>
-                      <td>724,00 EUR</td>
-                    </tr>
-                    <tr>
-                      <td>PO 170013313</td>
-                      <td>01.01.2017</td>
-                      <td>Smasung Notebook</td>
-                      <td>1</td>
-                      <td>724,00 EUR</td>
-                    </tr>
-                    <tr>
-                      <td>PO 170013313</td>
-                      <td>01.01.2017</td>
-                      <td>Smasung Notebook</td>
-                      <td>1</td>
-                      <td>724,00 EUR</td>
-                    </tr>
-                  </tbody>
-                </Table>
-                <a className="pull-right" href="#" style={{ color: "#FAA94F" }}><h4>More</h4></a>
               </div>
             </div>
           </Col>
@@ -136,60 +97,6 @@ class SellerDashboard extends React.Component {
                     <br/>
                   </Col>
                 </Row>
-              </div>
-            </div>
-            <div className="panel panel-success">
-              <div className="panel-heading"><h4>Invoices</h4></div>
-              <div className="panel-body">
-                <Table responsive={true}>
-                  <thead>
-                  <tr>
-                    <th>Payer</th>
-                    <th>Supplier</th>
-                    <th>Due date</th>
-                    <th>Gross amount</th>
-                    <th>Status</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>Company X</td>
-                    <td>Company XYZ</td>
-                    <td>01.05.2017</td>
-                    <td>123,00 EUR</td>
-                    <td>Approved</td>
-                  </tr>
-                  <tr>
-                    <td>Company X</td>
-                    <td>Company XYZ</td>
-                    <td>01.05.2017</td>
-                    <td>123,00 EUR</td>
-                    <td>Approved</td>
-                  </tr>
-                  <tr>
-                    <td>Company X</td>
-                    <td>Company XYZ</td>
-                    <td>01.05.2017</td>
-                    <td>123,00 EUR</td>
-                    <td>Approved</td>
-                  </tr>
-                  <tr>
-                    <td>Company X</td>
-                    <td>Company XYZ</td>
-                    <td>01.05.2017</td>
-                    <td>123,00 EUR</td>
-                    <td>Approved</td>
-                  </tr>
-                  <tr>
-                    <td>Company X</td>
-                    <td>Company XYZ</td>
-                    <td>01.05.2017</td>
-                    <td>123,00 EUR</td>
-                    <td>Approved</td>
-                  </tr>
-                  </tbody>
-                </Table>
-                <a className="pull-right" href="#" style={{ color: "#FAA94F" }}><h4>More</h4></a>
               </div>
             </div>
           </Col>
