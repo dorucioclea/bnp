@@ -11,8 +11,8 @@ import request from 'superagent-bluebird-promise';
 class ApplicationContext extends React.Component {
   constructor(props) {
     super(props);
-    console.log("ReMounting : ", props.currentUserData.locale)
-    const locale = props.currentUserData.locale;
+    console.log("ReMounting : ", props.currentUserData.languageId)
+    const locale = props.currentUserData.languageId;
     const i18n = new I18nManager(locale, validateMessages, formatPatterns);
     i18n.register('Common', locales);
 
@@ -50,7 +50,7 @@ class ApplicationContext extends React.Component {
       simUrl: window.simUrl,
       simPublicUrl: window.simPublicUrl,
       httpResponseHandler,
-      locale: this.props.currentUserData.locale,
+      locale: this.props.currentUserData.languageId,
       setLocale: this.setLocale
     };
   }
