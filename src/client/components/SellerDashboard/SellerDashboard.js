@@ -1,16 +1,22 @@
 import React from 'react';
-import { Table, Col, Row, Image, Button } from 'react-bootstrap';
+import locales from './i18n/locales.js';
+import request from 'superagent-bluebird-promise';
+import { Col, Row, Image, Button } from 'react-bootstrap';
 import connect from 'react-redux/lib/components/connect';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
+import browserHistory from 'react-router/lib/browserHistory';
 
 class SellerDashboard extends React.Component {
   static propTypes = {
     currentUserData: React.PropTypes.object
-  }
+  };
 
   static contextTypes = {
+    i18n: React.PropTypes.object,
     simPublicUrl: React.PropTypes.string
-  }
+  };
+
+  state = { connectStatus: 'Loading...' };
 
   componentWillMount() {
     let serviceRegistry = (service) => ({ url: `${this.context.simPublicUrl}/supplier` });
@@ -22,6 +28,45 @@ class SellerDashboard extends React.Component {
     });
 
     this.externalComponents = { SupplierProfileStrength };
+    this.setState({ i18n: this.context.i18n.register('SellerDashboard', locales) });
+  }
+
+  componentDidMount() {
+    const einvoicePromise = request.
+      get(`${this.context.simPublicUrl}/einvoice-send/api/config/inchannel`).
+      set('Accept', 'application/json').
+      promise();
+
+    einvoicePromise.then(response => {
+      if (response.body.status === 'activated') {
+        this.setState({ connectStatus: 'Connected' });
+      } else {
+        this.setState({ connectStatus: 'Connecting' });
+      }
+    }).catch(err => this.setState({ connectStatus: 'Not Connected' }));
+  }
+
+  componentWillReceiveProps(nextProps, nextContext){
+    if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
+      this.setState({ i18n: nextContext.i18n.register('SellerDashboard', locales) });
+    }
+  }
+
+  handleClick = () => {
+    browserHistory.push(`${window.simContextPath}/supplierInformation`);
+  };
+
+  connectionStatus = () => {
+    if (this.state.connectStatus === 'Not Connected') return this.state.i18n.getMessage('SellerDashboard.connections.notConnectedStatus');
+    if (this.state.connectStatus === 'Connecting') return this.state.i18n.getMessage('SellerDashboard.connections.connectingStatus');
+    if (this.state.connectStatus === 'Connected') return this.state.i18n.getMessage('SellerDashboard.connections.connectedStatus');
+    return this.state.i18n.getMessage('SellerDashboard.connections.loading');
+  };
+
+  connectionImageSrc = () => {
+    if (this.state.connectStatus === 'Connected') return `${window.simUrl}/img/mockup/plugged.png`;
+
+    return `${window.simUrl}/img/mockup/unplugged.png`;
   }
 
   render() {
@@ -33,7 +78,9 @@ class SellerDashboard extends React.Component {
         <Row>
           <Col md={6}>
             <div className="panel panel-success">
-              <div className="panel-heading"><h4>Company profile strength</h4></div>
+              <div className="panel-heading">
+                <h4>{this.state.i18n.getMessage('SellerDashboard.profileStrength.heading')}</h4>
+              </div>
               <div className="panel-body">
                 <Col xs={6}>
                   <SupplierProfileStrength
@@ -43,153 +90,31 @@ class SellerDashboard extends React.Component {
                   />
                 </Col>
                 <div className="col-xs-6">
-                  <h4>
-                    Continue to fill your profile in order to benefit from better visibility in the network
-                    and get more business opportunities.
-                  </h4>
-                  <Button bsStyle="warning">Add financial data</Button>&nbsp;
-                  <Button bsStyle="warning">Add users</Button>&nbsp;
-                  <Button bsStyle="warning">Add certificates</Button>
+                  <p>{this.state.i18n.getMessage('SellerDashboard.profileStrength.content')}</p>
+                  <Button bsStyle="warning" onClick={this.handleClick}>
+                    {this.state.i18n.getMessage('SellerDashboard.profileStrength.editButton')}
+                  </Button>
               </div>
-              </div>
-            </div>
-            <div className="panel panel-success">
-              <div className="panel-heading"><h4>Orders</h4></div>
-              <div className="panel-body">
-                <Table responsive={true}>
-                  <thead>
-                    <tr>
-                      <th>Order ID</th>
-                      <th>Created</th>
-                      <th>Description</th>
-                      <th>Items</th>
-                      <th>Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>PO 170013313</td>
-                      <td>01.01.2017</td>
-                      <td>Smasung Notebook</td>
-                      <td>1</td>
-                      <td>724,00 EUR</td>
-                    </tr>
-                    <tr>
-                      <td>PO 170013313</td>
-                      <td>01.01.2017</td>
-                      <td>Smasung Notebook</td>
-                      <td>1</td>
-                      <td>724,00 EUR</td>
-                    </tr>
-                    <tr>
-                      <td>PO 170013313</td>
-                      <td>01.01.2017</td>
-                      <td>Smasung Notebook</td>
-                      <td>1</td>
-                      <td>724,00 EUR</td>
-                    </tr>
-                    <tr>
-                      <td>PO 170013313</td>
-                      <td>01.01.2017</td>
-                      <td>Smasung Notebook</td>
-                      <td>1</td>
-                      <td>724,00 EUR</td>
-                    </tr>
-                    <tr>
-                      <td>PO 170013313</td>
-                      <td>01.01.2017</td>
-                      <td>Smasung Notebook</td>
-                      <td>1</td>
-                      <td>724,00 EUR</td>
-                    </tr>
-                  </tbody>
-                </Table>
-                <a className="pull-right" href="#" style={{ color: "#FAA94F" }}><h4>More</h4></a>
               </div>
             </div>
           </Col>
           <Col md={6}>
             <div className="panel panel-success">
-              <div className="panel-heading"><h4>Connections</h4></div>
+              <div className="panel-heading">
+                <h4>{this.state.i18n.getMessage('SellerDashboard.connections.heading')}</h4>
+              </div>
               <div className="panel-body">
                 <Row>
-                  <Col xs={1}><Image src={`${window.simUrl}/img/mockup/plugged.png`} responsive={true}/></Col>
+                  <Col xs={4}><Image src={this.connectionImageSrc()} responsive={true}/></Col>
                   <Col xs={4}><h4>eInvoice</h4></Col>
-                  <Col xs={1}><Image src={`${window.simUrl}/img/mockup/unplugged.png`} responsive={true}/></Col>
-                  <Col xs={2}><h4>EDI</h4></Col>
-                  <Col xs={2}><Button bsStyle="warning">Connect</Button></Col>
-                </Row>
-                <Row>
-                  <Col xs={1}><Image src={`${window.simUrl}/img/mockup/plugged.png`} responsive={true}/></Col>
-                  <Col xs={4}><h4>Orders</h4></Col>
-                  <Col xs={1}><Image src={`${window.simUrl}/img/mockup/unplugged.png`} responsive={true}/></Col>
-                  <Col xs={2}><h4>RFQ</h4></Col>
-                  <Col xs={2}><Button bsStyle="warning">Connect</Button></Col>
+                  <Col xs={4}><Button bsStyle="warning">{this.connectionStatus()}</Button></Col>
                 </Row>
                 <Row>
                   <Col xs={12}>
-                    <h4>
-                      Save by connecting additional services offered by the Business Network.
-                      This will allow you to benefit from synergies and give you a central management
-                      console for all your documents
-                    </h4>
+                    <p>{this.state.i18n.getMessage('SellerDashboard.connections.content')}</p>
                     <br/>
                   </Col>
                 </Row>
-              </div>
-            </div>
-            <div className="panel panel-success">
-              <div className="panel-heading"><h4>Invoices</h4></div>
-              <div className="panel-body">
-                <Table responsive={true}>
-                  <thead>
-                  <tr>
-                    <th>Payer</th>
-                    <th>Supplier</th>
-                    <th>Due date</th>
-                    <th>Gross amount</th>
-                    <th>Status</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>Company X</td>
-                    <td>Company XYZ</td>
-                    <td>01.05.2017</td>
-                    <td>123,00 EUR</td>
-                    <td>Approved</td>
-                  </tr>
-                  <tr>
-                    <td>Company X</td>
-                    <td>Company XYZ</td>
-                    <td>01.05.2017</td>
-                    <td>123,00 EUR</td>
-                    <td>Approved</td>
-                  </tr>
-                  <tr>
-                    <td>Company X</td>
-                    <td>Company XYZ</td>
-                    <td>01.05.2017</td>
-                    <td>123,00 EUR</td>
-                    <td>Approved</td>
-                  </tr>
-                  <tr>
-                    <td>Company X</td>
-                    <td>Company XYZ</td>
-                    <td>01.05.2017</td>
-                    <td>123,00 EUR</td>
-                    <td>Approved</td>
-                  </tr>
-                  <tr>
-                    <td>Company X</td>
-                    <td>Company XYZ</td>
-                    <td>01.05.2017</td>
-                    <td>123,00 EUR</td>
-                    <td>Approved</td>
-                  </tr>
-                  </tbody>
-                </Table>
-                <a className="pull-right" href="#" style={{ color: "#FAA94F" }}><h4>More</h4></a>
               </div>
             </div>
           </Col>

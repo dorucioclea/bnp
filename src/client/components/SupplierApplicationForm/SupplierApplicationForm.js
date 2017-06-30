@@ -2,7 +2,7 @@
 // TODO: agree
 
 import React from 'react';
-import locales from './i18n/locales.js'
+import locales from './i18n/locales.js';
 import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
