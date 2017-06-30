@@ -7,7 +7,7 @@ let connections = {};
 connections.heading = 'Connections';
 connections.notConnectedStatus = 'Not Connected';
 connections.connectingStatus = 'Connecting';
-connections.ConnectedStatus = 'Connected';
+connections.connectedStatus = 'Connected';
 connections.loading = 'Loading...';
 connections.content = 'Save by connecting additional services offered by the Business Network.' +
   ' This will allow you to benefit from synergies and give you a central management console for all your documents.';
