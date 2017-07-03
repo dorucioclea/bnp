@@ -128,10 +128,10 @@ class SupplierRegistrationForm extends React.Component {
       supplierName: onboardData.tradingPartnerDetails.name,
       cityOfRegistration: onboardData.tradingPartnerDetails.city,
       countryOfRegistration: onboardData.tradingPartnerDetails.country,
-      taxId: onboardData.tradingPartnerDetails.taxIdentNo,
-      vatRegNo: onboardData.tradingPartnerDetails.vatIdentNo,
+      taxIdentificationNo: onboardData.tradingPartnerDetails.taxIdentNo,
+      vatIdentificationNo: onboardData.tradingPartnerDetails.vatIdentNo,
       dunsNo: onboardData.tradingPartnerDetails.dunsNo,
-      registrationNumber: onboardData.tradingPartnerDetails.commercialRegisterNo
+      commercialRegisterNo: onboardData.tradingPartnerDetails.commercialRegisterNo
     };
   }
 
