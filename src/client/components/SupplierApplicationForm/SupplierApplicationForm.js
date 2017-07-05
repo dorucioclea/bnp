@@ -142,7 +142,7 @@ class SupplierApplicationForm extends React.Component {
         actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
         locale={this.context.i18n.locale}
-        username={userInfo.username}
+        username={userInfo.id}
         onChange={this.handleDirtyState}
       />
     );
@@ -155,7 +155,7 @@ class SupplierApplicationForm extends React.Component {
         actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
         locale={this.context.i18n.locale}
-        username={userInfo.username}
+        username={userInfo.id}
         onChange={this.handleDirtyState}
       />
     );
