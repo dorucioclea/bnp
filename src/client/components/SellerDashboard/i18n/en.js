@@ -5,6 +5,7 @@ profileStrength.content = 'Continue to fill your profile in order to benefit fro
 
 let connections = {};
 connections.heading = 'Connections';
+connections.connect = 'Connect';
 connections.notConnectedStatus = 'Not Connected';
 connections.connectingStatus = 'Connecting';
 connections.connectedStatus = 'Connected';

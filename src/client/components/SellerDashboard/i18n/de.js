@@ -5,6 +5,7 @@ profileStrength.content = 'Füllen Sie Ihr Profil weiter aus, um von einer besse
 
 let connections = {};
 connections.heading = 'Verbindungen';
+connections.connect = 'Verbinden';
 connections.notConnectedStatus = 'Nicht verbunden';
 connections.connectingStatus = 'Verbindend';
 connections.connectedStatus = 'Verbunden';
