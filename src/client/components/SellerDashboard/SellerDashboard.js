@@ -101,12 +101,12 @@ class SellerDashboard extends React.Component {
                     supplierId={this.props.currentUserData.supplierid}
                   />
                 </Col>
-                <div className="col-xs-6">
+                <Col xs={6}>
                   <p>{this.state.i18n.getMessage('SellerDashboard.profileStrength.content')}</p>
                   <Button bsStyle="warning" onClick={this.handleProfileClick}>
                     {this.state.i18n.getMessage('SellerDashboard.profileStrength.editButton')}
                   </Button>
-              </div>
+              </Col>
               </div>
             </div>
           </Col>
@@ -131,6 +131,7 @@ class SellerDashboard extends React.Component {
                 </Row>
                 <Row>
                   <Col xs={12}>
+                    <br/>
                     <p>{this.state.i18n.getMessage('SellerDashboard.connections.content')}</p>
                     <br/>
                   </Col>
