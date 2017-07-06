@@ -33,7 +33,7 @@ class SellerDashboard extends React.Component {
 
   componentDidMount() {
     const einvoicePromise = request.
-      get(`${this.context.simPublicUrl}/einvoice-send/api/config/inchannel`).
+      get(`${this.context.simPublicUrl}/einvoice-send/api/config/inchannel/${this.props.currentUserData.supplierid}`).
       set('Accept', 'application/json').
       promise();
 
@@ -52,21 +52,33 @@ class SellerDashboard extends React.Component {
     }
   }
 
-  handleClick = () => {
+  handleProfileClick() {
     browserHistory.push(`${window.simContextPath}/supplierInformation`);
-  };
+  }
 
-  connectionStatus = () => {
+  handleConnectionClick() {
+    window.location.replace(`${window.simPublicUrl}/einvoice-send`)
+  }
+
+  connectButton() {
+    if (this.state.connectStatus === 'Connected') return '';
+
+    return (<Button bsStyle="warning" onClick={this.handleConnectionClick}>{this.state.i18n.getMessage('SellerDashboard.connections.connect')}</Button>)
+  }
+
+  connectionStatus() {
     if (this.state.connectStatus === 'Not Connected') return this.state.i18n.getMessage('SellerDashboard.connections.notConnectedStatus');
     if (this.state.connectStatus === 'Connecting') return this.state.i18n.getMessage('SellerDashboard.connections.connectingStatus');
     if (this.state.connectStatus === 'Connected') return this.state.i18n.getMessage('SellerDashboard.connections.connectedStatus');
     return this.state.i18n.getMessage('SellerDashboard.connections.loading');
-  };
+  }
 
-  connectionImageSrc = () => {
-    if (this.state.connectStatus === 'Connected') return `${window.simUrl}/img/mockup/plugged.png`;
+  colorStyle() {
+    if (this.state.connectStatus === 'Loading...') return {color: 'black'};
 
-    return `${window.simUrl}/img/mockup/unplugged.png`;
+    if (this.state.connectStatus === 'Connected') return {color: 'green'};
+
+    return {color: 'red'};
   }
 
   render() {
@@ -91,7 +103,7 @@ class SellerDashboard extends React.Component {
                 </Col>
                 <div className="col-xs-6">
                   <p>{this.state.i18n.getMessage('SellerDashboard.profileStrength.content')}</p>
-                  <Button bsStyle="warning" onClick={this.handleClick}>
+                  <Button bsStyle="warning" onClick={this.handleProfileClick}>
                     {this.state.i18n.getMessage('SellerDashboard.profileStrength.editButton')}
                   </Button>
               </div>
@@ -105,9 +117,17 @@ class SellerDashboard extends React.Component {
               </div>
               <div className="panel-body">
                 <Row>
-                  <Col xs={4}><Image src={this.connectionImageSrc()} responsive={true}/></Col>
-                  <Col xs={4}><h4>eInvoice</h4></Col>
-                  <Col xs={4}><Button bsStyle="warning">{this.connectionStatus()}</Button></Col>
+                  <Col xs={4}>
+                    <span className="fa-stack fa-lg">
+                      <i className="fa fa-circle fa-stack-2x" style={this.colorStyle()}></i>
+                      <i className="fa fa-power-off fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </Col>
+                  <Col xs={4}>
+                    <h4>eInvoice</h4>
+                    <i style={this.colorStyle()}>{this.connectionStatus()}</i>
+                  </Col>
+                  <Col xs={4}>{this.connectButton()}</Col>
                 </Row>
                 <Row>
                   <Col xs={12}>
