@@ -33,7 +33,7 @@ class SellerDashboard extends React.Component {
 
   componentDidMount() {
     const einvoicePromise = request.
-      get(`${this.context.simPublicUrl}/einvoice-send/api/config/inchannel/${this.props.currentUserData.supplierid}`).
+      get(`${this.context.simPublicUrl}/einvoice-send/api/config/inchannels/${this.props.currentUserData.supplierid}`).
       set('Accept', 'application/json').
       promise();
 
