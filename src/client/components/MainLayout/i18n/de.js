@@ -1,6 +1,6 @@
 let header = {};
-header.welcome = 'Willkommen bei OpusCapita';
-header.supplierOnboarding = 'Lieferant Onboarding';
+header.welcome = 'Willkommen im OpusCapita';
+header.supplierOnboarding = 'Business-Netzwerk';
 
 export default {
   MainLayout: { header: header }
