@@ -2,14 +2,12 @@ import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import { HeaderMenu, SidebarMenu } from 'ocbesbn-react-components';
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
+import locales from './i18n/locales';
 
 class MainLayout extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      activeLanguage: 'English'
-    }
   }
 
   static propTypes = {
@@ -23,17 +21,15 @@ class MainLayout extends React.Component {
     setLocale: React.PropTypes.func
   }
 
-  onLanguageChange = (key, event, test) => {
-    let lang = ['de', 'en'];
-    let language = ['German', 'English']
-    let locale = lang[key - 1];
-    let activeLanguage = language[key - 1];
-    console.log(locale);
-    this.setState({
-      ...this.state,
-      activeLanguage: activeLanguage
-    })
-    this.context.setLocale(locale)
+  componentWillMount() {
+    console.log(this.context.i18n);
+    this.i18n = this.context.i18n.register('MainLayout', locales);
+  }
+
+  componentWillReceiveProps(nextProps, nextContext){
+    if(this.i18n && this.i18n.locale && nextContext.i18n.locale != this.i18n.locale){
+      this.i18n = nextContext.i18n.register('MainLayout', locales);
+    }
   }
 
   renderHeader(isOnboarding) {
@@ -80,25 +76,10 @@ class MainLayout extends React.Component {
                   opacity: "0.75"
                 }}
               >
-                Welcome to OpusCapita<br/> Supplier Onboarding
+                {this.i18n.getMessage('MainLayoutTitle.welcome')}<br/> {this.i18n.getMessage('MainLayoutTitle.text')}
               </p>
             </div>
 
-
-            <ul className="nav navbar-nav navbar-right">
-              <Dropdown id="dropdown-custom-1">
-                <Dropdown.Toggle>
-                  <Glyphicon glyph="star" />
-                  {this.state.activeLanguage}
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="super-colors" onSelect={this.onLanguageChange}>
-                  <MenuItem eventKey="1">German</MenuItem>
-                  <MenuItem eventKey="2">English</MenuItem>
-                  {/*<MenuItem divider={true} />
-                  <MenuItem eventKey="4">Separated link</MenuItem>*/}
-                </Dropdown.Menu>
-              </Dropdown>
-            </ul>
           </div>
         </nav>
       )

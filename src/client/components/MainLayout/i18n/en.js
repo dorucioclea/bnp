@@ -26,9 +26,14 @@ MainLayoutMessage.sessionTimeout = 'Session timeout';
 MainLayoutMessage.sessionExpired = 'Session has been expired.';
 MainLayoutMessage.loginAagain = 'Please login again to continue working.';
 
+let MainLayoutTitle = {};
+MainLayoutTitle.welcome = 'Welcome to OpusCapita';
+MainLayoutTitle.text = 'Supplier Onboarding';
+
 export default {
   MainLayoutLabel: MainLayoutLabel,
   MainLayoutHeader: MainLayoutHeader,
   MainLayoutLink: MainLayoutLink,
-  MainLayoutMessage: MainLayoutMessage
+  MainLayoutMessage: MainLayoutMessage,
+  MainLayoutTitle: MainLayoutTitle
 }

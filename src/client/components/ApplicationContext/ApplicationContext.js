@@ -50,7 +50,7 @@ class ApplicationContext extends React.Component {
       simUrl: window.simUrl,
       simPublicUrl: window.simPublicUrl,
       httpResponseHandler,
-      locale: this.props.currentUserData.languageid || 'en',
+      locale: this.state.locale || 'en',
       setLocale: this.setLocale
     };
   }

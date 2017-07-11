@@ -26,9 +26,14 @@ MainLayoutMessage.sessionTimeout = 'Die Sitzung ist abgelaufen';
 MainLayoutMessage.sessionExpired = 'Ihre Sitzung ist abgelaufen..';
 MainLayoutMessage.loginAagain = 'Bitte melden Sie sich erneut an, um fortzufahren.';
 
+let MainLayoutTitle = {};
+MainLayoutTitle.welcome = 'Welcome to OpusCapita';
+MainLayoutTitle.text = 'Supplier Onboarding';
+
 export default {
   MainLayoutLabel: MainLayoutLabel,
   MainLayoutHeader: MainLayoutHeader,
   MainLayoutLink: MainLayoutLink,
-  MainLayoutMessage: MainLayoutMessage
+  MainLayoutMessage: MainLayoutMessage,
+  MainLayoutTitle: MainLayoutTitle
 }
