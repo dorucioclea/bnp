@@ -2,6 +2,7 @@ import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import { HeaderMenu, SidebarMenu } from 'ocbesbn-react-components';
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
+import locales from './i18n/locales.js';
 
 class MainLayout extends React.Component {
 
@@ -21,6 +22,16 @@ class MainLayout extends React.Component {
     formatPatterns: React.PropTypes.object,
     dateTimePattern: React.PropTypes.string,
     setLocale: React.PropTypes.func
+  }
+
+  componentWillMount() {
+    this.setState({ i18n: this.context.i18n.register('MainLayout', locales) });
+  }
+
+  componentWillReceiveProps(nextProps, nextContext){
+    if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
+      this.setState({ i18n: nextContext.i18n.register('MainLayout', locales) });
+    }
   }
 
   onLanguageChange = (key, event, test) => {
@@ -80,7 +91,9 @@ class MainLayout extends React.Component {
                   opacity: "0.75"
                 }}
               >
-                Welcome to OpusCapita<br/> Supplier Onboarding
+                {this.state.i18n.getMessage('MainLayout.header.welcome')}
+                <br/>
+                {this.state.i18n.getMessage('MainLayout.header.supplierOnboarding')}
               </p>
             </div>
 
