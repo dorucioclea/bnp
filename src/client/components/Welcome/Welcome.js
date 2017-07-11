@@ -5,6 +5,7 @@ import browserHistory from 'react-router/lib/browserHistory';
 import ajax from 'superagent-bluebird-promise';
 import connect from 'react-redux/lib/components/connect';
 import WelcomeCloseButton from './WelcomeCloseButton';
+import locales from './i18n/locales';
 
 class Welcome extends Component {
   constructor(props) {
@@ -20,12 +21,20 @@ class Welcome extends Component {
       .then(res => this.setState({ showWelcomePage : res.showWelcomePage }));
   }
 
+  static contextTypes = {
+    i18n: React.PropTypes.object
+  }
+
 
   handleShowWelcomePage = (event) => {
       return ajax.put('/user/users/current/profile')
         .set('Content-Type', 'application/json')
         .send({ showWelcomePage : !this.state.showWelcomePage })
         .then(() => this.setState({ showWelcomePage : !this.state.showWelcomePage }));
+  }
+
+  componentWillMount() {
+    this.i18n = this.context.i18n.register('Welcome', locales);
   }
 
   componentDidMount(){
@@ -73,23 +82,19 @@ class Welcome extends Component {
                 <WelcomeCloseButton/>
                 <div className="row" style={{ maxWidth: '100%' }}>
                   <div className="col-md-6" style={{ margin: '10% 0 0 8%' }}>
-                    <h1>Service Configuration</h1>
+                    <h1>{this.i18n.getMessage('strings.title')}</h1>
                     <p style={{ fontSize: '25px', marginTop: '5%' }}>
-                      Thank you for choosing OpusCapita Business Network!
-                      To integrate buyers, suppliers and other business partners
-                      Business Network service needs to be conﬁgured.
+                     {this.i18n.getMessage('strings.mainMessage')}
                     </p>
                     <br/>
                     <p style={{ fontSize: '25px' }}>
-                      This is a setup service to help you get up and running.
-                      Setup service will involve information depending on
-                      the services you select.
+                      {this.i18n.getMessage('strings.secondMessage')}
                     </p>
                     <br/>
                     <div className="form-submit text-right" style={{ marginTop: '25%', zIndex: '3' }}>
                       <label className="oc-check">
                         <input type="checkbox" value="1" checked={ this.state.showWelcomePage === false } onChange={ this.handleShowWelcomePage } />
-                          Do not show this page again.
+                          {this.i18n.getMessage('strings.doNotShow')}
                       </label>
                       &nbsp;&nbsp;
                       <a
