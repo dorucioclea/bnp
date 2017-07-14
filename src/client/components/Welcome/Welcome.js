@@ -46,7 +46,7 @@ class Welcome extends Component {
   render() {
     return (
       <div style={{ minHeight: '100vh' }}>
-        <SidebarMenu activeMainMenuName="Company" activeSubMenuName="ServiceConfig" />
+        <SidebarMenu activeMainMenuName="Company" activeSubMenuName="ServiceConfig" isBuyer={false} />
         <section
           className="content"
           style={{
