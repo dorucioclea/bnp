@@ -70,7 +70,7 @@ function companyRoleInterceptor(nextState, replace) {
   }
 }
 
-function handleShowWelcomePage(nextState, replace) {
+function handleShowWelcomePage(nextState, replace, callback) {
   // TODO: When exactly shall we show the Welcome page?
   //       Right now it is shown (if UserProfile.showWelcomePage == true) once per window due to the usage of sessionStorage.
 
@@ -84,9 +84,13 @@ function handleShowWelcomePage(nextState, replace) {
 
         const welcomePagePath = `${window.simContextPath}/welcome`;
         if (showWelcomePage && nextState.location.pathname !== welcomePagePath) {
-          window.location.replace(welcomePagePath);
+          replace(welcomePagePath);
         }
+        callback();
       })
+  }
+  else {
+    callback();
   }
 }
 
