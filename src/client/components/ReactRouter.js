@@ -4,6 +4,7 @@ import Router from 'react-router/lib/Router';
 import Route from 'react-router/lib/Route';
 import IndexRedirect from 'react-router/lib/IndexRedirect';
 import browserHistory from 'react-router/lib/browserHistory';
+import ajax from 'superagent-bluebird-promise';
 import MainLayout from './MainLayout';
 import SellerDashboard from './SellerDashboard';
 import BuyerDashboard from './BuyerDashboard';
@@ -70,11 +71,22 @@ function companyRoleInterceptor(nextState, replace) {
 }
 
 function handleShowWelcomePage(nextState, replace) {
-  const currentUserData = getCurrentUserInfo();
-  const welcomePagePath = `${window.simContextPath}/welcome`;
+  // TODO: When exactly shall we show the Welcome page?
+  //       Right now it is shown (if UserProfile.showWelcomePage == true) once per window due to the usage of sessionStorage.
 
-  if (currentUserData.showWelcomePage && nextState.location.pathname !== welcomePagePath) {
-    replace(welcomePagePath);
+  if (!sessionStorage.checked4WelcomePage) {
+      sessionStorage.checked4WelcomePage = true;
+
+      ajax.get('/user/users/current/profile')
+      .then(res => {
+        var userProfile = JSON.parse(res.text);
+        var showWelcomePage = userProfile && userProfile.showWelcomePage;
+
+        const welcomePagePath = `${window.simContextPath}/welcome`;
+        if (showWelcomePage && nextState.location.pathname !== welcomePagePath) {
+          window.location.replace(welcomePagePath);
+        }
+      })
   }
 }
 
