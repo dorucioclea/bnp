@@ -74,7 +74,7 @@ function handleShowWelcomePage(nextState, replace, callback) {
   // TODO: When exactly shall we show the Welcome page?
   //       Right now it is shown (if UserProfile.showWelcomePage == true) once per window due to the usage of sessionStorage.
 
-  if (!sessionStorage.checked4WelcomePage) {
+  if (getCurrentUserInfo().supplierid && !sessionStorage.checked4WelcomePage) {
       sessionStorage.checked4WelcomePage = true;
 
       ajax.get('/user/users/current/profile')
