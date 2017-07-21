@@ -25,6 +25,9 @@ class Welcome extends Component {
     i18n: React.PropTypes.object
   }
 
+  getCustomerId = () => {
+    return window.currentUserData && window.currentUserData.customerid;
+  }
 
   handleShowWelcomePage = (event) => {
       return ajax.put('/user/users/current/profile')
@@ -46,7 +49,7 @@ class Welcome extends Component {
   render() {
     return (
       <div style={{ minHeight: '100vh' }}>
-        <SidebarMenu activeMainMenuName="Company" activeSubMenuName="ServiceConfig" />
+        <SidebarMenu activeMainMenuName="Company" activeSubMenuName="ServiceConfig" isBuyer={!!this.getCustomerId()} />
         <section
           className="content"
           style={{
