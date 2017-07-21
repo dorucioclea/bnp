@@ -3,6 +3,7 @@ import React from 'react';
 import {Tabs, Tab, TabContent, Col, Row, Image, ButtonToolbar, Button, Panel} from 'react-bootstrap';
 import {AreaChart, Area, Bar, XAxis, YAxis, CartesianGrid, Pie, Cell, PieChart, Tooltip, Legend, BarChart} from 'recharts';
 import ReactHighcharts from 'react-highcharts';
+import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 require('highcharts-more')(ReactHighcharts.Highcharts)
 require('highcharts-funnel')(ReactHighcharts.Highcharts)
@@ -208,15 +209,15 @@ export default class BuyerDashboard extends React.Component {
     label: 'bounced',
     values: [{x: 'wave1', y: 12}, {x: 'wave2', y: 2}, {x: 'wave3', y: 5}, {x: 'wave4', y: 0}]
     },
-	 {
+   {
     label: 'read',
     values: [{x: 'wave1', y: 20}, {x: 'wave2', y: 47}, {x: 'wave3', y: 10}, {x: 'wave4', y: 0}]
     },
- 	{
+  {
     label: 'loaded',
     values: [{x: 'wave1', y: 35}, {x: 'wave2', y: 68}, {x: 'wave3', y: 10}, {x: 'wave4', y: 0}]
     },
-	  {
+    {
     label: 'onboarded',
     values: [{x: 'wave1', y: 283}, {x: 'wave2', y: 123}, {x: 'wave3', y: 162}, {x: 'wave4', y: 0}]
     }
@@ -232,18 +233,32 @@ export default class BuyerDashboard extends React.Component {
     const y = cy  + radius * Math.sin(-midAngle * RADIAN);
 
     return (
-      <text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
+      <text x={x} y={y} fill="black" textAnchor={x > cx ? 'start' : 'end'}  dominantBaseline="central">
         {payload.name+": "+payload.value}
       </text>
     );
   };
 
+  componentWillMount() {
+    let serviceRegistry = (service) => ({ url: '/onboarding' });
+
+    const FunnelChart = serviceComponent({ 
+      serviceRegistry, 
+      serviceName: 'onboarding' , 
+      moduleName: 'funnelChart', 
+      jsFileName: 'funnelChart' 
+    });
+
+    this.externalComponents = { FunnelChart };
+  }
+
   render() {
+    const { FunnelChart } = this.externalComponents;
     return (
       <div>
       <br/>
         <Row>
-          <Col md={6}>
+          {/*<Col md={6}>
             <div className="panel panel-success">
               <div className="panel-heading"><h4>eTransition Development</h4></div>
               <div className="panel-body">
@@ -281,7 +296,7 @@ export default class BuyerDashboard extends React.Component {
                 </PieChart>
               </div>
             </div>
-          </Col>
+          </Col>*/}
           <Col md={6}>
             <div className="panel panel-success">
               <div className="panel-heading"><h4>eTransition Today</h4></div>
@@ -301,10 +316,7 @@ export default class BuyerDashboard extends React.Component {
               </div>
             </div>
             <div className="panel panel-success">
-              <div className="panel-heading"><h4>eTransition Pipeline</h4></div>
-              <div className="panel-body">
-                <ReactHighcharts config={this.funnelConfig}></ReactHighcharts>
-              </div>
+                <FunnelChart />
             </div>
           </Col>
         </Row>

@@ -11,8 +11,8 @@ import request from 'superagent-bluebird-promise';
 class ApplicationContext extends React.Component {
   constructor(props) {
     super(props);
-    console.log("ReMounting : ", props.currentUserData.locale)
-    const locale = props.currentUserData.locale;
+    console.log("ReMounting : ", props.currentUserData.languageid)
+    const locale = props.currentUserData.languageid || 'en';
     const i18n = new I18nManager(locale, validateMessages, formatPatterns);
     i18n.register('Common', locales);
 
@@ -20,7 +20,8 @@ class ApplicationContext extends React.Component {
       i18n: i18n,
       locale: locale,
       formatPatterns: formatPatterns,
-      dateTimePattern: formatPatterns[locale].dateTimePattern
+      dateTimePattern: formatPatterns[locale].dateTimePattern,
+      datePattern: formatPatterns[locale].datePattern
     }
   }
 
@@ -32,6 +33,7 @@ class ApplicationContext extends React.Component {
     i18n: React.PropTypes.object,
     formatPatterns: React.PropTypes.object,
     dateTimePattern: React.PropTypes.string,
+    datePattern: React.PropTypes.string,
     simUrl: React.PropTypes.string,
     simPublicUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
@@ -44,10 +46,11 @@ class ApplicationContext extends React.Component {
       i18n: this.state.i18n,
       formatPatterns: this.state.formatPatterns,
       dateTimePattern: this.state.dateTimePattern,
+      datePattern: this.state.datePattern,
       simUrl: window.simUrl,
       simPublicUrl: window.simPublicUrl,
       httpResponseHandler,
-      locale: this.props.currentUserData.locale,
+      locale: this.props.currentUserData.languageid || 'en',
       setLocale: this.setLocale
     };
   }
@@ -61,15 +64,14 @@ class ApplicationContext extends React.Component {
     this.setState({
       i18n: i18n,
       locale: locale
-    })
-    request.put('/user/users/' + this.props.currentUserData.id + '/profile')
+    });
+
+    return request.put('/user/users/' + this.props.currentUserData.id + '/profile')
     .set('Content-Type', 'application/json')
     .send({
       languageId: locale
     })
-    .then(data => {
-      console.log(data);
-    });
+    .then(data => request.post('/refreshIdToken').set('Content-Type', 'application/json').promise());
   }
 
   render() {

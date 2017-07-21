@@ -32,3 +32,5 @@ HEALTHCHECK --interval=15s --timeout=3s --retries=12 \
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
+HEALTHCHECK --interval=15s --timeout=3s --retries=12 \
+  CMD curl --silent --fail http://localhost:3000/api/health/check || exit 1

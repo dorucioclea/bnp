@@ -43,6 +43,7 @@ class SupplierRegistrationForm extends React.Component {
     });
 
     this.externalComponents = { SupplierRegistrationEditor };
+    this.setState({ i18n: this.context.i18n.register('SupplierRegistrationForm', locales) });
   }
 
   componentDidMount() {
@@ -66,6 +67,12 @@ class SupplierRegistrationForm extends React.Component {
 
   componentWillUnmount() {
     this.ignoreAjax = true;
+  }
+
+  componentWillReceiveProps(nextProps, nextContext){
+    if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
+      this.setState({ i18n: nextContext.i18n.register('SupplierRegistrationForm', locales) });
+    }
   }
 
   setCookieData(cname, cvalue, exdays) {
@@ -121,10 +128,10 @@ class SupplierRegistrationForm extends React.Component {
       supplierName: onboardData.tradingPartnerDetails.name,
       cityOfRegistration: onboardData.tradingPartnerDetails.city,
       countryOfRegistration: onboardData.tradingPartnerDetails.country,
-      taxId: onboardData.tradingPartnerDetails.taxIdentNo,
-      vatRegNo: onboardData.tradingPartnerDetails.vatIdentNo,
+      taxIdentificationNo: onboardData.tradingPartnerDetails.taxIdentNo,
+      vatIdentificationNo: onboardData.tradingPartnerDetails.vatIdentNo,
       dunsNo: onboardData.tradingPartnerDetails.dunsNo,
-      registrationNumber: onboardData.tradingPartnerDetails.commercialRegisterNo
+      commercialRegisterNo: onboardData.tradingPartnerDetails.commercialRegisterNo
     };
   }
 
@@ -149,25 +156,23 @@ class SupplierRegistrationForm extends React.Component {
     let userInfo = this.props.currentUserData;
 
     if (userInfo.supplierid) {
-      return <p>Supplier Already Exist!</p>
+      return <p>{this.state.i18n.getMessage('RegistrationForm.supplierExists')}</p>
     }
-    
+
     return (
-      <I18nBundle locale={userInfo.locale} formatInfos={this.context.formatPatterns}>
-        <SupplierRegistrationEditor
-          key='company'
-          onUnauthorized={this.handleUnauthorized}
-          actionUrl={this.context.simPublicUrl}
-          locale={this.context.i18n.locale}
-          username={userInfo.id}
-          dateTimePattern={this.context.dateTimePattern}
-          onChange={this.handleDirtyState}
-          onUpdate={this.handleSupplierUpdate}
-          onLogout={this.handleLogout}
-          supplier={this.handleGetSupplierData() || {}}
-          user={this.userData()}
-        />
-      </I18nBundle>
+      <SupplierRegistrationEditor
+        key='company'
+        onUnauthorized={this.handleUnauthorized}
+        actionUrl={this.context.simPublicUrl}
+        locale={this.context.i18n.locale}
+        username={userInfo.id}
+        dateTimePattern={this.context.dateTimePattern}
+        onChange={this.handleDirtyState}
+        onUpdate={this.handleSupplierUpdate}
+        onLogout={this.handleLogout}
+        supplier={this.handleGetSupplierData() || {}}
+        user={this.userData()}
+      />
     )
   }
 }

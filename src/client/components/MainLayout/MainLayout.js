@@ -2,6 +2,7 @@ import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import { HeaderMenu, SidebarMenu } from 'ocbesbn-react-components';
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
+import locales from './i18n/locales.js';
 
 class MainLayout extends React.Component {
 
@@ -20,20 +21,16 @@ class MainLayout extends React.Component {
     i18n: React.PropTypes.object,
     formatPatterns: React.PropTypes.object,
     dateTimePattern: React.PropTypes.string,
-    setLocale: React.PropTypes.func
   }
 
-  onLanguageChange = (key, event, test) => {
-    let lang = ['de', 'en'];
-    let language = ['German', 'English']
-    let locale = lang[key - 1];
-    let activeLanguage = language[key - 1];
-    console.log(locale);
-    this.setState({
-      ...this.state,
-      activeLanguage: activeLanguage
-    })
-    this.context.setLocale(locale)
+  componentWillMount() {
+    this.setState({ i18n: this.context.i18n.register('MainLayout', locales) });
+  }
+
+  componentWillReceiveProps(nextProps, nextContext){
+    if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
+      this.setState({ i18n: nextContext.i18n.register('MainLayout', locales) });
+    }
   }
 
   renderHeader(isOnboarding) {
@@ -80,25 +77,11 @@ class MainLayout extends React.Component {
                   opacity: "0.75"
                 }}
               >
-                Welcome to OpusCapita<br/> Supplier Onboarding
+                {this.state.i18n.getMessage('MainLayout.header.welcome')}
+                <br/>
+                {this.state.i18n.getMessage('MainLayout.header.supplierOnboarding')}
               </p>
             </div>
-
-
-            <ul className="nav navbar-nav navbar-right">
-              <Dropdown id="dropdown-custom-1">
-                <Dropdown.Toggle>
-                  <Glyphicon glyph="star" />
-                  {this.state.activeLanguage}
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="super-colors" onSelect={this.onLanguageChange}>
-                  <MenuItem eventKey="1">German</MenuItem>
-                  <MenuItem eventKey="2">English</MenuItem>
-                  {/*<MenuItem divider={true} />
-                  <MenuItem eventKey="4">Separated link</MenuItem>*/}
-                </Dropdown.Menu>
-              </Dropdown>
-            </ul>
           </div>
         </nav>
       )
