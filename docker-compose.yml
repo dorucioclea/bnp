@@ -5,7 +5,9 @@ services:
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
       - mysql
       - supplier
+      - customer
       - consul
+      - blob
     labels:
       SERVICE_NAME: 'bnp'
     environment:
@@ -69,6 +71,46 @@ services:
       CLIENT_SECRET: $CLIENT_SECRET
       SCOPE: $SCOPE
     command: 'npm run dev'
+
+  customer:
+    image: opuscapita/customer:dev
+    depends_on:
+      - mysql
+      - consul
+      - registrator
+      - redis
+    labels:
+      SERVICE_NAME: 'customer'
+    environment:
+      SERVICE_3009_CHECK_HTTP: /api/health/check
+      SERVICE_3009_CHECK_INTERVAL: 15s
+      SERVICE_3009_CHECK_TIMEOUT: 3s
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      REDIS_AUTH: ${REDIS_AUTH}
+    ports:
+      - '3009:3009'
+    command: 'npm run dev'
+
+  blob:
+    image: opuscapita/blob:dev
+    depends_on:
+     - mysql
+     - consul
+     - registrator
+    labels:
+      SERVICE_NAME: 'blob'
+    extra_hosts:
+     - 'consul:${HOST_IP}'
+    environment:
+      HOST_IP: ${HOST_IP}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      BLOB_KEY : ${BLOB_KEY}
+      BLOB_ACCOUNT: ${BLOB_ACCOUNT}
+    ports:
+     - '3012:3012'
+    command: "npm run dev"
 
   postgres:
     image: postgres:9.4
@@ -164,6 +206,10 @@ services:
       CLIENT_KEY: $CLIENT_KEY
       CLIENT_SECRET: $CLIENT_SECRET
       SCOPE: $SCOPE
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
     depends_on:
       - kong
     command: 'npm run dev'
@@ -269,6 +315,7 @@ services:
       CLIENT_KEY: $CLIENT_KEY
       CLIENT_SECRET: $CLIENT_SECRET
       SCOPE: $SCOPE
+      REDIS_AUTH: ${REDIS_AUTH}
     command: 'npm run dev'
 
   acl:
