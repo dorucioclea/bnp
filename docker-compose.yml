@@ -5,9 +5,9 @@ services:
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
       - mysql
       - supplier
+      - customer
       - consul
       - blob
-      - customer
     labels:
       SERVICE_NAME: 'bnp'
     environment:
@@ -97,6 +97,26 @@ services:
     ports:
       - '3009:3009'
     command: 'npm run dev'
+
+  blob:
+    image: opuscapita/blob:dev
+    depends_on:
+     - mysql
+     - consul
+     - registrator
+    labels:
+      SERVICE_NAME: 'blob'
+    extra_hosts:
+     - 'consul:${HOST_IP}'
+    environment:
+      HOST_IP: ${HOST_IP}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      BLOB_KEY : ${BLOB_KEY}
+      BLOB_ACCOUNT: ${BLOB_ACCOUNT}
+    ports:
+     - '3012:3012'
+    command: "npm run dev"
 
   postgres:
     image: postgres:9.4
@@ -199,6 +219,10 @@ services:
       SERVICE_3005_CHECK_HTTP: /auth/certs
       SERVICE_3005_CHECK_INTERVAL: 15s
       SERVICE_3005_CHECK_TIMEOUT: 3s
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
     depends_on:
       - kong
     command: 'npm run dev'
@@ -310,6 +334,7 @@ services:
       SERVICE_3007_CHECK_HTTP: /api/health/check
       SERVICE_3007_CHECK_INTERVAL: 15s
       SERVICE_3007_CHECK_TIMEOUT: 3s
+      REDIS_AUTH: ${REDIS_AUTH}
     command: 'npm run dev'
 
   acl:
