@@ -6,6 +6,8 @@ services:
       - mysql
       - supplier
       - consul
+      - blob
+      - customer
     labels:
       SERVICE_NAME: 'bnp'
     environment:
@@ -18,32 +20,35 @@ services:
     ports:
       - '3000:3000'
 
-#  onboarding:
-#    image: opuscapita/onboarding:dev
-##    build: ../onboarding
-#    volumes:
-##      - .:/home/node/onboarding
-#      - ../react-components:/var/tmp/base/node_modules/ocbesbn-react-components
-#    environment:
-#      APPLICATION_NAME: 'onboarding'
-#      NODE_ENV: $NODE_ENV
-#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-#      MYSQL_DATABASE: ${MYSQL_DATABASE}
-#      EXTERNAL_HOST: 52.174.28.41
-#      EXTERNAL_PORT: 8080
-#      REDIS_AUTH: ${REDIS_AUTH}
-#      HOST_IP: ${HOST_IP}
-#    depends_on:
-#      - redis
-#      - registrator
-#    labels:
-#      - 'SERVICE_NAME=onboarding'
-#      - 'SERVICE_TAGS=external,kong'
-#    extra_hosts:
-#      - 'consul:${HOST_IP}'
-#    ports:
-#      - '3002:3002'
-#    command: 'npm run dev'
+  onboarding:
+    image: opuscapita/onboarding:dev
+#    build: ../onboarding
+    volumes:
+#      - .:/home/node/onboarding
+      - ../react-components:/var/tmp/base/node_modules/ocbesbn-react-components
+    environment:
+      APPLICATION_NAME: 'onboarding'
+      NODE_ENV: $NODE_ENV
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      EXTERNAL_HOST: 52.174.28.41
+      EXTERNAL_PORT: 8080
+      REDIS_AUTH: ${REDIS_AUTH}
+      HOST_IP: ${HOST_IP}
+      SERVICE_3002_CHECK_HTTP: /api/health/check
+      SERVICE_3002_CHECK_INTERVAL: 15s
+      SERVICE_3002_CHECK_TIMEOUT: 3s
+    depends_on:
+      - redis
+      - registrator
+    labels:
+      - 'SERVICE_NAME=onboarding'
+      - 'SERVICE_TAGS=external,kong'
+    extra_hosts:
+      - 'consul:${HOST_IP}'
+    ports:
+      - '3002:3002'
+    command: 'npm run dev'
 
   supplier:
     image: opuscapita/supplier:dev
@@ -68,6 +73,29 @@ services:
       CLIENT_KEY: $CLIENT_KEY
       CLIENT_SECRET: $CLIENT_SECRET
       SCOPE: $SCOPE
+      SERVICE_3001_CHECK_HTTP: /api/health/check
+      SERVICE_3001_CHECK_INTERVAL: 15s
+      SERVICE_3001_CHECK_TIMEOUT: 3s
+    command: 'npm run dev'
+
+  customer:
+    image: opuscapita/customer:dev
+    depends_on:
+      - mysql
+      - consul
+      - registrator
+      - redis
+    labels:
+      SERVICE_NAME: 'customer'
+    environment:
+      SERVICE_3009_CHECK_HTTP: /api/health/check
+      SERVICE_3009_CHECK_INTERVAL: 15s
+      SERVICE_3009_CHECK_TIMEOUT: 3s
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      REDIS_AUTH: ${REDIS_AUTH}
+    ports:
+      - '3009:3009'
     command: 'npm run dev'
 
   postgres:
@@ -81,6 +109,7 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     depends_on:
       - registrator
+
   user:
     image: opuscapita/user:dev
 #    build: ../user
@@ -101,6 +130,9 @@ services:
       CLIENT_KEY: $CLIENT_KEY
       CLIENT_SECRET: $CLIENT_SECRET
       SCOPE: $SCOPE
+      SERVICE_3008_CHECK_HTTP: /api/health/check
+      SERVICE_3008_CHECK_INTERVAL: 15s
+      SERVICE_3008_CHECK_TIMEOUT: 3s
     ports:
       - '3008:3008'
     command: 'npm run dev'
@@ -164,6 +196,9 @@ services:
       CLIENT_KEY: $CLIENT_KEY
       CLIENT_SECRET: $CLIENT_SECRET
       SCOPE: $SCOPE
+      SERVICE_3005_CHECK_HTTP: /auth/certs
+      SERVICE_3005_CHECK_INTERVAL: 15s
+      SERVICE_3005_CHECK_TIMEOUT: 3s
     depends_on:
       - kong
     command: 'npm run dev'
@@ -249,6 +284,9 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       PORT: '3006'
+      SERVICE_3006_CHECK_HTTP: /api/health/check
+      SERVICE_3006_CHECK_INTERVAL: 15s
+      SERVICE_3006_CHECK_TIMEOUT: 3s
     command: 'npm run dev'
 
   einvoice-send:
@@ -269,6 +307,9 @@ services:
       CLIENT_KEY: $CLIENT_KEY
       CLIENT_SECRET: $CLIENT_SECRET
       SCOPE: $SCOPE
+      SERVICE_3007_CHECK_HTTP: /api/health/check
+      SERVICE_3007_CHECK_INTERVAL: 15s
+      SERVICE_3007_CHECK_TIMEOUT: 3s
     command: 'npm run dev'
 
   acl:
@@ -279,6 +320,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+      SERVICE_3013_CHECK_HTTP: /api/health/check
+      SERVICE_3013_CHECK_INTERVAL: 15s
+      SERVICE_3013_CHECK_TIMEOUT: 3s
     ports:
      - '3013:3013'
     depends_on:
@@ -302,3 +346,26 @@ services:
     labels:
       SERVICE_IGNORE: 'true'  # Do not add any of Consul's services to Consul's service discovery registry.
     command: [agent, '-server', '-ui', '-bootstrap', '-client=0.0.0.0']
+
+  blob:
+    image: opuscapita/blob:dev
+    depends_on:
+     - mysql
+     - consul
+     - registrator
+    labels:
+      SERVICE_NAME: 'blob'
+    extra_hosts:
+     - 'consul:${HOST_IP}'
+    environment:
+      HOST_IP: ${HOST_IP}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      BLOB_KEY : ${BLOB_KEY}
+      BLOB_ACCOUNT: ${BLOB_ACCOUNT}
+      SERVICE_3012_CHECK_HTTP: /api/health/check
+      SERVICE_3012_CHECK_INTERVAL: 15s
+      SERVICE_3012_CHECK_TIMEOUT: 3s
+    ports:
+     - '3012:3012'
+    command: "npm run dev"
