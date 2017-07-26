@@ -20,35 +20,35 @@ services:
     ports:
       - '3000:3000'
 
-  onboarding:
-    image: opuscapita/onboarding:dev
-#    build: ../onboarding
-    volumes:
-#      - .:/home/node/onboarding
-      - ../react-components:/var/tmp/base/node_modules/ocbesbn-react-components
-    environment:
-      APPLICATION_NAME: 'onboarding'
-      NODE_ENV: $NODE_ENV
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      EXTERNAL_HOST: 52.174.28.41
-      EXTERNAL_PORT: 8080
-      REDIS_AUTH: ${REDIS_AUTH}
-      HOST_IP: ${HOST_IP}
-      SERVICE_3002_CHECK_HTTP: /api/health/check
-      SERVICE_3002_CHECK_INTERVAL: 15s
-      SERVICE_3002_CHECK_TIMEOUT: 3s
-    depends_on:
-      - redis
-      - registrator
-    labels:
-      - 'SERVICE_NAME=onboarding'
-      - 'SERVICE_TAGS=external,kong'
-    extra_hosts:
-      - 'consul:${HOST_IP}'
-    ports:
-      - '3002:3002'
-    command: 'npm run dev'
+#  onboarding:
+#    image: opuscapita/onboarding:dev
+##    build: ../onboarding
+#    volumes:
+##      - .:/home/node/onboarding
+#      - ../react-components:/var/tmp/base/node_modules/ocbesbn-react-components
+#    environment:
+#      APPLICATION_NAME: 'onboarding'
+#      NODE_ENV: $NODE_ENV
+#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#      MYSQL_DATABASE: ${MYSQL_DATABASE}
+#      EXTERNAL_HOST: 52.174.28.41
+#      EXTERNAL_PORT: 8080
+#      REDIS_AUTH: ${REDIS_AUTH}
+#      HOST_IP: ${HOST_IP}
+#      SERVICE_3002_CHECK_HTTP: /api/health/check
+#      SERVICE_3002_CHECK_INTERVAL: 15s
+#      SERVICE_3002_CHECK_TIMEOUT: 3s
+#    depends_on:
+#      - redis
+#      - registrator
+#    labels:
+#      - 'SERVICE_NAME=onboarding'
+#      - 'SERVICE_TAGS=external,kong'
+#    extra_hosts:
+#      - 'consul:${HOST_IP}'
+#    ports:
+#      - '3002:3002'
+#    command: 'npm run dev'
 
   supplier:
     image: opuscapita/supplier:dev
@@ -316,29 +316,29 @@ services:
       SERVICE_3006_CHECK_TIMEOUT: 3s
     command: 'npm run dev'
 
-  einvoice-send:
-    image: opuscapita/einvoice-send:dev
-    ports:
-      - '3007:3007'
-    depends_on:
-      - consul
-      - mysql
-    labels:
-      SERVICE_NAME: einvoice-send
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      PORT: '3007'
-      USER_NAME: 'svc_einvoice-send'
-      PASSWORD: 'test'
-      CLIENT_KEY: $CLIENT_KEY
-      CLIENT_SECRET: $CLIENT_SECRET
-      SCOPE: $SCOPE
-      SERVICE_3007_CHECK_HTTP: /api/health/check
-      SERVICE_3007_CHECK_INTERVAL: 15s
-      SERVICE_3007_CHECK_TIMEOUT: 3s
-      REDIS_AUTH: ${REDIS_AUTH}
-    command: 'npm run dev'
+#  einvoice-send:
+#    image: opuscapita/einvoice-send:dev
+#    ports:
+#      - '3007:3007'
+#    depends_on:
+#      - consul
+#      - mysql
+#    labels:
+#      SERVICE_NAME: einvoice-send
+#    environment:
+#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#      MYSQL_DATABASE: ${MYSQL_DATABASE}
+#      PORT: '3007'
+#      USER_NAME: 'svc_einvoice-send'
+#      PASSWORD: 'test'
+#      CLIENT_KEY: $CLIENT_KEY
+#      CLIENT_SECRET: $CLIENT_SECRET
+#      SCOPE: $SCOPE
+#      SERVICE_3007_CHECK_HTTP: /api/health/check
+#      SERVICE_3007_CHECK_INTERVAL: 15s
+#      SERVICE_3007_CHECK_TIMEOUT: 3s
+#      REDIS_AUTH: ${REDIS_AUTH}
+#    command: 'npm run dev'
 
   acl:
     image: opuscapita/acl:dev
