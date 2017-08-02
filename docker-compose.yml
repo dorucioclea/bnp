@@ -5,10 +5,13 @@ services:
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
       - mysql
       - supplier
+      - customer
       - consul
+      - blob
     labels:
       SERVICE_NAME: 'bnp'
     environment:
+      SERVICE_3008_NAME: bnp
       SERVICE_3000_CHECK_HTTP: /api/health/check
       SERVICE_3000_CHECK_INTERVAL: 15s
       SERVICE_3000_CHECK_TIMEOUT: 3s
@@ -75,6 +78,49 @@ services:
       SERVICE_3001_CHECK_TIMEOUT: 3s
     command: 'npm run dev'
 
+  customer:
+    image: opuscapita/customer:dev
+    depends_on:
+      - mysql
+      - consul
+      - registrator
+      - redis
+    labels:
+      SERVICE_NAME: 'customer'
+    environment:
+      SERVICE_3009_CHECK_HTTP: /api/health/check
+      SERVICE_3009_CHECK_INTERVAL: 15s
+      SERVICE_3009_CHECK_TIMEOUT: 3s
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      REDIS_AUTH: ${REDIS_AUTH}
+    ports:
+      - '3009:3009'
+    command: 'npm run dev'
+
+  blob:
+    image: opuscapita/blob:dev
+    depends_on:
+     - mysql
+     - consul
+     - registrator
+    labels:
+      SERVICE_NAME: 'blob'
+    extra_hosts:
+     - 'consul:${HOST_IP}'
+    environment:
+      HOST_IP: ${HOST_IP}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      BLOB_KEY : ${BLOB_KEY}
+      BLOB_ACCOUNT: ${BLOB_ACCOUNT}
+      SERVICE_3012_CHECK_HTTP: /api/health/check
+      SERVICE_3012_CHECK_INTERVAL: 15s
+      SERVICE_3012_CHECK_TIMEOUT: 3s
+    ports:
+     - '3012:3012'
+    command: "npm run dev"
+
   postgres:
     image: postgres:9.4
     container_name: postgres
@@ -86,6 +132,7 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     depends_on:
       - registrator
+
   user:
     image: opuscapita/user:dev
 #    build: ../user
@@ -179,6 +226,7 @@ services:
       SERVICE_3005_CHECK_HTTP: /auth/certs
       SERVICE_3005_CHECK_INTERVAL: 15s
       SERVICE_3005_CHECK_TIMEOUT: 3s
+
     depends_on:
       - kong
     command: 'npm run dev'
@@ -267,6 +315,9 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       PORT: '3006'
+      SERVICE_3006_CHECK_HTTP: /api/health/check
+      SERVICE_3006_CHECK_INTERVAL: 15s
+      SERVICE_3006_CHECK_TIMEOUT: 3s
     command: 'npm run dev'
 
   einvoice-send:
@@ -301,7 +352,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-
+      SERVICE_3013_CHECK_HTTP: /api/health/check
+      SERVICE_3013_CHECK_INTERVAL: 15s
+      SERVICE_3013_CHECK_TIMEOUT: 3s
     ports:
      - '3013:3013'
     depends_on:
