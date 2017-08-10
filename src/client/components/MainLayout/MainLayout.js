@@ -1,6 +1,6 @@
 import React from 'react';
 import connect from 'react-redux/lib/components/connect';
-import { HeaderMenu, SidebarMenu } from 'ocbesbn-react-components';
+import { HeaderMenu, SidebarMenu } from '@opuscapita/react-menus';
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 import locales from './i18n/locales.js';
 

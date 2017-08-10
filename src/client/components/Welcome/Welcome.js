@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
-import { SidebarMenu } from 'ocbesbn-react-components';
+import { SidebarMenu } from '@opuscapita/react-menus';
 import browserHistory from 'react-router/lib/browserHistory';
 import ajax from 'superagent-bluebird-promise';
 import connect from 'react-redux/lib/components/connect';
