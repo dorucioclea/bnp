@@ -1,4 +1,3 @@
-import Polyfill from 'babel-es6-polyfill'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from 'react-router/lib/Router';

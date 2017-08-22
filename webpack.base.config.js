@@ -4,7 +4,7 @@ const Config = require('webpack-config').default;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = new Config().merge({
-  entry: './src/client/components/ReactRouter.js',
+  entry: ['babel-polyfill', './src/client/components/ReactRouter.js'],
 
   // exclude empty dependencies, require for Joi
   node: {
