@@ -21,6 +21,7 @@ ApplicationFormButton.sendToCustomer = 'Bearbeitung abschlie\u00dfen und um Frei
 ApplicationFormButton.sendToCustomerConfirmation = 'Wollen Sie die Bearbeitung Ihrer Daten wirklich ' +
   'abschlie\u00dfen? Sobald Sie die Daten zur Freigabe senden, ist keine weitere Bearbeitung mehr m\u00f6glich!';
 ApplicationFormButton.backToList = 'Zur\u00fcck zur \u00dcbersicht';
+ApplicationFormButton.backToServiceConfig = 'Zur\u00fcck zur Service-Konfiguration';
 
 let ApplicationFormLabel = {
   rejectionReason: {}

@@ -7,6 +7,7 @@ import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import Button from 'react-bootstrap/lib/Button';
+import Alert from 'react-bootstrap/lib/Alert';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
@@ -118,7 +119,11 @@ class SupplierApplicationForm extends React.Component {
   renderBackUrlLink = () => {
     if (!this.props.location.query.backUrl) return null;
 
-    return <Button bsStyle='link' onClick={this.handleBackUrlClick} >Back</Button>
+    return (
+      <Alert bsStyle='info'>
+        <Button bsStyle='link' onClick={this.handleBackUrlClick} >{this.context.i18n.getMessage('ApplicationFormButton.backToServiceConfig')}</Button>
+      </Alert>
+    );
   };
 
   render() {
