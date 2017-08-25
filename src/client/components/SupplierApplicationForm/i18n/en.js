@@ -20,6 +20,7 @@ ApplicationFormButton.sendToCustomer = 'Finish data entry and request approval';
 ApplicationFormButton.sendToCustomerConfirmation = 'Do you really want to finish data entry? ' +
   'As soon as you send the data for approval, no more editing will be possible.';
 ApplicationFormButton.backToList = 'Back to list';
+ApplicationFormButton.backToServiceConfig = 'Back to service configuration';
 
 let ApplicationFormLabel = {
   rejectionReason: {}

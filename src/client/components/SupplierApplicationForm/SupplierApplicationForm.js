@@ -6,6 +6,8 @@ import locales from './i18n/locales.js';
 import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
+import Button from 'react-bootstrap/lib/Button';
+import Alert from 'react-bootstrap/lib/Alert';
 import connect from 'react-redux/lib/components/connect';
 import { setCurrentUserInfo } from './../../redux/actions.js';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
@@ -110,6 +112,20 @@ class SupplierApplicationForm extends React.Component {
     browserHistory.push(`${window.simContextPath}/login`);
   };
 
+  handleBackUrlClick = () => {
+    window.location.replace(`${window.simPublicUrl}${this.props.location.query.backUrl}`)
+  };
+
+  renderBackUrlLink = () => {
+    if (!this.props.location.query.backUrl) return null;
+
+    return (
+      <Alert bsStyle='info'>
+        <Button bsStyle='link' onClick={this.handleBackUrlClick} >{this.context.i18n.getMessage('ApplicationFormButton.backToServiceConfig')}</Button>
+      </Alert>
+    );
+  };
+
   render() {
     let userInfo = this.props.currentUserData;
 
@@ -175,6 +191,7 @@ class SupplierApplicationForm extends React.Component {
 
     return (
       <div>
+        {this.renderBackUrlLink()}
         <Tabs id="supplierTabs" activeKey={this.state.tabKey} onSelect={this.handleSelect}>
           <Tab eventKey={1} title={this.state.i18n.getMessage('ApplicationFormTab.company')}>
             {company}
