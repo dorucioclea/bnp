@@ -29,7 +29,7 @@
   "readme": "README.md",
   "dependencies": {
     "@opuscapita/react-loaders": "^0.1.5",
-    "@opuscapita/react-menus": "^1.0.1",
+    "@opuscapita/react-menus": "^1.0.3",
     "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.0",
     "cross-env": "^4.0.0",
