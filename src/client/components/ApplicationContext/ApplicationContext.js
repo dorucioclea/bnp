@@ -1,7 +1,7 @@
 import httpResponseHandler from '../../httpResponseHandler';
 import React from 'react';
 import connect from 'react-redux/lib/components/connect';
-import I18nManager from 'opuscapita-i18n/lib/utils/I18nManager';
+import { I18nManager } from '@opuscapita/i18n';
 import locales from './../i18n/locales';
 import { changeUserLanguage } from './../../redux/actions.js';
 import validateMessages from './i18n';

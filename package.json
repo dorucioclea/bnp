@@ -28,6 +28,7 @@
   "license": "jCatalog",
   "readme": "README.md",
   "dependencies": {
+    "@opuscapita/i18n": "^1.1.0",
     "@opuscapita/react-loaders": "^0.1.5",
     "@opuscapita/react-menus": "^1.0.3",
     "babel-polyfill": "^6.26.0",
@@ -52,7 +53,6 @@
     "ocbesbn-db-init": "^1.1.10",
     "ocbesbn-web-init": "^2.2.2",
     "on-headers": "1.0.1",
-    "opuscapita-i18n": "^1.0.12",
     "passport": "0.3.2",
     "passport-local": "1.0.0",
     "react": "^15.4.2",
