@@ -2,6 +2,7 @@ version: '3'
 services:
   main:
     build: .
+    image: opuscapita/bnp:dev
     volumes:
      - .:/home/node/bnp
     command: 'npm run dev'
