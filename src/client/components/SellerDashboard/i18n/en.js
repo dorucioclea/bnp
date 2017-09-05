@@ -10,8 +10,7 @@ connections.notConnectedStatus = 'Not Connected';
 connections.connectingStatus = 'Connecting';
 connections.connectedStatus = 'Connected';
 connections.loading = 'Loading...';
-connections.content = 'Save by connecting additional services offered by the Business Network.' +
-  ' This will allow you to benefit from synergies and give you a central management console for all your documents.';
+connections.content = 'By connecting additional services offered by the business network, you can benefit from synergies and provide you with a central management console for all your documents.'
 
 export default {
   SellerDashboard: {
