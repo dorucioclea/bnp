@@ -13,7 +13,14 @@ class ApplicationContext extends React.Component {
     super(props);
     console.log("ReMounting : ", props.currentUserData.languageid)
     const locale = props.currentUserData.languageid || 'en';
-    const i18n = new I18nManager(locale, validateMessages, formatPatterns);
+
+    const i18n = new I18nManager({
+        locale: locale,
+        fallbackLocale: 'en',
+        localeFormattingInfo: formatPatterns
+    });
+
+    i18n.register('validatejs', validateMessages);
     i18n.register('Common', locales);
 
     this.state = {
@@ -56,7 +63,15 @@ class ApplicationContext extends React.Component {
   }
 
   setLocale = (locale) => {
-    let i18n = new I18nManager(locale, validateMessages, formatPatterns);
+    let i18n =  new I18nManager({
+        locale: locale,
+        fallbackLocale: 'en',
+        localeFormattingInfo: formatPatterns
+    });
+
+    i18n.register('validatejs', validateMessages);
+    i18n.register('Common', locales);
+
     this.props.dispatch(changeUserLanguage({
       ...this.props.currentUserData,
      locale: locale
