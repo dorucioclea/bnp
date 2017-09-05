@@ -10,7 +10,7 @@ connections.notConnectedStatus = 'Nicht verbunden';
 connections.connectingStatus = 'Verbindend';
 connections.connectedStatus = 'Verbunden';
 connections.loading = 'Laden...';
-connections.content = 'Das Business Netzwerk erlaubt die Verwendung unterschiedlicher Dienste zur Anbindung Ihrer Dokumente. Profitieren Sie von Synergien und einer zentralen Managementkonsole.'
+connections.content = 'Das Business Netzwerk erlaubt die Verwendung unterschiedlicher Dienste zur elektronischen Vernetzung Ihrer Rechnungsdokumente und profitieren von den Synergien einer zentralen Managementkonsole.'
 
 export default {
   SellerDashboard: {
