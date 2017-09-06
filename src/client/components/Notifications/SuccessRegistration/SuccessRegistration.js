@@ -11,7 +11,7 @@ export default class SuccessRegistration extends React.Component {
   i18n = this.context.i18n.register('SuccessRegistration', locales);
 
   handleLogin() {
-    browserHistory.push(`${window.simContextPath}/login`);
+    browserHistory.push('/login');
   }
 
   render() {

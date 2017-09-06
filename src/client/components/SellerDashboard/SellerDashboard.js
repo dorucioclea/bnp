@@ -53,11 +53,11 @@ class SellerDashboard extends React.Component {
   }
 
   handleProfileClick() {
-    browserHistory.push(`${window.simContextPath}/supplierInformation`);
+    browserHistory.push('/supplierInformation');
   }
 
   handleConnectionClick() {
-    window.location.replace(`${window.simPublicUrl}/einvoice-send`)
+    window.location.replace(`${window.simPublicUrl}/einvoice-send`);
   }
 
   connectButton() {

@@ -103,7 +103,7 @@ class SupplierRegistrationForm extends React.Component {
     }));
 
     if (wasSupplierlessUser) {
-      browserHistory.push(`${window.simContextPath}/welcome`);
+      browserHistory.push('/welcome');
     }
   }
 
@@ -112,7 +112,7 @@ class SupplierRegistrationForm extends React.Component {
   };
 
   handleUnauthorized = () => {
-    browserHistory.push(`${window.simContextPath}/login`);
+    browserHistory.push('/login');
   };
 
   handleGetSupplierData = () => {

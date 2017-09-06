@@ -27,7 +27,7 @@ export default class SuccessConfirmation extends React.Component {
   i18n = this.context.i18n.register('SuccessConfirmation', locales)
 
   handleLogin = () => {
-    browserHistory.push(`${window.simContextPath}/login`);
+    browserHistory.push('/login');
   };
 
   render() {

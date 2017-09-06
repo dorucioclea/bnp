@@ -109,7 +109,7 @@ class SupplierApplicationForm extends React.Component {
   };
 
   handleUnauthorized = () => {
-    browserHistory.push(`${window.simContextPath}/login`);
+    browserHistory.push('/login');
   };
 
   handleBackUrlClick = () => {
