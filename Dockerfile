@@ -9,13 +9,13 @@ COPY package.json .
 # Make sure node can load modules from /var/tmp/base/node_modules
 # Setting NODE_ENV is necessary for "npm install" below.
 ENV NODE_ENV=development NODE_PATH=/var/tmp/base/node_modules PATH=${PATH}:${NODE_PATH}/.bin
-RUN npm set progress=false && npm install ; npm cache clean
+RUN yarn
 
 WORKDIR /home/node/bnp
 
 # Bundle app source by overwriting all WORKDIR content.
 COPY . tmp
-RUN cd tmp ; npm run build:client ; cd ..
+RUN cd tmp ; yarn run build:client ; cd ..
 
 # Change owner since COPY/ADD assignes UID/GID 0 to all copied content.
 RUN chown -Rf node:node tmp; rsync -a tmp/ ./ && rm -rf tmp

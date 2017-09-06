@@ -1,5 +1,5 @@
 import React from 'react';
-import I18nManager from 'opuscapita-i18n/lib/utils/I18nManager';
+import I18nManager from '@opuscapita/i18n';
 import messages from './i18n';
 
 export default class I18nBundle extends React.Component {
