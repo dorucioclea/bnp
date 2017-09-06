@@ -32,12 +32,12 @@ class SellerDashboard extends React.Component {
   }
 
   componentDidMount() {
-    const einvoicePromise = request.
-      get(`${this.context.simPublicUrl}/einvoice-send/api/config/inchannels/${this.props.currentUserData.supplierid}`).
-      set('Accept', 'application/json').
-      promise();
+    const einvoiceRequest = request.get(`${this.context.simPublicUrl}/einvoice-send/api/config/inchannels/${this.props.currentUserData.supplierid}`);
 
-    einvoicePromise.then(response => {
+    /* Do not use cache in request if browser is IE */
+    if (false || !!document.documentMode) einvoiceRequest.query({ cachebuster: Date.now().toString() });
+
+    einvoiceRequest.set('Accept', 'application/json').then(response => {
       if (response.body.status === 'activated') {
         this.setState({ connectStatus: 'Connected' });
       } else {
