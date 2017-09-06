@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from 'react-router/lib/Router';
 import Route from 'react-router/lib/Route';
+import { browserHistory, useRouterHistory } from 'react-router';
+import { createHistory } from 'history'
 import IndexRedirect from 'react-router/lib/IndexRedirect';
-import browserHistory from 'react-router/lib/browserHistory';
 import ajax from 'superagent-bluebird-promise';
 import MainLayout from './MainLayout';
 import SellerDashboard from './SellerDashboard';
@@ -41,6 +42,8 @@ const BUYING_ROLE = 'buying';
 const SELLING_ROLE = 'selling';
 const ADMIN_ROLE = 'admin';
 
+const history = useRouterHistory(createHistory)({ basename: '/bnp'});
+
 function getInitialCurrentUserInfo() {
   let initialState =  window.currentUserData;
   initialState.locale = 'en';
@@ -62,11 +65,11 @@ function companyRoleInterceptor(nextState, replace) {
   const currentUserData = getCurrentUserInfo();
 
   if (!currentUserData.supplierid && !currentUserData.customerid && currentUserData.roles.indexOf(ADMIN_ROLE) < 0) {
-    replace(`${window.simContextPath}/supplierRegistration`);
+    replace('/supplierRegistration');
   } else if (currentUserData.companyRole === BUYING_ROLE || currentUserData.customerid) {
-    replace(`${window.simContextPath}/buyerDashboard`);
+    replace('/buyerDashboard');
   } else if (currentUserData.companyRole === SELLING_ROLE || currentUserData.supplierid) {
-    replace(`${window.simContextPath}/sellerDashboard`);
+    replace('/sellerDashboard');
   }
 }
 
@@ -82,7 +85,7 @@ function handleShowWelcomePage(nextState, replace, callback) {
         var userProfile = JSON.parse(res.text);
         var showWelcomePage = userProfile && userProfile.showWelcomePage;
 
-        const welcomePagePath = `${window.simContextPath}/welcome`;
+        const welcomePagePath = '/welcome';
         if (showWelcomePage && nextState.location.pathname !== welcomePagePath) {
           replace(welcomePagePath);
         }
@@ -96,120 +99,120 @@ function handleShowWelcomePage(nextState, replace, callback) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Route
-        path={window.simRootContextPath}
+        path="/"
         component={ApplicationContext}
         onEnter={handleShowWelcomePage}
       >
-        <IndexRedirect to={`${window.simContextPath}/dashboard`}/>
+        <IndexRedirect to={'/dashboard'}/>
         <Route
-          path={`${window.simContextPath}/welcome`}
+          path={'/welcome'}
           component={Welcome}
         />
-        <Route path={window.simRootContextPath} component={MainLayout}>
+    <Route path="/" component={MainLayout}>
           <Route
-            path={`${window.simContextPath}/supplierInformation`}
+            path={'/supplierInformation'}
             getComponent={(location, cb) => SupplierApplicationForm(location, cb)}
           />
           <Route
-            path={`${window.simContextPath}/supplierRegistration`}
+            path={'/supplierRegistration'}
             getComponent={(location, cb) => SupplierRegistrationForm(location, cb)}
           />
           <Route
-            path={`${window.simContextPath}/invoiceApproval`}
+            path={'/invoiceApproval'}
             component={InvoiceApproval}
           />
           <Route
-            path={`${window.simContextPath}/invoiceInspect`}
+            path={'/invoiceInspect'}
             component={InvoiceInspect}
           />
           <Route
-            path={`${window.simContextPath}/invoice/create`}
+            path={'/invoice/create'}
             component={InvoiceCreate}
           />
           <Route
-            path={`${window.simContextPath}/invoice/create/po(/:POId)`}
+            path={'/invoice/create/po(/:POId)'}
             component={InvoiceCreate}
           />
           <Route
-            path={`${window.simContextPath}/invoice/create/pdf(/:step)`}
+            path={'/invoice/create/pdf(/:step)'}
             component={InvoiceCreate}
           />
           <Route
-            path={`${window.simContextPath}/shippingNotice`}
+            path={'/shippingNotice'}
             component={ShippingNotice}
           />
           <Route
-            path={`${window.simContextPath}/otherDocuments`}
+            path={'/otherDocuments'}
             component={OtherDocuments}
           />
           <Route
-            path={`${window.simContextPath}/companyInformation`}
+            path={'/companyInformation'}
             component={CompanyInformation}
           />
           <Route
-            path={`${window.simContextPath}/createRfQ`}
+            path={'/createRfQ'}
             component={CreateRfQ}
           />
           <Route
-            path={`${window.simContextPath}/viewRfQs`}
+            path={'/viewRfQs'}
             component={ViewRfQs}
           />
           <Route
-            path={`${window.simContextPath}/inspectRfQ`}
+            path={'/inspectRfQ'}
             component={InspectRfQ}
           />
           <Route
-            path={`${window.simContextPath}/supplierDirectory`}
+            path={'/supplierDirectory'}
             component={SupplierDirectory}
           />
           <Route
-            path={`${window.simContextPath}/supplierRating`}
+            path={'/supplierRating'}
             component={SupplierRating}
           />
           <Route
-            path={`${window.simContextPath}/disputeManagement`}
+            path={'/disputeManagement'}
             component={DisputeManagement}
           />
           <Route
-            path={`${window.simContextPath}/products`}
+            path={'/products'}
             component={Products}
           />
           <Route
-            path={`${window.simContextPath}/orderHistory`}
+            path={'/orderHistory'}
             component={OrderHistory}
           />
           <Route
-            path={`${window.simContextPath}/orderConfirmation`}
+            path={'/orderConfirmation'}
             component={OrderConfirmation}
           />
           <Route
-            path={`${window.simContextPath}/orderInspect`}
+            path={'/orderInspect'}
             component={OrderInspect}
           />
           <Route
-            path={`${window.simContextPath}/settings`}
+            path={'/settings'}
             component={Settings}
           />
           <Route
-            path={`${window.simContextPath}/poDownload`}
+            path={'/poDownload'}
             component={PoDownload}
           />
           <Route
-            path={`${window.simContextPath}/dashboard`}
+            path={'/dashboard'}
             onEnter={companyRoleInterceptor}
           />
           <Route
-            path={`${window.simContextPath}/buyerDashboard`}
+            path={'/buyerDashboard'}
             component={BuyerDashboard}
           />
           <Route
-            path={`${window.simContextPath}/sellerDashboard`}
+            path={'/sellerDashboard'}
             component={SellerDashboard}
           />
-          <Route path={`${window.simContextPath}/accessDenied`} component={AccessDenied}/>
-          <Route path={`${window.simContextPath}/einvoice`} component={EInvoice}/>
+          <Route path={'/accessDenied'} component={AccessDenied}/>
+          <Route path={'/einvoice'} component={EInvoice}/>
         </Route>
       </Route>
     </Router>
