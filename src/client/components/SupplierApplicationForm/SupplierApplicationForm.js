@@ -3,7 +3,6 @@
 
 import React from 'react';
 import locales from './i18n/locales.js';
-import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import Button from 'react-bootstrap/lib/Button';
@@ -26,6 +25,7 @@ class SupplierApplicationForm extends React.Component {
     simPublicUrl: React.PropTypes.string,
     simUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
+    router: React.PropTypes.object
   };
 
   state = { tabKey: 1 };
@@ -109,7 +109,7 @@ class SupplierApplicationForm extends React.Component {
   };
 
   handleUnauthorized = () => {
-    browserHistory.push('/login');
+    this.context.router.push('/login');
   };
 
   handleBackUrlClick = () => {

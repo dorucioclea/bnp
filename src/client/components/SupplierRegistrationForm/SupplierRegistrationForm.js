@@ -4,7 +4,6 @@
 import React from 'react';
 import request from 'superagent-bluebird-promise';
 import locales from './i18n/locales.js'
-import browserHistory from 'react-router/lib/browserHistory';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import connect from 'react-redux/lib/components/connect';
@@ -26,6 +25,7 @@ class SupplierRegistrationForm extends React.Component {
     simPublicUrl: React.PropTypes.string,
     simUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
+    router: React.PropTypes.object
   }
 
   state = {
@@ -103,7 +103,7 @@ class SupplierRegistrationForm extends React.Component {
     }));
 
     if (wasSupplierlessUser) {
-      browserHistory.push('/welcome');
+      this.context.router.push('/welcome');
     }
   }
 
@@ -112,7 +112,7 @@ class SupplierRegistrationForm extends React.Component {
   };
 
   handleUnauthorized = () => {
-    browserHistory.push('/login');
+    this.context.router.push('/login');
   };
 
   handleGetSupplierData = () => {

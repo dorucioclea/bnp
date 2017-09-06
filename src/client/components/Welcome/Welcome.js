@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { SidebarMenu } from '@opuscapita/react-menus';
-import browserHistory from 'react-router/lib/browserHistory';
 import ajax from 'superagent-bluebird-promise';
 import connect from 'react-redux/lib/components/connect';
 import WelcomeCloseButton from './WelcomeCloseButton';
@@ -22,7 +21,8 @@ class Welcome extends Component {
   }
 
   static contextTypes = {
-    i18n: React.PropTypes.object
+    i18n: React.PropTypes.object,
+    router: React.PropTypes.object
   }
 
   getCustomerId = () => {
@@ -102,7 +102,7 @@ class Welcome extends Component {
                       <a
                         href="/einvoice-send"
                         onClick={e => {
-                          browserHistory.push('/einvoice-send');
+                          this.context.router.push('/einvoice-send');
                         }}
                       >
                         <Button bsStyle="primary" bsSize="lg">Start</Button>

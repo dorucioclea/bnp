@@ -1,17 +1,17 @@
 import React from 'react';
-import browserHistory from 'react-router/lib/browserHistory';
 import locales from './../../Registration/i18n/locales.js'
 
 export default class SuccessRegistration extends React.Component {
 
   static contextTypes = {
-    i18n: React.PropTypes.object
+    i18n: React.PropTypes.object,
+    router: React.PropTypes.object
   };
 
   i18n = this.context.i18n.register('SuccessRegistration', locales);
 
-  handleLogin() {
-    browserHistory.push('/login');
+  handleLogin = () => {
+    this.context.router.push('/login');
   }
 
   render() {
