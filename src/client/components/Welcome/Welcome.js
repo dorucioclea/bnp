@@ -14,7 +14,7 @@ class Welcome extends Component {
       showWelcomePage: true
     }
 
-    ajax.get('/user/users/current/profile')
+    ajax.get('/user/api/users/current/profile')
       .set('Content-Type', 'application/json')
       .then(res => JSON.parse(res.text))
       .then(res => this.setState({ showWelcomePage : res.showWelcomePage }));
@@ -30,7 +30,7 @@ class Welcome extends Component {
   }
 
   handleShowWelcomePage = (event) => {
-      return ajax.put('/user/users/current/profile')
+      return ajax.put('/user/api/users/current/profile')
         .set('Content-Type', 'application/json')
         .send({ showWelcomePage : !this.state.showWelcomePage })
         .then(() => this.setState({ showWelcomePage : !this.state.showWelcomePage }));

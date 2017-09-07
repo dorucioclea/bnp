@@ -80,7 +80,7 @@ function handleShowWelcomePage(nextState, replace, callback) {
   if (getCurrentUserInfo().supplierid && !sessionStorage.checked4WelcomePage) {
       sessionStorage.checked4WelcomePage = true;
 
-      ajax.get('/user/users/current/profile')
+      ajax.get('/user/api/users/current/profile')
       .then(res => {
         var userProfile = JSON.parse(res.text);
         var showWelcomePage = userProfile && userProfile.showWelcomePage;

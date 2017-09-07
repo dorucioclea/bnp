@@ -81,7 +81,7 @@ class ApplicationContext extends React.Component {
       locale: locale
     });
 
-    return request.put('/user/users/' + this.props.currentUserData.id + '/profile')
+    return request.put('/user/api/users/' + this.props.currentUserData.id + '/profile')
     .set('Content-Type', 'application/json')
     .send({
       languageId: locale
