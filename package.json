@@ -31,7 +31,7 @@
   "dependencies": {
     "@opuscapita/i18n": "^1.1.0",
     "@opuscapita/react-loaders": "^0.1.8",
-    "@opuscapita/react-menus": "^1.0.16",
+    "@opuscapita/react-menus": "^1.0.25",
     "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.0",
     "cross-env": "^4.0.0",
