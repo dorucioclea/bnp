@@ -2,6 +2,7 @@ version: '3'
 services:
   main:
     #restart: on-failure:5
+    build: .
     image: opuscapita/bnp:dev
     depends_on:  # as of version 1.9.0 Dockerfile's HEALTHCHECK is not supported yet.
       - mysql
@@ -291,7 +292,7 @@ services:
   #ELK stack
 
   mysql:
-    image: 'mysql:5.6'
+    image: 'mysql:5.7'
     ports:
       - '3306:3306'
     environment:

@@ -9,8 +9,10 @@ export default class BuyerDashboard extends React.Component
         i18n : React.PropTypes.object
     }
 
-    constructor()
+    constructor(props)
     {
+        super(props);
+        
         this.state = {
             change : false
         }
