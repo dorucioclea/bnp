@@ -28,7 +28,7 @@ class SupplierApplicationForm extends React.Component {
     httpResponseHandler: React.PropTypes.func,
   };
 
-  state = { tabKey: 1 };
+  state = { tabKey: 1, newNotification: false, clearNotification: false };
 
   componentWillMount() {
     let serviceRegistry = (service) => ({ url: `${this.context.simPublicUrl}/supplier` });
@@ -68,6 +68,8 @@ class SupplierApplicationForm extends React.Component {
   componentWillReceiveProps(nextProps, nextContext){
     if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
       this.setState({ i18n: nextContext.i18n.register('SupplierApplicationForm', locales) });
+      if(this.state.newNotification)
+        this.setState({ clearNotification: true });
     }
   }
 
@@ -104,9 +106,21 @@ class SupplierApplicationForm extends React.Component {
   handleSelect = tabKey => {
     if (!this.isDirty || this._confirmLeaveChangesUnsaved()) {
       this.isDirty = false;
-      this.setState({ tabKey });
+      if(this.state.newNotification && this.state.tabKey != tabKey)
+        this.setState({ tabKey:tabKey, clearNotification: true }, () => console.log("Tab selected : ", this.state));
+      else
+        this.setState({tabKey:tabKey}, () => console.log("Tab selected : ", this.state))
     }
+    
   };
+
+  newNotification = (value) => {
+    console.log("New notification created : ", value);
+    if(value)
+      this.setState({newNotification : true});
+    else
+      this.setState({newNotification : false, clearNotification: false});
+  }
 
   handleUnauthorized = () => {
     browserHistory.push(`${window.simContextPath}/login`);
@@ -173,6 +187,8 @@ class SupplierApplicationForm extends React.Component {
         locale={this.context.i18n.locale}
         username={userInfo.id}
         onChange={this.handleDirtyState}
+        newNotification={this.newNotification}
+        clearNotification={this.clearNotification}
       />
     );
 
