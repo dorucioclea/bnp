@@ -41,7 +41,7 @@ export default class ServerError extends React.Component {
         </div>
         <footer>
           <div className="container copyright text-center">
-            &copy; {this.i18n.getMessage('CommonMessages.jcatalogActivityTime')}&nbsp;
+            &copy; 2001 &mdash; {new Date().getFullYear()} &nbsp;&nbsp;
             <a href="http://www.opuscapita.com/" target="_blank">{this.i18n.getMessage('CommonMessages.jcatalog')}</a>
           </div>
         </footer>
