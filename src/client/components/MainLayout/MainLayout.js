@@ -1,6 +1,7 @@
 import React from 'react';
 import connect from 'react-redux/lib/components/connect';
 import { HeaderMenu, SidebarMenu } from '@opuscapita/react-menus';
+import NotificationSystem from 'react-notification-system';
 import { MenuItem, Dropdown, Glyphicon } from 'react-bootstrap';
 import locales from './i18n/locales.js';
 
@@ -20,7 +21,33 @@ class MainLayout extends React.Component {
   static contextTypes = {
     i18n: React.PropTypes.object,
     formatPatterns: React.PropTypes.object,
-    dateTimePattern: React.PropTypes.string,
+    dateTimePattern: React.PropTypes.string
+  }
+
+  static childContextTypes = {
+    showNotification: React.PropTypes.func,
+    hideNotification:  React.PropTypes.func
+  }
+
+  getChildContext(){
+    return {
+      showNotification: this.showNotification,
+      hideNotification: this.hideNotification
+    };
+  }
+
+  showNotification = (message, level = 'info', autoDismiss = 5, dismissible = true) => {
+    return this.renderNotification({
+      type: 'SHOW_NOTIFICATION',
+      message,
+      level,
+      autoDismiss,
+      dismissible
+    });
+  }
+
+  hideNotification = (notification) => {
+    return this.removeNotification(notification);
   }
 
   componentWillMount() {
@@ -31,6 +58,24 @@ class MainLayout extends React.Component {
     if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
       this.setState({ i18n: nextContext.i18n.register('MainLayout', locales) });
     }
+  }
+
+  renderNotification = (notification) => {
+    if(this.refs.notificationSystem && notification && notification.message && notification.message.length > 0)
+      {
+        //const translatedMessage = this.props.intl.formatMessage({ id: notification.message });
+        const translatedMessage = notification.message;
+        return this.refs.notificationSystem.addNotification({ ...notification, message: translatedMessage });
+      }
+
+    return false;
+  }
+
+  removeNotification = (notification) => {
+    if(this.refs.notificationSystem && notification)
+        return this.refs.notificationSystem.removeNotification(notification);
+
+    return false;
   }
 
   renderHeader(isOnboarding) {
@@ -189,6 +234,7 @@ class MainLayout extends React.Component {
         <section className="content" style={{ overflow: 'visible' }}>
           <HeaderMenu currentUserData={currentUserData} />
           {header}
+          <NotificationSystem ref="notificationSystem"/>
           <div className="content-wrap" style={{ paddingLeft: '250px' }}>
             {this.props.children}
           </div>
