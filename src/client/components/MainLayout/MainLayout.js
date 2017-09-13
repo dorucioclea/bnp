@@ -26,21 +26,26 @@ class MainLayout extends React.Component {
 
   static childContextTypes = {
     showNotification: React.PropTypes.func,
-    hideNotification:  React.PropTypes.func
+    hideNotification: React.PropTypes.func,
+    clearNotifications: React.PropTypes.func
   }
 
   getChildContext(){
     return {
       showNotification: this.showNotification,
-      hideNotification: this.hideNotification
+      hideNotification: this.hideNotification,
+      clearNotifications: this.clearNotifications
     };
   }
 
-  showNotification = (message, level = 'info', autoDismiss = 5, dismissible = true) => {
+  showNotification = (message, level, autoDismiss = 5, dismissible = true, position = 'tc') => {
+    if(!level){
+      level = 'info'
+    }
     return this.renderNotification({
-      type: 'SHOW_NOTIFICATION',
       message,
       level,
+      position,
       autoDismiss,
       dismissible
     });
@@ -48,6 +53,10 @@ class MainLayout extends React.Component {
 
   hideNotification = (notification) => {
     return this.removeNotification(notification);
+  }
+
+  clearNotifications = () => {
+    return this.refs.notificationSystem.clearNotifications();
   }
 
   componentWillMount() {

@@ -27,7 +27,8 @@ class SupplierApplicationForm extends React.Component {
     simUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
     showNotification: React.PropTypes.func,
-    hideNotification:  React.PropTypes.func
+    hideNotification:  React.PropTypes.func,
+    clearNotifications: React.PropTypes.func
   };
 
   state = { tabKey: 1, newNotification: false, clearNotification: false };
@@ -68,17 +69,10 @@ class SupplierApplicationForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext){
-    console.log("Context : ", this.context);
     if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
       this.setState({ i18n: nextContext.i18n.register('SupplierApplicationForm', locales) });
-      if(this.state.newNotification)
-        this.setState({ clearNotification: true });
+      this.context.clearNotifications();
     }
-  }
-
-  componentDidMount(){
-    console.log("Context : ", this.context);
-    this.context.showNotification("Hello");
   }
 
   componentWillUnmount() {
