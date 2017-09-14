@@ -1,32 +1,64 @@
 /* eslint-disable */
 import React from 'react';
-import {Col, Row} from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
-export default class BuyerDashboard extends React.Component {
-  componentWillMount() {
-    let serviceRegistry = (service) => ({ url: '/onboarding' });
+export default class BuyerDashboard extends React.Component
+{
+    static contextTypes = {
+        i18n : React.PropTypes.object
+    }
 
-    const FunnelChart = serviceComponent({ serviceRegistry,  serviceName: 'onboarding' , moduleName: 'funnelChart' });
-    const RecentCampaigns = serviceComponent({ serviceRegistry, serviceName: 'onboarding' , moduleName: 'recentCampaigns' });
+    constructor(props)
+    {
+        super(props);
+        
+        this.state = {
+            change : false
+        }
 
-    this.externalComponents = { FunnelChart, RecentCampaigns };
-  }
+        let serviceRegistry = (service) => ({ url: '/onboarding' });
 
-  render() {
-    const { FunnelChart, RecentCampaigns } = this.externalComponents;
-    return (
-      <div>
-      <br/>
-        <Row>
-          <Col md={6}>
-            <RecentCampaigns />
-            <div className="panel panel-success">
-                <FunnelChart />
+        const FunnelChart = serviceComponent({
+            serviceRegistry,
+            serviceName: 'onboarding',
+            moduleName: 'funnelChart'
+        });
+
+        const RecentCampaigns = serviceComponent({
+            serviceRegistry,
+            serviceName: 'onboarding',
+            moduleName: 'recentCampaigns'
+        });
+
+        this.externalComponents = {
+            FunnelChart,
+            RecentCampaigns
+        };
+    }
+
+    componentWillReceiveProps(nextProps, nextContext)
+    {
+        if(this.context.i18n != nextContext.i18n)
+            this.setState({ change : true });
+    }
+
+    render()
+    {
+        const { FunnelChart, RecentCampaigns } = this.externalComponents;
+
+        return(
+            <div>
+                <br/>
+                <Row>
+                    <Col md={6}>
+                        <RecentCampaigns />
+                        <div className="panel panel-success">
+                            <FunnelChart />
+                        </div>
+                    </Col>
+                </Row>
             </div>
-          </Col>
-        </Row>
-      </div>
-    )
-  }
+        )
+    }
 }

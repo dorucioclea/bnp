@@ -4,7 +4,6 @@ import request from 'superagent-bluebird-promise';
 import { Col, Row, Image, Button } from 'react-bootstrap';
 import connect from 'react-redux/lib/components/connect';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
-import browserHistory from 'react-router/lib/browserHistory';
 
 class SellerDashboard extends React.Component {
   static propTypes = {
@@ -13,7 +12,8 @@ class SellerDashboard extends React.Component {
 
   static contextTypes = {
     i18n: React.PropTypes.object,
-    simPublicUrl: React.PropTypes.string
+    simPublicUrl: React.PropTypes.string,
+    router: React.PropTypes.object
   };
 
   state = { connectStatus: 'Loading...' };
@@ -32,12 +32,12 @@ class SellerDashboard extends React.Component {
   }
 
   componentDidMount() {
-    const einvoicePromise = request.
-      get(`${this.context.simPublicUrl}/einvoice-send/api/config/inchannels/${this.props.currentUserData.supplierid}`).
-      set('Accept', 'application/json').
-      promise();
+    const einvoiceRequest = request.get(`${this.context.simPublicUrl}/einvoice-send/api/config/inchannels/${this.props.currentUserData.supplierid}`);
 
-    einvoicePromise.then(response => {
+    /* Do not use cache in request if browser is IE */
+    if (false || !!document.documentMode) einvoiceRequest.query({ cachebuster: Date.now().toString() });
+
+    einvoiceRequest.set('Accept', 'application/json').then(response => {
       if (response.body.status === 'activated') {
         this.setState({ connectStatus: 'Connected' });
       } else {
@@ -52,12 +52,12 @@ class SellerDashboard extends React.Component {
     }
   }
 
-  handleProfileClick() {
-    browserHistory.push(`${window.simContextPath}/supplierInformation`);
+  handleProfileClick = () => {
+    this.context.router.push('/supplierInformation');
   }
 
   handleConnectionClick() {
-    window.location.replace(`${window.simPublicUrl}/einvoice-send`)
+    window.location.replace('/einvoice-send');
   }
 
   connectButton() {

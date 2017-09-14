@@ -18,8 +18,7 @@ CommonMessages.systemError = 'An error occurred, please contact your system admi
 CommonMessages.nothingFound = 'Nothing found...';
 CommonMessages.objectSaved = 'The data has been successfully saved.';
 CommonMessages.objectRemoved = 'The object has been removed.';
-CommonMessages.jcatalogActivityTime = '2000-2016';
-CommonMessages.jcatalog = 'jCatalog Software AG';
+CommonMessages.jcatalog = 'OpusCapita Software GmbH';
 
 export default {
   CommonButtonLabel: CommonButtonLabel,

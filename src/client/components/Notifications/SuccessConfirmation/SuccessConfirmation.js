@@ -1,5 +1,4 @@
 import React from 'react';
-import browserHistory from 'react-router/lib/browserHistory';
 import locales from './../../Registration/i18n/locales.js'
 import ServerError from './../../Errors/ServerError';
 
@@ -7,6 +6,7 @@ export default class SuccessConfirmation extends React.Component {
 
   static contextTypes = {
     i18n: React.PropTypes.object,
+    router: React.PropTypes.object
   }
 
   constructor(props, context) {
@@ -27,7 +27,7 @@ export default class SuccessConfirmation extends React.Component {
   i18n = this.context.i18n.register('SuccessConfirmation', locales)
 
   handleLogin = () => {
-    browserHistory.push(`${window.simContextPath}/login`);
+    this.context.router.push('/login');
   };
 
   render() {

@@ -177,7 +177,7 @@ class MainLayout extends React.Component {
     return (
       <footer>
         <div className="container copyright text-center">
-          &copy; 2001 &mdash; 2016&nbsp;&nbsp;
+          &copy; 2001 &mdash; {new Date().getFullYear()}&nbsp;&nbsp;
           <a href="http://www.opuscapita.com/">
             <img
               src={`${window.simContextPath}/img/oc-logo-rgb.svg`}

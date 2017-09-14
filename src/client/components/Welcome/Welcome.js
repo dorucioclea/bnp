@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { SidebarMenu } from '@opuscapita/react-menus';
-import browserHistory from 'react-router/lib/browserHistory';
 import ajax from 'superagent-bluebird-promise';
 import connect from 'react-redux/lib/components/connect';
 import WelcomeCloseButton from './WelcomeCloseButton';
@@ -15,14 +14,15 @@ class Welcome extends Component {
       showWelcomePage: true
     }
 
-    ajax.get('/user/users/current/profile')
+    ajax.get('/user/api/users/current/profile')
       .set('Content-Type', 'application/json')
       .then(res => JSON.parse(res.text))
       .then(res => this.setState({ showWelcomePage : res.showWelcomePage }));
   }
 
   static contextTypes = {
-    i18n: React.PropTypes.object
+    i18n: React.PropTypes.object,
+    router: React.PropTypes.object
   }
 
   getCustomerId = () => {
@@ -30,7 +30,7 @@ class Welcome extends Component {
   }
 
   handleShowWelcomePage = (event) => {
-      return ajax.put('/user/users/current/profile')
+      return ajax.put('/user/api/users/current/profile')
         .set('Content-Type', 'application/json')
         .send({ showWelcomePage : !this.state.showWelcomePage })
         .then(() => this.setState({ showWelcomePage : !this.state.showWelcomePage }));
@@ -102,7 +102,7 @@ class Welcome extends Component {
                       <a
                         href="/einvoice-send"
                         onClick={e => {
-                          browserHistory.push('/einvoice-send');
+                          this.context.router.push('/einvoice-send');
                         }}
                       >
                         <Button bsStyle="primary" bsSize="lg">Start</Button>
