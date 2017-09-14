@@ -72,7 +72,6 @@ class MainLayout extends React.Component {
   renderNotification = (notification) => {
     if(this.refs.notificationSystem && notification && notification.message && notification.message.length > 0)
       {
-        //const translatedMessage = this.props.intl.formatMessage({ id: notification.message });
         const translatedMessage = notification.message;
         return this.refs.notificationSystem.addNotification({ ...notification, message: translatedMessage });
       }
