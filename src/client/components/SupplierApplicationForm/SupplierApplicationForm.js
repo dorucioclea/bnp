@@ -178,8 +178,6 @@ class SupplierApplicationForm extends React.Component {
         locale={this.context.i18n.locale}
         username={userInfo.id}
         onChange={this.handleDirtyState}
-        newNotification={this.newNotification}
-        clearNotification={this.clearNotification}
       />
     );
 
