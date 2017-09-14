@@ -25,6 +25,9 @@ class SupplierApplicationForm extends React.Component {
     simPublicUrl: React.PropTypes.string,
     simUrl: React.PropTypes.string,
     httpResponseHandler: React.PropTypes.func,
+    showNotification: React.PropTypes.func,
+    hideNotification:  React.PropTypes.func,
+    clearNotifications: React.PropTypes.func,
     router: React.PropTypes.object
   };
 
@@ -68,6 +71,7 @@ class SupplierApplicationForm extends React.Component {
   componentWillReceiveProps(nextProps, nextContext){
     if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
       this.setState({ i18n: nextContext.i18n.register('SupplierApplicationForm', locales) });
+      this.context.clearNotifications();
     }
   }
 
@@ -104,7 +108,8 @@ class SupplierApplicationForm extends React.Component {
   handleSelect = tabKey => {
     if (!this.isDirty || this._confirmLeaveChangesUnsaved()) {
       this.isDirty = false;
-      this.setState({ tabKey });
+      this.context.clearNotifications();
+      this.setState({tabKey:tabKey})
     }
   };
 
