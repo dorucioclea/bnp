@@ -31,7 +31,7 @@ class SupplierApplicationForm extends React.Component {
     clearNotifications: React.PropTypes.func
   };
 
-  state = { tabKey: 1, newNotification: false, clearNotification: false };
+  state = { tabKey: 1 };
 
   componentWillMount() {
     let serviceRegistry = (service) => ({ url: `${this.context.simPublicUrl}/supplier` });
@@ -108,21 +108,10 @@ class SupplierApplicationForm extends React.Component {
   handleSelect = tabKey => {
     if (!this.isDirty || this._confirmLeaveChangesUnsaved()) {
       this.isDirty = false;
-      if(this.state.newNotification && this.state.tabKey != tabKey)
-        this.setState({ tabKey:tabKey, clearNotification: true }, () => console.log("Tab selected : ", this.state));
-      else
-        this.setState({tabKey:tabKey}, () => console.log("Tab selected : ", this.state))
+      this.context.clearNotifications();
+      this.setState({tabKey:tabKey})
     }
-    
   };
-
-  newNotification = (value) => {
-    console.log("New notification created : ", value);
-    if(value)
-      this.setState({newNotification : true});
-    else
-      this.setState({newNotification : false, clearNotification: false});
-  }
 
   handleUnauthorized = () => {
     browserHistory.push(`${window.simContextPath}/login`);
