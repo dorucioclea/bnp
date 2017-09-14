@@ -7,10 +7,10 @@ let connections = {};
 connections.heading = 'Verbindungen';
 connections.connect = 'Verbinden';
 connections.notConnectedStatus = 'Nicht verbunden';
-connections.connectingStatus = 'Verbindend';
+connections.connectingStatus = 'In Konfiguration';
 connections.connectedStatus = 'Verbunden';
 connections.loading = 'Laden...';
-connections.content = 'Das Business Netzwerk erlaubt die Verwendung unterschiedlicher Dienste zur elektronischen Vernetzung Ihrer Rechnungsdokumente und profitieren von den Synergien einer zentralen Managementkonsole.'
+connections.content = 'Das Business Netzwerk erlaubt die Verwendung unterschiedlicher Dienste zur elektronischen Vernetzung Ihrer Rechnungsdokumente und Sie profitieren von den Synergien einer zentralen Managementkonsole.'
 
 export default {
   SellerDashboard: {
