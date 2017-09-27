@@ -36,6 +36,7 @@ import ApplicationContext from './ApplicationContext';
 import simRootApplicationReducer from './../redux/reducers.js';
 import SupplierApplicationForm from './SupplierApplicationForm';
 import SupplierRegistrationForm from './SupplierRegistrationForm';
+import UserAccessApproval from './UserAccessApproval';
 
 
 const BUYING_ROLE = 'buying';
@@ -213,6 +214,7 @@ ReactDOM.render(
           />
           <Route path={'/accessDenied'} component={AccessDenied}/>
           <Route path={'/einvoice'} component={EInvoice}/>
+          <Route path={'/userAccessApproval'} component={UserAccessApproval}/>
         </Route>
       </Route>
     </Router>
