@@ -59,6 +59,10 @@ class SellerDashboard extends React.Component {
     window.location.replace('/einvoice-send');
   }
 
+  handleApprovalClick = () => {
+    this.context.router.push('/userAccessApproval');
+  }
+
   connectButton() {
     if (this.state.connectStatus === 'Connected') return '';
 
@@ -86,7 +90,7 @@ class SellerDashboard extends React.Component {
     return (
       <div>
         <p>{this.state.i18n.getMessage('SellerDashboard.accessApproval.pending')}</p>
-        <button className="btn btn-warning">{this.state.i18n.getMessage('SellerDashboard.accessApproval.approve')}</button>
+        <button className="btn btn-warning" onClick={this.handleApprovalClick}>{this.state.i18n.getMessage('SellerDashboard.accessApproval.approve')}</button>
       </div>
     );
   }
