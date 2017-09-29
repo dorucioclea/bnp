@@ -59,10 +59,6 @@ class SellerDashboard extends React.Component {
     window.location.replace('/einvoice-send');
   }
 
-  handleApprovalClick = () => {
-    this.context.router.push('/userAccessApproval');
-  }
-
   connectButton() {
     if (this.state.connectStatus === 'Connected') return '';
 
@@ -82,36 +78,6 @@ class SellerDashboard extends React.Component {
     if (this.state.connectStatus === 'Connected') return {color: 'green'};
 
     return {color: 'red'};
-  }
-
-  renderUserAccessRequest() {
-    if (this.state.accessRequestCount === 0) return <p>{this.state.i18n.getMessage('SellerDashboard.accessApproval.none')}</p>
-
-    return (
-      <div>
-        <p>{this.state.i18n.getMessage('SellerDashboard.accessApproval.pending')}</p>
-        <button className="btn btn-warning" onClick={this.handleApprovalClick}>{this.state.i18n.getMessage('SellerDashboard.accessApproval.approve')}</button>
-      </div>
-    );
-  }
-
-  renderUserAccessApproval() {
-    if (!this.props.currentUserData.roles.includes('supplier-admin')) return null;
-
-    return (
-      <div className="row">
-        <div className="col-md-6">
-          <div className="panel panel-success">
-            <div className="panel-heading">
-              <h4>{this.state.i18n.getMessage('SellerDashboard.accessApproval.heading')}</h4>
-            </div>
-            <div className="panel-body">
-              {this.renderUserAccessRequest()}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   render() {
@@ -175,7 +141,6 @@ class SellerDashboard extends React.Component {
             </div>
           </div>
         </div>
-        {this.renderUserAccessApproval()}
       </div>
     )
   }

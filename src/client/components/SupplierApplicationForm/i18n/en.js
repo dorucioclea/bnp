@@ -13,6 +13,7 @@ ApplicationFormTab.logistics = 'Logistics';
 ApplicationFormTab.misc = 'Misc';
 ApplicationFormTab.rating = 'Rating';
 ApplicationFormTab.catalogsAndContracts = 'Catalogs & Contracts';
+ApplicationFormTab.userAccessApproval = 'Access Approval';
 
 let ApplicationFormButton = {};
 ApplicationFormButton.return = 'Request data correction';

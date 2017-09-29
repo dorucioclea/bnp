@@ -12,16 +12,9 @@ connections.connectedStatus = 'Verbunden';
 connections.loading = 'Laden...';
 connections.content = 'Das Business Netzwerk erlaubt die Verwendung unterschiedlicher Dienste zur elektronischen Vernetzung Ihrer Rechnungsdokumente und Sie profitieren von den Synergien einer zentralen Managementkonsole.'
 
-let accessApproval = {};
-accessApproval.heading = 'Benutzer Zugriff Genehmigung';
-accessApproval.pending = 'Ausstehende Benutzer Zugriffsanforderungen.';
-accessApproval.none = 'Zurzeit keine Benutzer Zugriffsanforderungen.';
-accessApproval.approve = 'Genehmigen';
-
 export default {
   SellerDashboard: {
     profileStrength: profileStrength,
-    connections: connections,
-    accessApproval: accessApproval
+    connections: connections
   }
 }

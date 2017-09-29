@@ -14,6 +14,7 @@ ApplicationFormTab.logistics = 'Logistik';
 ApplicationFormTab.misc = 'Weiteres';
 ApplicationFormTab.rating = 'Bewertung';
 ApplicationFormTab.catalogsAndContracts = 'Kontrakte';
+ApplicationFormTab.userAccessApproval = 'Zugriffsberechtigung';
 
 let ApplicationFormButton = {};
 ApplicationFormButton.return = 'Nachbesserung anfordern';

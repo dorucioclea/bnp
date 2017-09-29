@@ -131,6 +131,16 @@ class SupplierApplicationForm extends React.Component {
     );
   };
 
+  renderUserAccessApproval = (eventKey) => {
+    if (!this.props.currentUserData.roles.includes('supplier-admin')) return null;
+
+    return (
+      <Tab eventKey={eventKey} title={this.state.i18n.getMessage('ApplicationFormTab.userAccessApproval')}>
+        Implement me!
+      </Tab>
+    );
+  };
+
   render() {
     let userInfo = this.props.currentUserData;
 
@@ -210,6 +220,7 @@ class SupplierApplicationForm extends React.Component {
           <Tab eventKey={4} title={this.state.i18n.getMessage('ApplicationFormTab.bankAccount')}>
             {banks}
           </Tab>
+          {this.renderUserAccessApproval(5)}
         </Tabs>
       </div>
     )

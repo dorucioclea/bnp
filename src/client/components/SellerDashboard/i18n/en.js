@@ -12,16 +12,9 @@ connections.connectedStatus = 'Connected';
 connections.loading = 'Loading...';
 connections.content = 'By connecting additional services offered by the business network, you can benefit from synergies and provide you with a central management console for all your documents.'
 
-let accessApproval = {};
-accessApproval.heading = 'User Access Approval';
-accessApproval.pending = 'Pending access requests.';
-accessApproval.none = 'No access requests available at the moment.';
-accessApproval.approve = 'Approve';
-
 export default {
   SellerDashboard: {
     profileStrength: profileStrength,
-    connections: connections,
-    accessApproval: accessApproval
+    connections: connections
   }
 }
