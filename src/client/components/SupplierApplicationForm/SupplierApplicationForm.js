@@ -31,7 +31,7 @@ class SupplierApplicationForm extends React.Component {
     router: React.PropTypes.object
   };
 
-  state = { tabKey: 1 };
+  state = { tabKey: this.props.location.query.tab || 'company' };
 
   componentWillMount() {
     let serviceRegistry = (service) => ({ url: `${this.context.simPublicUrl}/supplier` });
@@ -131,11 +131,11 @@ class SupplierApplicationForm extends React.Component {
     );
   };
 
-  renderUserAccessApproval = (eventKey) => {
+  renderUserAccessApproval = () => {
     if (!this.props.currentUserData.roles.includes('supplier-admin')) return null;
 
     return (
-      <Tab eventKey={eventKey} title={this.state.i18n.getMessage('ApplicationFormTab.userAccessApproval')}>
+      <Tab eventKey='accessApproval' title={this.state.i18n.getMessage('ApplicationFormTab.userAccessApproval')}>
         Implement me!
       </Tab>
     );
@@ -208,19 +208,19 @@ class SupplierApplicationForm extends React.Component {
       <div>
         {this.renderBackUrlLink()}
         <Tabs id="supplierTabs" activeKey={this.state.tabKey} onSelect={this.handleSelect}>
-          <Tab eventKey={1} title={this.state.i18n.getMessage('ApplicationFormTab.company')}>
+          <Tab eventKey='company' title={this.state.i18n.getMessage('ApplicationFormTab.company')}>
             {company}
           </Tab>
-          <Tab eventKey={2} title={this.state.i18n.getMessage('ApplicationFormTab.address')}>
+          <Tab eventKey='address' title={this.state.i18n.getMessage('ApplicationFormTab.address')}>
             {address}
           </Tab>
-          <Tab eventKey={3} title={this.state.i18n.getMessage('ApplicationFormTab.contact')}>
+          <Tab eventKey='contact' title={this.state.i18n.getMessage('ApplicationFormTab.contact')}>
             {contact}
           </Tab>
-          <Tab eventKey={4} title={this.state.i18n.getMessage('ApplicationFormTab.bankAccount')}>
+          <Tab eventKey='bankAccount' title={this.state.i18n.getMessage('ApplicationFormTab.bankAccount')}>
             {banks}
           </Tab>
-          {this.renderUserAccessApproval(5)}
+          {this.renderUserAccessApproval()}
         </Tabs>
       </div>
     )
