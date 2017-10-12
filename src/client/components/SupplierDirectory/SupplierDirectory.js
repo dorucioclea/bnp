@@ -4,7 +4,8 @@ import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 export default class SupplierDirectory extends React.Component {
   static contextTypes = {
-    i18n: React.PropTypes.object
+    i18n: React.PropTypes.object,
+    simPublicUrl: React.PropTypes.string
   };
 
   componentWillMount() {
@@ -17,18 +18,20 @@ export default class SupplierDirectory extends React.Component {
     });
 
     this.externalComponents = { Directory };
-    this.setState({ i18n: this.context.i18n.register('SupplierDirectory', locales) });
+    this.context.i18n.register('SupplierDirectory', locales);
   }
 
   componentWillReceiveProps(nextProps, nextContext){
-    this.setState({ i18n: nextContext.i18n.register('SupplierDirectory', locales) });
+    if(nextContext.i18n){
+      nextContext.i18n.register('SupplierDirectory', locales);
+    }
   }
 
   render() {
     const { Directory } = this.externalComponents;
     return (
       <div>
-        <h1>{this.state.i18n.getMessage('SupplierDirectory.head')}</h1>
+        <h1>{this.context.i18n.getMessage('SupplierDirectory.head')}</h1>
         <Directory actionUrl={this.context.simPublicUrl} />
       </div>
     )
