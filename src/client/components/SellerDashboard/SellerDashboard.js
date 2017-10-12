@@ -47,9 +47,7 @@ class SellerDashboard extends React.Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext){
-    if(this.state.i18n && this.state.i18n.locale && nextContext.i18n.locale != this.state.i18n.locale){
-      this.setState({ i18n: nextContext.i18n.register('SellerDashboard', locales) });
-    }
+    this.setState({ i18n: nextContext.i18n.register('SellerDashboard', locales) });
   }
 
   handleProfileClick = () => {
