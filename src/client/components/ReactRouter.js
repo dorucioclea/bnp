@@ -9,6 +9,8 @@ import ajax from 'superagent-bluebird-promise';
 import MainLayout from './MainLayout';
 import SellerDashboard from './SellerDashboard';
 import BuyerDashboard from './BuyerDashboard';
+import UserList from './UserList';
+import UserEditor from './UserEditor';
 import Welcome from './Welcome';
 import Settings from './Settings';
 import InvoiceCreate from './InvoiceCreate';
@@ -110,7 +112,7 @@ ReactDOM.render(
           path={'/welcome'}
           component={Welcome}
         />
-    <Route path="/" component={MainLayout}>
+        <Route path="/" component={MainLayout}>
           <Route
             path={'/supplierInformation'}
             getComponent={(location, cb) => SupplierApplicationForm(location, cb)}
@@ -210,6 +212,14 @@ ReactDOM.render(
           <Route
             path={'/sellerDashboard'}
             component={SellerDashboard}
+          />
+          <Route
+            path={'/users'}
+            component={UserList}
+          />
+          <Route
+            path={'/users/:userId'}
+            component={UserEditor}
           />
           <Route path={'/accessDenied'} component={AccessDenied}/>
           <Route path={'/einvoice'} component={EInvoice}/>

@@ -160,7 +160,7 @@ services:
       SERVICE_3008_CHECK_TIMEOUT: 3s
     ports:
       - '3008:3008'
-    command: 'npm run dev'
+    command: 'npm start'
 
   kong:
     image: opuscapita/kong:dev
