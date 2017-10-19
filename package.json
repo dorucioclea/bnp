@@ -31,7 +31,7 @@
   "dependencies": {
     "@opuscapita/i18n": "^1.1.0",
     "@opuscapita/react-loaders": "^0.1.8",
-    "@opuscapita/react-menus": "^1.0.26",
+    "@opuscapita/react-menus": "^1.0.34",
     "bluebird": "^3.5.0",
     "cross-env": "^4.0.0",
     "crypto-js": "^3.1.9-1",
