@@ -144,10 +144,9 @@ class SupplierApplicationForm extends React.Component {
       <SupplierEditor
         key='company'
         onUnauthorized={this.handleUnauthorized}
-        actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
-        locale={this.context.i18n.locale}
         username={userInfo.id}
+        userRoles={userInfo.roles}
         dateTimePattern={this.context.datePattern}
         onChange={this.handleDirtyState}
         onUpdate={this.handleSupplierUpdate}
@@ -159,11 +158,9 @@ class SupplierApplicationForm extends React.Component {
       <SupplierAddressEditor
         key='address'
         onUnauthorized={this.handleUnauthorized}
-        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-        actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
-        locale={this.context.i18n.locale}
         username={userInfo.id}
+        userRoles={userInfo.roles}
         onChange={this.handleDirtyState}
       />
     );
@@ -172,11 +169,9 @@ class SupplierApplicationForm extends React.Component {
       <SupplierContactEditor
         key='contact'
         onUnauthorized={this.handleUnauthorized}
-        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-        actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
-        locale={this.context.i18n.locale}
         username={userInfo.id}
+        userRoles={userInfo.roles}
         onChange={this.handleDirtyState}
       />
     );
@@ -185,11 +180,9 @@ class SupplierApplicationForm extends React.Component {
       <SupplierBankAccountEditor
         key='bank_accounts'
         onUnauthorized={this.handleUnauthorized}
-        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-        actionUrl={this.context.simPublicUrl}
         supplierId={userInfo.supplierid}
-        locale={this.context.i18n.locale}
         username={userInfo.id}
+        userRoles={userInfo.roles}
         onChange={this.handleDirtyState}
       />
     );
