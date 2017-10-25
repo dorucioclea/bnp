@@ -4,13 +4,17 @@ const Config = require('webpack-config').default;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = new Config().merge({
-  entry: ['babel-polyfill', './src/client/components/ReactRouter.js'],
+  entry: ['babel-polyfill', './src/client/index.js'],
 
   // exclude empty dependencies, require for Joi
   node: {
     net: 'empty',
     tls: 'empty',
     dns: 'empty'
+  },
+
+  externals: {
+    "jquery": "jQuery"
   },
 
   resolve: {
@@ -20,6 +24,14 @@ module.exports = new Config().merge({
   resolveLoader: {
     modules: [process.env.NODE_PATH, 'node_modules']
   },
+
+  plugins: [
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        jquery:"jquery"
+      })
+  ],
 
   module: {
     rules: [

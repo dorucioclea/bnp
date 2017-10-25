@@ -2,9 +2,6 @@
 
 const Promise = require('bluebird');
 
-const serverService = require('../service/serverService');
-const bundle = (process.env.NODE_ENV === 'production') ? require(__dirname + '/../../../build/client/assets.json').main.js : 'bundle.js';
-
 /**
  * Initializes all routes for RESTful access.
  *
@@ -16,26 +13,9 @@ const bundle = (process.env.NODE_ENV === 'production') ? require(__dirname + '/.
  */
 module.exports.init = function(app, db, config)
 {
-    // Register routes here.
-    // Use the passed db parameter in order to use Epilogue auto-routes.
-    // Use require in order to separate routes into multiple js files.
+    const indexFilePath = process.cwd() + '/src/server/templates/index.html';
 
-    let chunksManifest;
+    app.get('*', (req, res) => res.sendFile(indexFilePath));
 
-    serverService.initRequestHelpers(app);
-    serverService.initSession(app);
-    serverService.initResources(app);
-    serverService.initSecurityManager(app, db, config);
-    serverService.initRoutes(app, db, config);
-    serverService.initTemplate(app, bundle, chunksManifest);
-
-
-    if (process.env.NODE_ENV === 'production') {
-      // chunksManifest = require(__dirname + '/../../../build/client/chunk-manifest.json');
-      // serverService.initChunksStatic(app, chunksManifest);
-      serverService.initCssBundle(app);
-    }
-
-    // Always return a promise.
     return Promise.resolve();
 }
