@@ -127,11 +127,9 @@ class SupplierApplicationForm extends Components.ContextComponent
       <this.SupplierEditor
         key='company'
         onUnauthorized={this.handleUnauthorized}
-        actionUrl="/"
         supplierId={userData.supplierid}
-        locale={this.context.locale}
         username={userData.id}
-        dateTimePattern=""
+        userRoles={userData.roles}
         onChange={this.handleDirtyState}
         onUpdate={this.handleSupplierUpdate}
         onLogout={this.handleLogout}
@@ -142,11 +140,9 @@ class SupplierApplicationForm extends Components.ContextComponent
       <this.SupplierAddressEditor
         key='address'
         onUnauthorized={this.handleUnauthorized}
-        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-        actionUrl="/"
         supplierId={userData.supplierid}
-        locale={this.context.locale}
         username={userData.id}
+        userRoles={userData.roles}
         onChange={this.handleDirtyState}
       />
     );
@@ -155,11 +151,9 @@ class SupplierApplicationForm extends Components.ContextComponent
       <this.SupplierContactEditor
         key='contact'
         onUnauthorized={this.handleUnauthorized}
-        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-        actionUrl="/"
         supplierId={userData.supplierid}
-        locale={this.context.locale}
         username={userData.id}
+        userRoles={userData.roles}
         onChange={this.handleDirtyState}
       />
     );
@@ -168,11 +162,9 @@ class SupplierApplicationForm extends Components.ContextComponent
       <this.SupplierBankAccountEditor
         key='bank_accounts'
         onUnauthorized={this.handleUnauthorized}
-        readOnly={false /* TODO: only supplier creator can edit his supplier info */}
-        actionUrl="/"
         supplierId={userData.supplierid}
-        locale={this.context.locale}
         username={userData.id}
+        userRoles={userData.roles}
         onChange={this.handleDirtyState}
       />
     );
