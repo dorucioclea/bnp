@@ -16,7 +16,7 @@ class Dispatcher extends Components.ContextComponent
         const { userData, userProfile, router } = this.context;
         const { supplierid, customerid, roles } = userData;
 
-        if(userProfile.showWelcomePage)
+        if(supplierid && userProfile.showWelcomePage)
             router.push('/bnp/welcome');
         else if(supplierid)
             router.push('/bnp/sellerDashboard');
