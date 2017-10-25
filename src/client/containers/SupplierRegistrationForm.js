@@ -20,7 +20,7 @@ class SupplierRegistrationForm extends Components.ContextComponent {
       context.i18n.register('SupplierRegistrationForm', translations);
 
       const serviceRegistry = (service) => ({ url: '/supplier' });
-      
+
       this.SupplierRegistrationEditor = serviceComponent({
         serviceRegistry,
         serviceName: 'supplier' ,
@@ -87,6 +87,8 @@ class SupplierRegistrationForm extends Components.ContextComponent {
   }
 
   render() {
+
+    this.context.setPageTitle(this.context.i18n.getMessage('SupplierRegistrationForm.page.title'));
 
     if (!this.state.onboardData) {
       return null;

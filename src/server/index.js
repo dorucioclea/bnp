@@ -4,9 +4,11 @@ const Logger = require('ocbesbn-logger'); // Logger
 const db = require('ocbesbn-db-init'); // Database
 const server = require('ocbesbn-web-init'); // Web server
 
+
+const isProduction = process.env.NODE_ENV === 'production';
 const logger = new Logger();
 
-if(process.env.NODE_ENV === 'production')
+if(isProduction)
     logger.redirectConsoleOut(); // Force anyone using console outputs into Logger format.
 
 // Basic database and web server initialization.
@@ -27,7 +29,7 @@ db.init({
         enableBouncer : false,
         staticFilePath : process.cwd() + '/src/server/static',
         webpack : {
-           useWebpack : true,
+           useWebpack : !isProduction,
            configFilePath : process.cwd() + '/webpack.development.config.js'
        }
     },

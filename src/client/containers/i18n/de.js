@@ -6,6 +6,9 @@ export default {
     'Welcome.button.start' : 'Start',
     'Welcome.notification.saved' : 'Konfiguration wurde erfolgreich gespeichert.',
 
+    'BuyerDashboard.page.title' : 'Einkäufer Dashboard',
+
+    'SellerDashboard.page.title' : 'Verkäufer Dashboard',
     'SellerDashboard.profileStrength.heading' : 'Unternehmensprofil Stärke',
     'SellerDashboard.profileStrength.editButton' : 'Unternehmensprofil',
     'SellerDashboard.profileStrength.content' : 'Hier können Sie Ihr Profil vervollständigen. Damit profitieren Sie von einer besseren Sichtbarkeit im Business Netzwerk mit neuen Geschäftschancen.',
@@ -18,8 +21,9 @@ export default {
     'SellerDashboard.connections.loading' : 'Laden...',
     'SellerDashboard.connections.content' : 'Das Business Netzwerk erlaubt die Verwendung unterschiedlicher Dienste zur elektronischen Vernetzung Ihrer Rechnungsdokumente und Sie profitieren von den Synergien einer zentralen Managementkonsole.',
 
+    'SupplierApplicationForm.page.title' : 'Lieferanteneditor',
+    'SupplierApplicationForm.notExists' : 'Der Lieferant existiert nicht! Bitte registrieren Sie sich erst.',
     'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges' : 'Sie haben Ihre Einträge nicht gespeichert. Wenn Sie fortfahren, gehen diese verloren. Wollen Sie ohne zu speichern fortfahren?',
-
     'SupplierApplicationForm.ApplicationFormTab.company' : 'Unternehmen',
     'SupplierApplicationForm.ApplicationFormTab.address' : 'Adressen',
     'SupplierApplicationForm.ApplicationFormTab.contact' : 'Ansprechpartner',
@@ -51,7 +55,9 @@ export default {
     'SupplierApplicationForm.ApplicationFormLink.regional' : 'Allgemeine Lieferbedingungen Regional- und Zentralläger',
     'SupplierApplicationForm.ApplicationFormLink.graphic' : 'Diese ${separation} verdeutlicht die Bedeutung der Incoterms.',
 
+    'SupplierRegistrationForm.page.title' : 'Lieferantenregistrierung',
     'SupplierRegistrationForm.supplierExists' : 'Der Lieferant existiert bereits.',
 
+    'SupplierDirectory.page.title' : 'Lieferantenverzeichnis',
     'SupplierDirectory.head': 'Lieferantensuche'
 }

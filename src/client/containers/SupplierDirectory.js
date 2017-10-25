@@ -23,6 +23,8 @@ export default class SupplierDirectory extends Components.ContextComponent {
 
   render() {
 
+    this.context.setPageTitle(this.context.i18n.getMessage('SupplierDirectory.page.title'));
+
     return (
       <div>
         <h1>{this.context.i18n.getMessage('SupplierDirectory.head')}</h1>

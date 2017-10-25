@@ -6,6 +6,9 @@ export default {
     'Welcome.button.start' : 'Start',
     'Welcome.notification.saved' : 'Configuration has been successfully saved.',
 
+    'BuyerDashboard.page.title' : 'Buyer dashboard',
+
+    'SellerDashboard.page.title' : 'Seller dashboard',
     'SellerDashboard.profileStrength.heading' : 'Company Profile Strength',
     'SellerDashboard.profileStrength.editButton' : 'Company Profile',
     'SellerDashboard.profileStrength.content' : 'Continue to fill your profile in order to benefit from better visibility in the network and get more business opportunities.',
@@ -18,8 +21,9 @@ export default {
     'SellerDashboard.connections.loading' : 'Loading...',
     'SellerDashboard.connections.content' : 'By connecting additional services offered by the business network, you can benefit from synergies and provide you with a central management console for all your documents.',
 
+    'SupplierApplicationForm.page.title' : 'Supplier editor',
+    'SupplierApplicationForm.notExists' : 'Supplier does not exist! Please register first.',
     'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges' : 'You did not save your entries. Do you want to proceed without saving?',
-
     'SupplierApplicationForm.ApplicationFormTab.company' : 'Company',
     'SupplierApplicationForm.ApplicationFormTab.address' : 'Address',
     'SupplierApplicationForm.ApplicationFormTab.contact' : 'Contact',
@@ -51,7 +55,9 @@ export default {
     'SupplierApplicationForm.ApplicationFormLink.regional' : 'General Terms of Delivery for Regional and Central Warehouses',
     'SupplierApplicationForm.ApplicationFormLink.graphic' : 'This ${separation} depicts the meaning of the Incoterms.',
 
+    'SupplierRegistrationForm.page.title' : 'Supplier registration',
     'SupplierRegistrationForm.supplierExists' : 'The supplier does already exist.',
 
+    'SupplierDirectory.page.title' : 'Supplier directory',
     'SupplierDirectory.head': 'Search for suppliers'
 }

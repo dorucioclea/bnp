@@ -117,8 +117,10 @@ class SupplierApplicationForm extends Components.ContextComponent
   render() {
     const { userData, i18n } = this.context;
 
+    this.context.setPageTitle(i18n.getMessage('SupplierApplicationForm.page.title'));
+
     if (!userData.supplierid) {
-      return <p>Supplier Does not exist! Please register first</p>
+      return <p>{i18n.getMessage('SupplierApplicationForm.notExists')}</p>
     }
 
     const company = (

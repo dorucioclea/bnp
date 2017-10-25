@@ -97,6 +97,8 @@ class SellerDashboard extends Components.ContextComponent
     render()
     {
         const { i18n, userData } = this.context;
+        
+        this.context.setPageTitle(i18n.getMessage('SellerDashboard.page.title'));
 
         return(
             <div>
