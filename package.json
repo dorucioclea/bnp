@@ -31,7 +31,7 @@
   "dependencies": {
     "@opuscapita/i18n": "^1.1.0",
     "@opuscapita/react-loaders": "^0.1.9",
-    "@opuscapita/service-base-ui": "^1.0.23",
+    "@opuscapita/service-base-ui": "^1.0.28",
     "bluebird": "^3.5.1",
     "cross-env": "^4.0.0",
     "highcharts-funnel": "^0.1.2",
@@ -39,15 +39,15 @@
     "jquery": "^3.2.1",
     "ocbesbn-config": "^2.2.11",
     "ocbesbn-db-init": "^1.1.11",
-    "ocbesbn-web-init": "^2.2.9",
+    "ocbesbn-web-init": "^2.2.14",
     "react": "^15.6.2",
-    "react-bootstrap": "^0.31.3",
+    "react-bootstrap": "^0.31.5",
     "react-dom": "^15.6.2",
     "react-highcharts": "^11.5.0",
     "react-router": "^3.2.0",
     "recharts": "^0.22.4",
     "rimraf": "^2.6.2",
-    "superagent": "^3.6.3",
+    "superagent": "^3.8.0",
     "superagent-bluebird-promise": "^4.2.0"
   },
   "devDependencies": {
