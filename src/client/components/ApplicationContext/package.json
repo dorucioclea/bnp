@@ -1,6 +1,0 @@
-{
-  "name": "ApplicationContext",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./ApplicationContext.js"
-}

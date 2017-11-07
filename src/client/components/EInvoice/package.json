@@ -1,6 +1,0 @@
-{
-  "name": "EInvoice",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./EInvoice.js"
-}
