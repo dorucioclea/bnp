@@ -8,8 +8,8 @@ COPY package.json .
 
 # Make sure node can load modules from /var/tmp/base/node_modules
 # Setting NODE_ENV is necessary for "npm install" below.
-ENV NODE_ENV=development NODE_PATH=/var/tmp/base/node_modules PATH=${PATH}:${NODE_PATH}/.bin
-RUN yarn
+ENV NODE_ENV=production NODE_PATH=/var/tmp/base/node_modules PATH=${PATH}:${NODE_PATH}/.bin
+RUN NODE_ENV=development yarn
 
 WORKDIR /home/node/bnp
 
