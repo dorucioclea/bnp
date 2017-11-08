@@ -90,10 +90,6 @@ class SupplierRegistrationForm extends Components.ContextComponent {
 
     this.context.setPageTitle(this.context.i18n.getMessage('SupplierRegistrationForm.page.title'));
 
-    if (!this.state.onboardData) {
-      return null;
-    }
-
     const userData = this.context.userData;
 
     if (userData.supplierid) {
