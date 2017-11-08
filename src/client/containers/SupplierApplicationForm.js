@@ -10,9 +10,7 @@ import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class SupplierApplicationForm extends Components.ContextComponent
 {
-  state = {
-    tabKey: 1
-  };
+  state = { tabKey: this.props.location.query.tab || 'company' };
 
   constructor(props, context) {
       super(props);
@@ -48,6 +46,15 @@ class SupplierApplicationForm extends Components.ContextComponent
         moduleName: 'supplier-bank_accounts',
         jsFileName: 'bank_accounts-bundle'
       });
+
+      if (context.userData.roles.includes('supplier-admin')) {
+        this.SupplierApproval = serviceComponent({
+          serviceRegistry,
+          serviceName: 'supplier',
+          moduleName: 'supplier-access_approval',
+          jsFileName: 'access_approval-bundle'
+        });
+      }
   }
 
   confirmLeaveChangesUnsaved = () => {
@@ -107,6 +114,16 @@ class SupplierApplicationForm extends Components.ContextComponent
       <Alert bsStyle='info'>
         <Button bsStyle='link' onClick={this.handleBackUrlClick} >{this.context.i18n.getMessage('SupplierApplicationForm.ApplicationFormButton.backToServiceConfig')}</Button>
       </Alert>
+    );
+  }
+
+  renderUserAccessApproval = () => {
+    if (!this.context.userData.roles.includes('supplier-admin')) return null;
+
+    return (
+      <Tab eventKey='accessApproval' title={this.context.i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.userAccessApproval')}>
+        <this.SupplierApproval key='approval' supplierId={this.context.userData.supplierid} />
+      </Tab>
     );
   }
 
@@ -173,18 +190,19 @@ class SupplierApplicationForm extends Components.ContextComponent
       <div>
         {this.renderBackUrlLink()}
         <Tabs id="supplierTabs" activeKey={this.state.tabKey} onSelect={() => this.handleSelect()}>
-          <Tab eventKey={1} title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.company')}>
+          <Tab eventKey='company' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.company')}>
             {company}
           </Tab>
-          <Tab eventKey={2} title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.address')}>
+          <Tab eventKey='address' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.address')}>
             {address}
           </Tab>
-          <Tab eventKey={3} title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.contact')}>
+          <Tab eventKey='contact' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.contact')}>
             {contact}
           </Tab>
-          <Tab eventKey={4} title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.bankAccount')}>
+          <Tab eventKey='bankAccount' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.bankAccount')}>
             {banks}
           </Tab>
+          {this.renderUserAccessApproval()}
         </Tabs>
       </div>
     )

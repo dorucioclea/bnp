@@ -28,6 +28,7 @@ export default {
     'SupplierApplicationForm.ApplicationFormTab.address' : 'Adressen',
     'SupplierApplicationForm.ApplicationFormTab.contact' : 'Ansprechpartner',
     'SupplierApplicationForm.ApplicationFormTab.bankAccount' : 'Bankkonten',
+    'SupplierApplicationForm.ApplicationFormTab.userAccessApproval' : 'Zugriffsberechtigung',
     'SupplierApplicationForm.ApplicationFormTab.financials' : 'Finanzdaten',
     'SupplierApplicationForm.ApplicationFormTab.certification' : 'Nachweise',
     'SupplierApplicationForm.ApplicationFormTab.classificationGroup' : 'Warengruppen',

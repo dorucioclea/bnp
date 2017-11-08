@@ -28,6 +28,7 @@ export default {
     'SupplierApplicationForm.ApplicationFormTab.address' : 'Address',
     'SupplierApplicationForm.ApplicationFormTab.contact' : 'Contact',
     'SupplierApplicationForm.ApplicationFormTab.bankAccount' : 'Bank account',
+    'SupplierApplicationForm.ApplicationFormTab.userAccessApproval' : 'Access Approval',
     'SupplierApplicationForm.ApplicationFormTab.financials' : 'Financials',
     'SupplierApplicationForm.ApplicationFormTab.certification' : 'Certification',
     'SupplierApplicationForm.ApplicationFormTab.classificationGroup' : 'Classification group',
