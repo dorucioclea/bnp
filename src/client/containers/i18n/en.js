@@ -23,7 +23,8 @@ export default {
 
     'SupplierApplicationForm.page.title' : 'Supplier editor',
     'SupplierApplicationForm.notExists' : 'Supplier does not exist! Please register first.',
-    'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges' : 'You did not save your entries. Do you want to proceed without saving?',
+    'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.title' : 'Unsaved Changes',
+    'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.text' : 'You did not save your entries. Do you want to proceed without saving?',
     'SupplierApplicationForm.ApplicationFormTab.company' : 'Company',
     'SupplierApplicationForm.ApplicationFormTab.address' : 'Address',
     'SupplierApplicationForm.ApplicationFormTab.contact' : 'Contact',

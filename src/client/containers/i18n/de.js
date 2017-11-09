@@ -23,7 +23,8 @@ export default {
 
     'SupplierApplicationForm.page.title' : 'Lieferanteneditor',
     'SupplierApplicationForm.notExists' : 'Der Lieferant existiert nicht! Bitte registrieren Sie sich erst.',
-    'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges' : 'Sie haben Ihre Einträge nicht gespeichert. Wenn Sie fortfahren, gehen diese verloren. Wollen Sie ohne zu speichern fortfahren?',
+    'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.title' : 'Nicht gespeicherte Änderungen',
+    'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.text' : 'Sie haben Ihre Einträge nicht gespeichert. Wenn Sie fortfahren, gehen diese verloren. Wollen Sie ohne zu speichern fortfahren?',
     'SupplierApplicationForm.ApplicationFormTab.company' : 'Unternehmen',
     'SupplierApplicationForm.ApplicationFormTab.address' : 'Adressen',
     'SupplierApplicationForm.ApplicationFormTab.contact' : 'Ansprechpartner',
