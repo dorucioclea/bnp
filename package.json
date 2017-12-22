@@ -15,7 +15,7 @@
     "build:client": "NODE_ENV=production npx webpack -p --config ./webpack.production.config.js --profile --colors --bail",
     "stats": "webpack --config ./webpack.production.config.js --profile --json > stats.json",
     "nsp-check": "nsp check",
-    "test": "npm run clean ; npm run setup-consul ; nyc mocha --recursive -R mocha-junit-reporter",
+    "test": "npm run clean ; npm run setup-consul ; npx nyc mocha --recursive -R mocha-junit-reporter",
     "doc": "echo \"No documentation available.\""
   },
   "repository": {
