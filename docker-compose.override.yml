@@ -4,5 +4,7 @@ services:
     build: .
     image: opuscapita/bnp:dev
     volumes:
-     - .:/home/node/bnp
+     - ./config:/home/node/bnp/config
+     - ./src:/home/node/bnp/src
+     - ./test:/home/node/bnp/test
     command: 'npm run dev'

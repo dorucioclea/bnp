@@ -18,11 +18,11 @@ module.exports = new Config().merge({
   },
 
   resolve: {
-    modules: [process.env.NODE_PATH, 'node_modules']
+    modules: ['node_modules']
   },
 
   resolveLoader: {
-    modules: [process.env.NODE_PATH, 'node_modules']
+    modules: ['node_modules']
   },
 
   plugins: [
@@ -60,7 +60,7 @@ module.exports = new Config().merge({
         include: [
           path.join(__dirname, 'src/client')
         ],
-        exclude: [process.env.NODE_PATH],
+        exclude: process.env.NODE_PATH,
         options: {
           compact: false,
           babelrc: false,

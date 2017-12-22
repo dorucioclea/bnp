@@ -1,32 +1,24 @@
-FROM opuscapita/bnp:base
+FROM node:8-alpine
 MAINTAINER gr4per
 
-# NOTE: "node" user and corresponding "/home/node" dir are created by "node:6-alpine" image.
-WORKDIR /var/tmp/base
-
-COPY package.json .
-
-# Make sure node can load modules from /var/tmp/base/node_modules
-# Setting NODE_ENV is necessary for "npm install" below.
-ENV NODE_ENV=production NODE_PATH=/var/tmp/base/node_modules PATH=${PATH}:${NODE_PATH}/.bin
-RUN NODE_ENV=development yarn
+RUN apk add --no-cache curl
 
 WORKDIR /home/node/bnp
 
-# Bundle app source by overwriting all WORKDIR content.
-COPY . tmp
-RUN cd tmp ; yarn run build:client ; cd ..
+COPY . .
 
-# Change owner since COPY/ADD assignes UID/GID 0 to all copied content.
-RUN chown -Rf node:node tmp; rsync -a tmp/ ./ && rm -rf tmp
+RUN chown -R node:node .
+ENV NODE_ENV=production
 
-# Set the user name or UID to use when running the image and for any RUN, CMD and ENTRYPOINT instructions that follow
 USER node
 
-# A container must expose a port if it wants to be registered in Consul by Registrator.
-# The port is fed both to node express server and Consul => DRY principle is observed with ENV VAR.
-# NOTE: a port can be any, not necessarily different from exposed ports of other containers.
+RUN NODE_ENV=development yarn
+
+RUN yarn run build:client
+
 EXPOSE 3000
+
 CMD [ "npm", "start" ]
+
 HEALTHCHECK --interval=15s --timeout=3s --retries=12 \
   CMD curl --silent --fail http://localhost:3000/api/health/check || exit 1
