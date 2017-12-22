@@ -1,6 +1,6 @@
 import React from 'react';
 import { Containers, Components } from '@opuscapita/service-base-ui';
-import { Route, IndexRoute } from 'react-router';
+import { Route } from 'react-router';
 
 import Welcome from './Welcome';
 import BuyerDashboard from './BuyerDashboard';
@@ -50,10 +50,8 @@ class Main extends React.Component
                 <Route path="/supplierInformation" component={SupplierApplicationForm} />
                 <Route path="/supplierRegistration" component={SupplierRegistrationForm} />
                 <Route path="/supplierDirectory" component={SupplierDirectory} />
-                <Route path="/users">
-                    <IndexRoute component={UserList} />
-                    <Route path=":userId" component={UserEditor} />
-                </Route>
+                <Route path="/users" component={UserList} />
+                <Route path="/users/:userId" component={UserEditor} />
             </Containers.ServiceLayout>
         );
     }

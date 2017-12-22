@@ -50,8 +50,8 @@ export default class UserEditor extends Components.ContextComponent {
                 this.context.i18n.getMessage('UserAdmin.Editor.unsavedChangesConfirmation.message'),
                 button => button === 'yes' && onConfirmed() || true,
                 {
-                    yes: this.context.i18n.getMessage('UserAdmin.Editor.unsavedChangesConfirmation.yes'),
-                    no: this.context.i18n.getMessage('UserAdmin.Editor.unsavedChangesConfirmation.no')
+                    yes: this.context.i18n.getMessage('System.yes'),
+                    no: this.context.i18n.getMessage('System.no')
                 }
             );
         } else {

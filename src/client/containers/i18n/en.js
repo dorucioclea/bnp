@@ -71,7 +71,5 @@ export default {
     'UserAdmin.Editor.tabs.profile': 'Profile',
     'UserAdmin.Editor.tabs.roles': 'Roles',
     'UserAdmin.Editor.unsavedChangesConfirmation.title': 'Confirmation',
-    'UserAdmin.Editor.unsavedChangesConfirmation.message': 'You have unsaved changes. Do you want to proceed?',
-    'UserAdmin.Editor.unsavedChangesConfirmation.yes': 'Yes',
-    'UserAdmin.Editor.unsavedChangesConfirmation.no': 'No'
+    'UserAdmin.Editor.unsavedChangesConfirmation.message': 'You have unsaved changes. Do you want to proceed?'
 }
