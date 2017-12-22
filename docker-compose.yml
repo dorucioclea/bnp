@@ -137,7 +137,7 @@ services:
       - registrator
 
   user:
-    image: opuscapita/user:dev
+    image: opuscapita/user:local
 #    build: ../user
 #    volumes:
 #     - ../user:/home/node/user
@@ -161,7 +161,7 @@ services:
       SERVICE_3008_CHECK_TIMEOUT: 3s
     ports:
       - '3008:3008'
-    command: 'npm start'
+    command: 'npm run dev'
 
   email:
     image: opuscapita/email:dev
