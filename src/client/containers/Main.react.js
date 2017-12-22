@@ -8,6 +8,8 @@ import SellerDashboard from './SellerDashboard';
 import SupplierApplicationForm from './SupplierApplicationForm';
 import SupplierRegistrationForm from './SupplierRegistrationForm';
 import SupplierDirectory from './SupplierDirectory';
+import UserList from './UserAdmin/UserList';
+import UserEditor from './UserAdmin/UserEditor';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -24,6 +26,9 @@ class Dispatcher extends Components.ContextComponent
             router.push('/bnp/buyerDashboard');
         else if(roles.indexOf('admin') === -1)
             router.push('/bnp/supplierRegistration');
+        else if(roles.indexOf('admin') > -1)
+            router.push('/bnp/users')
+
     }
 
     render()
@@ -45,6 +50,8 @@ class Main extends React.Component
                 <Route path="/supplierInformation" component={SupplierApplicationForm} />
                 <Route path="/supplierRegistration" component={SupplierRegistrationForm} />
                 <Route path="/supplierDirectory" component={SupplierDirectory} />
+                <Route path="/users" component={UserList} />
+                <Route path="/users/:userId" component={UserEditor} />
             </Containers.ServiceLayout>
         );
     }

@@ -61,5 +61,12 @@ export default {
     'SupplierRegistrationForm.supplierExists' : 'Der Lieferant existiert bereits.',
 
     'SupplierDirectory.page.title' : 'Lieferantenverzeichnis',
-    'SupplierDirectory.head': 'Lieferantensuche'
+    'SupplierDirectory.head': 'Lieferantensuche',
+
+    'UserAdmin.Editor.page.title': 'User editor DE',
+    'UserAdmin.Editor.back': 'Back DE',
+    'UserAdmin.Editor.tabs.profile': 'Profile DE',
+    'UserAdmin.Editor.tabs.roles': 'Roles DE',
+    'UserAdmin.Editor.unsavedChangesConfirmation.title': 'Confirmation DE',
+    'UserAdmin.Editor.unsavedChangesConfirmation.message': 'You have unsaved changes. Do you want to proceed? DE'
 }

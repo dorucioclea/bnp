@@ -61,5 +61,15 @@ export default {
     'SupplierRegistrationForm.supplierExists' : 'The supplier does already exist.',
 
     'SupplierDirectory.page.title' : 'Supplier directory',
-    'SupplierDirectory.head': 'Search for suppliers'
+    'SupplierDirectory.head': 'Search for suppliers',
+
+    'UserList.page.title': 'User list',
+    'UserList.head': 'User list',
+
+    'UserAdmin.Editor.page.title': 'User editor',
+    'UserAdmin.Editor.back': 'Back',
+    'UserAdmin.Editor.tabs.profile': 'Profile',
+    'UserAdmin.Editor.tabs.roles': 'Roles',
+    'UserAdmin.Editor.unsavedChangesConfirmation.title': 'Confirmation',
+    'UserAdmin.Editor.unsavedChangesConfirmation.message': 'You have unsaved changes. Do you want to proceed?'
 }
