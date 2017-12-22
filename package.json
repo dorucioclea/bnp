@@ -4,7 +4,7 @@
   "description": "Business Network Portal",
   "scripts": {
     "precommit": "npm run lint",
-    "clean": "rimraf build esdoc testdb.sqlite .nyc_output coverage",
+    "clean": "${NODE_PATH}/.bin/rimraf build esdoc testdb.sqlite .nyc_output coverage",
     "lint": "eslint src",
     "lint-fix": "eslint src --fix",
     "start": "node src/server/index.js",
