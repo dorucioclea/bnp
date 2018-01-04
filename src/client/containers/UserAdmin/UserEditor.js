@@ -63,6 +63,10 @@ export default class UserEditor extends Components.ContextComponent {
         this.setState({ isDirty: true });
     }
 
+    handleUpdate(profile) {
+        this.setState({ isDirty: false });
+    }
+
     render() {
         const i18n = this.context.i18n;
 
@@ -85,7 +89,7 @@ export default class UserEditor extends Components.ContextComponent {
                             userId={this.props.params.userId}
                             dateTimePattern={this.context.datePattern}
                             onChange={() => this.handleChange()}
-                            onUpdate={() => this.handleChange()}
+                            onUpdate={(profile) => this.handleUpdate(profile)}
                         />
                     </Tab>
                     <Tab eventKey={1} title={i18n.getMessage('UserAdmin.Editor.tabs.roles')}>
