@@ -35,14 +35,25 @@ export default class UserEditor extends Components.ContextComponent {
         };
     }
 
+    /**
+     * Switches to given tab.
+     * @param {number} tab Tab index
+     */
     handleTabChange = (tab) => {
         this.setState({ tab });
     };
 
+    /**
+     * Navigates to user list.
+     */
     handleBackClick = () => {
         this.confirmUnsavedChanges(() => this.context.router.push('/bnp/users'));
     };
 
+    /**
+     * Displays confirmation dialog once unsaved changes detected.
+     * @param {function} onConfirmed Called when users confirms navigation
+     */
     confirmUnsavedChanges(onConfirmed) {
         if (this.state.isDirty) {
             this.context.showModalDialog(
@@ -59,11 +70,17 @@ export default class UserEditor extends Components.ContextComponent {
         }
     }
 
+    /**
+     * User changed data handler.
+     */
     handleChange() {
         this.setState({ isDirty: true });
     }
 
-    handleUpdate(profile) {
+    /**
+     * Changes data has been saved handler.
+     */
+    handleUpdate() {
         this.setState({ isDirty: false });
     }
 
