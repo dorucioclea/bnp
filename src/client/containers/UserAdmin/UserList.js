@@ -21,6 +21,10 @@ export default class UserList extends Components.ContextComponent {
         });
     }
 
+    /**
+     * User edit click handler.
+     * @param {string} userId User identifier
+     */
     handleEdit(userId) {
         this.context.router.push(`/bnp/users/${userId}`);
     }
