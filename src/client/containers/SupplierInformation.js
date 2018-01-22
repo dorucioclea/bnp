@@ -4,8 +4,6 @@ import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import Button from 'react-bootstrap/lib/Button';
-import Alert from 'react-bootstrap/lib/Alert';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class SupplierInformation extends Components.ContextComponent
@@ -74,14 +72,7 @@ class SupplierInformation extends Components.ContextComponent
     this.isDirty = event.isDirty;
   };
 
-  handleSupplierUpdate = updatedSupplier => {
-    /*this.props.dispatch(setCurrentuserData({
-      ...this.props.currentUserData,
-      supplierid: updatedSupplier.supplierId,
-      supplierName: updatedSupplier.supplierName,
-      companyRole: 'selling'
-    }));*/
-  };
+  handleSupplierUpdate = updatedSupplier => null;
 
 
 
@@ -111,9 +102,9 @@ class SupplierInformation extends Components.ContextComponent
     if (!this.props.location.query.backUrl) return null;
 
     return (
-      <Alert bsStyle='info'>
-        <Button bsStyle='link' onClick={this.handleBackUrlClick} >{this.context.i18n.getMessage('SupplierInformation.ApplicationFormButton.backToServiceConfig')}</Button>
-      </Alert>
+      <div className='alert alert-info'>
+        <button className='btn btn-link' onClick={this.handleBackUrlClick} >{this.context.i18n.getMessage('SupplierInformation.ApplicationFormButton.backToServiceConfig')}</button>
+      </div>
     );
   }
 
