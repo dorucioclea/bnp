@@ -8,6 +8,17 @@ export default {
 
     'BuyerDashboard.page.title' : 'Einkäufer Dashboard',
 
+    'BuyerInformation.page.title' : 'Käufereditor',
+    'BuyerInformation.notExists' : 'Der Käufer existiert nicht! Bitte registrieren Sie sich erst.',
+
+    'CompanyProfile.tab.company' : 'Unternehmen',
+    'CompanyProfile.tab.address' : 'Adressen',
+    'CompanyProfile.tab.contact' : 'Ansprechpartner',
+    'CompanyProfile.tab.bankAccount' : 'Bankkonten',
+    'CompanyProfile.tab.userAccessApproval' : 'Zugriffsberechtigung',
+    'CompanyProfile.form.unsavedChanges.title' : 'Nicht gespeicherte Änderungen',
+    'CompanyProfile.form.unsavedChanges.text' : 'Sie haben Ihre Einträge nicht gespeichert. Wenn Sie fortfahren, gehen diese verloren. Wollen Sie ohne zu speichern fortfahren?',
+
     'SellerDashboard.page.title' : 'Verkäufer Dashboard',
     'SellerDashboard.profileStrength.heading' : 'Unternehmensprofil Stärke',
     'SellerDashboard.profileStrength.editButton' : 'Unternehmensprofil',
@@ -23,20 +34,6 @@ export default {
 
     'SupplierApplicationForm.page.title' : 'Lieferanteneditor',
     'SupplierApplicationForm.notExists' : 'Der Lieferant existiert nicht! Bitte registrieren Sie sich erst.',
-    'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.title' : 'Nicht gespeicherte Änderungen',
-    'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.text' : 'Sie haben Ihre Einträge nicht gespeichert. Wenn Sie fortfahren, gehen diese verloren. Wollen Sie ohne zu speichern fortfahren?',
-    'SupplierApplicationForm.ApplicationFormTab.company' : 'Unternehmen',
-    'SupplierApplicationForm.ApplicationFormTab.address' : 'Adressen',
-    'SupplierApplicationForm.ApplicationFormTab.contact' : 'Ansprechpartner',
-    'SupplierApplicationForm.ApplicationFormTab.bankAccount' : 'Bankkonten',
-    'SupplierApplicationForm.ApplicationFormTab.userAccessApproval' : 'Zugriffsberechtigung',
-    'SupplierApplicationForm.ApplicationFormTab.financials' : 'Finanzdaten',
-    'SupplierApplicationForm.ApplicationFormTab.certification' : 'Nachweise',
-    'SupplierApplicationForm.ApplicationFormTab.classificationGroup' : 'Warengruppen',
-    'SupplierApplicationForm.ApplicationFormTab.logistics' : 'Logistik',
-    'SupplierApplicationForm.ApplicationFormTab.misc' : 'Weiteres',
-    'SupplierApplicationForm.ApplicationFormTab.rating' : 'Bewertung',
-    'SupplierApplicationForm.ApplicationFormTab.catalogsAndContracts' : 'Kontrakte',
 
     'SupplierApplicationForm.ApplicationFormButton.return' : 'Nachbesserung anfordern',
     'SupplierApplicationForm.ApplicationFormButton.sendToCustomer' : 'Bearbeitung abschlie\u00dfen und um Freigabe bitten',

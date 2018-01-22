@@ -8,6 +8,17 @@ export default {
 
     'BuyerDashboard.page.title' : 'Buyer dashboard',
 
+    'BuyerInformation.page.title' : 'Buyer editor',
+    'BuyerInformation.notExists' : 'Buyer does not exist! Please register first.',
+
+    'CompanyProfile.tab.company' : 'Company',
+    'CompanyProfile.tab.address' : 'Address',
+    'CompanyProfile.tab.contact' : 'Contact',
+    'CompanyProfile.tab.bankAccount' : 'Bank account',
+    'CompanyProfile.tab.userAccessApproval' : 'Access Approval',
+    'CompanyProfile.form.unsavedChanges.title' : 'Unsaved Changes',
+    'CompanyProfile.form.unsavedChanges.text' : 'You did not save your entries. Do you want to proceed without saving?',
+
     'SellerDashboard.page.title' : 'Seller dashboard',
     'SellerDashboard.profileStrength.heading' : 'Company Profile Strength',
     'SellerDashboard.profileStrength.editButton' : 'Company Profile',
@@ -23,20 +34,6 @@ export default {
 
     'SupplierApplicationForm.page.title' : 'Supplier editor',
     'SupplierApplicationForm.notExists' : 'Supplier does not exist! Please register first.',
-    'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.title' : 'Unsaved Changes',
-    'SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.text' : 'You did not save your entries. Do you want to proceed without saving?',
-    'SupplierApplicationForm.ApplicationFormTab.company' : 'Company',
-    'SupplierApplicationForm.ApplicationFormTab.address' : 'Address',
-    'SupplierApplicationForm.ApplicationFormTab.contact' : 'Contact',
-    'SupplierApplicationForm.ApplicationFormTab.bankAccount' : 'Bank account',
-    'SupplierApplicationForm.ApplicationFormTab.userAccessApproval' : 'Access Approval',
-    'SupplierApplicationForm.ApplicationFormTab.financials' : 'Financials',
-    'SupplierApplicationForm.ApplicationFormTab.certification' : 'Certification',
-    'SupplierApplicationForm.ApplicationFormTab.classificationGroup' : 'Classification group',
-    'SupplierApplicationForm.ApplicationFormTab.logistics' : 'Logistics',
-    'SupplierApplicationForm.ApplicationFormTab.misc' : 'Misc',
-    'SupplierApplicationForm.ApplicationFormTab.rating' : 'Rating',
-    'SupplierApplicationForm.ApplicationFormTab.catalogsAndContracts' : 'Catalogs & Contracts',
 
     'SupplierApplicationForm.ApplicationFormButton.return' : 'Request data correction',
     'SupplierApplicationForm.ApplicationFormButton.sendToCustomer' : 'Finish data entry and request approval',
@@ -58,7 +55,7 @@ export default {
     'SupplierApplicationForm.ApplicationFormLink.graphic' : 'This ${separation} depicts the meaning of the Incoterms.',
 
     'SupplierRegistrationForm.page.title' : 'Supplier registration',
-    'SupplierRegistrationForm.supplierExists' : 'The supplier does already exist.',
+    'SupplierRegistrationForm.supplierExists' : 'The supplier already exist.',
 
     'SupplierDirectory.page.title' : 'Supplier directory',
     'SupplierDirectory.head': 'Search for suppliers',

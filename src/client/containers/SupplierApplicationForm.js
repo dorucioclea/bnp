@@ -121,7 +121,7 @@ class SupplierApplicationForm extends Components.ContextComponent
     if (!this.context.userData.roles.includes('supplier-admin')) return null;
 
     return (
-      <Tab eventKey='accessApproval' title={this.context.i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.userAccessApproval')}>
+      <Tab eventKey='accessApproval' title={this.context.i18n.getMessage('CompanyProfile.tab.userAccessApproval')}>
         <this.SupplierApproval key='approval' supplierId={this.context.userData.supplierid} />
       </Tab>
     );
@@ -190,16 +190,16 @@ class SupplierApplicationForm extends Components.ContextComponent
       <div>
         {this.renderBackUrlLink()}
         <Tabs id="supplierTabs" activeKey={this.state.tabKey} onSelect={() => this.handleSelect()}>
-          <Tab eventKey='company' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.company')}>
+          <Tab eventKey='company' title={i18n.getMessage('CompanyProfile.tab.company')}>
             {company}
           </Tab>
-          <Tab eventKey='address' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.address')}>
+          <Tab eventKey='address' title={i18n.getMessage('CompanyProfile.tab.address')}>
             {address}
           </Tab>
-          <Tab eventKey='contact' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.contact')}>
+          <Tab eventKey='contact' title={i18n.getMessage('CompanyProfile.tab.contact')}>
             {contact}
           </Tab>
-          <Tab eventKey='bankAccount' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.bankAccount')}>
+          <Tab eventKey='bankAccount' title={i18n.getMessage('CompanyProfile.tab.bankAccount')}>
             {banks}
           </Tab>
           {this.renderUserAccessApproval()}
