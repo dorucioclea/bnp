@@ -6,7 +6,7 @@ import Welcome from './Welcome';
 import BuyerDashboard from './BuyerDashboard';
 import BuyerInformation from './BuyerInformation';
 import SellerDashboard from './SellerDashboard';
-import SupplierApplicationForm from './SupplierApplicationForm';
+import SupplierInformation from './SupplierInformation';
 import SupplierRegistrationForm from './SupplierRegistrationForm';
 import SupplierDirectory from './SupplierDirectory';
 import UserList from './UserAdmin/UserList';
@@ -49,7 +49,7 @@ class Main extends React.Component
                 <Route path="/buyerDashboard" component={BuyerDashboard} />
                 <Route path="/buyerInformation" component={BuyerInformation} />
                 <Route path="/sellerDashboard" component={SellerDashboard} />
-                <Route path="/supplierInformation" component={SupplierApplicationForm} />
+                <Route path="/supplierInformation" component={SupplierInformation} />
                 <Route path="/supplierRegistration" component={SupplierRegistrationForm} />
                 <Route path="/supplierDirectory" component={SupplierDirectory} />
                 <Route path="/users" component={UserList} />

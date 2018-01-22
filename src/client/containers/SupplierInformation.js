@@ -8,14 +8,14 @@ import Button from 'react-bootstrap/lib/Button';
 import Alert from 'react-bootstrap/lib/Alert';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
-class SupplierApplicationForm extends Components.ContextComponent
+class SupplierInformation extends Components.ContextComponent
 {
   state = { tabKey: this.props.location.query.tab || 'company' };
 
   constructor(props, context) {
       super(props);
 
-      context.i18n.register('SupplierApplicationForm', translations);
+      context.i18n.register('SupplierInformation', translations);
 
       const serviceRegistry = (service) => ({ url: '/supplier' });
 
@@ -61,8 +61,8 @@ class SupplierApplicationForm extends Components.ContextComponent
       return new Promise((resolve, reject) => {
           const { i18n } = this.context;
 
-          const title = i18n.getMessage('SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.title');
-          const text = i18n.getMessage('SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.text');
+          const title = i18n.getMessage('SupplierInformation.ApplicationFormConfirmation.unsavedChanges.title');
+          const text = i18n.getMessage('SupplierInformation.ApplicationFormConfirmation.unsavedChanges.text');
           const buttons = { 'no' : i18n.getMessage('System.no'), 'yes' : i18n.getMessage('System.yes') };
           const onButtonClick = (button) => resolve(button === 'yes');
 
@@ -112,7 +112,7 @@ class SupplierApplicationForm extends Components.ContextComponent
 
     return (
       <Alert bsStyle='info'>
-        <Button bsStyle='link' onClick={this.handleBackUrlClick} >{this.context.i18n.getMessage('SupplierApplicationForm.ApplicationFormButton.backToServiceConfig')}</Button>
+        <Button bsStyle='link' onClick={this.handleBackUrlClick} >{this.context.i18n.getMessage('SupplierInformation.ApplicationFormButton.backToServiceConfig')}</Button>
       </Alert>
     );
   }
@@ -134,10 +134,10 @@ class SupplierApplicationForm extends Components.ContextComponent
   render() {
     const { userData, i18n } = this.context;
 
-    this.context.setPageTitle(i18n.getMessage('SupplierApplicationForm.page.title'));
+    this.context.setPageTitle(i18n.getMessage('SupplierInformation.page.title'));
 
     if (!userData.supplierid) {
-      return <p>{i18n.getMessage('SupplierApplicationForm.notExists')}</p>
+      return <p>{i18n.getMessage('SupplierInformation.notExists')}</p>
     }
 
     const company = (
@@ -209,4 +209,4 @@ class SupplierApplicationForm extends Components.ContextComponent
   }
 }
 
-export default SupplierApplicationForm;
+export default SupplierInformation;
