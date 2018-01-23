@@ -10,7 +10,7 @@
     "start": "node src/server/index.js",
     "dev": "npm run setup-consul ; npx nodemon --watch src/server src/server/index.js",
     "dev:production": "npm run setup-consul ; npm start",
-    "setup-consul": "curl -X PUT -d ${MYSQL_DATABASE} http://consul:8500/v1/kv/bnp/db-init/database ; curl -X PUT -d 'root' http://consul:8500/v1/kv/bnp/db-init/user ; curl -X PUT -d ${MYSQL_ROOT_PASSWORD} http://consul:8500/v1/kv/bnp/db-init/password ; curl -X PUT -d 'true' http://consul:8500/v1/kv/bnp/db-init/populate-test-data; curl -X PUT -d ${REDIS_AUTH} http://consul:8500/v1/kv/auth/redis/password",
+    "setup-consul": "curl -X PUT -d ${MYSQL_DATABASE} http://consul:8500/v1/kv/bnp/db-init/database ; curl -X PUT -d 'root' http://consul:8500/v1/kv/bnp/db-init/user ; curl -X PUT -d ${MYSQL_ROOT_PASSWORD} http://consul:8500/v1/kv/bnp/db-init/password ; curl -X PUT -d 'true' http://consul:8500/v1/kv/bnp/db-init/populate-test-data; curl -X PUT -d ${REDIS_AUTH} http://consul:8500/v1/kv/bnp/redis/password",
     "esdoc": "esdoc -c esdoc.json",
     "build:client": "NODE_ENV=production npx webpack -p --config ./webpack.production.config.js --profile --colors --bail",
     "stats": "webpack --config ./webpack.production.config.js --profile --json > stats.json",
@@ -23,15 +23,15 @@
     "url": "https://github.com/OpusCapita/bnp"
   },
   "author": {
-    "name": "Andrei Mourzenkov",
-    "email": "andrei.mourzenkov@jcatalog.com"
+    "name": "Lekealem Asong",
+    "email": "Lekealem.Asong@opuscapita.com"
   },
   "license": "jCatalog",
   "readme": "README.md",
   "dependencies": {
     "@opuscapita/i18n": "^1.1.0",
     "@opuscapita/react-loaders": "^0.1.9",
-    "@opuscapita/service-base-ui": "^1.0.68",
+    "@opuscapita/service-base-ui": "^1.0.77",
     "bluebird": "^3.5.1",
     "cross-env": "^4.0.0",
     "highcharts-funnel": "^0.1.2",

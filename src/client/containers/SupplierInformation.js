@@ -4,18 +4,16 @@ import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import Button from 'react-bootstrap/lib/Button';
-import Alert from 'react-bootstrap/lib/Alert';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
-class SupplierApplicationForm extends Components.ContextComponent
+class SupplierInformation extends Components.ContextComponent
 {
   state = { tabKey: this.props.location.query.tab || 'company' };
 
   constructor(props, context) {
       super(props);
 
-      context.i18n.register('SupplierApplicationForm', translations);
+      context.i18n.register('SupplierInformation', translations);
 
       const serviceRegistry = (service) => ({ url: '/supplier' });
 
@@ -61,8 +59,8 @@ class SupplierApplicationForm extends Components.ContextComponent
       return new Promise((resolve, reject) => {
           const { i18n } = this.context;
 
-          const title = i18n.getMessage('SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.title');
-          const text = i18n.getMessage('SupplierApplicationForm.ApplicationFormConfirmation.unsavedChanges.text');
+          const title = i18n.getMessage('SupplierInformation.ApplicationFormConfirmation.unsavedChanges.title');
+          const text = i18n.getMessage('SupplierInformation.ApplicationFormConfirmation.unsavedChanges.text');
           const buttons = { 'no' : i18n.getMessage('System.no'), 'yes' : i18n.getMessage('System.yes') };
           const onButtonClick = (button) => resolve(button === 'yes');
 
@@ -74,14 +72,7 @@ class SupplierApplicationForm extends Components.ContextComponent
     this.isDirty = event.isDirty;
   };
 
-  handleSupplierUpdate = updatedSupplier => {
-    /*this.props.dispatch(setCurrentuserData({
-      ...this.props.currentUserData,
-      supplierid: updatedSupplier.supplierId,
-      supplierName: updatedSupplier.supplierName,
-      companyRole: 'selling'
-    }));*/
-  };
+  handleSupplierUpdate = updatedSupplier => null;
 
 
 
@@ -111,9 +102,9 @@ class SupplierApplicationForm extends Components.ContextComponent
     if (!this.props.location.query.backUrl) return null;
 
     return (
-      <Alert bsStyle='info'>
-        <Button bsStyle='link' onClick={this.handleBackUrlClick} >{this.context.i18n.getMessage('SupplierApplicationForm.ApplicationFormButton.backToServiceConfig')}</Button>
-      </Alert>
+      <div className='alert alert-info'>
+        <button className='btn btn-link' onClick={this.handleBackUrlClick} >{this.context.i18n.getMessage('SupplierInformation.ApplicationFormButton.backToServiceConfig')}</button>
+      </div>
     );
   }
 
@@ -121,7 +112,7 @@ class SupplierApplicationForm extends Components.ContextComponent
     if (!this.context.userData.roles.includes('supplier-admin')) return null;
 
     return (
-      <Tab eventKey='accessApproval' title={this.context.i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.userAccessApproval')}>
+      <Tab eventKey='accessApproval' title={this.context.i18n.getMessage('CompanyProfile.tab.userAccessApproval')}>
         <this.SupplierApproval key='approval' supplierId={this.context.userData.supplierid} />
       </Tab>
     );
@@ -134,10 +125,10 @@ class SupplierApplicationForm extends Components.ContextComponent
   render() {
     const { userData, i18n } = this.context;
 
-    this.context.setPageTitle(i18n.getMessage('SupplierApplicationForm.page.title'));
+    this.context.setPageTitle(i18n.getMessage('SupplierInformation.page.title'));
 
     if (!userData.supplierid) {
-      return <p>{i18n.getMessage('SupplierApplicationForm.notExists')}</p>
+      return <p>{i18n.getMessage('SupplierInformation.notExists')}</p>
     }
 
     const company = (
@@ -190,16 +181,16 @@ class SupplierApplicationForm extends Components.ContextComponent
       <div>
         {this.renderBackUrlLink()}
         <Tabs id="supplierTabs" activeKey={this.state.tabKey} onSelect={() => this.handleSelect()}>
-          <Tab eventKey='company' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.company')}>
+          <Tab eventKey='company' title={i18n.getMessage('CompanyProfile.tab.company')}>
             {company}
           </Tab>
-          <Tab eventKey='address' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.address')}>
+          <Tab eventKey='address' title={i18n.getMessage('CompanyProfile.tab.address')}>
             {address}
           </Tab>
-          <Tab eventKey='contact' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.contact')}>
+          <Tab eventKey='contact' title={i18n.getMessage('CompanyProfile.tab.contact')}>
             {contact}
           </Tab>
-          <Tab eventKey='bankAccount' title={i18n.getMessage('SupplierApplicationForm.ApplicationFormTab.bankAccount')}>
+          <Tab eventKey='bankAccount' title={i18n.getMessage('CompanyProfile.tab.bankAccount')}>
             {banks}
           </Tab>
           {this.renderUserAccessApproval()}
@@ -209,4 +200,4 @@ class SupplierApplicationForm extends Components.ContextComponent
   }
 }
 
-export default SupplierApplicationForm;
+export default SupplierInformation;
