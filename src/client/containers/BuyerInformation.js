@@ -31,6 +31,13 @@ class BuyerInformation extends Components.ContextComponent
       jsFileName: 'addresses-bundle'
     });
 
+    this.CustomerContactEditor = serviceComponent({
+      serviceRegistry,
+      serviceName: 'customer' ,
+      moduleName: 'customer-contacts',
+      jsFileName: 'contacts-bundle'
+    });
+
     this.CustomerBankAccountEditor = serviceComponent({
       serviceRegistry,
       serviceName: 'customer' ,
@@ -113,6 +120,17 @@ class BuyerInformation extends Components.ContextComponent
       />
     );
 
+    const contacts = (
+      <this.CustomerContactEditor
+        key='contact'
+        onUnauthorized={this.handleUnauthorized}
+        customerId={userData.customerid}
+        username={userData.id}
+        userRoles={userData.roles}
+        onChange={this.handleDirtyState}
+      />
+    );
+
     const banks = (
       <this.CustomerBankAccountEditor
         key='bank_accounts'
@@ -132,6 +150,9 @@ class BuyerInformation extends Components.ContextComponent
           </Tab>
           <Tab eventKey='address' title={i18n.getMessage('CompanyProfile.tab.address')}>
             {address}
+          </Tab>
+          <Tab eventKey='contact' title={i18n.getMessage('CompanyProfile.tab.contact')}>
+            {contacts}
           </Tab>
           <Tab eventKey='bankAccount' title={i18n.getMessage('CompanyProfile.tab.bankAccount')}>
             {banks}
