@@ -30,7 +30,8 @@ module.exports = new Config().merge({
         $: "jquery",
         jQuery: "jquery",
         jquery:"jquery"
-      })
+      }),
+      new ExtractTextPlugin('bundle.css')
   ],
 
   module: {

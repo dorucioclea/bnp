@@ -65,5 +65,9 @@ export default {
     'UserAdmin.Editor.tabs.profile': 'Profile DE',
     'UserAdmin.Editor.tabs.roles': 'Roles DE',
     'UserAdmin.Editor.unsavedChangesConfirmation.title': 'Confirmation DE',
-    'UserAdmin.Editor.unsavedChangesConfirmation.message': 'You have unsaved changes. Do you want to proceed? DE'
+    'UserAdmin.Editor.unsavedChangesConfirmation.message': 'You have unsaved changes. Do you want to proceed? DE',
+
+    'AclAdmin.page.title': 'Acl editor DE',
+    'AclAdmin.authority.heading': 'Authority identifier DE',
+    'AclAdmin.permissions.heading': 'Permissions DE',
 }
