@@ -52,10 +52,7 @@ export default class AclAdmin extends Components.ContextComponent {
                 {this.props.params.roleId &&
                     <section>
                         <h2>{i18n('AclAdmin.permissions.heading')}</h2>
-                        <this.AclEditor
-                            className="acl-admin-editor"
-                            role={this.props.params.roleId}
-                        />
+                        <this.AclEditor role={this.props.params.roleId} />
                     </section>}
             </div>
         )

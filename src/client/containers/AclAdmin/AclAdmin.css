@@ -1,7 +1,3 @@
 .acl-admin-role-picker {
-    width: 250px;
-}
-
-.acl-admin-editor {
-
+    max-width: 350px;
 }
