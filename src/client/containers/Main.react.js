@@ -55,7 +55,7 @@ class Main extends React.Component
                 <Route path="/supplierDirectory" component={SupplierDirectory} />
                 <Route path="/users" component={UserList} />
                 <Route path="/users/:userId" component={UserEditor} />
-                <Route path="/acl" component={AclAdmin} />
+                <Route path="/permissions(/:roleId)" component={AclAdmin} />
             </Containers.ServiceLayout>
         );
     }
