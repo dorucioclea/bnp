@@ -11,6 +11,7 @@ import SupplierRegistrationForm from './SupplierRegistrationForm';
 import SupplierDirectory from './SupplierDirectory';
 import UserList from './UserAdmin/UserList';
 import UserEditor from './UserAdmin/UserEditor';
+import AclAdmin from './AclAdmin/AclAdmin';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -54,6 +55,7 @@ class Main extends React.Component
                 <Route path="/supplierDirectory" component={SupplierDirectory} />
                 <Route path="/users" component={UserList} />
                 <Route path="/users/:userId" component={UserEditor} />
+                <Route path="/permissions(/:roleId)" component={AclAdmin} />
             </Containers.ServiceLayout>
         );
     }

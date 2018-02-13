@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const Config = require('webpack-config').default;
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = new Config().merge({
   entry: ['babel-polyfill', './src/client/index.js'],
@@ -40,11 +39,8 @@ module.exports = new Config().merge({
         loader: 'json-loader'
       },
       {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
+          test: /\.css$/,
+          loader: "style-loader!css-loader"
       },
       {
         test: /\.less$/,

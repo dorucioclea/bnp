@@ -386,6 +386,7 @@ services:
       SERVICE_3013_CHECK_TIMEOUT: 3s
       RABBITMQ_USER: ${RABBITMQ_USER}
       RABBITMQ_PASS: ${RABBITMQ_PASS}
+      REDIS_AUTH: ${REDIS_AUTH}
     ports:
      - '3013:3013'
     depends_on:
