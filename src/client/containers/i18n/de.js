@@ -60,14 +60,14 @@ export default {
     'SupplierDirectory.page.title' : 'Lieferantenverzeichnis',
     'SupplierDirectory.head': 'Lieferantensuche',
 
-    'UserAdmin.Editor.page.title': 'User editor DE',
-    'UserAdmin.Editor.back': 'Back DE',
-    'UserAdmin.Editor.tabs.profile': 'Profile DE',
-    'UserAdmin.Editor.tabs.roles': 'Roles DE',
-    'UserAdmin.Editor.unsavedChangesConfirmation.title': 'Confirmation DE',
-    'UserAdmin.Editor.unsavedChangesConfirmation.message': 'You have unsaved changes. Do you want to proceed? DE',
+    'UserAdmin.Editor.page.title': 'Benutzereditor',
+    'UserAdmin.Editor.back': 'Zurück',
+    'UserAdmin.Editor.tabs.profile': 'Profil',
+    'UserAdmin.Editor.tabs.roles': 'Rolen',
+    'UserAdmin.Editor.unsavedChangesConfirmation.title': 'Sicherheitsabfrage',
+    'UserAdmin.Editor.unsavedChangesConfirmation.message': 'Es sind ungesicherte Änderungen vorhanden. Möchten Sie trotzdem fortfahren?',
 
-    'AclAdmin.page.title': 'Acl editor DE',
-    'AclAdmin.authority.heading': 'Authority identifier DE',
-    'AclAdmin.permissions.heading': 'Permissions DE',
+    'AclAdmin.page.title': 'ACL Editor',
+    'AclAdmin.authority.heading': 'Authority-ID',
+    'AclAdmin.permissions.heading': 'Berechtigungs-ID',
 }
