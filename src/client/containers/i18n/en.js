@@ -62,6 +62,10 @@ export default {
 
     'UserList.page.title': 'User list',
     'UserList.head': 'User list',
+    'UserList.createUser': 'Create User',
+
+    'UserCreate.supplier': 'Create Supplier',
+    'UserCreate.customer': 'Create Customer',
 
     'UserAdmin.Editor.page.title': 'User editor',
     'UserAdmin.Editor.back': 'Back',

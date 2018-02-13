@@ -29,11 +29,16 @@ export default class UserList extends Components.ContextComponent {
         this.context.router.push(`/bnp/users/${userId}`);
     }
 
+    handleCreateUserClick() {
+        this.context.router.push(`/bnp/createUser`);
+    }
+
     render() {
         this.context.setPageTitle(this.context.i18n.getMessage('UserList.page.title'));
 
         return (
             <div>
+                <button className='btn btn-primary pull-right' onClick={this.handleCreateUserClick.bind(this)} >{this.context.i18n.getMessage('UserList.createUser')}</button>
                 <h1>{this.context.i18n.getMessage('UserList.head')}</h1>
                 <this.UserList onEdit={userId => this.handleEdit(userId)} />
             </div>

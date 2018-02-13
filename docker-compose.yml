@@ -92,6 +92,8 @@ services:
     labels:
       SERVICE_NAME: 'customer'
     environment:
+      USER_NAME: 'svc_customer'
+      PASSWORD: 'test'
       SERVICE_3009_CHECK_HTTP: /api/health/check
       SERVICE_3009_CHECK_INTERVAL: 15s
       SERVICE_3009_CHECK_TIMEOUT: 3s

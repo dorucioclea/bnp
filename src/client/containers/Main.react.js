@@ -10,6 +10,7 @@ import SupplierInformation from './SupplierInformation';
 import SupplierRegistrationForm from './SupplierRegistrationForm';
 import SupplierDirectory from './SupplierDirectory';
 import UserList from './UserAdmin/UserList';
+import UserCreate from './UserAdmin/UserCreate';
 import UserEditor from './UserAdmin/UserEditor';
 import AclAdmin from './AclAdmin/AclAdmin';
 
@@ -56,6 +57,7 @@ class Main extends React.Component
                 <Route path="/users" component={UserList} />
                 <Route path="/users/:userId" component={UserEditor} />
                 <Route path="/permissions(/:roleId)" component={AclAdmin} />
+                <Route path="/createUser" component={UserCreate} />
             </Containers.ServiceLayout>
         );
     }
