@@ -2,16 +2,16 @@ import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
-export default class CustomerEditor extends Components.ContextComponent {
+export default class SupplierEditor extends Components.ContextComponent {
 
   constructor(props, context) {
     super(props);
-    const serviceRegistry = (service) => ({ url: `/customer` });
+    const serviceRegistry = (service) => ({ url: `/supplier` });
 
-    this.CustomerEditor = serviceComponent({
+    this.SupplierEditor = serviceComponent({
       serviceRegistry,
-      serviceName: 'customer' ,
-      moduleName: 'customer-information',
+      serviceName: 'supplier' ,
+      moduleName: 'supplier-information',
       jsFileName: 'information-bundle'
     });
   }
@@ -20,11 +20,11 @@ export default class CustomerEditor extends Components.ContextComponent {
     this.isDirty = event.isDirty;
   };
 
-  handleCustomerUpdate = () => null;
+  handleSupplierUpdate = () => null;
 
   handleLogout = () => this.context.logOutUser();
 
-  handleBackClick = () => this.context.router.push('/bnp/customers');
+  handleBackClick = () => this.context.router.push('/bnp/suppliers');
 
   render() {
     const { userData } = this.context;
@@ -35,12 +35,12 @@ export default class CustomerEditor extends Components.ContextComponent {
             <span className="icon glyphicon glyphicon-chevron-left" />
             {this.context.i18n.getMessage('UserAdmin.Editor.back')}
         </button>
-        <this.CustomerEditor
-          customerId={this.props.params.customerId}
+        <this.SupplierEditor
+          supplierId={this.props.params.supplierId}
           username={userData.id}
           userRoles={userData.roles}
           onChange={this.handleDirtyState}
-          onUpdate={this.handleCustomerUpdate}
+          onUpdate={this.handleSupplierUpdate}
           onLogout={this.handleLogout}
         />
       </div>
