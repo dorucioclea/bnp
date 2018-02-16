@@ -1,15 +1,15 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
-import translations from '../i18n/index'
+import translations from '../../i18n/index'
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
-import './AclAdmin.css';
+import './AclEditor.css';
 
-export default class AclAdmin extends Components.ContextComponent {
+export default class AclEditor extends Components.ContextComponent {
 
     constructor(props, context) {
         super(props);
 
-        context.i18n.register('AclAdmin', translations);
+        context.i18n.register('AclEditor', translations);
 
         this.AclEditor = serviceComponent({
             serviceRegistry: () => ({ url: `/acl` }),
@@ -36,12 +36,12 @@ export default class AclAdmin extends Components.ContextComponent {
 
     render() {
         const i18n = this.context.i18n.getMessage.bind(this.context.i18n);
-        this.context.setPageTitle(i18n('AclAdmin.page.title'));
+        this.context.setPageTitle(i18n('AclEditor.page.title'));
 
         return (
             <div>
                 <section>
-                    <h2>{i18n('AclAdmin.authority.heading')}</h2>
+                    <h2>{i18n('AclEditor.authority.heading')}</h2>
                     <this.UserRolePicker
                         className="acl-admin-role-picker"
                         value={this.props.params.roleId}
@@ -51,7 +51,7 @@ export default class AclAdmin extends Components.ContextComponent {
 
                 {this.props.params.roleId &&
                     <section>
-                        <h2>{i18n('AclAdmin.permissions.heading')}</h2>
+                        <h2>{i18n('AclEditor.permissions.heading')}</h2>
                         <this.AclEditor role={this.props.params.roleId} />
                     </section>}
             </div>
