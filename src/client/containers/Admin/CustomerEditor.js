@@ -1,13 +1,15 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
+import translations from '../i18n';
 
 export default class CustomerEditor extends Components.ContextComponent {
 
   constructor(props, context) {
     super(props);
-    const serviceRegistry = (service) => ({ url: `/customer` });
+    context.i18n.register('UserAdmin.Editor', translations);
 
+    const serviceRegistry = (service) => ({ url: `/customer` });
     this.CustomerEditor = serviceComponent({
       serviceRegistry,
       serviceName: 'customer' ,
