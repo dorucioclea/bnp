@@ -14,6 +14,8 @@ import UserEditor from './Admin/UserEditor';
 import AclEditor from './Admin/AclEditor';
 import CustomerList from './Admin/CustomerList';
 import CustomerEditor from './Admin/CustomerEditor';
+import SupplierList from './Admin/SupplierList';
+import SupplierEditor from './Admin/SupplierEditor';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -60,6 +62,8 @@ class Main extends React.Component
                 <Route path="/permissions(/:roleId)" component={AclEditor} />
                 <Route path="/customers" component={CustomerList} />
                 <Route path="/customers/:customerId" component={CustomerEditor} />
+                <Route path="/suppliers" component={SupplierList} />
+                <Route path="/suppliers/:supplierId" component={SupplierEditor} />
             </Containers.ServiceLayout>
         );
     }
