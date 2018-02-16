@@ -1,6 +1,5 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
-import Button from 'react-bootstrap/lib/Button';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import translations from '../i18n'
@@ -87,14 +86,14 @@ export default class UserEditor extends Components.ContextComponent {
     render() {
         const i18n = this.context.i18n;
 
-        this.context.setPageTitle(this.context.i18n.getMessage('UserAdmin.Editor.page.title'));
+        this.context.setPageTitle(i18n.getMessage('UserAdmin.Editor.page.title'));
 
         return (
             <div>
-                <Button onClick={() => this.handleBackClick()}>
+                <button className='btn btn-default' onClick={() => this.handleBackClick()}>
                     <span className="icon glyphicon glyphicon-chevron-left" />
                     {i18n.getMessage('UserAdmin.Editor.back')}
-                </Button>
+                </button>
                 <Tabs
                     id="userEditorTabs"
                     activeKey={this.state.tab}

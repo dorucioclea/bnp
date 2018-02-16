@@ -74,7 +74,7 @@ export default {
     'UserAdmin.Editor.unsavedChangesConfirmation.title': 'Sicherheitsabfrage',
     'UserAdmin.Editor.unsavedChangesConfirmation.message': 'Es sind ungesicherte Änderungen vorhanden. Möchten Sie trotzdem fortfahren?',
 
-    'AclAdmin.page.title': 'ACL Editor',
-    'AclAdmin.authority.heading': 'Authority-ID',
-    'AclAdmin.permissions.heading': 'Berechtigungs-ID',
+    'AclEditor.page.title': 'ACL Editor',
+    'AclEditor.authority.heading': 'Authority-ID',
+    'AclEditor.permissions.heading': 'Berechtigungs-ID',
 }

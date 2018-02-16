@@ -74,7 +74,7 @@ export default {
     'UserAdmin.Editor.unsavedChangesConfirmation.title': 'Confirmation',
     'UserAdmin.Editor.unsavedChangesConfirmation.message': 'You have unsaved changes. Do you want to proceed?',
 
-    'AclAdmin.page.title': 'Acl editor',
-    'AclAdmin.authority.heading': 'Authority identifier',
-    'AclAdmin.permissions.heading': 'Permissions',
+    'AclEditor.page.title': 'Acl editor',
+    'AclEditor.authority.heading': 'Authority identifier',
+    'AclEditor.permissions.heading': 'Permissions',
 }
