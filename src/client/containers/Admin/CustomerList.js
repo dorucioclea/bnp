@@ -21,7 +21,7 @@ export default class CustomerList extends Components.ContextComponent {
   }
 
   handleCreateUser(customerId) {
-    this.context.router.push(`/bnp/customers/${customerId}/user`);
+    this.context.router.push(`/bnp/customers/${customerId}/createUser`);
   }
 
   render() {

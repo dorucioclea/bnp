@@ -22,13 +22,10 @@ export default class CustomerEditor extends Components.ContextComponent {
 
   handleCustomerUpdate = () => null;
 
-  handleLogout = () => {
-    this.context.logOutUser();
-  };
+  handleLogout = () => this.context.logOutUser();
 
   render() {
     const { userData } = this.context;
-    console.log(userData);
 
     return (
       <this.CustomerEditor
