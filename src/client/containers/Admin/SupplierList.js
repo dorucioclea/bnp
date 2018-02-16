@@ -1,13 +1,15 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
 import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
+import translations from '../i18n';
 
 export default class SupplierList extends Components.ContextComponent {
 
   constructor(props, context) {
     super(props);
-    const serviceRegistry = (service) => ({ url: `/supplier` });
+    context.i18n.register('UserAdmin', translations);
 
+    const serviceRegistry = (service) => ({ url: `/supplier` });
     this.SupplierList = serviceComponent({
       serviceRegistry,
       serviceName: 'supplier' ,
