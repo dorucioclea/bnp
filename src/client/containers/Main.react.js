@@ -9,9 +9,11 @@ import SellerDashboard from './SellerDashboard';
 import SupplierInformation from './SupplierInformation';
 import SupplierRegistrationForm from './SupplierRegistrationForm';
 import SupplierDirectory from './SupplierDirectory';
-import UserList from './UserAdmin/UserList';
-import UserEditor from './UserAdmin/UserEditor';
-import AclAdmin from './AclAdmin/AclAdmin';
+import UserList from './Admin/UserList';
+import UserEditor from './Admin/UserEditor';
+import AclEditor from './Admin/AclEditor';
+import CustomerList from './Admin/CustomerList';
+import CustomerEditor from './Admin/CustomerEditor';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -55,7 +57,9 @@ class Main extends React.Component
                 <Route path="/supplierDirectory" component={SupplierDirectory} />
                 <Route path="/users" component={UserList} />
                 <Route path="/users/:userId" component={UserEditor} />
-                <Route path="/permissions(/:roleId)" component={AclAdmin} />
+                <Route path="/permissions(/:roleId)" component={AclEditor} />
+                <Route path="/customers" component={CustomerList} />
+                <Route path="/customers/:customerId" component={CustomerEditor} />
             </Containers.ServiceLayout>
         );
     }
