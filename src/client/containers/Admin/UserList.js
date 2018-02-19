@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
 import translations from '../i18n'
@@ -30,8 +31,16 @@ export default class UserList extends Components.ContextComponent {
     }
 
     handleCreateUserClick() {
-        this.context.router.push(`/bnp/userSelectCreate`);
-    }
+        const { router, userData } = this.context;
+        if (userData.roles.includes('admin')) {
+            router.push(`/bnp/userSelectCreate`);
+        } else if (userData.roles.includes('supplier-admin')) {
+            router.push(`/bnp/suppliers/${userData.supplierid}/createUser`);
+        } else if (userData.roles.includes('customer-admin')) {
+            router.push(`/bnp/customers/${userData.customerid}/createUser`);
+        } else {
+            router.push(`/bnp/users`);
+        }
 
     render() {
         this.context.setPageTitle(this.context.i18n.getMessage('UserList.page.title'));
