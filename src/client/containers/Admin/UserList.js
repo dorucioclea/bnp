@@ -30,7 +30,7 @@ export default class UserList extends Components.ContextComponent {
     }
 
     handleCreateUserClick() {
-        this.context.router.push(`/bnp/createUser`);
+        this.context.router.push(`/bnp/userSelectCreate`);
     }
 
     render() {

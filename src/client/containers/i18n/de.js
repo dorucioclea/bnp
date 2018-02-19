@@ -64,8 +64,9 @@ export default {
     'UserList.head': 'Benutzerliste',
     'UserList.createUser': 'Benutzer erstellen',
 
-    'UserCreate.supplier': 'Lieferant anlegen',
-    'UserCreate.customer': 'Kunde anlegen',
+    'UserCreate.createUser': 'Benutzer erstellen',
+    'UserCreate.select.supplier': 'Lieferant wählen',
+    'UserCreate.select.customer': 'Kunde wählen',
 
     'UserAdmin.Editor.page.title': 'Benutzereditor',
     'UserAdmin.Editor.back': 'Zurück',
