@@ -41,6 +41,7 @@ export default class UserList extends Components.ContextComponent {
         } else {
             router.push(`/bnp/users`);
         }
+    }
 
     render() {
         this.context.setPageTitle(this.context.i18n.getMessage('UserList.page.title'));
