@@ -16,6 +16,10 @@ export default class CustomerList extends Components.ContextComponent {
     });
   }
 
+  componentDidMount() {
+     if (!this.context.userData.roles.includes('admin')) this.context.router.push(`/bnp`);
+  }
+
   handleEdit(customerId) {
     this.context.router.push(`/bnp/customers/${customerId}`);
   }

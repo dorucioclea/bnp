@@ -16,6 +16,10 @@ export default class SupplierList extends Components.ContextComponent {
     });
   }
 
+  componentDidMount() {
+     if (!this.context.userData.roles.includes('admin')) this.context.router.push(`/bnp`);
+  }
+
   handleEdit(supplierId) {
     this.context.router.push(`/bnp/suppliers/${supplierId}`);
   }
