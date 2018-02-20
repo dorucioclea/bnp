@@ -31,6 +31,7 @@
   "dependencies": {
     "@opuscapita/i18n": "^1.1.0",
     "@opuscapita/react-loaders": "^0.1.9",
+    "@opuscapita/react-reference-select": "^2.0.6",
     "@opuscapita/service-base-ui": "^1.0.77",
     "bluebird": "^3.5.1",
     "cross-env": "^4.0.0",
@@ -73,6 +74,7 @@
     "eslint-plugin-react": "^7.5.1",
     "file-loader": "^0.11.2",
     "json-loader": "^0.5.4",
+    "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "mocha": "^3.5.3",
     "mocha-junit-reporter": "^1.15.0",

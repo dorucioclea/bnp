@@ -16,6 +16,7 @@ import CustomerList from './Admin/CustomerList';
 import CustomerEditor from './Admin/CustomerEditor';
 import SupplierList from './Admin/SupplierList';
 import SupplierEditor from './Admin/SupplierEditor';
+import UserSelectCreate from './Admin/UserSelectCreate';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -57,6 +58,7 @@ class Main extends React.Component
                 <Route path="/supplierInformation" component={SupplierInformation} />
                 <Route path="/supplierRegistration" component={SupplierRegistrationForm} />
                 <Route path="/supplierDirectory" component={SupplierDirectory} />
+                <Route path="/userSelectCreate" component={UserSelectCreate} />
                 <Route path="/users" component={UserList} />
                 <Route path="/users/:userId" component={UserEditor} />
                 <Route path="/permissions(/:roleId)" component={AclEditor} />

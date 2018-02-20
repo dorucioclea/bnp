@@ -60,6 +60,14 @@ export default {
     'SupplierDirectory.page.title' : 'Lieferantenverzeichnis',
     'SupplierDirectory.head': 'Lieferantensuche',
 
+    'UserList.page.title': 'Benutzerliste',
+    'UserList.head': 'Benutzerliste',
+    'UserList.createUser': 'Benutzer erstellen',
+
+    'UserCreate.createUser': 'Benutzer erstellen',
+    'UserCreate.select.supplier': 'Lieferant wählen',
+    'UserCreate.select.customer': 'Kunde wählen',
+
     'UserAdmin.Editor.page.title': 'Benutzereditor',
     'UserAdmin.Editor.back': 'Zurück',
     'UserAdmin.Editor.tabs.profile': 'Profil',
