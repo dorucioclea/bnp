@@ -16,7 +16,7 @@ export default class UserSelectCreate extends Components.ContextComponent {
 
   handleOnClick(event, tenantType, tenantId) {
     event.preventDefault();
-    this.context.router.push(`/bnp/${tenantType}/${tenantId}/createUser`);
+    this.context.router.push(`/bnp/${tenantType}s/${tenantId}/createUser`);
   }
 
   handleOnChange(tenantType, tenant) {

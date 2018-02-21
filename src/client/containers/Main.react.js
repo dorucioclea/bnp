@@ -17,6 +17,7 @@ import CustomerEditor from './Admin/CustomerEditor';
 import SupplierList from './Admin/SupplierList';
 import SupplierEditor from './Admin/SupplierEditor';
 import UserSelectCreate from './Admin/UserSelectCreate';
+import UserCreate from './Admin/UserCreate';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -64,8 +65,10 @@ class Main extends React.Component
                 <Route path="/permissions(/:roleId)" component={AclEditor} />
                 <Route path="/customers" component={CustomerList} />
                 <Route path="/customers/:customerId" component={CustomerEditor} />
+                <Route path="/customers/:customerId/createUser" component={UserCreate} />
                 <Route path="/suppliers" component={SupplierList} />
                 <Route path="/suppliers/:supplierId" component={SupplierEditor} />
+                <Route path="/suppliers/:supplierId/createUser" component={UserCreate} />
             </Containers.ServiceLayout>
         );
     }
