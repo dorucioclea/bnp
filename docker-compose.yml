@@ -26,7 +26,7 @@ services:
       - '3000:3000'
 
   onboarding:
-    image: opuscapita/onboarding:dev
+    image: opuscapita/onboarding:daniil
 #    build: ../onboarding
 #    volumes:
 #      - .:/home/node/onboarding
@@ -42,6 +42,11 @@ services:
       SERVICE_3002_CHECK_HTTP: /api/health/check
       SERVICE_3002_CHECK_INTERVAL: 15s
       SERVICE_3002_CHECK_TIMEOUT: 3s
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+      GATEWAY_SCHEME: $GATEWAY_SCHEME
+      GATEWAY_IP: $GATEWAY_IP
+      GATEWAY_PORT: $GATEWAY_PORT
     depends_on:
       - redis
       - registrator
@@ -139,7 +144,7 @@ services:
       - registrator
 
   user:
-    image: opuscapita/user:dev
+    image: opuscapita/user:daniil
 #    build: ../user
 #    volumes:
 #     - ../user:/home/node/user
@@ -373,7 +378,41 @@ services:
       SERVICE_3007_CHECK_HTTP: /api/health/check
       SERVICE_3007_CHECK_INTERVAL: 15s
       SERVICE_3007_CHECK_TIMEOUT: 3s
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+      GATEWAY_SCHEME: $GATEWAY_SCHEME
+      GATEWAY_IP: $GATEWAY_IP
+      GATEWAY_PORT: $GATEWAY_PORT
     command: 'npm run dev'
+
+  sales-invoice:
+    image: opuscapita/sales-invoice:dev
+    depends_on:
+     - mysql
+     - consul
+     - registrator
+     - redis
+     - acl
+     - auth
+     - user
+     - customer
+     - supplier
+    labels:
+      SERVICE_NAME: 'sales-invoice'
+      SERVICE_TAGS: 'external'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+      REDIS_AUTH: ${REDIS_AUTH}
+      SERVICE_3018_CHECK_HTTP: /api/health/check
+      SERVICE_3018_CHECK_INTERVAL: 15s
+      SERVICE_3018_CHECK_TIMEOUT: 3s
+    ports:
+     - '3018:3018'
+    command: "npm run dev"
+
 
   acl:
     image: opuscapita/acl:dev
