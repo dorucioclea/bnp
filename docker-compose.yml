@@ -26,7 +26,7 @@ services:
       - '3000:3000'
 
   onboarding:
-    image: opuscapita/onboarding:daniil
+    image: opuscapita/onboarding:dev
 #    build: ../onboarding
 #    volumes:
 #      - .:/home/node/onboarding
@@ -144,7 +144,7 @@ services:
       - registrator
 
   user:
-    image: opuscapita/user:daniil
+    image: opuscapita/user:dev
 #    build: ../user
 #    volumes:
 #     - ../user:/home/node/user
