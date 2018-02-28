@@ -59,8 +59,8 @@ class SupplierInformation extends Components.ContextComponent
       return new Promise((resolve, reject) => {
           const { i18n } = this.context;
 
-          const title = i18n.getMessage('SupplierInformation.ApplicationFormConfirmation.unsavedChanges.title');
-          const text = i18n.getMessage('SupplierInformation.ApplicationFormConfirmation.unsavedChanges.text');
+          const title = i18n.getMessage('UserAdmin.Editor.unsavedChangesConfirmation.title');
+          const text = i18n.getMessage('UserAdmin.Editor.unsavedChangesConfirmation.message');
           const buttons = { 'no' : i18n.getMessage('System.no'), 'yes' : i18n.getMessage('System.yes') };
           const onButtonClick = (button) => resolve(button === 'yes');
 
