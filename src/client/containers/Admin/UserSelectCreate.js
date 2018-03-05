@@ -50,13 +50,13 @@ export default class UserSelectCreate extends Components.ContextComponent {
       <div className='input-group'>
         <ReferenceAutocomplete
           autocompleteAction={(input) => {
-            const search = input ? { customerName: input } : {}
+            const search = input ? { name: input } : {}
             return this.customerApi.getCustomers(search).then(customers => {
               return new Promise((resolve) => resolve({ options: customers, complete: false }));
             });
           }}
           value={this.state.customer}
-          labelProperty='customerName'
+          labelProperty='name'
           valueProperty='id'
           onChange={customer => this.handleOnChange('customer', customer)}
           onBlur={() => null}
