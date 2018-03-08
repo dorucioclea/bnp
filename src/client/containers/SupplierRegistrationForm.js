@@ -65,7 +65,7 @@ class SupplierRegistrationForm extends Components.ContextComponent {
     if (!onboardData.tradingPartnerDetails) return null;
 
     return {
-      supplierName: onboardData.tradingPartnerDetails.name,
+      name: onboardData.tradingPartnerDetails.name,
       cityOfRegistration: onboardData.tradingPartnerDetails.city,
       countryOfRegistration: onboardData.tradingPartnerDetails.country,
       taxIdentificationNo: onboardData.tradingPartnerDetails.taxIdentNo,
