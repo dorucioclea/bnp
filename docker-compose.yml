@@ -369,6 +369,27 @@ services:
       - rabbitmq
     command: 'npm run dev'
 
+  redis-commander:
+    image: opuscapita/redis-commander:local
+    labels:
+      SERVICE_NAME: 'redis-commander'
+      SERVICE_TAGS: 'external'
+    environment:
+      REDIS_AUTH: ${REDIS_AUTH}
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+      SERVICE_3025_CHECK_HTTP: /api/health/check
+      SERVICE_3025_CHECK_INTERVAL: 15s
+      SERVICE_3025_CHECK_TIMEOUT: 3s
+    depends_on:
+     - consul
+     - rabbitmq
+    ports:
+      - "3025:3025"
+    command: 'npm run dev'
+
   rabbitmq:
     image: rabbitmq:3-management
     ports:
