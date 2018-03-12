@@ -79,4 +79,6 @@ export default {
     'AclEditor.page.title': 'Acl editor',
     'AclEditor.authority.heading': 'Authority identifier',
     'AclEditor.permissions.heading': 'Permissions',
+
+    'RedisCommander.page.title': 'Redis Commander',
 }
