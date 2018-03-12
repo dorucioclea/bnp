@@ -409,7 +409,7 @@ services:
     command: 'npm run dev'
 
   redis-commander:
-    image: opuscapita/redis-commander:local
+    image: opuscapita/redis-commander:dev
     labels:
       SERVICE_NAME: 'redis-commander'
       SERVICE_TAGS: 'external'
