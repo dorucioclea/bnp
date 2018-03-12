@@ -79,5 +79,5 @@ export default {
     'AclEditor.authority.heading': 'Authority-ID',
     'AclEditor.permissions.heading': 'Berechtigungs-ID',
 
-    'RedisCommander.page.title': 'Redis Commander DE',
+    'RedisCommander.page.title': 'Redis Commander',
 }
