@@ -24,6 +24,13 @@ class BuyerInformation extends Components.ContextComponent
       jsFileName: 'information-bundle'
     });
 
+    this.CustomerOrganization = serviceComponent({
+      serviceRegistry,
+      serviceName: 'customer' ,
+      moduleName: 'customer-organization',
+      jsFileName: 'organization-bundle'
+    });
+
     this.CustomerAddressEditor = serviceComponent({
       serviceRegistry,
       serviceName: 'customer' ,
@@ -109,6 +116,15 @@ class BuyerInformation extends Components.ContextComponent
       />
     );
 
+    const organization = (
+      <this.CustomerOrganization
+        key='organization'
+        onUnauthorized={this.handleUnauthorized}
+        customerId={userData.customerid}
+        onLogout={this.handleLogout}
+      />
+    );
+
     const address = (
       <this.CustomerAddressEditor
         key='address'
@@ -147,6 +163,9 @@ class BuyerInformation extends Components.ContextComponent
         <Tabs id="customerTabs" activeKey={this.state.tabKey} onSelect={() => this.handleSelect()}>
           <Tab eventKey='company' title={i18n.getMessage('CompanyProfile.tab.company')}>
             {company}
+          </Tab>
+          <Tab eventKey='organization' title={i18n.getMessage('CompanyProfile.tab.organization')}>
+            {organization}
           </Tab>
           <Tab eventKey='address' title={i18n.getMessage('CompanyProfile.tab.address')}>
             {address}

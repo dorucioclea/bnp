@@ -12,6 +12,7 @@ export default {
     'BuyerInformation.notExists' : 'Der Käufer existiert nicht! Bitte registrieren Sie sich erst.',
 
     'CompanyProfile.tab.company' : 'Unternehmen',
+    'CompanyProfile.tab.organization' : 'Organigramm',
     'CompanyProfile.tab.address' : 'Adressen',
     'CompanyProfile.tab.contact' : 'Ansprechpartner',
     'CompanyProfile.tab.bankAccount' : 'Bankkonten',
