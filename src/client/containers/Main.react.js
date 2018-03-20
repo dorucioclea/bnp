@@ -12,6 +12,7 @@ import SupplierDirectory from './SupplierDirectory';
 import UserList from './Admin/UserList';
 import UserEditor from './Admin/UserEditor';
 import AclEditor from './Admin/AclEditor';
+import CustomerCreate from './Admin/CustomerCreate';
 import CustomerList from './Admin/CustomerList';
 import CustomerEditor from './Admin/CustomerEditor';
 import SupplierList from './Admin/SupplierList';
@@ -67,6 +68,7 @@ class Main extends React.Component
                 <Route path="/redis" component={RedisCommander} />
                 <Route path="/redis/*" component={RedisCommander} />
                 <Route path="/customers" component={CustomerList} />
+                <Route path="/customers/new" component={CustomerCreate} />
                 <Route path="/customers/:customerId" component={CustomerEditor} />
                 <Route path="/customers/:customerId/createUser" component={UserCreate} />
                 <Route path="/suppliers" component={SupplierList} />
