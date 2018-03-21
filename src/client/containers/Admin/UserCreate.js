@@ -1,6 +1,5 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 let getTenantType = function(params) {
   if (params.customerId) return 'customer';
@@ -14,8 +13,7 @@ export default class UserSelectCreate extends Components.ContextComponent {
     this.tenantType = getTenantType(props.params);
     this.tenantId = props.params.supplierId || props.params.customerId;
 
-    this.UserCreate = serviceComponent({
-      serviceRegistry: () => ({ url: `/user` }),
+    this.UserCreate = context.loadComponent({
       serviceName: 'user',
       moduleName: 'user-create',
       jsFileName: 'create-bundle'
