@@ -1,6 +1,5 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 import translations from '../i18n';
 
 export default class SupplierEditor extends Components.ContextComponent {
@@ -9,9 +8,7 @@ export default class SupplierEditor extends Components.ContextComponent {
     super(props);
     context.i18n.register('UserAdmin.Editor', translations);
 
-    const serviceRegistry = (service) => ({ url: `/supplier` });
-    this.SupplierEditor = serviceComponent({
-      serviceRegistry,
+    this.SupplierEditor = context.loadComponent({
       serviceName: 'supplier' ,
       moduleName: 'supplier-information',
       jsFileName: 'information-bundle'

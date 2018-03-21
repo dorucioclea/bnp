@@ -5,7 +5,6 @@ import translations from './i18n';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import { OnboardingUserService } from '../api';
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class SupplierRegistrationForm extends Components.ContextComponent {
 
@@ -19,11 +18,8 @@ class SupplierRegistrationForm extends Components.ContextComponent {
 
       context.i18n.register('SupplierRegistrationForm', translations);
 
-      const serviceRegistry = (service) => ({ url: '/supplier' });
-
-      this.SupplierRegistrationEditor = serviceComponent({
-        serviceRegistry,
-        serviceName: 'supplier' ,
+      this.SupplierRegistrationEditor = context.loadComponent({
+        serviceName: 'supplier',
         moduleName: 'supplier-registration',
         jsFileName: 'registration-bundle'
       });

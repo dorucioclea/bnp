@@ -1,7 +1,6 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n'
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 export default class SupplierDirectory extends Components.ContextComponent {
 
@@ -11,10 +10,7 @@ export default class SupplierDirectory extends Components.ContextComponent {
 
       context.i18n.register('SupplierDirectory', translations);
 
-      const serviceRegistry = (service) => ({ url: `/supplier` });
-
-      this.Directory = serviceComponent({
-        serviceRegistry,
+      this.Directory = context.loadComponent({
         serviceName: 'supplier' ,
         moduleName: 'supplier-directory',
         jsFileName: 'directory-bundle'

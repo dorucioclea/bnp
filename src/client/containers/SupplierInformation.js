@@ -4,7 +4,6 @@ import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class SupplierInformation extends Components.ContextComponent
 {
@@ -15,39 +14,32 @@ class SupplierInformation extends Components.ContextComponent
 
       context.i18n.register('SupplierInformation', translations);
 
-      const serviceRegistry = (service) => ({ url: '/supplier' });
-
-      this.SupplierEditor = serviceComponent({
-        serviceRegistry,
+      this.SupplierEditor = context.loadComponent({
         serviceName: 'supplier' ,
         moduleName: 'supplier-information',
         jsFileName: 'information-bundle'
       });
 
-      this.SupplierAddressEditor = serviceComponent({
-        serviceRegistry,
+      this.SupplierAddressEditor = context.loadComponent({
         serviceName: 'supplier' ,
         moduleName: 'supplier-address',
         jsFileName: 'address-bundle'
       });
 
-      this.SupplierContactEditor = serviceComponent({
-        serviceRegistry,
+      this.SupplierContactEditor = context.loadComponent({
         serviceName: 'supplier' ,
         moduleName: 'supplier-contact',
         jsFileName: 'contact-bundle'
       });
 
-      this.SupplierBankAccountEditor = serviceComponent({
-        serviceRegistry,
+      this.SupplierBankAccountEditor = context.loadComponent({
         serviceName: 'supplier' ,
         moduleName: 'supplier-bank_accounts',
         jsFileName: 'bank_accounts-bundle'
       });
 
       if (context.userData.roles.includes('supplier-admin')) {
-        this.SupplierApproval = serviceComponent({
-          serviceRegistry,
+        this.SupplierApproval = context.loadComponent({
           serviceName: 'supplier',
           moduleName: 'supplier-access_approval',
           jsFileName: 'access_approval-bundle'
