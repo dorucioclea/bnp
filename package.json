@@ -30,9 +30,8 @@
   "readme": "README.md",
   "dependencies": {
     "@opuscapita/i18n": "^1.1.0",
-    "@opuscapita/react-loaders": "^0.1.9",
     "@opuscapita/react-reference-select": "^2.0.6",
-    "@opuscapita/service-base-ui": "^1.0.86",
+    "@opuscapita/service-base-ui": "~1.0.97",
     "bluebird": "^3.5.1",
     "cross-env": "^4.0.0",
     "jquery": "^3.2.1",

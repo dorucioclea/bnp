@@ -23,46 +23,33 @@ export default class UserSelectCreate extends Components.ContextComponent {
     this.setState({ [tenantType]: tenant });
   }
 
-  renderSupplierPicker() {
-    return (
-      <div className='input-group'>
-        <ReferenceAutocomplete
-          autocompleteAction={(input) => {
-            const search = input ? { supplierName: input } : {}
-            return this.supplierApi.getSuppliers(search).then(suppliers => {
-              return new Promise((resolve) => resolve({ options: suppliers, complete: false }));
-            });
-          }}
-          value={this.state.supplier}
-          labelProperty='supplierName'
-          valueProperty='id'
-          onChange={supplier => this.handleOnChange('supplier', supplier)}
-          onBlur={() => null}
-        />
-
-        {this.renderSubmitButton('supplier', this.state.supplier && this.state.supplier.supplierId)}
-      </div>
-    );
+  getTenants(tenantType, search) {
+    return tenantType === 'supplier' ? this.supplierApi.getSuppliers(search) : this.customerApi.getCustomers(search);
   }
 
-  renderCustomerPicker() {
+  renderTenantPicker(tenantType) {
     return (
-      <div className='input-group'>
-        <ReferenceAutocomplete
-          autocompleteAction={(input) => {
-            const search = input ? { customerName: input } : {}
-            return this.customerApi.getCustomers(search).then(customers => {
-              return new Promise((resolve) => resolve({ options: customers, complete: false }));
-            });
-          }}
-          value={this.state.customer}
-          labelProperty='customerName'
-          valueProperty='id'
-          onChange={customer => this.handleOnChange('customer', customer)}
-          onBlur={() => null}
-        />
+      <div className='row'>
+        <div className='col-lg-offset-3 col-lg-6 col-sm-offset-2 col-sm-8 col-xs-12'>
+          <h4>{this.context.i18n.getMessage(`UserCreate.select.${tenantType}`)}</h4>
+          <div className='input-group'>
+            <ReferenceAutocomplete
+              autocompleteAction={(input) => {
+                const search = input ? { name: input } : {}
+                return this.getTenants(tenantType, search).then(tenants => {
+                  return new Promise((resolve) => resolve({ options: tenants, complete: false }));
+                });
+              }}
+              value={this.state[tenantType]}
+              labelProperty='name'
+              valueProperty='id'
+              onChange={tenant => this.handleOnChange(tenantType, tenant)}
+              onBlur={() => null}
+            />
 
-        {this.renderSubmitButton('customer', this.state.customer && this.state.customer.id)}
+            {this.renderSubmitButton(tenantType, this.state[tenantType] && this.state[tenantType].id)}
+          </div>
+        </div>
       </div>
     );
   }
@@ -84,19 +71,9 @@ export default class UserSelectCreate extends Components.ContextComponent {
   render() {
     return (
       <div>
-        <div className='row'>
-          <div className='col-lg-offset-3 col-lg-6 col-sm-offset-2 col-sm-8 col-xs-12'>
-            <h4>{this.context.i18n.getMessage('UserCreate.select.supplier')}</h4>
-            {this.renderSupplierPicker()}
-          </div>
-        </div>
+        {this.renderTenantPicker('supplier')}
         <br />
-        <div className='row'>
-          <div className='col-lg-offset-3 col-lg-6 col-sm-offset-2 col-sm-8 col-xs-12'>
-            <h4>{this.context.i18n.getMessage('UserCreate.select.customer')}</h4>
-            {this.renderCustomerPicker()}
-          </div>
-        </div>
+        {this.renderTenantPicker('customer')}
       </div>
     );
   }

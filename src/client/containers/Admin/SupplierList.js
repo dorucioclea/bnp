@@ -1,15 +1,12 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 export default class SupplierList extends Components.ContextComponent {
 
   constructor(props, context) {
     super(props);
 
-    const serviceRegistry = (service) => ({ url: `/supplier` });
-    this.SupplierList = serviceComponent({
-      serviceRegistry,
+    this.SupplierList = context.loadComponent({
       serviceName: 'supplier' ,
       moduleName: 'supplier-list',
       jsFileName: 'list-bundle'

@@ -12,12 +12,15 @@ import SupplierDirectory from './SupplierDirectory';
 import UserList from './Admin/UserList';
 import UserEditor from './Admin/UserEditor';
 import AclEditor from './Admin/AclEditor';
+import CustomerCreate from './Admin/CustomerCreate';
 import CustomerList from './Admin/CustomerList';
 import CustomerEditor from './Admin/CustomerEditor';
 import SupplierList from './Admin/SupplierList';
 import SupplierEditor from './Admin/SupplierEditor';
 import UserSelectCreate from './Admin/UserSelectCreate';
 import UserCreate from './Admin/UserCreate';
+import RedisCommander from "./Admin/RedisCommander";
+import CatalogUpload from './CatalogUpload';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -63,12 +66,16 @@ class Main extends React.Component
                 <Route path="/users" component={UserList} />
                 <Route path="/users/:userId" component={UserEditor} />
                 <Route path="/permissions(/:roleId)" component={AclEditor} />
+                <Route path="/redis" component={RedisCommander} />
+                <Route path="/redis/*" component={RedisCommander} />
                 <Route path="/customers" component={CustomerList} />
+                <Route path="/customers/new" component={CustomerCreate} />
                 <Route path="/customers/:customerId" component={CustomerEditor} />
                 <Route path="/customers/:customerId/createUser" component={UserCreate} />
                 <Route path="/suppliers" component={SupplierList} />
                 <Route path="/suppliers/:supplierId" component={SupplierEditor} />
                 <Route path="/suppliers/:supplierId/createUser" component={UserCreate} />
+                <Route path="/catalog-upload" component={CatalogUpload} />
             </Containers.ServiceLayout>
         );
     }

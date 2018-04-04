@@ -12,12 +12,15 @@ export default {
     'BuyerInformation.notExists' : 'Buyer does not exist! Please register first.',
 
     'CompanyProfile.tab.company' : 'Company',
+    'CompanyProfile.tab.organization' : 'Organization Chart',
     'CompanyProfile.tab.address' : 'Address',
     'CompanyProfile.tab.contact' : 'Contact',
     'CompanyProfile.tab.bankAccount' : 'Bank account',
     'CompanyProfile.tab.userAccessApproval' : 'Access Approval',
     'CompanyProfile.form.unsavedChanges.title' : 'Unsaved Changes',
     'CompanyProfile.form.unsavedChanges.text' : 'You did not save your entries. Do you want to proceed without saving?',
+
+    'CustomerList.createCustomer': 'Create Customer',
 
     'SellerDashboard.page.title' : 'Seller dashboard',
     'SellerDashboard.profileStrength.heading' : 'Company Profile Strength',
@@ -78,4 +81,10 @@ export default {
     'AclEditor.page.title': 'Acl editor',
     'AclEditor.authority.heading': 'Authority identifier',
     'AclEditor.permissions.heading': 'Permissions',
+
+    'RedisCommander.page.title': 'Redis Commander',
+
+    'CatalogUpload.catalogUpload': 'Catalog Upload',
+    'CatalogUpload.selectCustomer': 'Please select the customer ',
+    'CatalogUpload.openCatalogUpload': 'Go to Catalog Upload',
 }

@@ -4,7 +4,6 @@ import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class BuyerInformation extends Components.ContextComponent
 {
@@ -15,31 +14,31 @@ class BuyerInformation extends Components.ContextComponent
 
     context.i18n.register('BuyerInformation', translations);
 
-    const serviceRegistry = (service) => ({ url: '/customer' });
-
-    this.CustomerEditor = serviceComponent({
-      serviceRegistry,
+    this.CustomerEditor = context.loadComponent({
       serviceName: 'customer' ,
       moduleName: 'customer-information',
       jsFileName: 'information-bundle'
     });
 
-    this.CustomerAddressEditor = serviceComponent({
-      serviceRegistry,
+    this.CustomerOrganization = context.loadComponent({
+      serviceName: 'customer' ,
+      moduleName: 'customer-organization',
+      jsFileName: 'organization-bundle'
+    });
+
+    this.CustomerAddressEditor = context.loadComponent({
       serviceName: 'customer' ,
       moduleName: 'customer-addresses',
       jsFileName: 'addresses-bundle'
     });
 
-    this.CustomerContactEditor = serviceComponent({
-      serviceRegistry,
+    this.CustomerContactEditor = context.loadComponent({
       serviceName: 'customer' ,
       moduleName: 'customer-contacts',
       jsFileName: 'contacts-bundle'
     });
 
-    this.CustomerBankAccountEditor = serviceComponent({
-      serviceRegistry,
+    this.CustomerBankAccountEditor = context.loadComponent({
       serviceName: 'customer' ,
       moduleName: 'customer-bank_accounts',
       jsFileName: 'bank_accounts-bundle'
@@ -109,6 +108,15 @@ class BuyerInformation extends Components.ContextComponent
       />
     );
 
+    const organization = (
+      <this.CustomerOrganization
+        key='organization'
+        onUnauthorized={this.handleUnauthorized}
+        customerId={userData.customerid}
+        onLogout={this.handleLogout}
+      />
+    );
+
     const address = (
       <this.CustomerAddressEditor
         key='address'
@@ -147,6 +155,9 @@ class BuyerInformation extends Components.ContextComponent
         <Tabs id="customerTabs" activeKey={this.state.tabKey} onSelect={() => this.handleSelect()}>
           <Tab eventKey='company' title={i18n.getMessage('CompanyProfile.tab.company')}>
             {company}
+          </Tab>
+          <Tab eventKey='organization' title={i18n.getMessage('CompanyProfile.tab.organization')}>
+            {organization}
           </Tab>
           <Tab eventKey='address' title={i18n.getMessage('CompanyProfile.tab.address')}>
             {address}

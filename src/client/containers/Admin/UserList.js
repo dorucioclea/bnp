@@ -2,7 +2,6 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
 import translations from '../i18n'
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 export default class UserList extends Components.ContextComponent {
 
@@ -12,11 +11,8 @@ export default class UserList extends Components.ContextComponent {
 
         context.i18n.register('UserAdmin.List', translations);
 
-        const serviceRegistry = (service) => ({ url: `/user` });
-
-        this.UserList = serviceComponent({
-            serviceRegistry,
-            serviceName: 'user' ,
+        this.UserList = context.loadComponent({
+            serviceName: 'user',
             moduleName: 'user-list',
             jsFileName: 'list-bundle'
         });
