@@ -16,12 +16,6 @@ class CatalogUpload extends Components.ContextComponent
         this.state = {
             customers : []
         }
-
-        this.CustomerList = context.loadComponent({
-            serviceName: 'customer' ,
-            moduleName: 'customer-list',
-            jsFileName: 'list-bundle'
-        });
     }
 
     componentWillMount()
@@ -64,12 +58,6 @@ class CatalogUpload extends Components.ContextComponent
                             )};
                         </select>
                     </div>
-                </div>
-                <div className="row">
-                    <button className="btn btn-primary" onClick={e => window.open("https://opuscapita.jcatalog.com/bnp/ssm/standardWorkflow/index")}
-                    >
-                        {this.context.i18n.getMessage('CatalogUpload.openCatalogUpload')}
-                    </button>
                 </div>
             </div>
         )
