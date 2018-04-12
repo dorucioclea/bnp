@@ -1,0 +1,40 @@
+{
+    "bnp-manage": {
+        "name": {
+            "en": "Manage Business Network Portal.",
+            "de": "Business Network Portal verwalten."
+        },
+        "description": {
+            "en": "Grants access to basic admin functions of the Business Network Portal.",
+            "de": "Ermöglicht den Zugriff auf grundlegende, administrative Funktionen des Business Network Portal."
+        },
+        "resources": [{
+            "type": "rest",
+            "resourceId": "^/",
+            "actions": ["view"]
+        }, {
+            "type": "ui",
+            "resourceId": "^/",
+            "actions": ["view"]
+        }]
+    },
+    "bnp": {
+        "name": {
+            "en": "Basic access to Business Network Portal.",
+            "de": "Zugriff auf Business Network Portal."
+        },
+        "description": {
+            "en": "Grants access to basic functions of the Business Network Portal.",
+            "de": "Ermöglicht den Zugriff auf grundlegende Funktionen des Business Network Portal."
+        },
+        "resources": [{
+            "type": "rest",
+            "resourceId": "^/",
+            "actions": ["view"]
+        }, {
+            "type": "ui",
+            "resourceId": "^/",
+            "actions": ["view"]
+        }]
+    }
+}

@@ -83,4 +83,8 @@ export default {
     'AclEditor.permissions.heading': 'Berechtigungs-ID',
 
     'RedisCommander.page.title': 'Redis Commander',
+
+    'CatalogUpload.catalogUpload': 'Katalog-Upload',
+    'CatalogUpload.selectCustomer': 'Wählen Sie bitte den Kunden',
+    'CatalogUpload.openCatalogUpload': 'Direkter Einsprung',
 }

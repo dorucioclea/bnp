@@ -20,6 +20,7 @@ import SupplierEditor from './Admin/SupplierEditor';
 import UserSelectCreate from './Admin/UserSelectCreate';
 import UserCreate from './Admin/UserCreate';
 import RedisCommander from "./Admin/RedisCommander";
+import CatalogUpload from './CatalogUpload';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -74,6 +75,7 @@ class Main extends React.Component
                 <Route path="/suppliers" component={SupplierList} />
                 <Route path="/suppliers/:supplierId" component={SupplierEditor} />
                 <Route path="/suppliers/:supplierId/createUser" component={UserCreate} />
+                <Route path="/catalog-upload" component={CatalogUpload} />
             </Containers.ServiceLayout>
         );
     }
