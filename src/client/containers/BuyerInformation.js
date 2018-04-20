@@ -157,6 +157,7 @@ class BuyerInformation extends Components.ContextComponent
             {company}
           </Tab>
           <Tab eventKey='organization' title={i18n.getMessage('CompanyProfile.tab.organization')}>
+            <br />
             {organization}
           </Tab>
           <Tab eventKey='address' title={i18n.getMessage('CompanyProfile.tab.address')}>
