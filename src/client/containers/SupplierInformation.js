@@ -146,7 +146,7 @@ class SupplierInformation extends Components.ContextComponent
       <this.SupplierOrganization
         key='organization'
         onUnauthorized={this.handleUnauthorized}
-        customerId={userData.supplierid}
+        supplierId={userData.supplierid}
         onLogout={this.handleLogout}
       />
     );
