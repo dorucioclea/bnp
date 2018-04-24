@@ -15,6 +15,7 @@ import AclEditor from './Admin/AclEditor';
 import CustomerCreate from './Admin/CustomerCreate';
 import CustomerList from './Admin/CustomerList';
 import CustomerEditor from './Admin/CustomerEditor';
+import SupplierCreate from './Admin/SupplierCreate';
 import SupplierList from './Admin/SupplierList';
 import SupplierEditor from './Admin/SupplierEditor';
 import UserSelectCreate from './Admin/UserSelectCreate';
@@ -73,6 +74,7 @@ class Main extends React.Component
                 <Route path="/customers/:customerId" component={CustomerEditor} />
                 <Route path="/customers/:customerId/createUser" component={UserCreate} />
                 <Route path="/suppliers" component={SupplierList} />
+                <Route path="/suppliers/new" component={SupplierCreate} />
                 <Route path="/suppliers/:supplierId" component={SupplierEditor} />
                 <Route path="/suppliers/:supplierId/createUser" component={UserCreate} />
                 <Route path="/catalog-upload" component={CatalogUpload} />

@@ -30,7 +30,7 @@ class SupplierRegistrationForm extends Components.ContextComponent {
   componentDidMount() {
     this.onboardingUserServiceApi.getOnboardingUserData(this.context.userData.id)
         .then(onboardData => this.setState({ onboardData }))
-        .catch(e => this.context.showNotification(e.message, 'error', 10));
+        .catch(e => console.log(e.message));
   }
 
   handleDirtyState = event => {

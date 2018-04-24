@@ -20,6 +20,12 @@ class SupplierInformation extends Components.ContextComponent
         jsFileName: 'information-bundle'
       });
 
+      this.SupplierOrganization = context.loadComponent({
+        serviceName: 'supplier' ,
+        moduleName: 'supplier-organization',
+        jsFileName: 'organization-bundle'
+      });
+
       this.SupplierAddressEditor = context.loadComponent({
         serviceName: 'supplier' ,
         moduleName: 'supplier-address',
@@ -136,6 +142,15 @@ class SupplierInformation extends Components.ContextComponent
       />
     );
 
+    const organization = (
+      <this.SupplierOrganization
+        key='organization'
+        onUnauthorized={this.handleUnauthorized}
+        supplierId={userData.supplierid}
+        onLogout={this.handleLogout}
+      />
+    );
+
     const address = (
       <this.SupplierAddressEditor
         key='address'
@@ -175,6 +190,10 @@ class SupplierInformation extends Components.ContextComponent
         <Tabs id="supplierTabs" activeKey={this.state.tabKey} onSelect={() => this.handleSelect()}>
           <Tab eventKey='company' title={i18n.getMessage('CompanyProfile.tab.company')}>
             {company}
+          </Tab>
+          <Tab eventKey='organization' title={i18n.getMessage('CompanyProfile.tab.organization')}>
+            <br />
+            {organization}
           </Tab>
           <Tab eventKey='address' title={i18n.getMessage('CompanyProfile.tab.address')}>
             {address}

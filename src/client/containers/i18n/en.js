@@ -21,6 +21,7 @@ export default {
     'CompanyProfile.form.unsavedChanges.text' : 'You did not save your entries. Do you want to proceed without saving?',
 
     'CustomerList.createCustomer': 'Create Customer',
+    'SupplierList.createSupplier': 'Create Supplier',
 
     'SellerDashboard.page.title' : 'Seller dashboard',
     'SellerDashboard.profileStrength.heading' : 'Company Profile Strength',
