@@ -14,7 +14,7 @@ export default class SupplierList extends Components.ContextComponent {
   }
 
   componentDidMount() {
-     if (!this.context.userData.roles.includes('admin')) this.context.router.push(`/bnp`);
+    if (!this.context.userData.roles.includes('admin')) this.context.router.push(`/bnp`);
   }
 
   handleEdit(supplierId) {
@@ -25,12 +25,21 @@ export default class SupplierList extends Components.ContextComponent {
     this.context.router.push(`/bnp/suppliers/${supplierId}/createUser`);
   }
 
+  handleCreateSupplierClick() {
+    this.context.router.push(`/bnp/suppliers/new`);
+  }
+
   render() {
     return (
-      <this.SupplierList
-        onEdit={supplierId => this.handleEdit(supplierId)}
-        onCreateUser={supplierId => this.handleCreateUser(supplierId)}
-      />
+      <div>
+        <button className='btn btn-primary pull-right' onClick={this.handleCreateSupplierClick.bind(this)} >
+          {this.context.i18n.getMessage('SupplierList.createSupplier')}
+        </button>
+        <this.SupplierList
+          onEdit={supplierId => this.handleEdit(supplierId)}
+          onCreateUser={supplierId => this.handleCreateUser(supplierId)}
+        />
+      </div>
     );
   }
 }

@@ -21,6 +21,7 @@ export default {
     'CompanyProfile.form.unsavedChanges.text' : 'Sie haben Ihre Einträge nicht gespeichert. Wenn Sie fortfahren, gehen diese verloren. Wollen Sie ohne zu speichern fortfahren?',
 
     'CustomerList.createCustomer': 'Kunde erstellen',
+    'SupplierList.createSupplier': 'Lieferant erstellen',
 
     'SellerDashboard.page.title' : 'Verkäufer Dashboard',
     'SellerDashboard.profileStrength.heading' : 'Unternehmensprofil Stärke',
