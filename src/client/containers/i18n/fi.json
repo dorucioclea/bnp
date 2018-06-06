@@ -1,0 +1,162 @@
+{
+    "Welcome": {
+        "page": {
+            "title": "Tervetuloa"
+        },
+        "title": "Palveluasetukset",
+        "label": {
+            "dontShowAgain": "Älä näytä tätä sivua uudestaan."
+        },
+        "button": {
+            "start": "Aloita"
+        },
+        "notification": {
+            "saved": "Palveluasetukset on tallennettu "
+        }
+    },
+    "BuyerDashboard": {
+        "page": {
+            "title": "Ostajan kojelauta"
+        }
+    },
+    "BuyerInformation": {
+        "page": {
+            "title": "Ostajan editori"
+        },
+        "notExists": "Ostajaa ei ole olemassa! Rekisteröidy ensin."
+    },
+    "CompanyProfile": {
+        "tab": {
+            "company": "Yhtiö",
+            "organization": "Organisaatiokaavio",
+            "address": "Osoite",
+            "contact": "Yhteystiedot",
+            "bankAccount": "Pankkitili",
+            "userAccessApproval": "Käyttöoikeuksien hyväksyntä"
+        },
+        "form": {
+            "unsavedChanges": {
+                "title": "Tallentamattomat muutokset",
+                "text": "Muutoksia ei ole tallennettu. Haluatko jatkaa tallentamatta?"
+            }
+        }
+    },
+    "CustomerList": {
+        "createCustomer": "Luo asiakas"
+    },
+    "SupplierList": {
+        "createSupplier": "Luo toimittaja"
+    },
+    "SellerDashboard": {
+        "page": {
+            "title": "Myyjä kojelauta"
+        },
+        "profileStrength": {
+            "heading": "Yritysprofiili Vahvuus",
+            "editButton": "Yrityksen profiili",
+            "content": "Jatka profiilin täyttämistä saadaksesi paremman näkyvyyden."
+        },
+        "connections": {
+            "heading": "Yhteydet",
+            "connect": "Yhdistä ",
+            "notConnectedStatus": "Ei yhdistetty",
+            "connectingStatus": "Yhdistetään",
+            "connectedStatus": "Yhdistetty",
+            "loading": "Ladataan..."
+        }
+    },
+    "SupplierInformation": {
+        "page": {
+            "title": "Toimittajan editori"
+        },
+        "notExists": "Toimittajaa ei ole olemassa! Rekisteröidy ensin.",
+        "ApplicationFormButton": {
+            "return": "Pyydä tietojen korjausta",
+            "sendToCustomer": "Päätä tietojen syöttö ja pyydä hyväksyntä",
+            "sendToCustomerConfirmation": "Haluatko varmasti lopettaa tietojen syöttämisen? Lähetettyäsi tiedot hyväksyttäväksi, muokkaus ei ole enää mahdollista.",
+            "backToList": "Takaisin listalle",
+            "backToServiceConfig": "Palaa palveluasetuksiin"
+        },
+        "ApplicationFormLabel": {
+            "rejectionReason": {
+                "label": "Ilmoita syyt hylätä toimittajan antamat tiedot"
+            },
+            "ok": "OK",
+            "icotermsDescription": "Incoterms kuvaus",
+            "graphic": "graafinen",
+            "successSendToCustomer": "Tietojen syöttäminen onnistui. Heti kun tietosi on hyväksytty, sinulle ilmoitetaan sähköpostitse."
+        },
+        "ApplicationFormHeader": {
+            "rejectionReason": "hylkäämisen syy"
+        },
+        "ApplicationFormLink": {
+            "header": "Seuraavassa osiossa on nykyinen version varaston käyttöehdoista.",
+            "ladenbau": "Yleiset toimitusehdot myymälän rakennusvarastoille",
+            "regional": "Yleiset toimitusehdot alueellisille ja keskusvarastoille",
+            "graphic": "Tämä ${separation} kuvaa Incotermsin merkitystä."
+        }
+    },
+    "SupplierRegistrationForm": {
+        "page": {
+            "title": "Toimittajan rekisteröinti"
+        },
+        "supplierExists": "Toimittaja on jo olemassa."
+    },
+    "SupplierDirectory": {
+        "page": {
+            "title": "Toimittajahakemisto"
+        },
+        "head": "Etsi toimittajia"
+    },
+    "UserList": {
+        "page": {
+            "title": "Käyttäjäluettelo"
+        },
+        "head": "Käyttäjäluettelo",
+        "createUser": "Luo käyttäjä"
+    },
+    "UserCreate": {
+        "createUser": "Luo käyttäjä",
+        "select": {
+            "supplier": "Valitse toimittaja",
+            "customer": "Valitse asiakas"
+        }
+    },
+    "UserAdmin": {
+        "Editor": {
+            "page": {
+                "title": "Käyttäjän editori"
+            },
+            "back": "Takaisin",
+            "tabs": {
+                "profile": "Profiili",
+                "roles": "roolit"
+            },
+            "unsavedChangesConfirmation": {
+                "title": "Vahvistus",
+                "message": "Muutoksia ei ole tallennettu. Haluatko jatkaa?"
+            }
+        }
+    },
+    "AclEditor": {
+        "page": {
+            "title": "Acl editori"
+        },
+        "authority": {
+            "heading": "Viranomaisen tunniste"
+        },
+        "permissions": {
+            "heading": "Käyttöoikeudet"
+        }
+    },
+    "RedisCommander": {
+        "page": {
+            "title": "Redis Commander"
+        }
+    },
+    "CatalogUpload": {
+        "catalogUpload": "Katalogin lataus",
+        "selectCustomer": "Valitse asiakas",
+        "openCatalogUpload": "Siirry katalogin lataukseen"
+    }
+}
