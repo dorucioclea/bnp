@@ -39,7 +39,7 @@ class Welcome extends Components.ContextComponent
     handleStart(e)
     {
         e.preventDefault();
-        this.context.router.push('/einvoice-send');
+        this.context.router.push('/einvoice-send/customer-connections');
     }
 
     render()
