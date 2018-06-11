@@ -5,7 +5,6 @@ import translations from './i18n';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import { OnboardingUserService } from '../api';
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class SupplierRegistrationForm extends Components.ContextComponent {
 
@@ -19,11 +18,8 @@ class SupplierRegistrationForm extends Components.ContextComponent {
 
       context.i18n.register('SupplierRegistrationForm', translations);
 
-      const serviceRegistry = (service) => ({ url: '/supplier' });
-
-      this.SupplierRegistrationEditor = serviceComponent({
-        serviceRegistry,
-        serviceName: 'supplier' ,
+      this.SupplierRegistrationEditor = context.loadComponent({
+        serviceName: 'supplier',
         moduleName: 'supplier-registration',
         jsFileName: 'registration-bundle'
       });
@@ -34,7 +30,7 @@ class SupplierRegistrationForm extends Components.ContextComponent {
   componentDidMount() {
     this.onboardingUserServiceApi.getOnboardingUserData(this.context.userData.id)
         .then(onboardData => this.setState({ onboardData }))
-        .catch(e => this.context.showNotification(e.message, 'error', 10));
+        .catch(e => console.log(e.message));
   }
 
   handleDirtyState = event => {
@@ -65,7 +61,7 @@ class SupplierRegistrationForm extends Components.ContextComponent {
     if (!onboardData.tradingPartnerDetails) return null;
 
     return {
-      supplierName: onboardData.tradingPartnerDetails.name,
+      name: onboardData.tradingPartnerDetails.name,
       cityOfRegistration: onboardData.tradingPartnerDetails.city,
       countryOfRegistration: onboardData.tradingPartnerDetails.country,
       taxIdentificationNo: onboardData.tradingPartnerDetails.taxIdentNo,

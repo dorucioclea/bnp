@@ -1,7 +1,6 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
 import translations from '../../i18n/index'
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 import './AclEditor.css';
 
 export default class AclEditor extends Components.ContextComponent {
@@ -11,15 +10,13 @@ export default class AclEditor extends Components.ContextComponent {
 
         context.i18n.register('AclEditor', translations);
 
-        this.AclEditor = serviceComponent({
-            serviceRegistry: () => ({ url: `/acl` }),
+        this.AclEditor = context.loadComponent({
             serviceName: 'acl' ,
             moduleName: 'acl-editor',
             jsFileName: 'editor-bundle'
         });
 
-        this.UserRolePicker = serviceComponent({
-            serviceRegistry: () => ({ url: `/user` }),
+        this.UserRolePicker = context.loadComponent({
             serviceName: 'user' ,
             moduleName: 'user-rolepicker',
             jsFileName: 'rolepicker-bundle'

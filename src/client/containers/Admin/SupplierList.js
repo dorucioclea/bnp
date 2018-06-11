@@ -1,15 +1,12 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 export default class SupplierList extends Components.ContextComponent {
 
   constructor(props, context) {
     super(props);
 
-    const serviceRegistry = (service) => ({ url: `/supplier` });
-    this.SupplierList = serviceComponent({
-      serviceRegistry,
+    this.SupplierList = context.loadComponent({
       serviceName: 'supplier' ,
       moduleName: 'supplier-list',
       jsFileName: 'list-bundle'
@@ -17,7 +14,7 @@ export default class SupplierList extends Components.ContextComponent {
   }
 
   componentDidMount() {
-     if (!this.context.userData.roles.includes('admin')) this.context.router.push(`/bnp`);
+    if (!this.context.userData.roles.includes('admin')) this.context.router.push(`/bnp`);
   }
 
   handleEdit(supplierId) {
@@ -28,12 +25,21 @@ export default class SupplierList extends Components.ContextComponent {
     this.context.router.push(`/bnp/suppliers/${supplierId}/createUser`);
   }
 
+  handleCreateSupplierClick() {
+    this.context.router.push(`/bnp/suppliers/new`);
+  }
+
   render() {
     return (
-      <this.SupplierList
-        onEdit={supplierId => this.handleEdit(supplierId)}
-        onCreateUser={supplierId => this.handleCreateUser(supplierId)}
-      />
+      <div>
+        <button className='btn btn-primary pull-right' onClick={this.handleCreateSupplierClick.bind(this)} >
+          {this.context.i18n.getMessage('SupplierList.createSupplier')}
+        </button>
+        <this.SupplierList
+          onEdit={supplierId => this.handleEdit(supplierId)}
+          onCreateUser={supplierId => this.handleCreateUser(supplierId)}
+        />
+      </div>
     );
   }
 }

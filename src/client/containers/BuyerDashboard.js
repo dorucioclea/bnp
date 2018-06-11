@@ -1,7 +1,6 @@
 import React from 'react';
 import { Components, System } from '@opuscapita/service-base-ui';
 import translations from './i18n';
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 export default class BuyerDashboard extends Components.ContextComponent
 {
@@ -11,16 +10,12 @@ export default class BuyerDashboard extends Components.ContextComponent
 
         context.i18n.register('BuyerDashboard', translations);
 
-        const serviceRegistry = (service) => ({ url: '/onboarding' });
-
-        this.FunnelChart = serviceComponent({
-            serviceRegistry,
+        this.FunnelChart = context.loadComponent({
             serviceName: 'onboarding',
             moduleName: 'funnelChart'
         });
 
-        this.RecentCampaigns = serviceComponent({
-            serviceRegistry,
+        this.RecentCampaigns = context.loadComponent({
             serviceName: 'onboarding',
             moduleName: 'recentCampaigns'
         });

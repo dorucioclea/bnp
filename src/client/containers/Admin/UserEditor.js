@@ -3,7 +3,6 @@ import { Components } from '@opuscapita/service-base-ui';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import translations from '../i18n'
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 export default class UserEditor extends Components.ContextComponent {
 
@@ -12,18 +11,14 @@ export default class UserEditor extends Components.ContextComponent {
 
         context.i18n.register('UserAdmin.Editor', translations);
 
-        const serviceRegistry = (service) => ({ url: `/user` });
-
-        this.UserProfileEditor = serviceComponent({
-            serviceRegistry,
-            serviceName: 'user' ,
+        this.UserProfileEditor = context.loadComponent({
+            serviceName: 'user',
             moduleName: 'user-profile',
             jsFileName: 'profile-bundle'
         });
 
-        this.UserRoleEditor = serviceComponent({
-            serviceRegistry,
-            serviceName: 'user' ,
+        this.UserRoleEditor = context.loadComponent({
+            serviceName: 'user',
             moduleName: 'user-role',
             jsFileName: 'role-bundle'
         });

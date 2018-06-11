@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import request from 'superagent-bluebird-promise';
-import serviceComponent from '@opuscapita/react-loaders/lib/serviceComponent';
 
 class SellerDashboard extends Components.ContextComponent
 {
@@ -23,8 +22,7 @@ class SellerDashboard extends Components.ContextComponent
 
         const serviceRegistry = (service) => ({ url : '/supplier' });
 
-        this.SupplierProfileStrength = serviceComponent({
-            serviceRegistry,
+        this.SupplierProfileStrength = context.loadComponent({
             serviceName: 'supplier',
             moduleName: 'supplier-profile_strength',
             jsFileName: 'profile_strength-bundle'
@@ -61,7 +59,7 @@ class SellerDashboard extends Components.ContextComponent
 
     handleConnectionClick()
     {
-        this.context.router.push('/einvoice-send');
+        this.context.router.push('/einvoice-send/customer-connections');
     }
 
     connectButton()
@@ -97,7 +95,7 @@ class SellerDashboard extends Components.ContextComponent
     render()
     {
         const { i18n, userData } = this.context;
-        
+
         this.context.setPageTitle(i18n.getMessage('SellerDashboard.page.title'));
 
         return(

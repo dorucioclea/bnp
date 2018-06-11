@@ -1,7 +1,7 @@
 export default {
     'Welcome.page.title' : 'Welcome',
     'Welcome.title' : 'Service Configuration',
-    'Welcome.text' : 'Thank you for choosing OpusCapita Business Network! To integrate buyers, suppliers and other business partners Business Network service needs to be conﬁgured.\n\nThis is a setup service to help you get up and running. Setup service will involve information depending on the services you select.',
+    'Welcome.text' : 'Thank you for choosing OpusCapita Business Network! To integrate buyers, suppliers and other business partners, the Business Network service needs to be conﬁgured.\n\nThis is a setup service to help you get up and running. The setup service will provide you information depending on the services you select.',
     'Welcome.label.dontShowAgain' : 'Do not show this page again.',
     'Welcome.button.start' : 'Start',
     'Welcome.notification.saved' : 'Configuration has been successfully saved.',
@@ -12,12 +12,16 @@ export default {
     'BuyerInformation.notExists' : 'Buyer does not exist! Please register first.',
 
     'CompanyProfile.tab.company' : 'Company',
+    'CompanyProfile.tab.organization' : 'Organization Chart',
     'CompanyProfile.tab.address' : 'Address',
     'CompanyProfile.tab.contact' : 'Contact',
     'CompanyProfile.tab.bankAccount' : 'Bank account',
     'CompanyProfile.tab.userAccessApproval' : 'Access Approval',
     'CompanyProfile.form.unsavedChanges.title' : 'Unsaved Changes',
     'CompanyProfile.form.unsavedChanges.text' : 'You did not save your entries. Do you want to proceed without saving?',
+
+    'CustomerList.createCustomer': 'Create Customer',
+    'SupplierList.createSupplier': 'Create Supplier',
 
     'SellerDashboard.page.title' : 'Seller dashboard',
     'SellerDashboard.profileStrength.heading' : 'Company Profile Strength',
@@ -30,7 +34,7 @@ export default {
     'SellerDashboard.connections.connectingStatus' : 'Connecting',
     'SellerDashboard.connections.connectedStatus' : 'Connected',
     'SellerDashboard.connections.loading' : 'Loading...',
-    'SellerDashboard.connections.content' : 'By connecting additional services offered by the business network, you can benefit from synergies and provide you with a central management console for all your documents.',
+    'SellerDashboard.connections.content' : 'By connecting additional services offered by the business network, you can enhance visibility and control over your business processes.',
 
     'SupplierInformation.page.title' : 'Supplier editor',
     'SupplierInformation.notExists' : 'Supplier does not exist! Please register first.',
@@ -78,4 +82,10 @@ export default {
     'AclEditor.page.title': 'Acl editor',
     'AclEditor.authority.heading': 'Authority identifier',
     'AclEditor.permissions.heading': 'Permissions',
+
+    'RedisCommander.page.title': 'Redis Commander',
+
+    'CatalogUpload.catalogUpload': 'Catalog Upload',
+    'CatalogUpload.selectCustomer': 'Please select the customer ',
+    'CatalogUpload.openCatalogUpload': 'Go to Catalog Upload',
 }
