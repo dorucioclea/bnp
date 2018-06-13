@@ -1,0 +1,164 @@
+{
+    "Welcome": {
+        "page": {
+            "title": "Welcome"
+        },
+        "title": "Service Configuration",
+        "text": "Thank you for choosing OpusCapita Business Network! To integrate buyers, suppliers and other business partners, the Business Network service needs to be conﬁgured.\n\nThis is a setup service to help you get up and running. The setup service will provide you information depending on the services you select.",
+        "label": {
+            "dontShowAgain": "Do not show this page again."
+        },
+        "button": {
+            "start": "Start"
+        },
+        "notification": {
+            "saved": "Configuration has been successfully saved."
+        }
+    },
+    "BuyerDashboard": {
+        "page": {
+            "title": "Buyer dashboard"
+        }
+    },
+    "BuyerInformation": {
+        "page": {
+            "title": "Buyer editor"
+        },
+        "notExists": "Buyer does not exist! Please register first."
+    },
+    "CompanyProfile": {
+        "tab": {
+            "company": "Company",
+            "organization": "Organization Chart",
+            "address": "Address",
+            "contact": "Contact",
+            "bankAccount": "Bank account",
+            "userAccessApproval": "Access Approval"
+        },
+        "form": {
+            "unsavedChanges": {
+                "title": "Unsaved Changes",
+                "text": "You did not save your entries. Do you want to proceed without saving?"
+            }
+        }
+    },
+    "CustomerList": {
+        "createCustomer": "Create Customer"
+    },
+    "SupplierList": {
+        "createSupplier": "Create Supplier"
+    },
+    "SellerDashboard": {
+        "page": {
+            "title": "Seller dashboard"
+        },
+        "profileStrength": {
+            "heading": "Company Profile Strength",
+            "editButton": "Company Profile",
+            "content": "Continue to fill your profile in order to benefit from better visibility in the network and get more business opportunities."
+        },
+        "connections": {
+            "heading": "Connections",
+            "connect": "Connect",
+            "notConnectedStatus": "Not Connected",
+            "connectingStatus": "Connecting",
+            "connectedStatus": "Connected",
+            "loading": "Loading...",
+            "content": "By connecting additional services offered by the business network, you can enhance visibility and control over your business processes."
+        }
+    },
+    "SupplierInformation": {
+        "page": {
+            "title": "Supplier editor"
+        },
+        "notExists": "Supplier does not exist! Please register first.",
+        "ApplicationFormButton": {
+            "return": "Request data correction",
+            "sendToCustomer": "Finish data entry and request approval",
+            "sendToCustomerConfirmation": "Do you really want to finish data entry? As soon as you send the data for approval, no more editing will be possible.",
+            "backToList": "Back to list",
+            "backToServiceConfig": "Back to service configuration"
+        },
+        "ApplicationFormLabel": {
+            "rejectionReason": {
+                "label": "Please state your reasons for rejecting data provided by the supplier"
+            },
+            "ok": "OK",
+            "icotermsDescription": "Description of Incoterms",
+            "graphic": "graphic",
+            "successSendToCustomer": "Entry of data was successful. As soon as your data has been approved, you will be informed via email."
+        },
+        "ApplicationFormHeader": {
+            "rejectionReason": "Rejection reason"
+        },
+        "ApplicationFormLink": {
+            "header": "The following section contains the current version of our Warehouse Terms and Conditions.",
+            "ladenbau": "General Terms of Delivery for Store Construction Warehouses",
+            "regional": "General Terms of Delivery for Regional and Central Warehouses",
+            "graphic": "This ${separation} depicts the meaning of the Incoterms."
+        }
+    },
+    "SupplierRegistrationForm": {
+        "page": {
+            "title": "Supplier registration"
+        },
+        "supplierExists": "The supplier already exist."
+    },
+    "SupplierDirectory": {
+        "page": {
+            "title": "Supplier directory"
+        },
+        "head": "Search for suppliers"
+    },
+    "UserList": {
+        "page": {
+            "title": "User list"
+        },
+        "head": "User list",
+        "createUser": "Create User"
+    },
+    "UserCreate": {
+        "createUser": "Create User",
+        "select": {
+            "supplier": "Select Supplier",
+            "customer": "Select Customer"
+        }
+    },
+    "UserAdmin": {
+        "Editor": {
+            "page": {
+                "title": "User editor"
+            },
+            "back": "Back",
+            "tabs": {
+                "profile": "Profile",
+                "roles": "Roles"
+            },
+            "unsavedChangesConfirmation": {
+                "title": "Confirmation",
+                "message": "You have unsaved changes. Do you want to proceed?"
+            }
+        }
+    },
+    "AclEditor": {
+        "page": {
+            "title": "Acl editor"
+        },
+        "authority": {
+            "heading": "Authority identifier"
+        },
+        "permissions": {
+            "heading": "Permissions"
+        }
+    },
+    "RedisCommander": {
+        "page": {
+            "title": "Redis Commander"
+        }
+    },
+    "CatalogUpload": {
+        "catalogUpload": "Catalog Upload",
+        "selectCustomer": "Please select the customer ",
+        "openCatalogUpload": "Go to Catalog Upload"
+    }
+}
