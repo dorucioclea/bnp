@@ -59,7 +59,7 @@ class SellerDashboard extends Components.ContextComponent
 
     handleConnectionClick()
     {
-        this.context.router.push('/einvoice-send/customer-connections');
+        this.context.router.push('/einvoice-send');
     }
 
     connectButton()
