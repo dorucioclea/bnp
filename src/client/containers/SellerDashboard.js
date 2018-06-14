@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
+import './SellerDashboard.css';
 import request from 'superagent-bluebird-promise';
 
 class SellerDashboard extends Components.ContextComponent
