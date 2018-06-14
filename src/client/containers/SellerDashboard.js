@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import request from 'superagent-bluebird-promise';
-import './sellerDashboard.css';
 
 class SellerDashboard extends Components.ContextComponent
 {
