@@ -180,6 +180,39 @@ services:
       - '3008:3008'
     command: 'npm run dev'
 
+  routing:
+    image: opuscapita/routing:dev
+#    build: ../routing
+#    volumes:
+#     - ../routing:/home/node/routing
+    depends_on:
+      - mysql
+      - consul
+      - registrator
+      - redis
+      - rabbitmq
+    labels:
+      SERVICE_NAME: 'routing'
+    environment:
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+      USER_NAME: 'svc_routing'
+      PASSWORD: 'test'
+      CLIENT_KEY: $CLIENT_KEY
+      CLIENT_SECRET: $CLIENT_SECRET
+      SCOPE: $SCOPE
+      NODE_ENV: ${NODE_ENV}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      REDIS_AUTH: ${REDIS_AUTH}
+      SERVICE_3010_NAME: routing
+      SERVICE_3010_CHECK_HTTP: /api/health/check
+      SERVICE_3010_CHECK_INTERVAL: 15s
+      SERVICE_3010_CHECK_TIMEOUT: 3s
+    ports:
+      - '3010:3010'
+    command: 'npm run dev'
+
   email:
     image: opuscapita/email:dev
     environment:

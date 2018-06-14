@@ -160,5 +160,21 @@
         "catalogUpload": "Katalog-Upload",
         "selectCustomer": "Wählen Sie bitte den Kunden",
         "openCatalogUpload": "Direkter Einsprung"
+    },
+    "RouteAdmin": {
+        "List": {
+            "head": "Route list DE",
+            "page": {
+                "title": "Route list DE"
+            },
+            "create": "Create DE"
+        },
+        "Edit": {
+            "page": {
+                "title": "Route edit DE"
+            },
+            "back": "Back DE",
+            "save": "Save DE"
+        }
     }
 }
