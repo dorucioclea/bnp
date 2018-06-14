@@ -163,5 +163,21 @@
         "catalogUpload": "Catalog Upload",
         "selectCustomer": "Please select the customer ",
         "openCatalogUpload": "Go to Catalog Upload"
+    },
+    "RouteAdmin": {
+        "List": {
+            "head": "Route list",
+            "page": {
+                "title": "Route list"
+            },
+            "create": "Create"
+        },
+        "Edit": {
+            "page": {
+                "title": "Route edit"
+            },
+            "back": "Back",
+            "save": "Save"
+        }
     }
 }
