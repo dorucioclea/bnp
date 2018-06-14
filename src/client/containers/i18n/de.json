@@ -163,18 +163,18 @@
     },
     "RouteAdmin": {
         "List": {
-            "head": "Route list DE",
+            "head": "Routenliste",
             "page": {
-                "title": "Route list DE"
+                "title": "Routenliste"
             },
-            "create": "Create DE"
+            "create": "Erstellen"
         },
         "Edit": {
             "page": {
-                "title": "Route edit DE"
+                "title": "Route bearbeiten"
             },
-            "back": "Back DE",
-            "save": "Save DE"
+            "back": "Zurück",
+            "save": "Speichern"
         }
     }
 }
