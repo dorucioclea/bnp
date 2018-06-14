@@ -57,6 +57,9 @@
             "editButton": "Company Profile",
             "content": "Continue to fill your profile in order to benefit from better visibility in the network and get more business opportunities."
         },
+        "notification" : {
+            "heading": "Notifications"
+        },
         "connections": {
             "heading": "Connections",
             "connect": "Connect",

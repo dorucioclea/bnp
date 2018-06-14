@@ -27,6 +27,12 @@ class SellerDashboard extends Components.ContextComponent
             moduleName: 'supplier-profile_strength',
             jsFileName: 'profile_strength-bundle'
         });
+
+        this.NotificationList = context.loadComponent({
+            serviceName: 'notification',
+            moduleName: 'notificationList',
+            jsFileName: 'notificationList-bundle'
+        });
     }
 
     componentDidMount()
@@ -95,7 +101,6 @@ class SellerDashboard extends Components.ContextComponent
     render()
     {
         const { i18n, userData } = this.context;
-
         this.context.setPageTitle(i18n.getMessage('SellerDashboard.page.title'));
 
         return(
@@ -149,6 +154,20 @@ class SellerDashboard extends Components.ContextComponent
                             <br/>
                           </div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="panel panel-success">
+                      <div className="panel-heading">
+                        <h4>{i18n.getMessage('SellerDashboard.notification.heading')}</h4>
+                      </div>
+                      <div className="panel-body">
+                          <div className="col-md-12">
+                              <this.NotificationList itemsPerPage="10" poll="true" />
+                          </div>
                       </div>
                     </div>
                   </div>
