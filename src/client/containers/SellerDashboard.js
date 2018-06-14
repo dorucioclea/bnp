@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import request from 'superagent-bluebird-promise';
+import './sellerDashboard.css';
 
 class SellerDashboard extends Components.ContextComponent
 {
@@ -166,7 +167,7 @@ class SellerDashboard extends Components.ContextComponent
                       </div>
                       <div className="panel-body">
                           <div className="col-md-12">
-                              <this.NotificationList itemsPerPage="10" poll="true" />
+                              <this.NotificationList itemsPerPage="10" poll="true" className="sellerdashboard-notification-list" />
                           </div>
                       </div>
                     </div>
