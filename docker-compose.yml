@@ -213,6 +213,26 @@ services:
       - '3010:3010'
     command: 'npm run dev'
 
+  notifciation:
+    image: opuscapita/notification:dev
+    depends_on:
+     - mysql
+     - consul
+     - registrator
+    labels:
+      SERVICE_NAME: 'notification'
+    environment:
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+      SERVICE_3011_CHECK_HTTP: /api/health/check
+      SERVICE_3011_CHECK_INTERVAL: 15s
+      SERVICE_3011_CHECK_TIMEOUT: 3s
+    ports:
+     - '3011:3011'
+    command: 'npm run dev'
+
   email:
     image: opuscapita/email:dev
     environment:
