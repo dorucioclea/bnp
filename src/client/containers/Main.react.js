@@ -20,8 +20,10 @@ import SupplierList from './Admin/SupplierList';
 import SupplierEditor from './Admin/SupplierEditor';
 import UserSelectCreate from './Admin/UserSelectCreate';
 import UserCreate from './Admin/UserCreate';
-import RedisCommander from "./Admin/RedisCommander";
+import RedisCommander from './Admin/RedisCommander';
 import CatalogUpload from './CatalogUpload';
+import RouteList from './Admin/RouteList';
+import RouteEdit from './Admin/RouteEdit';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -66,6 +68,8 @@ class Main extends React.Component
                 <Route path="/userSelectCreate" component={UserSelectCreate} />
                 <Route path="/users" component={UserList} />
                 <Route path="/users/:userId" component={UserEditor} />
+                <Route path="/routes" component={RouteList} />
+                <Route path="/routes/:routeId" component={RouteEdit} />
                 <Route path="/permissions(/:roleId)" component={AclEditor} />
                 <Route path="/redis" component={RedisCommander} />
                 <Route path="/redis/*" component={RedisCommander} />

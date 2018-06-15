@@ -1,0 +1,183 @@
+{
+    "Welcome": {
+        "page": {
+            "title": "Willkommen"
+        },
+        "title": "Service Konfiguration",
+        "text": "Vielen Dank, dass Sie sich für das OpusCapita Business Netzwerk entschieden haben. Sie können nun die zur Verfügung stehenden Dienste konfigurieren und nutzen.\n\nDer Konfigurations-Assistent wird Sie durch den Konfigurationsprozess leiten und alle Informationen abfragen, die für den ausgewählten Dienst benötigt werden.",
+        "label": {
+            "dontShowAgain": "nicht erneut anzeigen"
+        },
+        "button": {
+            "start": "Start"
+        },
+        "notification": {
+            "saved": "Konfiguration wurde erfolgreich gespeichert."
+        }
+    },
+    "BuyerDashboard": {
+        "page": {
+            "title": "Einkäufer Dashboard"
+        }
+    },
+    "BuyerInformation": {
+        "page": {
+            "title": "Käufereditor"
+        },
+        "notExists": "Der Käufer existiert nicht! Bitte registrieren Sie sich erst."
+    },
+    "CompanyProfile": {
+        "tab": {
+            "company": "Unternehmen",
+            "organization": "Organigramm",
+            "address": "Adressen",
+            "contact": "Ansprechpartner",
+            "bankAccount": "Bankkonten",
+            "userAccessApproval": "Zugriffsberechtigung"
+        },
+        "form": {
+            "unsavedChanges": {
+                "title": "Nicht gespeicherte Änderungen",
+                "text": "Sie haben Ihre Einträge nicht gespeichert. Wenn Sie fortfahren, gehen diese verloren. Wollen Sie ohne zu speichern fortfahren?"
+            }
+        }
+    },
+    "CustomerList": {
+        "createCustomer": "Kunde erstellen"
+    },
+    "SupplierList": {
+        "createSupplier": "Lieferant erstellen"
+    },
+    "SellerDashboard": {
+        "page": {
+            "title": "Verkäufer Dashboard"
+        },
+        "profileStrength": {
+            "heading": "Unternehmensprofil Stärke",
+            "editButton": "Unternehmensprofil",
+            "content": "Hier können Sie Ihr Profil vervollständigen. Damit profitieren Sie von einer besseren Sichtbarkeit im Business Netzwerk mit neuen Geschäftschancen."
+        },
+        "notification" : {
+            "heading": "Benachrichtigungen"
+        },
+        "connections": {
+            "heading": "Verbindungen",
+            "connect": "Verbinden",
+            "notConnectedStatus": "Nicht verbunden",
+            "connectingStatus": "In Konfiguration",
+            "connectedStatus": "Verbunden",
+            "loading": "Laden...",
+            "content": "Das Business Netzwerk erlaubt die Verwendung unterschiedlicher Dienste zur elektronischen Vernetzung Ihrer Rechnungsdokumente und Sie profitieren von den Synergien einer zentralen Managementkonsole."
+        }
+    },
+    "SupplierInformation": {
+        "page": {
+            "title": "Lieferanteneditor"
+        },
+        "notExists": "Der Lieferant existiert nicht! Bitte registrieren Sie sich erst.",
+        "ApplicationFormButton": {
+            "return": "Nachbesserung anfordern",
+            "sendToCustomer": "Bearbeitung abschließen und um Freigabe bitten",
+            "sendToCustomerConfirmation": "Wollen Sie die Bearbeitung Ihrer Daten wirklich abschließen? Sobald Sie die Daten zur Freigabe senden, ist keine weitere Bearbeitung mehr möglich!",
+            "backToList": "Zurück zur Übersicht",
+            "backToServiceConfig": "Zurück zur Service-Konfiguration"
+        },
+        "ApplicationFormLabel": {
+            "rejectionReason": {
+                "label": "Bitte geben Sie hier die Gründe an, weshalb Sie die Lieferantendaten nicht genehmigen"
+            },
+            "ok": "OK",
+            "icotermsDescription": "Beschreibung der Incoterms",
+            "graphic": "Grafik",
+            "successSendToCustomer": "Sie haben Ihre Unternehmensdaten erfolgreich bearbeitet. Sobald die Freigabe erfolgt ist, werden Sie per E-Mail darüber informiert."
+        },
+        "ApplicationFormHeader": {
+            "rejectionReason": "Grund der Ablehnung"
+        },
+        "ApplicationFormLink": {
+            "header": "In diesem Abschnitt können Sie die allgemeinen Lieferbedingungen für unsere Läger herunterladen.",
+            "ladenbau": "Allgemeine Lieferbedingungen Ladenbau",
+            "regional": "Allgemeine Lieferbedingungen Regional- und Zentralläger",
+            "graphic": "Diese ${separation} verdeutlicht die Bedeutung der Incoterms."
+        }
+    },
+    "SupplierRegistrationForm": {
+        "page": {
+            "title": "Lieferantenregistrierung"
+        },
+        "supplierExists": "Der Lieferant existiert bereits."
+    },
+    "SupplierDirectory": {
+        "page": {
+            "title": "Lieferantenverzeichnis"
+        },
+        "head": "Lieferantensuche"
+    },
+    "UserList": {
+        "page": {
+            "title": "Benutzerliste"
+        },
+        "head": "Benutzerliste",
+        "createUser": "Benutzer erstellen"
+    },
+    "UserCreate": {
+        "createUser": "Benutzer erstellen",
+        "select": {
+            "supplier": "Lieferant wählen",
+            "customer": "Kunde wählen"
+        }
+    },
+    "UserAdmin": {
+        "Editor": {
+            "page": {
+                "title": "Benutzereditor"
+            },
+            "back": "Zurück",
+            "tabs": {
+                "profile": "Profil",
+                "roles": "Rolen"
+            },
+            "unsavedChangesConfirmation": {
+                "title": "Sicherheitsabfrage",
+                "message": "Es sind ungesicherte Änderungen vorhanden. Möchten Sie trotzdem fortfahren?"
+            }
+        }
+    },
+    "AclEditor": {
+        "page": {
+            "title": "ACL Editor"
+        },
+        "authority": {
+            "heading": "Authority-ID"
+        },
+        "permissions": {
+            "heading": "Berechtigungs-ID"
+        }
+    },
+    "RedisCommander": {
+        "page": {
+            "title": "Redis Commander"
+        }
+    },
+    "CatalogUpload": {
+        "catalogUpload": "Katalog-Upload",
+        "selectCustomer": "Wählen Sie bitte den Kunden",
+        "openCatalogUpload": "Direkter Einsprung"
+    },
+    "RouteAdmin": {
+        "List": {
+            "head": "Routenliste",
+            "page": {
+                "title": "Routenliste"
+            },
+            "create": "Erstellen"
+        },
+        "Edit": {
+            "page": {
+                "title": "Route bearbeiten"
+            },
+            "back": "Zurück",
+            "save": "Speichern"
+        }
+    }
+}
