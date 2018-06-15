@@ -32,7 +32,7 @@
     "@opuscapita/db-init": "~2.0.10",
     "@opuscapita/i18n": "^1.1.0",
     "@opuscapita/react-reference-select": "^2.0.6",
-    "@opuscapita/service-base-ui": "~1.1.11",
+    "@opuscapita/service-base-ui": "~1.1.25",
     "@opuscapita/web-init": "~3.0.39",
     "bluebird": "^3.5.1",
     "cross-env": "^4.0.0",
