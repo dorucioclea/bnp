@@ -4,17 +4,16 @@ MAINTAINER gr4per
 RUN apk add --no-cache curl
 
 WORKDIR /home/node/bnp
-
-COPY . .
-
 RUN chown -R node:node .
-ENV NODE_ENV=production
+
+COPY --chown=node:node . .
+
+ENV NODE_ENV=development
 
 USER node
 
-RUN NODE_ENV=development yarn
-
-RUN yarn run build:client
+RUN npm install
+RUN npm run build:client
 
 EXPOSE 3000
 
