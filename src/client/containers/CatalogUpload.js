@@ -3,7 +3,7 @@ import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import ajax from 'superagent-bluebird-promise';
 
-import { Customer } from '../api';
+import { Customer, BusinessLink } from '../api';
 
 
 class CatalogUpload extends Components.ContextComponent
@@ -11,6 +11,7 @@ class CatalogUpload extends Components.ContextComponent
     constructor(props, context)
     {
         super(props);
+        this.businessLinkApi = new BusinessLink();
         this.customerApi = new Customer();
 
         this.state = {
@@ -25,8 +26,17 @@ class CatalogUpload extends Components.ContextComponent
 
     componentDidMount()
     {
-        this.customerApi.getCustomers()
-        .then( (customers) => this.setState({ customers }) );
+        this.businessLinkApi.allForSupplierId(this.context.userData.supplierid).then(businessLinks => {
+            if (businessLinks.length === 0) return;
+
+            const customerIds = businessLinks.reduce((accumulator, link) => {
+                if (link.connections.some(conn => conn.type === 'catalog')) accumulator.push(link.customerId);
+                return accumulator;
+            }, []);
+            this.customerApi.getCustomers({ id: customerIds.join(',') }).then(customers => this.setState({ customers }));
+        });
+
+
     }
 
     onCustomerSelect(e)
