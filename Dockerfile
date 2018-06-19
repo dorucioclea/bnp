@@ -12,7 +12,7 @@ ENV NODE_ENV=development
 
 USER node
 
-RUN npm install
+RUN npm install && npm cache clean --force
 RUN npm run build:client
 
 EXPOSE 3000
