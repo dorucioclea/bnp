@@ -29,7 +29,7 @@
   "license": "opuscapita",
   "readme": "README.md",
   "dependencies": {
-    "@opuscapita/db-init": "~2.0.10",
+    "@opuscapita/db-init": "~2.0.15",
     "@opuscapita/i18n": "^1.1.0",
     "@opuscapita/react-reference-select": "^2.0.6",
     "@opuscapita/service-base-ui": "~1.1.25",
