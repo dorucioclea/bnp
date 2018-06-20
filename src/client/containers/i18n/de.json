@@ -33,7 +33,8 @@
             "address": "Adressen",
             "contact": "Ansprechpartner",
             "bankAccount": "Bankkonten",
-            "userAccessApproval": "Zugriffsberechtigung"
+            "userAccessApproval": "Zugriffsberechtigung",
+            "visibility": "Sichtbarkeitseinstellungen"
         },
         "form": {
             "unsavedChanges": {

@@ -44,6 +44,12 @@ class SupplierInformation extends Components.ContextComponent
         jsFileName: 'bank_accounts-bundle'
       });
 
+      this.SupplierVisibilityPreference = context.loadComponent({
+        serviceName: 'supplier' ,
+        moduleName: 'supplier-visibility',
+        jsFileName: 'visibility-bundle'
+      });
+
       if (context.userData.roles.includes('supplier-admin')) {
         this.SupplierApproval = context.loadComponent({
           serviceName: 'supplier',
@@ -184,6 +190,13 @@ class SupplierInformation extends Components.ContextComponent
       />
     );
 
+    const visibility = (
+      <this.SupplierVisibilityPreference
+        key='visibility'
+        supplierId={userData.supplierid}
+      />
+    );
+
     return (
       <div>
         {this.renderBackUrlLink()}
@@ -203,6 +216,9 @@ class SupplierInformation extends Components.ContextComponent
           </Tab>
           <Tab eventKey='bankAccount' title={i18n.getMessage('CompanyProfile.tab.bankAccount')}>
             {banks}
+          </Tab>
+          <Tab eventKey='visibility' title={i18n.getMessage('CompanyProfile.tab.visibility')}>
+            {visibility}
           </Tab>
           {this.renderUserAccessApproval()}
         </Tabs>

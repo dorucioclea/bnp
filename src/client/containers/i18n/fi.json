@@ -32,7 +32,8 @@
             "address": "Osoite",
             "contact": "Yhteystiedot",
             "bankAccount": "Pankkitili",
-            "userAccessApproval": "Käyttöoikeuksien hyväksyntä"
+            "userAccessApproval": "Käyttöoikeuksien hyväksyntä",
+            "visibility": "Näkyvyysasetukset"
         },
         "form": {
             "unsavedChanges": {

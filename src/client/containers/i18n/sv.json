@@ -33,7 +33,8 @@
             "address": "Adress",
             "contact": "Kontaktperson",
             "bankAccount": "Kontonummer",
-            "userAccessApproval": "Godkänn access"
+            "userAccessApproval": "Godkänn access",
+            "visibility": "Synbarhetsinställningar"
         },
         "form": {
             "unsavedChanges": {
