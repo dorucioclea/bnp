@@ -43,7 +43,8 @@ class CatalogUpload extends Components.ContextComponent
     {
         const customerId = (typeof e === 'object') && e.target ? e.target.value : e;
         console.log("onCustomerSelect: ", customerId);
-        window.open(`https://opuscapita.jcatalog.com/bnp/ssm/standardWorkflow/index?customerId=${customerId}`);
+        const url = customerId.match('schindler-') ? 'https://schindler-test.opuscapita.com/ssm' : 'https://opuscapita.jcatalog.com/bnp/ssm';
+        window.open(`${url}/standardWorkflow/index?customerId=${customerId}`);
     }
 
     render()
