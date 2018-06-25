@@ -1,7 +1,6 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
-import translations from '../i18n'
-import { ReferenceAutocomplete } from '@opuscapita/react-reference-select';
+import translations from '../i18n';
 import { Supplier, Customer } from '../../api';
 
 export default class UserSelectCreate extends Components.ContextComponent {
@@ -12,6 +11,12 @@ export default class UserSelectCreate extends Components.ContextComponent {
     context.i18n.register('UserCreate', translations);
     this.supplierApi = new Supplier();
     this.customerApi = new Customer();
+
+    this.SupplierAutocomplete = context.loadComponent({
+      serviceName: 'supplier',
+      moduleName: 'supplier-autocomplete',
+      jsFileName: 'autocomplete-bundle'
+    });
 
     this.CustomerAutocomplete = context.loadComponent({
       serviceName: 'customer',
@@ -33,26 +38,13 @@ export default class UserSelectCreate extends Components.ContextComponent {
     return tenantType === 'supplier' ? this.supplierApi.getSuppliers(search) : this.customerApi.getCustomers(search);
   }
 
-  renderTenantPicker(tenantType) {
+  renderTenantPicker({ tenantType, component }) {
     return (
       <div className='row'>
         <div className='col-lg-offset-3 col-lg-6 col-sm-offset-2 col-sm-8 col-xs-12'>
           <h4>{this.context.i18n.getMessage(`UserCreate.select.${tenantType}`)}</h4>
           <div className='input-group'>
-            <ReferenceAutocomplete
-              autocompleteAction={(input) => {
-                const search = input ? { name: input } : {}
-                return this.getTenants(tenantType, search).then(tenants => {
-                  return new Promise((resolve) => resolve({ options: tenants, complete: false }));
-                });
-              }}
-              value={this.state[tenantType]}
-              labelProperty='name'
-              valueProperty='id'
-              onChange={tenant => this.handleOnChange(tenantType, tenant)}
-              onBlur={() => null}
-            />
-
+            {component}
             {this.renderSubmitButton(tenantType, this.state[tenantType] && this.state[tenantType].id)}
           </div>
         </div>
@@ -78,22 +70,27 @@ export default class UserSelectCreate extends Components.ContextComponent {
 
     return (
       <div>
-        {this.renderTenantPicker('supplier')}
+        {this.renderTenantPicker({
+          tenantType: 'supplier',
+          component: (
+            <this.SupplierAutocomplete
+              value={this.state.supplier}
+              onChange={supplier => this.handleOnChange('supplier', supplier)}
+              onBlur={() => null}
+            />
+          )
+        })}
         <br />
-        <div className='row'>
-          <div className='col-lg-offset-3 col-lg-6 col-sm-offset-2 col-sm-8 col-xs-12'>
-            <h4>{this.context.i18n.getMessage(`UserCreate.select.customer`)}</h4>
-            <div className='input-group'>
-              <this.CustomerAutocomplete
-                value={this.state.customer}
-                onChange={customer => this.handleOnChange('customer', customer)}
-                onBlur={() => null}
-              />
-
-              {this.renderSubmitButton('customer', this.state.customer && this.state.customer.id)}
-            </div>
-          </div>
-        </div>
+        {this.renderTenantPicker({
+          tenantType: 'customer',
+          component: (
+            <this.CustomerAutocomplete
+              value={this.state.customer}
+              onChange={customer => this.handleOnChange('customer', customer)}
+              onBlur={() => null}
+            />
+          )
+        })}
       </div>
     );
   }
