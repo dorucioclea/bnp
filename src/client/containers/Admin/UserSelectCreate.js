@@ -12,6 +12,12 @@ export default class UserSelectCreate extends Components.ContextComponent {
     context.i18n.register('UserCreate', translations);
     this.supplierApi = new Supplier();
     this.customerApi = new Customer();
+
+    this.CustomerAutocomplete = context.loadComponent({
+      serviceName: 'customer',
+      moduleName: 'customer-autocomplete',
+      jsFileName: 'autocomplete-bundle'
+    });
   }
 
   handleOnClick(event, tenantType, tenantId) {
@@ -69,11 +75,16 @@ export default class UserSelectCreate extends Components.ContextComponent {
   }
 
   render() {
+
     return (
       <div>
         {this.renderTenantPicker('supplier')}
         <br />
-        {this.renderTenantPicker('customer')}
+        <this.CustomerAutocomplete
+          value={this.state.customer}
+          onChange={customer => this.handleOnChange('customer', customer)}
+          onBlur={() => null}
+        />
       </div>
     );
   }
