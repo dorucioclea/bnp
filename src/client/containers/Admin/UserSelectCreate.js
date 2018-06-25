@@ -80,11 +80,20 @@ export default class UserSelectCreate extends Components.ContextComponent {
       <div>
         {this.renderTenantPicker('supplier')}
         <br />
-        <this.CustomerAutocomplete
-          value={this.state.customer}
-          onChange={customer => this.handleOnChange('customer', customer)}
-          onBlur={() => null}
-        />
+        <div className='row'>
+          <div className='col-lg-offset-3 col-lg-6 col-sm-offset-2 col-sm-8 col-xs-12'>
+            <h4>{this.context.i18n.getMessage(`UserCreate.select.customer`)}</h4>
+            <div className='input-group'>
+              <this.CustomerAutocomplete
+                value={this.state.customer}
+                onChange={customer => this.handleOnChange('customer', customer)}
+                onBlur={() => null}
+              />
+
+              {this.renderSubmitButton('customer', this.state.customer && this.state.customer.id)}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
