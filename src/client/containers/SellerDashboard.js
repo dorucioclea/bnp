@@ -12,8 +12,6 @@ class SellerDashboard extends Components.ContextComponent
 
         context.i18n.register('SellerDashboard', translations);
 
-        const serviceRegistry = (service) => ({ url : '/supplier' });
-
         this.SupplierProfileStrength = context.loadComponent({
             serviceName: 'supplier',
             moduleName: 'supplier-profile_strength',
