@@ -33,7 +33,8 @@
             "address": "Address",
             "contact": "Contact",
             "bankAccount": "Bank account",
-            "userAccessApproval": "Access Approval"
+            "userAccessApproval": "Access Approval",
+            "visibility": "Visibility Preferences"
         },
         "form": {
             "unsavedChanges": {
@@ -56,6 +57,9 @@
             "heading": "Company Profile Strength",
             "editButton": "Company Profile",
             "content": "Continue to fill your profile in order to benefit from better visibility in the network and get more business opportunities."
+        },
+        "notification" : {
+            "heading": "Notifications"
         },
         "connections": {
             "heading": "Connections",
@@ -160,5 +164,21 @@
         "catalogUpload": "Catalog Upload",
         "selectCustomer": "Please select the customer ",
         "openCatalogUpload": "Go to Catalog Upload"
+    },
+    "RouteAdmin": {
+        "List": {
+            "head": "Route list",
+            "page": {
+                "title": "Route list"
+            },
+            "create": "Create"
+        },
+        "Edit": {
+            "page": {
+                "title": "Route edit"
+            },
+            "back": "Back",
+            "save": "Save"
+        }
     }
 }

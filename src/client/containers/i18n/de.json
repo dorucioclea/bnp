@@ -33,7 +33,8 @@
             "address": "Adressen",
             "contact": "Ansprechpartner",
             "bankAccount": "Bankkonten",
-            "userAccessApproval": "Zugriffsberechtigung"
+            "userAccessApproval": "Zugriffsberechtigung",
+            "visibility": "Sichtbarkeitseinstellungen"
         },
         "form": {
             "unsavedChanges": {
@@ -56,6 +57,9 @@
             "heading": "Unternehmensprofil Stärke",
             "editButton": "Unternehmensprofil",
             "content": "Hier können Sie Ihr Profil vervollständigen. Damit profitieren Sie von einer besseren Sichtbarkeit im Business Netzwerk mit neuen Geschäftschancen."
+        },
+        "notification" : {
+            "heading": "Benachrichtigungen"
         },
         "connections": {
             "heading": "Verbindungen",
@@ -160,5 +164,21 @@
         "catalogUpload": "Katalog-Upload",
         "selectCustomer": "Wählen Sie bitte den Kunden",
         "openCatalogUpload": "Direkter Einsprung"
+    },
+    "RouteAdmin": {
+        "List": {
+            "head": "Routenliste",
+            "page": {
+                "title": "Routenliste"
+            },
+            "create": "Erstellen"
+        },
+        "Edit": {
+            "page": {
+                "title": "Route bearbeiten"
+            },
+            "back": "Zurück",
+            "save": "Speichern"
+        }
     }
 }

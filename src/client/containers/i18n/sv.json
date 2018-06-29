@@ -1,0 +1,165 @@
+{
+    "Welcome": {
+        "page": {
+            "title": "Välkommen"
+        },
+        "title": "Val av tjänst",
+        "text": "Tack för att du väljer OpusCapita Business Network!",
+        "label": {
+            "dontShowAgain": "Visa inte denna sida igen."
+        },
+        "button": {
+            "start": "Start"
+        },
+        "notification": {
+            "saved": "Ditt val har blivit sparat."
+        }
+    },
+    "BuyerDashboard": {
+        "page": {
+            "title": "Köparens översikt"
+        }
+    },
+    "BuyerInformation": {
+        "page": {
+            "title": "Redigerare"
+        },
+        "notExists": "Användaren existerar inte! Vänligen registrerar en användare först."
+    },
+    "CompanyProfile": {
+        "tab": {
+            "company": "Företag",
+            "organization": "Organistationsöversikt",
+            "address": "Adress",
+            "contact": "Kontaktperson",
+            "bankAccount": "Kontonummer",
+            "userAccessApproval": "Godkänn access",
+            "visibility": "Synbarhetsinställningar"
+        },
+        "form": {
+            "unsavedChanges": {
+                "title": "Osparade ändringar",
+                "text": "Du har inte sparat dina ändringar. Vill du verkligen fortsätta utan att först spara dina ändringar?"
+            }
+        }
+    },
+    "CustomerList": {
+        "createCustomer": "Skapa en kund"
+    },
+    "SupplierList": {
+        "createSupplier": "Skapa en leverantör"
+    },
+    "SellerDashboard": {
+        "page": {
+            "title": "Leverantörens översikt"
+        },
+        "profileStrength": {
+            "heading": "Företagsprofilens styrka",
+            "editButton": "Företagsprofil",
+            "content": "Genomatt addera information om ditt företag skapar du högre synbarhet i nätverket odh lägger grunden för nya affärsmöjligheter"
+        },
+        "connections": {
+            "heading": "Kopplingar",
+            "connect": "Koppla upp",
+            "notConnectedStatus": "Ingen uppkoppling",
+            "connectingStatus": "Kopplar upp",
+            "connectedStatus": "Uppkopplad",
+            "loading": "Laddar…",
+            "content": "Genom att addera ny tjänster som Business Network tillhandahåller, kan dra nytta av synergier och förse dig med en central konsol för alla dina dokument."
+        }
+    },
+    "SupplierInformation": {
+        "page": {
+            "title": "Leverantörsredigerare"
+        },
+        "notExists": "Leverantören existerar inte. Vänligen registrera först.",
+        "ApplicationFormButton": {
+            "return": "Begär en uppdatering av information",
+            "sendToCustomer": "Färdigställ och begär ett godkännande",
+            "sendToCustomerConfirmation": "Vill du verkligen avsluta? När du skickat för godkännande kan du inte göra ytterligare ändringar",
+            "backToList": "Tillbaka till listan",
+            "backToServiceConfig": "Tillbaka till val"
+        },
+        "ApplicationFormLabel": {
+            "rejectionReason": {
+                "label": "Vänligen ange ditt skäl till nekande av informationen tillhandahållen av leverantören"
+            },
+            "ok": "Ok",
+            "icotermsDescription": "Beskrivning av Incoterms",
+            "graphic": "Grafik",
+            "successSendToCustomer": "Informationsangivning lyckades. Du meddelas via epost när informationen blivit godkänd."
+        },
+        "ApplicationFormHeader": {
+            "rejectionReason": "Anledning till nekande"
+        },
+        "ApplicationFormLink": {
+            "header": "Följande avsnitt innehåller nuvarande version av våra användarvillkor",
+            "ladenbau": "General Terms of Delivery for Store Construction Warehouses",
+            "regional": "General Terms of Delivery for Regional and Central Warehouses",
+            "graphic": "This ${separation} depicts the meaning of the Incoterms."
+        }
+    },
+    "SupplierRegistrationForm": {
+        "page": {
+            "title": "Leverantörsregistrering"
+        },
+        "supplierExists": "Leverntören är redan registrerad"
+    },
+    "SupplierDirectory": {
+        "page": {
+            "title": "Leverantörsöversikt"
+        },
+        "head": "Sök efter en leverantör"
+    },
+    "UserList": {
+        "page": {
+            "title": "Användare"
+        },
+        "head": "Användare",
+        "createUser": "Skapa en ny användare"
+    },
+    "UserCreate": {
+        "createUser": "Skapa en ny användare",
+        "select": {
+            "supplier": "Välj leverantör",
+            "customer": "Välj kund"
+        }
+    },
+    "UserAdmin": {
+        "Editor": {
+            "page": {
+                "title": "Redigarerare"
+            },
+            "back": "Tillbaka",
+            "tabs": {
+                "profile": "Profil",
+                "roles": "Befattning"
+            },
+            "unsavedChangesConfirmation": {
+                "title": "Bekräftelse",
+                "message": "Ändringarna är inte sparade. Vill du fortsätta utan att spara?"
+            }
+        }
+    },
+    "AclEditor": {
+        "page": {
+            "title": "Acl redigerare"
+        },
+        "authority": {
+            "heading": "Authority identifier"
+        },
+        "permissions": {
+            "heading": "Rättigheter"
+        }
+    },
+    "RedisCommander": {
+        "page": {
+            "title": "Redis Commander"
+        }
+    },
+    "CatalogUpload": {
+        "catalogUpload": "Ladda upp en katalog",
+        "selectCustomer": "Vänligen välj en kund",
+        "openCatalogUpload": "Gå till kataloguppladdning"
+    }
+}
