@@ -163,7 +163,8 @@
     "CatalogUpload": {
         "catalogUpload": "Catalog Upload",
         "selectCustomer": "Please select the customer ",
-        "openCatalogUpload": "Go to Catalog Upload"
+        "openCatalogUpload": "Go to Catalog Upload",
+        "urlError": "An error occured. Please contact customer service"
     },
     "RouteAdmin": {
         "List": {
