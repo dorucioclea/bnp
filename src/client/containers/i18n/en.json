@@ -136,7 +136,8 @@
             "back": "Back",
             "tabs": {
                 "profile": "Profile",
-                "roles": "Roles"
+                "roles": "Roles",
+                "password": "Password"
             },
             "unsavedChangesConfirmation": {
                 "title": "Confirmation",
