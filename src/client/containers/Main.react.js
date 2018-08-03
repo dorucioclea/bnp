@@ -24,7 +24,6 @@ import RedisCommander from './Admin/RedisCommander';
 import CatalogUpload from './CatalogUpload';
 import RouteList from './Admin/RouteList';
 import RouteEdit from './Admin/RouteEdit';
-import SFTPEdit from './Admin/SFTPEdit';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -71,7 +70,6 @@ class Main extends React.Component
                 <Route path="/users/:userId" component={UserEditor} />
                 <Route path="/routes" component={RouteList} />
                 <Route path="/routes/:routeId" component={RouteEdit} />
-                <Route path="/sftp" component={SFTPEdit} />
                 <Route path="/permissions(/:roleId)" component={AclEditor} />
                 <Route path="/redis" component={RedisCommander} />
                 <Route path="/redis/*" component={RedisCommander} />
