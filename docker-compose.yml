@@ -11,6 +11,12 @@ services:
       - consul
       - blob
       - email
+      - kong
+      - user
+      - acl
+      - api-registry
+      - auth
+      - redis
     labels:
       SERVICE_NAME: 'bnp'
     environment:

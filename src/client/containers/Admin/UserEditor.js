@@ -40,6 +40,12 @@ export default class UserEditor extends Components.ContextComponent
             });
         }
 
+        this.UserProfileImageUploader = context.loadComponent({
+            serviceName: 'user',
+            moduleName: 'user-profile-image-uploader',
+            jsFileName: 'profile-image-uploader-bundle'
+        });
+
         this.state = {
             isDirty: false,
             tab: 0
@@ -88,7 +94,7 @@ export default class UserEditor extends Components.ContextComponent
     {
         const i18n = this.context.i18n;
 
-        this.context.setPageTitle(i18n.getMessage('UserAdmin.Editor.page.title'));
+        this.context.setPageTitle(i18n.getMessage('UserAdmin.Editor.titles.page'));
 
         return(
             <div>
@@ -114,6 +120,13 @@ export default class UserEditor extends Components.ContextComponent
                             </div>
                         }
                         <this.UserPasswordForm userId={this.props.params.userId} />
+                    </Tab>
+                    <Tab eventKey={3} title={i18n.getMessage('UserAdmin.Editor.tabs.image')}>
+                        <h4 className="tab-description">
+                          {i18n.getMessage('UserAdmin.Editor.titles.image', { userId: this.props.params.userId })}
+                        </h4>
+                        <br />
+                        <this.UserProfileImageUploader userId={this.props.params.userId} />
                     </Tab>
                 </Tabs>
             </div>
