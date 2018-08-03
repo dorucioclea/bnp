@@ -125,8 +125,8 @@
     },
     "UserAdmin": {
         "Editor": {
-            "page": {
-                "title": "Käyttäjän editori"
+            "titles": {
+                "page": "Käyttäjän editori"
             },
             "back": "Takaisin",
             "tabs": {

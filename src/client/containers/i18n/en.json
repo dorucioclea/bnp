@@ -130,14 +130,16 @@
     },
     "UserAdmin": {
         "Editor": {
-            "page": {
-                "title": "User editor"
+            "titles": {
+                "page": "User editor",
+                "image": "Edit profile image of user {userId}"
             },
             "back": "Back",
             "tabs": {
                 "profile": "Profile",
                 "roles": "Roles",
-                "password": "Password"
+                "password": "Password",
+                "image": "Image"
             },
             "unsavedChangesConfirmation": {
                 "title": "Confirmation",
