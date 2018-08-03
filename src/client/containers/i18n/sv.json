@@ -127,8 +127,8 @@
     },
     "UserAdmin": {
         "Editor": {
-            "page": {
-                "title": "Redigarerare"
+            "titles": {
+                "page": "Redigarerare"
             },
             "back": "Tillbaka",
             "tabs": {
