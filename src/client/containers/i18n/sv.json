@@ -128,14 +128,12 @@
     "UserAdmin": {
         "Editor": {
             "titles": {
-                "page": "Redigarerare",
-                "image": "Edit profile image of user {userId}"
+                "page": "Redigarerare"
             },
             "back": "Tillbaka",
             "tabs": {
                 "profile": "Profil",
-                "roles": "Befattning",
-                "image": "Image"
+                "roles": "Befattning"
             },
             "unsavedChangesConfirmation": {
                 "title": "Bekräftelse",

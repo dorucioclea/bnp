@@ -126,14 +126,12 @@
     "UserAdmin": {
         "Editor": {
             "titles": {
-                "page": "Käyttäjän editori",
-                "image": "Edit profile image of user {userId}"
+                "page": "Käyttäjän editori"
             },
             "back": "Takaisin",
             "tabs": {
                 "profile": "Profiili",
-                "roles": "roolit",
-                "image": "Image"
+                "roles": "roolit"
             },
             "unsavedChangesConfirmation": {
                 "title": "Vahvistus",

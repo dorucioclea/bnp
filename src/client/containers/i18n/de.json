@@ -132,14 +132,14 @@
         "Editor": {
             "titles": {
                 "page": "Benutzereditor",
-                "image": "Edit profile image of user {userId}"
+                "image": "Profilbild von Benutzer {userId} ändern"
             },
             "back": "Zurück",
             "tabs": {
                 "profile": "Profil",
                 "roles": "Rollen",
                 "password": "Passwort",
-                "image": "Image"
+                "image": "Bild"
             },
             "unsavedChangesConfirmation": {
                 "title": "Sicherheitsabfrage",
