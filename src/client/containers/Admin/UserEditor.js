@@ -125,8 +125,11 @@ export default class UserEditor extends Components.ContextComponent
                         <h4 className="tab-description">
                           {i18n.getMessage('UserAdmin.Editor.titles.image', { userId: this.props.params.userId })}
                         </h4>
-                        <br />
-                        <this.UserProfileImageUploader userId={this.props.params.userId} />
+                        <p><img id="userProfileImageHolder"/></p>
+                        <this.UserProfileImageUploader
+                          userId={this.props.params.userId}
+                          onChange={image => document.getElementById('userProfileImageHolder').src = image}
+                        />
                     </Tab>
                 </Tabs>
             </div>
