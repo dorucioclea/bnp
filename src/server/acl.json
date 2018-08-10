@@ -48,11 +48,11 @@
         },
         "resources": [{
             "type": "rest",
-            "resourceId": "^/supplier-registration$",
+            "resourceId": "^/supplierRegistration$",
             "actions": ["view"]
         }, {
             "type": "ui",
-            "resourceId": "^/supplier-registration$",
+            "resourceId": "^/supplierRegistration$",
             "actions": ["view"]
         }]
     }
