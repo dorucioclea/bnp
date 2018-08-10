@@ -36,5 +36,24 @@
             "resourceId": "^/",
             "actions": ["view"]
         }]
+    },
+    "supplier-registration": {
+        "name": {
+            "en": "Minimal access to Business Network Portal access for freshly registering suppliers.",
+            "de": "Minimalzugriff auf Business Network Portal für frisch registrierte Lieferanten."
+        },
+        "description": {
+            "en": "Grants access to minimal functions of the Business Network Portal required to reigster a new supplier.",
+            "de": "Ermöglicht den Minimalzugriff auf grundlegende Funktionen des Business Network Portal um neue Lieferanten zu registrieren."
+        },
+        "resources": [{
+            "type": "rest",
+            "resourceId": "^/supplier-registration$",
+            "actions": ["view"]
+        }, {
+            "type": "ui",
+            "resourceId": "^/supplier-registration$",
+            "actions": ["view"]
+        }]
     }
 }
