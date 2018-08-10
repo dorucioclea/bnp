@@ -17,7 +17,7 @@ module.exports.init = function(app, db, config)
     {
         const { roles } = req.opuscapita.userData();
 
-        if(roles && roles.includes('registering_supplier') && !req.originalUrl.toLowerCase().startsWith('/bnp/supplierregistration'))
+        if(roles && roles.includes('registering_supplier') && !req.originalUrl.toLowerCase().startsWith('/supplierregistration'))
             res.redirect(`/bnp/supplierRegistration`);
         else
             next();
