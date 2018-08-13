@@ -31,7 +31,7 @@
   "dependencies": {
     "@opuscapita/db-init": "^2.0.16",
     "@opuscapita/i18n": "^1.1.0",
-    "@opuscapita/service-base-ui": "^1.1.43",
+    "@opuscapita/service-base-ui": "^1.1.44",
     "@opuscapita/web-init": "^3.0.54",
     "bluebird": "^3.5.1",
     "cross-env": "^4.0.0",
