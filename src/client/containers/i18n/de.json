@@ -130,13 +130,16 @@
     },
     "UserAdmin": {
         "Editor": {
-            "page": {
-                "title": "Benutzereditor"
+            "titles": {
+                "page": "Benutzereditor",
+                "image": "Profilbild von Benutzer {userId} ändern"
             },
             "back": "Zurück",
             "tabs": {
                 "profile": "Profil",
-                "roles": "Rolen"
+                "roles": "Rollen",
+                "password": "Passwort",
+                "image": "Bild"
             },
             "unsavedChangesConfirmation": {
                 "title": "Sicherheitsabfrage",
