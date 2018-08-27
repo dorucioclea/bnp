@@ -158,6 +158,7 @@
     "CatalogUpload": {
         "catalogUpload": "Katalogin lataus",
         "selectCustomer": "Valitse asiakas",
-        "openCatalogUpload": "Siirry katalogin lataukseen"
+        "openCatalogUpload": "Siirry katalogin lataukseen",
+        "urlError": "An error occured. Please contact customer service"
     }
 }

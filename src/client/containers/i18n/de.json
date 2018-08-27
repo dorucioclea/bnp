@@ -166,7 +166,8 @@
     "CatalogUpload": {
         "catalogUpload": "Katalog-Upload",
         "selectCustomer": "Wählen Sie bitte den Kunden",
-        "openCatalogUpload": "Direkter Einsprung"
+        "openCatalogUpload": "Direkter Einsprung",
+        "urlError": "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie den Kundenservice"
     },
     "RouteAdmin": {
         "List": {

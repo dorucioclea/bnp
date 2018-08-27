@@ -160,6 +160,7 @@
     "CatalogUpload": {
         "catalogUpload": "Ladda upp en katalog",
         "selectCustomer": "Vänligen välj en kund",
-        "openCatalogUpload": "Gå till kataloguppladdning"
+        "openCatalogUpload": "Gå till kataloguppladdning",
+        "urlError": "An error occured. Please contact customer service"
     }
 }
