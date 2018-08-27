@@ -32,6 +32,9 @@ class CatalogUpload extends Components.ContextComponent
                 if (link.connections.some(conn => conn.type === 'catalog')) accumulator.push(link.customerId);
                 return accumulator;
             }, []);
+
+            if (customerIds.length === 0) return;
+
             this.customerApi.getCustomers({ id: customerIds.join(',') }).then(customers => this.setState({ customers, businessLinks }));
         });
 
