@@ -22,8 +22,12 @@ import UserSelectCreate from './Admin/UserSelectCreate';
 import UserCreate from './Admin/UserCreate';
 import RedisCommander from './Admin/RedisCommander';
 import CatalogUpload from './CatalogUpload';
-import RouteList from './Admin/RouteList';
-import RouteEdit from './Admin/RouteEdit';
+import CredentialEdit from './Admin/Routing/CredentialEdit';
+import DeliveryConfigEdit from './Admin/Routing/DeliveryConfigEdit';
+import DeliveryNodeEdit from './Admin/Routing/DeliveryNodeEdit';
+import RecordList from './Admin/Routing/RecordList';
+import RouteList from './Admin/Routing/RouteList';
+import RouteEdit from './Admin/Routing/RouteEdit';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -41,8 +45,7 @@ class Dispatcher extends Components.ContextComponent
         else if(roles.indexOf('admin') === -1)
             router.push('/bnp/supplierRegistration');
         else if(roles.indexOf('admin') > -1)
-            router.push('/bnp/users')
-
+            router.push('/bnp/users');
     }
 
     render()
@@ -68,8 +71,12 @@ class Main extends React.Component
                 <Route path="/userSelectCreate" component={UserSelectCreate} />
                 <Route path="/users" component={UserList} />
                 <Route path="/users/:userId" component={UserEditor} />
-                <Route path="/routes" component={RouteList} />
-                <Route path="/routes/:routeId" component={RouteEdit} />
+                <Route path="/routing" component={RecordList} />
+                <Route path="/routing/credentials/:credentialId" component={CredentialEdit} />
+                <Route path="/routing/deliverynodes/:deliveryNodeId" component={DeliveryNodeEdit} />
+                <Route path="/routing/deliveryconfigs/:deliveryConfigId" component={DeliveryConfigEdit} />
+                <Route path="/routing/routes" component={RouteList} />
+                <Route path="/routing/routes/:routeId" component={RouteEdit} />
                 <Route path="/permissions(/:roleId)" component={AclEditor} />
                 <Route path="/redis" component={RedisCommander} />
                 <Route path="/redis/*" component={RedisCommander} />
