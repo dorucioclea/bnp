@@ -160,5 +160,56 @@
         "selectCustomer": "Valitse asiakas",
         "openCatalogUpload": "Siirry katalogin lataukseen",
         "urlError": "An error occured. Please contact customer service"
+    },
+    "RoutingAdmin": {
+        "List": {
+            "head": "",
+            "page": {
+                "title": ""
+            }
+        },
+        "Route": {
+            "List": {
+                "head": "",
+                "page": {
+                    "title": ""
+                },
+                "create": ""
+            },
+            "Edit": {
+                "page": {
+                    "title": ""
+                },
+                "back": "takaisin",
+                "save": "tallenna"
+            }
+        },
+        "DeliveryConfig": {
+            "Edit": {
+                "page": {
+                    "title": ""
+                },
+                "back": "takaisin",
+                "save": "tallenna"
+            }
+        },
+        "DeliveryNode": {
+            "Edit": {
+                "page": {
+                    "title": ""
+                },
+                "back": "takaisin",
+                "save": "tallenna"
+            }
+        },
+        "Credential": {
+            "Edit": {
+                "page": {
+                    "title": ""
+                },
+                "back": "takaisin",
+                "save": "tallenna"
+            }
+        }
     }
 }

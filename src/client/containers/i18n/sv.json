@@ -162,5 +162,56 @@
         "selectCustomer": "Vänligen välj en kund",
         "openCatalogUpload": "Gå till kataloguppladdning",
         "urlError": "An error occured. Please contact customer service"
+    },
+    "RoutingAdmin": {
+        "List": {
+            "head": "",
+            "page": {
+                "title": ""
+            }
+        },
+        "Route": {
+            "List": {
+                "head": "",
+                "page": {
+                    "title": ""
+                },
+                "create": ""
+            },
+            "Edit": {
+                "page": {
+                    "title": ""
+                },
+                "back": "",
+                "save": ""
+            }
+        },
+        "DeliveryConfig": {
+            "Edit": {
+                "page": {
+                    "title": ""
+                },
+                "back": "",
+                "save": ""
+            }
+        },
+        "DeliveryNode": {
+            "Edit": {
+                "page": {
+                    "title": ""
+                },
+                "back": "",
+                "save": ""
+            }
+        },
+        "Credential": {
+            "Edit": {
+                "page": {
+                    "title": ""
+                },
+                "back": "",
+                "save": ""
+            }
+        }
     }
 }

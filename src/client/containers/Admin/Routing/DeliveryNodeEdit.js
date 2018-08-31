@@ -1,18 +1,18 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
-import translations from '../i18n'
+import translations from '../../i18n'
 
-export default class RouteEdit extends Components.ContextComponent {
+export default class DeliveryNodeEdit extends Components.ContextComponent {
 
     constructor(props, context) {
         super(props);
 
-        context.i18n.register('RouteAdmin.Edit', translations);
+        context.i18n.register('RoutingAdmin.DeliveryNode.Edit', translations);
 
-        this.RouteForm = context.loadComponent({
+        this.DeliveryNodeForm = context.loadComponent({
             serviceName: 'routing',
-            moduleName: 'routing-routeform',
-            onLoaded: ref => this.routeFormRef = ref
+            moduleName: 'routing-deliverynodeform',
+            onLoaded: ref => this.deliveryNodeFormRef = ref
         });
 
         this.t = context.i18n.getMessage.bind(context.i18n);
@@ -25,28 +25,28 @@ export default class RouteEdit extends Components.ContextComponent {
      * Navigates to route list.
      */
     handleBackClick() {
-        this.context.router.push('/bnp/routes');
+        this.context.router.goBack();
     };
 
     handleSaveClick() {
-        this.routeFormRef && this.routeFormRef.save()
+        this.deliveryNodeFormRef && this.deliveryNodeFormRef.save()
             .then(() => this.context.router.push('/bnp/routes'));
     }
 
     render() {
-        const { routeId } = this.props.params;
+        const { deliveryNodeId } = this.props.params;
 
-        this.context.setPageTitle(this.t('RouteAdmin.Edit.page.title'));
+        this.context.setPageTitle(this.t('RoutingAdmin.DeliveryNode.Edit.page.title'));
 
         return (
             <div>
                 <button className='btn btn-default' onClick={this.handleBackClick}>
                     <span className="icon glyphicon glyphicon-chevron-left" />
-                    {this.t('RouteAdmin.Edit.back')}
+                    {this.t('RoutingAdmin.DeliveryNode.Edit.back')}
                 </button>
-                <this.RouteForm id={routeId === 'create' ? null : routeId} />
+                <this.DeliveryNodeForm id={deliveryNodeId === 'create' ? null : deliveryNodeId} />
                 <button className="btn btn-primary pull-right" onClick={this.handleSaveClick}>
-                    {this.t('RouteAdmin.Edit.save')}
+                    {this.t('RoutingAdmin.DeliveryNode.Edit.save')}
                 </button>
             </div>
         )
