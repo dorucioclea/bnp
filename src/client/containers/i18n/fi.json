@@ -180,8 +180,8 @@
                 "page": {
                     "title": ""
                 },
-                "back": "",
-                "save": ""
+                "back": "takaisin",
+                "save": "tallenna"
             }
         },
         "DeliveryConfig": {
@@ -189,8 +189,8 @@
                 "page": {
                     "title": ""
                 },
-                "back": "",
-                "save": ""
+                "back": "takaisin",
+                "save": "tallenna"
             }
         },
         "DeliveryNode": {
@@ -198,8 +198,8 @@
                 "page": {
                     "title": ""
                 },
-                "back": "",
-                "save": ""
+                "back": "takaisin",
+                "save": "tallenna"
             }
         },
         "Credential": {
@@ -207,8 +207,8 @@
                 "page": {
                     "title": ""
                 },
-                "back": "",
-                "save": ""
+                "back": "takaisin",
+                "save": "tallenna"
             }
         }
     }

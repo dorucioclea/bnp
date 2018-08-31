@@ -171,52 +171,52 @@
     },
     "RoutingAdmin": {
         "List": {
-            "head": "",
+            "head": "Routenliste",
             "page": {
-                "title": ""
+                "title": "Routenliste"
             }
         },
         "Route": {
             "List": {
-                "head": "",
+                "head": "Routenliste",
                 "page": {
-                    "title": ""
+                    "title": "Routenliste"
                 },
-                "create": ""
+                "create": "Erstellen"
             },
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Route bearbeiten"
                 },
-                "back": "",
-                "save": ""
+                "back": "Zurück",
+                "save": "Speichern"
             }
         },
         "DeliveryConfig": {
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Lieferkonfig bearbeiten"
                 },
-                "back": "",
-                "save": ""
+                "back": "Zurück",
+                "save": "Speichern"
             }
         },
         "DeliveryNode": {
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Lieferknoten bearbeiten"
                 },
-                "back": "",
-                "save": ""
+                "back": "Zurück",
+                "save": "Speichern"
             }
         },
         "Credential": {
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Anmeldedaten bearbeiten"
                 },
-                "back": "",
-                "save": ""
+                "back": "Zurück",
+                "save": "Speichern"
             }
         }
     }
