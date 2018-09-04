@@ -14,6 +14,8 @@ class Welcome extends Components.ContextComponent
         this.state = {
             showWelcomePage : true
         }
+
+        this.authApi = new Api.Auth();
     }
 
     handleShowWelcomePage()
