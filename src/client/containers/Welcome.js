@@ -1,6 +1,5 @@
 import React from 'react';
-import { Components } from '@opuscapita/service-base-ui';
-import { System } from '@opuscapita/service-base-ui'
+import { Components, System, Api } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import ajax from 'superagent-bluebird-promise';
 
@@ -39,7 +38,8 @@ class Welcome extends Components.ContextComponent
     handleStart(e)
     {
         e.preventDefault();
-        this.context.router.push('/einvoice-send/customer-connections');
+        this.authApi.refreshIdToken().then(() => this.context.router.push('/einvoice-send/customer-connections'))
+            .catch(e => this.context.showNotification(e.message, 'error', 10))
     }
 
     render()
