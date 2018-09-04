@@ -130,13 +130,16 @@
     },
     "UserAdmin": {
         "Editor": {
-            "page": {
-                "title": "User editor"
+            "titles": {
+                "page": "User editor",
+                "image": "Edit profile image of user {userId}"
             },
             "back": "Back",
             "tabs": {
                 "profile": "Profile",
-                "roles": "Roles"
+                "roles": "Roles",
+                "password": "Password",
+                "image": "Image"
             },
             "unsavedChangesConfirmation": {
                 "title": "Confirmation",
@@ -163,7 +166,8 @@
     "CatalogUpload": {
         "catalogUpload": "Catalog Upload",
         "selectCustomer": "Please select the customer ",
-        "openCatalogUpload": "Go to Catalog Upload"
+        "openCatalogUpload": "Go to Catalog Upload",
+        "urlError": "An error occured. Please contact customer service"
     },
     "RouteAdmin": {
         "List": {

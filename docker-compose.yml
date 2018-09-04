@@ -11,6 +11,12 @@ services:
       - consul
       - blob
       - email
+      - kong
+      - user
+      - acl
+      - api-registry
+      - auth
+      - redis
     labels:
       SERVICE_NAME: 'bnp'
     environment:
@@ -364,6 +370,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+
     depends_on:
       - registrator
 

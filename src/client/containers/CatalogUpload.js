@@ -3,7 +3,7 @@ import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import ajax from 'superagent-bluebird-promise';
 
-import { Customer, BusinessLink } from '../api';
+import { Customer, BusinessLink, Catalog } from '../api';
 
 
 class CatalogUpload extends Components.ContextComponent
@@ -13,10 +13,9 @@ class CatalogUpload extends Components.ContextComponent
         super(props);
         this.businessLinkApi = new BusinessLink();
         this.customerApi = new Customer();
+        this.catalogApi = new Catalog();
 
-        this.state = {
-            customers : []
-        }
+        this.state = { customers : [], businessLinks: [] }
     }
 
     componentWillMount()
@@ -33,7 +32,10 @@ class CatalogUpload extends Components.ContextComponent
                 if (link.connections.some(conn => conn.type === 'catalog')) accumulator.push(link.customerId);
                 return accumulator;
             }, []);
-            this.customerApi.getCustomers({ id: customerIds.join(',') }).then(customers => this.setState({ customers }));
+
+            if (customerIds.length === 0) return;
+
+            this.customerApi.getCustomers({ id: customerIds.join(',') }).then(customers => this.setState({ customers, businessLinks }));
         });
 
 
@@ -42,9 +44,15 @@ class CatalogUpload extends Components.ContextComponent
     onCustomerSelect(e)
     {
         const customerId = (typeof e === 'object') && e.target ? e.target.value : e;
-        const url = customerId.match('schindler-') ? 'https://schindler-test.opuscapita.com/ssm' : 'https://opuscapita.jcatalog.com/bnp/ssm';
-        console.log(`onCustomerSelect url: ${url}`);
-        window.open(`${url}/standardWorkflow/index?customerId=${customerId}`);
+
+        const businessLink = this.state.businessLinks.find(bl => bl.customerId === customerId);
+        this.catalogApi.get(customerId, businessLink.customerSupplierId || businessLink.supplierId).then(catalog => {
+            console.log(`onCustomerSelect url: ${catalog.url}`);
+            window.open(catalog.url);
+        }).catch(error => {
+            const message = this.context.i18n.getMessage('CatalogUpload.urlError');
+            if (this.context.showNotification) this.context.showNotification(message, 'error');
+        });
     }
 
     render()
