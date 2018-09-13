@@ -163,22 +163,22 @@
     },
     "RoutingAdmin": {
         "List": {
-            "head": "",
+            "head": "Reitittää tietueiden luettelo",
             "page": {
-                "title": ""
+                "title": "Reitittää tietueiden luettelo"
             }
         },
         "Route": {
             "List": {
-                "head": "",
+                "head": "Reittiluettelo",
                 "page": {
-                    "title": ""
+                    "title": "Reittiluettelo"
                 },
-                "create": ""
+                "create": "Louda"
             },
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Reitin muokkaus"
                 },
                 "back": "takaisin",
                 "save": "tallenna"
@@ -187,7 +187,7 @@
         "DeliveryConfig": {
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Toimituksen muokkaus"
                 },
                 "back": "takaisin",
                 "save": "tallenna"
@@ -196,7 +196,7 @@
         "DeliveryNode": {
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Toimitus solmut muokata"
                 },
                 "back": "takaisin",
                 "save": "tallenna"
@@ -205,7 +205,7 @@
         "Credential": {
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Valtakirja muokata"
                 },
                 "back": "takaisin",
                 "save": "tallenna"
