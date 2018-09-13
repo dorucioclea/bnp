@@ -165,52 +165,52 @@
     },
     "RoutingAdmin": {
         "List": {
-            "head": "",
+            "head": "Routing poster lista",
             "page": {
-                "title": ""
+                "title": "Routing poster lista"
             }
         },
         "Route": {
             "List": {
-                "head": "",
+                "head": "Routing lista",
                 "page": {
-                    "title": ""
+                    "title": "Routing lista"
                 },
-                "create": ""
+                "create": "Skapa"
             },
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Routing redigera"
                 },
-                "back": "",
-                "save": ""
+                "back": "tillbaka",
+                "save": "Spara"
             }
         },
         "DeliveryConfig": {
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Leveranskonfiguration"
                 },
-                "back": "",
-                "save": ""
+                "back": "tillbaka",
+                "save": "Spara"
             }
         },
         "DeliveryNode": {
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Leveransnod redigera"
                 },
-                "back": "",
-                "save": ""
+                "back": "tillbaka",
+                "save": "Spara"
             }
         },
         "Credential": {
             "Edit": {
                 "page": {
-                    "title": ""
+                    "title": "Referenser redigera"
                 },
-                "back": "",
-                "save": ""
+                "back": "tillbaka",
+                "save": "Spara"
             }
         }
     }
