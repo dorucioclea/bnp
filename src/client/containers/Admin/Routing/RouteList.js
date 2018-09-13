@@ -35,7 +35,7 @@ export default class RouteList extends Components.ContextComponent {
 
         return (
             <div>
-                <button className='btn btn-primary pull-right' onClick={this.handleCreateClick.bind(this)}>{this.t('RouteAdmin.List.create')}</button>
+                <button className='btn btn-primary pull-right' onClick={this.handleCreateClick.bind(this)}>{this.t('RouteAdmin.Route.List.create')}</button>
                 <h1>{this.t('RoutingAdmin.Route.List.head')}</h1>
                 <this.RouteList onEdit={routeId => this.handleEditClick(routeId)} />
             </div>
