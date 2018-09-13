@@ -40,7 +40,8 @@ class Welcome extends Components.ContextComponent
     handleStart(e)
     {
         e.preventDefault();
-        this.authApi.refreshIdToken().then(() => this.context.router.push('/einvoice-send')).catch(e => this.context.showNotification(e.message, 'error', 10))
+        this.authApi.refreshIdToken().then(() => this.context.router.push('/einvoice-send/customer-connections'))
+            .catch(e => this.context.showNotification(e.message, 'error', 10))
     }
 
     render()
