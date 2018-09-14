@@ -29,10 +29,10 @@
   "license": "opuscapita",
   "readme": "README.md",
   "dependencies": {
-    "@opuscapita/db-init": "^2.0.16",
+    "@opuscapita/db-init": "^2.0.18",
     "@opuscapita/i18n": "^1.1.0",
-    "@opuscapita/service-base-ui": "^1.1.50",
-    "@opuscapita/web-init": "^3.0.54",
+    "@opuscapita/service-base-ui": "^1.1.52",
+    "@opuscapita/web-init": "^3.0.63",
     "bluebird": "^3.5.1",
     "cross-env": "^4.0.0",
     "jquery": "^3.2.1",
