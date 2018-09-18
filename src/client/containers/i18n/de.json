@@ -220,10 +220,8 @@
             }
         }
     },
-    "BusinessLink": {
-        "Connections": {
-            "customerTitle": "Kundenanbindungen",
-            "supplierTitle": "Lieferantenverbindungen"
-        }
+    "BusinessLink.Connections": {
+        "customerTitle": "Kundenanbindungen",
+        "supplierTitle": "Lieferantenverbindungen"
     }
 }

@@ -10,7 +10,7 @@ export default class BusinessLinkConnections extends Components.ContextComponent
 
         this.tenant = determineTenant(context.userData);
 
-        context.i18n.register('BusinessLink', translations);
+        context.i18n.register('BusinessLinkConnections', translations);
 
         this.Connections = context.loadComponent({
             serviceName: 'business-link',
@@ -25,7 +25,7 @@ export default class BusinessLinkConnections extends Components.ContextComponent
 
         return(
             <div>
-                <h1>{i18n.getMessage(`BusinessLink.Connections.${this.tenant.type}Title`)}</h1>
+                <h1>{i18n.getMessage(`BusinessLinkConnections.${this.tenant.type}Title`)}</h1>
 
                 <this.Connections tenantId={this.tenant.id} />
             </div>
