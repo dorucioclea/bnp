@@ -28,6 +28,7 @@ import DeliveryNodeEdit from './Admin/Routing/DeliveryNodeEdit';
 import RecordList from './Admin/Routing/RecordList';
 import RouteList from './Admin/Routing/RouteList';
 import RouteEdit from './Admin/Routing/RouteEdit';
+import BusinessLinkConnections from './BusinessLinkConnections';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -89,6 +90,7 @@ class Main extends React.Component
                 <Route path="/suppliers/:supplierId" component={SupplierEditor} />
                 <Route path="/suppliers/:supplierId/createUser" component={UserCreate} />
                 <Route path="/catalog-upload" component={CatalogUpload} />
+                <Route path="/connections" component={BusinessLinkConnections} />
             </Containers.ServiceLayout>
         );
     }

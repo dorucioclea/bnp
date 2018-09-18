@@ -213,5 +213,11 @@
                 "save": "Spara"
             }
         }
+    },
+    "BusinessLink": {
+        "Connections": {
+            "customerTitle": "Customer Connections",
+            "supplierTitle": "Supplier Connections"
+        }
     }
 }

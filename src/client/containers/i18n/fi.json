@@ -211,5 +211,11 @@
                 "save": "tallenna"
             }
         }
+    },
+    "BusinessLink": {
+        "Connections": {
+            "customerTitle": "Customer Connections",
+            "supplierTitle": "Supplier Connections"
+        }
     }
 }

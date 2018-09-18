@@ -219,5 +219,11 @@
                 "save": "Speichern"
             }
         }
+    },
+    "BusinessLink": {
+        "Connections": {
+            "customerTitle": "Kundenanbindungen",
+            "supplierTitle": "Lieferantenverbindungen"
+        }
     }
 }

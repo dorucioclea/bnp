@@ -219,5 +219,11 @@
                 "save": "Save"
             }
         }
+    },
+    "BusinessLink": {
+        "Connections": {
+            "customerTitle": "Customer Connections",
+            "supplierTitle": "Supplier Connections"
+        }
     }
 }
