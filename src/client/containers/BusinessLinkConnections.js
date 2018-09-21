@@ -25,7 +25,7 @@ export default class BusinessLinkConnections extends Components.ContextComponent
 
         return(
             <div>
-                <h1>{i18n.getMessage(`BusinessLinkConnections.${this.tenant.type}Title`)}</h1>
+                <h1>{i18n.getMessage(`BusinessLinkConnections.${this.tenant.otherType}Title`)}</h1>
 
                 <this.Connections tenantId={this.tenant.id} />
             </div>
@@ -35,9 +35,9 @@ export default class BusinessLinkConnections extends Components.ContextComponent
 
 let determineTenant = function(userData)
 {
-  if (userData.supplierid) return { type: 'supplier', id: `s_${userData.supplierid}` };
+  if (userData.supplierid) return { type: 'supplier', otherType: 'customer', id: `s_${userData.supplierid}` };
 
-  if (userData.customerid) return { type: 'customer', id: `c_${userData.customerid}` };
+  if (userData.customerid) return { type: 'customer', otherType: 'supplier', id: `c_${userData.customerid}` };
 
-  return { type: null, id: null };
+  return { type: null, otherType: null, id: null };
 }
