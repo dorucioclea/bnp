@@ -4,6 +4,7 @@
             "title": "Tervetuloa"
         },
         "title": "Palveluasetukset",
+        "text": "Kiitos, kun valitsit OpusCapita Business Network palvelun. Ostajien, toimittajien ja muiden liikekumppaneiden integroimiseksi palvelut on vielä määritettävä.",
         "label": {
             "dontShowAgain": "Älä näytä tätä sivua uudestaan."
         },
@@ -11,7 +12,7 @@
             "start": "Aloita"
         },
         "notification": {
-            "saved": "Palveluasetukset on tallennettu "
+            "saved": "Palveluasetukset on tallennettu"
         }
     },
     "BuyerDashboard": {
@@ -27,7 +28,7 @@
     },
     "CompanyProfile": {
         "tab": {
-            "company": "Yhtiö",
+            "company": "Yritys",
             "organization": "Organisaatiokaavio",
             "address": "Osoite",
             "contact": "Yhteystiedot",
@@ -57,13 +58,17 @@
             "editButton": "Yrityksen profiili",
             "content": "Jatka profiilin täyttämistä saadaksesi paremman näkyvyyden."
         },
+        "notification": {
+            "heading": "Ilmoitukset"
+        },
         "connections": {
             "heading": "Yhteydet",
-            "connect": "Yhdistä ",
+            "connect": "Yhdistä",
             "notConnectedStatus": "Ei yhdistetty",
             "connectingStatus": "Yhdistetään",
             "connectedStatus": "Yhdistetty",
-            "loading": "Ladataan..."
+            "loading": "Ladataan...",
+            "content": "Ottamalla käyttöön lisäpalveluita voit parantaa liiketoimintaprosessien näkyvyyttä ja hallintaa."
         }
     },
     "SupplierInformation": {
@@ -88,7 +93,7 @@
             "successSendToCustomer": "Tietojen syöttäminen onnistui. Heti kun tietosi on hyväksytty, sinulle ilmoitetaan sähköpostitse."
         },
         "ApplicationFormHeader": {
-            "rejectionReason": "hylkäämisen syy"
+            "rejectionReason": "Hylkäämisen syy"
         },
         "ApplicationFormLink": {
             "header": "Seuraavassa osiossa on nykyinen version varaston käyttöehdoista.",
@@ -126,12 +131,15 @@
     "UserAdmin": {
         "Editor": {
             "titles": {
-                "page": "Käyttäjän editori"
+                "page": "Käyttäjän editori",
+                "image": "Muokkaa käyttäjän profiilikuvaa {userId}"
             },
             "back": "Takaisin",
             "tabs": {
                 "profile": "Profiili",
-                "roles": "roolit"
+                "roles": "Roolit",
+                "password": "Salasana",
+                "image": "Kuva"
             },
             "unsavedChangesConfirmation": {
                 "title": "Vahvistus",
@@ -159,6 +167,22 @@
         "catalogUpload": "Katalogin lataus",
         "selectCustomer": "Valitse asiakas",
         "openCatalogUpload": "Siirry katalogin lataukseen",
-        "urlError": "An error occured. Please contact customer service"
+        "urlError": "Tapahtui virhe. Ota yhteyttä asiakaspalveluun"
+    },
+    "RouteAdmin": {
+        "List": {
+            "head": "Reittiluettelo",
+            "page": {
+                "title": "Reittiluettelo"
+            },
+            "create": "Luo"
+        },
+        "Edit": {
+            "page": {
+                "title": "Reitin muokkaus"
+            },
+            "back": "Takaisin",
+            "save": "Tallenna"
+        }
     }
 }
