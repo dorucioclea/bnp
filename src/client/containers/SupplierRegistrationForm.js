@@ -1,5 +1,5 @@
 import React from 'react';
-import { Components, Api } from '@opuscapita/service-base-ui';
+import { Components } from '@opuscapita/service-base-ui';
 import request from 'superagent-bluebird-promise';
 import translations from './i18n';
 import Tabs from 'react-bootstrap/lib/Tabs';
@@ -25,7 +25,6 @@ class SupplierRegistrationForm extends Components.ContextComponent {
       });
 
       this.onboardingUserServiceApi = new OnboardingUserService();
-      this.authApi = new Api.Auth();
   }
 
   componentDidMount() {
@@ -43,7 +42,7 @@ class SupplierRegistrationForm extends Components.ContextComponent {
     const wasSupplierlessUser = !this.context.userData.supplierid;
 
     if (wasSupplierlessUser) {
-      this.authApi.refreshIdToken().then(() => this.context.router.push('/bnp/connections'))
+      this.context.refreshUserData(true).then(() => this.context.router.push('/bnp/connections'))
         .catch(e => this.context.showNotification(e.message, 'error', 10));
     }
   }
