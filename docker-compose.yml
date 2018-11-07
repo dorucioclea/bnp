@@ -11,6 +11,12 @@ services:
       - consul
       - blob
       - email
+      - kong
+      - user
+      - acl
+      - api-registry
+      - auth
+      - redis
     labels:
       SERVICE_NAME: 'bnp'
     environment:
@@ -362,11 +368,14 @@ services:
   mysql:
     image: 'mysql:5.7'
     command: ['--character-set-server=utf8', '--collation-server=utf8_general_ci']
+    labels:
+      SERVICE_3306_NAME: mysql
     ports:
       - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
+
     depends_on:
       - registrator
 

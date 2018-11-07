@@ -13,9 +13,19 @@ const Promise = require('bluebird');
  */
 module.exports.init = function(app, db, config)
 {
+    const checkTentantMiddleware = (req, res, next) =>
+    {
+        const { roles } = req.opuscapita.userData();
+
+        if(roles && roles.includes('registering_supplier') && !req.originalUrl.toLowerCase().startsWith('/supplierregistration'))
+            res.redirect(`/bnp/supplierRegistration`);
+        else
+            next();
+    };
+
     const indexFilePath = process.cwd() + '/src/server/templates/index.html';
 
-    app.get('*', (req, res) => res.sendFile(indexFilePath));
+    app.get('*', [ checkTentantMiddleware ], (req, res) => res.sendFile(indexFilePath));
 
     return Promise.resolve();
 }

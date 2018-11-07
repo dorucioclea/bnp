@@ -130,13 +130,16 @@
     },
     "UserAdmin": {
         "Editor": {
-            "page": {
-                "title": "Benutzereditor"
+            "titles": {
+                "page": "Benutzereditor",
+                "image": "Profilbild von Benutzer {userId} ändern"
             },
             "back": "Zurück",
             "tabs": {
                 "profile": "Profil",
-                "roles": "Rolen"
+                "roles": "Rollen",
+                "password": "Passwort",
+                "image": "Bild"
             },
             "unsavedChangesConfirmation": {
                 "title": "Sicherheitsabfrage",
@@ -163,22 +166,62 @@
     "CatalogUpload": {
         "catalogUpload": "Katalog-Upload",
         "selectCustomer": "Wählen Sie bitte den Kunden",
-        "openCatalogUpload": "Direkter Einsprung"
+        "openCatalogUpload": "Direkter Einsprung",
+        "urlError": "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie den Kundenservice"
     },
-    "RouteAdmin": {
+    "RoutingAdmin": {
         "List": {
             "head": "Routenliste",
             "page": {
                 "title": "Routenliste"
-            },
-            "create": "Erstellen"
+            }
         },
-        "Edit": {
-            "page": {
-                "title": "Route bearbeiten"
+        "Route": {
+            "List": {
+                "head": "Routenliste",
+                "page": {
+                    "title": "Routenliste"
+                },
+                "create": "Erstellen"
             },
-            "back": "Zurück",
-            "save": "Speichern"
+            "Edit": {
+                "page": {
+                    "title": "Route bearbeiten"
+                },
+                "back": "Zurück",
+                "save": "Speichern"
+            }
+        },
+        "DeliveryConfig": {
+            "Edit": {
+                "page": {
+                    "title": "Lieferkonfig bearbeiten"
+                },
+                "back": "Zurück",
+                "save": "Speichern"
+            }
+        },
+        "DeliveryNode": {
+            "Edit": {
+                "page": {
+                    "title": "Lieferknoten bearbeiten"
+                },
+                "back": "Zurück",
+                "save": "Speichern"
+            }
+        },
+        "Credential": {
+            "Edit": {
+                "page": {
+                    "title": "Anmeldedaten bearbeiten"
+                },
+                "back": "Zurück",
+                "save": "Speichern"
+            }
         }
+    },
+    "BusinessLink.Connections": {
+        "customerTitle": "Kundenanbindungen",
+        "supplierTitle": "Lieferantenverbindungen"
     }
 }

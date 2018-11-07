@@ -130,13 +130,16 @@
     },
     "UserAdmin": {
         "Editor": {
-            "page": {
-                "title": "User editor"
+            "titles": {
+                "page": "User editor",
+                "image": "Edit profile image of user {userId}"
             },
             "back": "Back",
             "tabs": {
                 "profile": "Profile",
-                "roles": "Roles"
+                "roles": "Roles",
+                "password": "Password",
+                "image": "Image"
             },
             "unsavedChangesConfirmation": {
                 "title": "Confirmation",
@@ -163,22 +166,62 @@
     "CatalogUpload": {
         "catalogUpload": "Catalog Upload",
         "selectCustomer": "Please select the customer ",
-        "openCatalogUpload": "Go to Catalog Upload"
+        "openCatalogUpload": "Go to Catalog Upload",
+        "urlError": "An error occured. Please contact customer service"
     },
-    "RouteAdmin": {
+    "RoutingAdmin": {
         "List": {
-            "head": "Route list",
+            "head": "Routing records list",
             "page": {
-                "title": "Route list"
-            },
-            "create": "Create"
+                "title": "Routing records list"
+            }
         },
-        "Edit": {
-            "page": {
-                "title": "Route edit"
+        "Route": {
+            "List": {
+                "head": "Route list",
+                "page": {
+                    "title": "Route list"
+                },
+                "create": "Create"
             },
-            "back": "Back",
-            "save": "Save"
+            "Edit": {
+                "page": {
+                    "title": "Route edit"
+                },
+                "back": "Back",
+                "save": "Save"
+            }
+        },
+        "DeliveryConfig": {
+            "Edit": {
+                "page": {
+                    "title": "Delivery config edit"
+                },
+                "back": "Back",
+                "save": "Save"
+            }
+        },
+        "DeliveryNode": {
+            "Edit": {
+                "page": {
+                    "title": "Delivery node edit"
+                },
+                "back": "Back",
+                "save": "Save"
+            }
+        },
+        "Credential": {
+            "Edit": {
+                "page": {
+                    "title": "Credentials edit"
+                },
+                "back": "Back",
+                "save": "Save"
+            }
         }
+    },
+    "BusinessLinkConnections": {
+        "customerTitle": "Customer Connections",
+        "supplierTitle": "Supplier Connections"
     }
 }
