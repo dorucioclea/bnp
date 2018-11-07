@@ -56,7 +56,10 @@
         "profileStrength": {
             "heading": "Företagsprofilens styrka",
             "editButton": "Företagsprofil",
-            "content": "Genomatt addera information om ditt företag skapar du högre synbarhet i nätverket odh lägger grunden för nya affärsmöjligheter"
+            "content": "Genom att lägga till nya tjänster som Business Network tillhandahåller, drar du nytta av de synergier som skapas av alla medlemmar och en central konsol för alla dina dokument blir synlig.\r\n"
+        },
+        "notification": {
+            "heading": "Meddelanden"
         },
         "connections": {
             "heading": "Kopplingar",
@@ -84,9 +87,9 @@
             "rejectionReason": {
                 "label": "Vänligen ange ditt skäl till nekande av informationen tillhandahållen av leverantören"
             },
-            "ok": "Ok",
+            "ok": "OK",
             "icotermsDescription": "Beskrivning av Incoterms",
-            "graphic": "Grafik",
+            "graphic": "grafik",
             "successSendToCustomer": "Informationsangivning lyckades. Du meddelas via epost när informationen blivit godkänd."
         },
         "ApplicationFormHeader": {
@@ -128,12 +131,15 @@
     "UserAdmin": {
         "Editor": {
             "titles": {
-                "page": "Redigarerare"
+                "page": "Redigarerare",
+                "image": "Redigera profilbild av användare {userId}"
             },
             "back": "Tillbaka",
             "tabs": {
                 "profile": "Profil",
-                "roles": "Befattning"
+                "roles": "Befattning",
+                "password": "Lösenord",
+                "image": "Bild"
             },
             "unsavedChangesConfirmation": {
                 "title": "Bekräftelse",
@@ -172,17 +178,17 @@
         },
         "Route": {
             "List": {
-                "head": "Routing lista",
+                "head": "Anslutningar",
                 "page": {
-                    "title": "Routing lista"
+                    "title": "Anslutningar"
                 },
                 "create": "Skapa"
             },
             "Edit": {
                 "page": {
-                    "title": "Routing redigera"
+                    "title": "Ruttredigering"
                 },
-                "back": "tillbaka",
+                "back": "Tillbaka",
                 "save": "Spara"
             }
         },
@@ -191,7 +197,7 @@
                 "page": {
                     "title": "Leveranskonfiguration"
                 },
-                "back": "tillbaka",
+                "back": "Tillbaka",
                 "save": "Spara"
             }
         },
@@ -200,7 +206,7 @@
                 "page": {
                     "title": "Leveransnod redigera"
                 },
-                "back": "tillbaka",
+                "back": "Tillbaka",
                 "save": "Spara"
             }
         },
@@ -209,9 +215,13 @@
                 "page": {
                     "title": "Referenser redigera"
                 },
-                "back": "tillbaka",
+                "back": "Tillbaka",
                 "save": "Spara"
             }
         }
+    },
+    "BusinessLinkConnections": {
+        "customerTitle": "Customer Connections",
+        "supplierTitle": "Supplier Connections"
     }
 }

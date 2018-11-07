@@ -61,11 +61,11 @@ class CatalogUpload extends Components.ContextComponent
 
         return(
             <div>
-                <h1>{this.context.i18n.getMessage('CatalogUpload.catalogUpload')}</h1>
+                <h1>{i18n.getMessage('CatalogUpload.catalogUpload')}</h1>
 
                 <div className="row">
                     <div className="col-md-3">
-                        <label className="control-label">{this.context.i18n.getMessage('CatalogUpload.selectCustomer')}</label>
+                        <label className="control-label">{i18n.getMessage('CatalogUpload.selectCustomer')}</label>
                     </div>
                     <div className="col-md-5">
                         <select type='text' className="form-control input-sm"
