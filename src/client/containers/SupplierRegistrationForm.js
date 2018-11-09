@@ -90,8 +90,7 @@ class SupplierRegistrationForm extends Components.ContextComponent {
     const userData = this.context.userData;
 
     if (userData.supplierid) {
-      this.context.showNotification(this.context.i18n.getMessage('SupplierRegistrationForm.supplierExists'), 'error', 10);
-      return null;
+      return <div className="alert alert-danger">{this.context.i18n.getMessage('SupplierRegistrationForm.supplierExists')}</div>;
     }
 
     return (
