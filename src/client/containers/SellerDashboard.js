@@ -74,9 +74,9 @@ class SellerDashboard extends Components.ContextComponent
                         <this.ConnectionsOverview
                           key='connections'
                           supplierId={userData.supplierid}
-                          onInvoiceClick={() => this.context.router.push('/einvoice-send/customer-connections')}
-                          onPurchaseOrderClick={() => this.context.router.push('/sales-order/customer-connections')}
-                          onCatalogClick={() => this.context.router.push('/bnp/catalog-upload')}
+                          onInvoiceClick={() => this.context.router.push('/bnp/connections')}
+                          onPurchaseOrderClick={() => this.context.router.push('/bnp/connections')}
+                          onCatalogClick={() => this.context.router.push('/bnp/connections')}
                         />
                       </div>
                     </div>

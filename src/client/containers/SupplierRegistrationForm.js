@@ -42,7 +42,8 @@ class SupplierRegistrationForm extends Components.ContextComponent {
     const wasSupplierlessUser = !this.context.userData.supplierid;
 
     if (wasSupplierlessUser) {
-      this.context.router.push('/bnp/welcome');
+      this.context.refreshUserData(true).then(() => this.context.router.push('/bnp/connections'))
+        .catch(e => this.context.showNotification(e.message, 'error', 10));
     }
   }
 
