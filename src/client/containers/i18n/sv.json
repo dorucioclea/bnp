@@ -1,20 +1,4 @@
 {
-    "Welcome": {
-        "page": {
-            "title": "Välkommen"
-        },
-        "title": "Val av tjänst",
-        "text": "Tack för att du väljer OpusCapita Business Network!",
-        "label": {
-            "dontShowAgain": "Visa inte denna sida igen."
-        },
-        "button": {
-            "start": "Start"
-        },
-        "notification": {
-            "saved": "Ditt val har blivit sparat."
-        }
-    },
     "BuyerDashboard": {
         "page": {
             "title": "Köparens översikt"

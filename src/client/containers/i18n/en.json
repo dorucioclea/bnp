@@ -1,20 +1,4 @@
 {
-    "Welcome": {
-        "page": {
-            "title": "Welcome"
-        },
-        "title": "Service Configuration",
-        "text": "Thank you for choosing OpusCapita Business Network! To integrate buyers, suppliers and other business partners, the Business Network service needs to be conﬁgured.\n\nThis is a setup service to help you get up and running. The setup service will provide you information depending on the services you select.",
-        "label": {
-            "dontShowAgain": "Do not show this page again."
-        },
-        "button": {
-            "start": "Start"
-        },
-        "notification": {
-            "saved": "Configuration has been successfully saved."
-        }
-    },
     "BuyerDashboard": {
         "page": {
             "title": "Buyer dashboard"

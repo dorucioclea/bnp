@@ -2,7 +2,6 @@ import React from 'react';
 import { Containers, Components } from '@opuscapita/service-base-ui';
 import { Route } from 'react-router';
 
-import Welcome from './Welcome';
 import BuyerDashboard from './BuyerDashboard';
 import BuyerInformation from './BuyerInformation';
 import SellerDashboard from './SellerDashboard';
@@ -37,9 +36,7 @@ class Dispatcher extends Components.ContextComponent
         const { userData, userProfile, router } = this.context;
         const { supplierid, customerid, roles } = userData;
 
-        if(supplierid && userProfile.showWelcomePage)
-            router.push('/bnp/welcome');
-        else if(supplierid)
+        if(supplierid)
             router.push('/bnp/sellerDashboard');
         else if (customerid)
             router.push('/bnp/buyerDashboard');
@@ -62,7 +59,6 @@ class Main extends React.Component
         return(
             <Containers.ServiceLayout serviceName="bnp">
                 <Route path="/" component={Dispatcher} />
-                <Route path="/welcome" component={Welcome} />
                 <Route path="/buyerDashboard" component={BuyerDashboard} />
                 <Route path="/buyerInformation" component={BuyerInformation} />
                 <Route path="/sellerDashboard" component={SellerDashboard} />
