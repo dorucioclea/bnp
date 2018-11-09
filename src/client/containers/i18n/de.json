@@ -205,7 +205,7 @@
         }
     },
     "BusinessLinkConnections": {
-        "customerTitle": "Kundenanbindungen",
+        "customerTitle": "Kundenverbindungen",
         "supplierTitle": "Lieferantenverbindungen"
     }
 }
