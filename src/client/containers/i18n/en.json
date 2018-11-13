@@ -207,5 +207,8 @@
     "BusinessLinkConnections": {
         "customerTitle": "Customer Connections",
         "supplierTitle": "Supplier Connections"
+    },
+    "BusinessLinkList": {
+        "create": "Create Business Link"
     }
 }
