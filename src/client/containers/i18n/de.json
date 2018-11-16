@@ -210,5 +210,8 @@
     },
     "BusinessLinkList": {
         "create": "Geschäftsverbindung erstellen"
+    },
+    "CatalogList": {
+        "create": "Katalogkonfiguration erstellen"
     }
 }

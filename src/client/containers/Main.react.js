@@ -21,6 +21,8 @@ import UserSelectCreate from './Admin/UserSelectCreate';
 import UserCreate from './Admin/UserCreate';
 import BusinessLinkList from './Admin/BusinessLinkList';
 import BusinessLinkEditor from './Admin/BusinessLinkEditor';
+import CatalogList from './Admin/CatalogList';
+import CatalogEditor from './Admin/CatalogEditor';
 import RedisCommander from './Admin/RedisCommander';
 import CatalogUpload from './CatalogUpload';
 import CredentialEdit from './Admin/Routing/CredentialEdit';
@@ -92,6 +94,9 @@ class Main extends React.Component
                 <Route path="/businesslinks" component={BusinessLinkList} />
                 <Route path="/businesslinks/new" component={BusinessLinkEditor} />
                 <Route path="/businesslinks/:businessLinkId" component={BusinessLinkEditor} />
+                <Route path="/catalogs" component={CatalogList} />
+                <Route path="/catalogs/new" component={CatalogEditor} />
+                <Route path="/catalogs/:customerId" component={CatalogEditor} />
             </Containers.ServiceLayout>
         );
     }

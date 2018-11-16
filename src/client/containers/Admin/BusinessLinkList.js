@@ -1,9 +1,11 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
+import translations from '../i18n';
 
 export default class BusinessLinkList extends Components.ContextComponent {
   constructor(props, context) {
     super(props);
+    context.i18n.register('BusinessLinkList', translations);
 
     this.BusinessLinks = context.loadComponent({
       serviceName: 'business-link' ,

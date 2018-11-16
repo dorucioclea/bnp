@@ -210,5 +210,8 @@
     },
     "BusinessLinkList": {
         "create": "Create Business Link"
+    },
+    "CatalogList": {
+        "create": "Create Catalog Config"
     }
 }
