@@ -28,7 +28,8 @@
         }
     },
     "CustomerList": {
-        "createCustomer": "Create Customer"
+        "createCustomer": "Create Customer",
+        "createGuidelines": "See guidelines here"
     },
     "SupplierList": {
         "createSupplier": "Create Supplier"

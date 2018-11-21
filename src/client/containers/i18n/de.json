@@ -28,7 +28,8 @@
         }
     },
     "CustomerList": {
-        "createCustomer": "Kunde erstellen"
+        "createCustomer": "Kunde erstellen",
+        "createGuidelines": "Richtlinien hier sehen"
     },
     "SupplierList": {
         "createSupplier": "Lieferant erstellen"
