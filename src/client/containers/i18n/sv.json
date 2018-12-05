@@ -205,7 +205,7 @@
         }
     },
     "BusinessLinkConnections": {
-        "customerTitle": "Customer Connections",
+        "customerTitle": "Kundanslutningar",
         "supplierTitle": "Supplier Connections"
     }
 }
