@@ -22,6 +22,16 @@ export default class CustomerCreate extends Components.ContextComponent {
   }
 
   render() {
-    return <this.CustomerCreate userRoles={this.context.userData.roles} onCreate={id => this.handleCreate(id)} onChange={() => null}/>
+
+    return (
+      <div>
+        <a
+          target="_blank"
+          href="https://docs.google.com/document/d/1XHO3D2_10iTBmtZhhbStJ7oD4uZiTJoedjmTiH9I8qg/edit#heading=h.gjdgxs"
+          className="btn btn-link pull-right"
+        >{this.context.i18n.getMessage('CustomerList.createGuidelines')}</a>
+        <this.CustomerCreate userRoles={this.context.userData.roles} onCreate={id => this.handleCreate(id)} onChange={() => null}/>
+      </div>
+    );
   }
 }

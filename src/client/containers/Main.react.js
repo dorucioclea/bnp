@@ -2,7 +2,6 @@ import React from 'react';
 import { Containers, Components } from '@opuscapita/service-base-ui';
 import { Route } from 'react-router';
 
-import Welcome from './Welcome';
 import BuyerDashboard from './BuyerDashboard';
 import BuyerInformation from './BuyerInformation';
 import SellerDashboard from './SellerDashboard';
@@ -20,6 +19,10 @@ import SupplierList from './Admin/SupplierList';
 import SupplierEditor from './Admin/SupplierEditor';
 import UserSelectCreate from './Admin/UserSelectCreate';
 import UserCreate from './Admin/UserCreate';
+import BusinessLinkList from './Admin/BusinessLinkList';
+import BusinessLinkEditor from './Admin/BusinessLinkEditor';
+import CatalogList from './Admin/CatalogList';
+import CatalogEditor from './Admin/CatalogEditor';
 import RedisCommander from './Admin/RedisCommander';
 import CatalogUpload from './CatalogUpload';
 import CredentialEdit from './Admin/Routing/CredentialEdit';
@@ -37,9 +40,7 @@ class Dispatcher extends Components.ContextComponent
         const { userData, userProfile, router } = this.context;
         const { supplierid, customerid, roles } = userData;
 
-        if(supplierid && userProfile.showWelcomePage)
-            router.push('/bnp/welcome');
-        else if(supplierid)
+        if(supplierid)
             router.push('/bnp/sellerDashboard');
         else if (customerid)
             router.push('/bnp/buyerDashboard');
@@ -62,7 +63,6 @@ class Main extends React.Component
         return(
             <Containers.ServiceLayout serviceName="bnp">
                 <Route path="/" component={Dispatcher} />
-                <Route path="/welcome" component={Welcome} />
                 <Route path="/buyerDashboard" component={BuyerDashboard} />
                 <Route path="/buyerInformation" component={BuyerInformation} />
                 <Route path="/sellerDashboard" component={SellerDashboard} />
@@ -91,6 +91,12 @@ class Main extends React.Component
                 <Route path="/suppliers/:supplierId/createUser" component={UserCreate} />
                 <Route path="/catalog-upload" component={CatalogUpload} />
                 <Route path="/connections" component={BusinessLinkConnections} />
+                <Route path="/businesslinks" component={BusinessLinkList} />
+                <Route path="/businesslinks/new" component={BusinessLinkEditor} />
+                <Route path="/businesslinks/:businessLinkId" component={BusinessLinkEditor} />
+                <Route path="/catalogs" component={CatalogList} />
+                <Route path="/catalogs/new" component={CatalogEditor} />
+                <Route path="/catalogs/:customerId" component={CatalogEditor} />
             </Containers.ServiceLayout>
         );
     }
