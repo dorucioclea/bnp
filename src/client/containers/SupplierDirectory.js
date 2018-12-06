@@ -1,6 +1,6 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
-import translations from './i18n'
+import translations from './i18n';
 
 export default class SupplierDirectory extends Components.ContextComponent {
 

@@ -32,6 +32,7 @@ import RecordList from './Admin/Routing/RecordList';
 import RouteList from './Admin/Routing/RouteList';
 import RouteEdit from './Admin/Routing/RouteEdit';
 import BusinessLinkConnections from './BusinessLinkConnections';
+import SupplierStatus from './SupplierStatus';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -85,6 +86,7 @@ class Main extends React.Component
                 <Route path="/customers/new" component={CustomerCreate} />
                 <Route path="/customers/:customerId" component={CustomerEditor} />
                 <Route path="/customers/:customerId/createUser" component={UserCreate} />
+                <Route path="/supplierStatus" component={SupplierStatus} />
                 <Route path="/suppliers" component={SupplierList} />
                 <Route path="/suppliers/new" component={SupplierCreate} />
                 <Route path="/suppliers/:supplierId" component={SupplierEditor} />

@@ -214,5 +214,16 @@
     },
     "CatalogList": {
         "create": "Katalogkonfiguration erstellen"
+    },
+    "SupplierStatus": {
+        "Table": {
+            "previousPage": "Vorhergehende Seite",
+            "nextPage": "Nächste Seite",
+            "noDataText": "Keine Einträge verfügbar",
+            "loadingText": "Daten werden geladen...",
+            "pageText": "Seite",
+            "ofText": "von",
+            "rowsText": "Zeilen"
+        }
     }
 }
