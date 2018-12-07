@@ -24,7 +24,6 @@ class SupplierStatus extends Components.ContextComponent {
 
   async componentDidMount() {
     const customerId = this.context.userData.customerid;
-    console.log(customerId);
     if (!customerId) return null;
 
     try {
@@ -37,11 +36,14 @@ class SupplierStatus extends Components.ContextComponent {
         return acc;
       }, []);
 
-      if (supplierIds.length === 0) return null;
+      if (supplierIds.length === 0) {
+        this.setState({ loading: false });
+        return null;
+      }
 
       Promise.all([
-        this.supplierApi.getSuppliers({ id: supplierIds }),
-        this.businessLinkApi.all({ supplierIds: supplierIds })
+        this.supplierApi.getSuppliers({ id: supplierIds.join(',') }),
+        this.businessLinkApi.all({ supplierIds: supplierIds.join(',') })
       ]).then(([suppliers, businessLinks]) => {
         const businessLinksById = businessLinks.reduce((acc, bl) => {
           const connectionsByType = bl.connections.reduce((obj, con) => {
@@ -61,9 +63,16 @@ class SupplierStatus extends Components.ContextComponent {
     }
   }
 
+  getBusinessLinkConnection(supplier, connectionType) {
+    const businessLink = this.state.businessLinksById[supplier.id];
+    if (!businessLink) return null;
+
+    return businessLink.connections[connectionType];
+  }
+
   render() {
     if (!this.context.userData.customerid) return null;
-    const { i18n } = this.context;
+    const { i18n, businessLinksById } = this.context;
 
     const columns = [
       {
@@ -75,9 +84,9 @@ class SupplierStatus extends Components.ContextComponent {
         columns: [{
           Header: i18n.getMessage('SupplierStatus.invoice.keyin'),
           id: 'keyin',
-          accessor: obj => obj.connections.invoice,
+          accessor: element => this.getBusinessLinkConnection(element, 'invoice'),
           Cell: row => {
-            if (!row.value) return null;
+            if (!row.value || row.value.status !== 'connected') return null;
 
             if (!row.value.config.keyin) return null;
 
@@ -87,9 +96,9 @@ class SupplierStatus extends Components.ContextComponent {
         {
           Header: i18n.getMessage('SupplierStatus.invoice.einvoice'),
           id: 'einvoice',
-          accessor: obj => obj.connections.invoice,
+          accessor: element => this.getBusinessLinkConnection(element, 'invoice'),
           Cell: row => {
-            if (!row.value) return null;
+            if (!row.value || row.value.status !== 'connected') return null;
 
             if (!row.value.config.einvoice) return null;
 
@@ -99,33 +108,56 @@ class SupplierStatus extends Components.ContextComponent {
         {
           Header: i18n.getMessage('SupplierStatus.invoice.pdf'),
           id: 'pdf',
-          accessor: obj => obj.connections.invoice,
+          accessor: element => this.getBusinessLinkConnection(element, 'invoice'),
           Cell: row => {
-            if (!row.value) return null;
+            if (!row.value || row.value.status !== 'connected') return null;
 
             if (!row.value.config.pdf) return null;
 
             return <i className='fa fa-check' />;
           }
         }]
+      },
+      {
+        Header: i18n.getMessage('SupplierStatus.order'),
+        id: 'order',
+        accessor: element => this.getBusinessLinkConnection(element, 'order'),
+        Cell: row => {
+          if (!row.value || row.value.status !== 'connected') return null;
+
+          return <i className='fa fa-check' />;
+        }
+      },
+      {
+        Header: i18n.getMessage('SupplierStatus.catalog'),
+        id: 'catalog',
+        accessor: element => this.getBusinessLinkConnection(element, 'catalog'),
+        Cell: row => {
+          if (!row.value || row.value.status !== 'connected') return null;
+
+          return <i className='fa fa-check' />;
+        }
       }
     ];
 
     return (
-      <ReactTable
-        data={this.state.suppliers}
-        columns={columns}
-        defaultPageSize={10}
-        loading={this.state.loading}
-        className="table text-center"
-        previousText={i18n.getMessage('SupplierStatus.Table.previousPage')}
-        nextText={i18n.getMessage('SupplierStatus.Table.nextPage')}
-        noDataText={i18n.getMessage('SupplierStatus.Table.noDataText')}
-        loadingText={i18n.getMessage('SupplierStatus.Table.loadingText')}
-        pageText={i18n.getMessage('SupplierStatus.Table.pageText')}
-        ofText={i18n.getMessage('SupplierStatus.Table.ofText')}
-        rowsText={i18n.getMessage('SupplierStatus.Table.rowsText')}
-      />
+      <div>
+        <h1>{i18n.getMessage('SupplierStatus.title')}</h1>
+        <ReactTable
+          data={this.state.suppliers}
+          columns={columns}
+          defaultPageSize={10}
+          loading={this.state.loading}
+          className="table text-center"
+          previousText={i18n.getMessage('SupplierStatus.Table.previousPage')}
+          nextText={i18n.getMessage('SupplierStatus.Table.nextPage')}
+          noDataText={i18n.getMessage('SupplierStatus.Table.noDataText')}
+          loadingText={i18n.getMessage('SupplierStatus.Table.loadingText')}
+          pageText={i18n.getMessage('SupplierStatus.Table.pageText')}
+          ofText={i18n.getMessage('SupplierStatus.Table.ofText')}
+          rowsText={i18n.getMessage('SupplierStatus.Table.rowsText')}
+        />
+      </div>
     );
   }
 };
