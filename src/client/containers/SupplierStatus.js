@@ -27,8 +27,7 @@ class SupplierStatus extends Components.ContextComponent {
     if (!customerId) return null;
 
     try {
-      const tenants = await this.context.bouncer.getUserTenants('customer', `/api/customers/${customerId}`, 'PUT');
-      const campaignContacts = await this.onboardingApi.getCampaignContacts({ tenantIds: tenants.join(',') });
+      const campaignContacts = await this.onboardingApi.getCampaignContacts({ tenantIds: `c_${customerId}` });
 
       const supplierIds = campaignContacts.reduce((acc, campaignContact) => {
         if (campaignContact.supplierId) acc.push(campaignContact.supplierId);
