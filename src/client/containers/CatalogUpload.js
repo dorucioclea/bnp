@@ -1,7 +1,6 @@
 import React from 'react';
 import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
-import ajax from 'superagent-bluebird-promise';
 
 import { Customer, BusinessLink, Catalog } from '../api';
 

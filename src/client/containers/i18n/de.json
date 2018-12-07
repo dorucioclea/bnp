@@ -214,5 +214,26 @@
     },
     "CatalogList": {
         "create": "Katalogkonfiguration erstellen"
+    },
+    "SupplierStatus": {
+        "title": "Lieferant Status Report",
+        "supplierName": "Lieferantenname",
+        "invoice": {
+            "title": "Rechnung",
+            "keyin": "Key-In-Rechnungserfassung",
+            "einvoice": "E-invoice",
+            "pdf": "PDF per Email"
+        },
+        "order": "Bestellung",
+        "catalog": "Katalog",
+        "Table": {
+            "previousPage": "Vorhergehende Seite",
+            "nextPage": "Nächste Seite",
+            "noDataText": "Keine Einträge verfügbar",
+            "loadingText": "Daten werden geladen...",
+            "pageText": "Seite",
+            "ofText": "von",
+            "rowsText": "Zeilen"
+        }
     }
 }

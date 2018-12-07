@@ -214,5 +214,26 @@
     },
     "CatalogList": {
         "create": "Create Catalog Config"
+    },
+    "SupplierStatus": {
+        "title": "Supplier Status Report",
+        "supplierName": "Supplier Name",
+        "invoice": {
+            "title": "Invoice",
+            "keyin": "Key In",
+            "einvoice": "E-invoice",
+            "pdf": "PDF by Email"
+        },
+        "order": "Order",
+        "catalog": "Catalog",
+        "Table": {
+            "previousPage": "Previous Page",
+            "nextPage": "Next Page",
+            "noDataText": "No data available",
+            "loadingText": "Loading...",
+            "pageText": "Page",
+            "ofText": "of",
+            "rowsText": "Rows"
+        }
     }
 }
