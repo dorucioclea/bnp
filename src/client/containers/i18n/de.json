@@ -216,7 +216,7 @@
         "create": "Katalogkonfiguration erstellen"
     },
     "SupplierStatus": {
-        "title": "Lieferantenstatusreport",
+        "title": "Meine Lieferanten",
         "supplierName": "Lieferantenname",
         "invoice": {
             "title": "Rechnung",

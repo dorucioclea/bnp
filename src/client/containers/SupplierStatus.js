@@ -42,7 +42,7 @@ class SupplierStatus extends Components.ContextComponent {
 
       Promise.all([
         this.supplierApi.getSuppliers({ id: supplierIds.join(',') }),
-        this.businessLinkApi.all({ supplierIds: supplierIds.join(',') })
+        this.businessLinkApi.allForCustomerId(customerId, { supplierIds: supplierIds.join(',') })
       ]).then(([suppliers, businessLinks]) => {
         const businessLinksById = businessLinks.reduce((acc, bl) => {
           const connectionsByType = bl.connections.reduce((obj, con) => {
