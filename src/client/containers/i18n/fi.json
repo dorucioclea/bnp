@@ -220,6 +220,9 @@
             }
         }
     },
+    "BusinessLink": {
+        "Connections": {}
+    },
     "BusinessLinkConnections": {
         "customerTitle": "Customer Connections",
         "supplierTitle": "Supplier Connections"
