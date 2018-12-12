@@ -1,20 +1,4 @@
 {
-    "Welcome": {
-        "page": {
-            "title": "Welcome"
-        },
-        "title": "Service Configuration",
-        "text": "Thank you for choosing OpusCapita Business Network! To integrate buyers, suppliers and other business partners, the Business Network service needs to be conﬁgured.\n\nThis is a setup service to help you get up and running. The setup service will provide you information depending on the services you select.",
-        "label": {
-            "dontShowAgain": "Do not show this page again."
-        },
-        "button": {
-            "start": "Start"
-        },
-        "notification": {
-            "saved": "Configuration has been successfully saved."
-        }
-    },
     "BuyerDashboard": {
         "page": {
             "title": "Buyer dashboard"
@@ -44,7 +28,8 @@
         }
     },
     "CustomerList": {
-        "createCustomer": "Create Customer"
+        "createCustomer": "Create Customer",
+        "createGuidelines": "See guidelines here"
     },
     "SupplierList": {
         "createSupplier": "Create Supplier"
@@ -223,5 +208,32 @@
     "BusinessLinkConnections": {
         "customerTitle": "Customer Connections",
         "supplierTitle": "Supplier Connections"
+    },
+    "BusinessLinkList": {
+        "create": "Create Business Link"
+    },
+    "CatalogList": {
+        "create": "Create Catalog Config"
+    },
+    "SupplierStatus": {
+        "title": "Supplier Status Report",
+        "supplierName": "Supplier Name",
+        "invoice": {
+            "title": "Invoice",
+            "keyin": "Key In",
+            "einvoice": "E-invoice",
+            "pdf": "PDF by Email"
+        },
+        "order": "Order",
+        "catalog": "Catalog",
+        "Table": {
+            "previousPage": "Previous Page",
+            "nextPage": "Next Page",
+            "noDataText": "No data available",
+            "loadingText": "Loading...",
+            "pageText": "Page",
+            "ofText": "of",
+            "rowsText": "Rows"
+        }
     }
 }

@@ -1,20 +1,4 @@
 {
-    "Welcome": {
-        "page": {
-            "title": "Willkommen"
-        },
-        "title": "Service Konfiguration",
-        "text": "Vielen Dank, dass Sie sich für das OpusCapita Business Netzwerk entschieden haben. Sie können nun die zur Verfügung stehenden Dienste konfigurieren und nutzen.\n\nDer Konfigurations-Assistent wird Sie durch den Konfigurationsprozess leiten und alle Informationen abfragen, die für den ausgewählten Dienst benötigt werden.",
-        "label": {
-            "dontShowAgain": "nicht erneut anzeigen"
-        },
-        "button": {
-            "start": "Start"
-        },
-        "notification": {
-            "saved": "Konfiguration wurde erfolgreich gespeichert."
-        }
-    },
     "BuyerDashboard": {
         "page": {
             "title": "Einkäufer Dashboard"
@@ -44,7 +28,8 @@
         }
     },
     "CustomerList": {
-        "createCustomer": "Kunde erstellen"
+        "createCustomer": "Kunde erstellen",
+        "createGuidelines": "Richtlinien hier sehen"
     },
     "SupplierList": {
         "createSupplier": "Lieferant erstellen"
@@ -220,8 +205,35 @@
             }
         }
     },
-    "BusinessLink.Connections": {
-        "customerTitle": "Kundenanbindungen",
+    "BusinessLinkConnections": {
+        "customerTitle": "Kundenverbindungen",
         "supplierTitle": "Lieferantenverbindungen"
+    },
+    "BusinessLinkList": {
+        "create": "Geschäftsverbindung erstellen"
+    },
+    "CatalogList": {
+        "create": "Katalogkonfiguration erstellen"
+    },
+    "SupplierStatus": {
+        "title": "Meine Lieferanten",
+        "supplierName": "Lieferantenname",
+        "invoice": {
+            "title": "Rechnung",
+            "keyin": "Key-In-Rechnungserfassung",
+            "einvoice": "E-invoice",
+            "pdf": "PDF per Email"
+        },
+        "order": "Bestellung",
+        "catalog": "Katalog",
+        "Table": {
+            "previousPage": "Vorhergehende Seite",
+            "nextPage": "Nächste Seite",
+            "noDataText": "Keine Einträge verfügbar",
+            "loadingText": "Daten werden geladen...",
+            "pageText": "Seite",
+            "ofText": "von",
+            "rowsText": "Zeilen"
+        }
     }
 }
