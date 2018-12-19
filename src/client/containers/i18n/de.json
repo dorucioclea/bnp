@@ -28,7 +28,8 @@
         }
     },
     "CustomerList": {
-        "createCustomer": "Kunde erstellen"
+        "createCustomer": "Kunde erstellen",
+        "createGuidelines": "Richtlinien hier sehen"
     },
     "SupplierList": {
         "createSupplier": "Lieferant erstellen"
@@ -207,5 +208,32 @@
     "BusinessLinkConnections": {
         "customerTitle": "Kundenverbindungen",
         "supplierTitle": "Lieferantenverbindungen"
+    },
+    "BusinessLinkList": {
+        "create": "Geschäftsverbindung erstellen"
+    },
+    "CatalogList": {
+        "create": "Katalogkonfiguration erstellen"
+    },
+    "SupplierStatus": {
+        "title": "Meine Lieferanten",
+        "supplierName": "Lieferantenname",
+        "invoice": {
+            "title": "Rechnung",
+            "keyin": "Key-In-Rechnungserfassung",
+            "einvoice": "E-invoice",
+            "pdf": "PDF per Email"
+        },
+        "order": "Bestellung",
+        "catalog": "Katalog",
+        "Table": {
+            "previousPage": "Vorhergehende Seite",
+            "nextPage": "Nächste Seite",
+            "noDataText": "Keine Einträge verfügbar",
+            "loadingText": "Daten werden geladen...",
+            "pageText": "Seite",
+            "ofText": "von",
+            "rowsText": "Zeilen"
+        }
     }
 }

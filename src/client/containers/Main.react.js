@@ -19,6 +19,10 @@ import SupplierList from './Admin/SupplierList';
 import SupplierEditor from './Admin/SupplierEditor';
 import UserSelectCreate from './Admin/UserSelectCreate';
 import UserCreate from './Admin/UserCreate';
+import BusinessLinkList from './Admin/BusinessLinkList';
+import BusinessLinkEditor from './Admin/BusinessLinkEditor';
+import CatalogList from './Admin/CatalogList';
+import CatalogEditor from './Admin/CatalogEditor';
 import RedisCommander from './Admin/RedisCommander';
 import CatalogUpload from './CatalogUpload';
 import CredentialEdit from './Admin/Routing/CredentialEdit';
@@ -28,6 +32,7 @@ import RecordList from './Admin/Routing/RecordList';
 import RouteList from './Admin/Routing/RouteList';
 import RouteEdit from './Admin/Routing/RouteEdit';
 import BusinessLinkConnections from './BusinessLinkConnections';
+import SupplierStatus from './SupplierStatus';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -81,12 +86,19 @@ class Main extends React.Component
                 <Route path="/customers/new" component={CustomerCreate} />
                 <Route path="/customers/:customerId" component={CustomerEditor} />
                 <Route path="/customers/:customerId/createUser" component={UserCreate} />
+                <Route path="/supplierStatus" component={SupplierStatus} />
                 <Route path="/suppliers" component={SupplierList} />
                 <Route path="/suppliers/new" component={SupplierCreate} />
                 <Route path="/suppliers/:supplierId" component={SupplierEditor} />
                 <Route path="/suppliers/:supplierId/createUser" component={UserCreate} />
                 <Route path="/catalog-upload" component={CatalogUpload} />
                 <Route path="/connections" component={BusinessLinkConnections} />
+                <Route path="/businesslinks" component={BusinessLinkList} />
+                <Route path="/businesslinks/new" component={BusinessLinkEditor} />
+                <Route path="/businesslinks/:businessLinkId" component={BusinessLinkEditor} />
+                <Route path="/catalogs" component={CatalogList} />
+                <Route path="/catalogs/new" component={CatalogEditor} />
+                <Route path="/catalogs/:customerId" component={CatalogEditor} />
             </Containers.ServiceLayout>
         );
     }
