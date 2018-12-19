@@ -3,19 +3,27 @@ import { Components } from '@opuscapita/service-base-ui';
 import translations from './i18n';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import { Supplier, BusinessLink, Onboarding } from '../api';
+import { Supplier, BusinessLink, Onboarding, EinvoiceSend } from '../api';
 
-class SupplierStatus extends Components.ContextComponent {
+const configType2Inchannel = {
+  pdf: 'PdfChannelConfig',
+  keyin: 'SupplierPortalConfig',
+  einvoice: 'EInvoiceChannelConfig'
+}
+
+export default class SupplierStatus extends Components.ContextComponent {
   constructor(props, context) {
     super(props);
     this.state = {
       suppliers: [],
-      businessLinksById: {},
+      bisLinksBySupplierId: {},
+      invoiceConfigsBySupplierId: {},
       loading: true
     };
     this.onboardingApi = new Onboarding();
     this.supplierApi = new Supplier();
     this.businessLinkApi = new BusinessLink();
+    this.einvoiceSendApi = new EinvoiceSend();
   }
 
   componentWillMount() {
@@ -42,9 +50,10 @@ class SupplierStatus extends Components.ContextComponent {
 
       Promise.all([
         this.supplierApi.getSuppliers({ id: supplierIds.join(',') }),
-        this.businessLinkApi.allForCustomerId(customerId, { supplierIds: supplierIds.join(',') })
-      ]).then(([suppliers, businessLinks]) => {
-        const businessLinksById = businessLinks.reduce((acc, bl) => {
+        this.businessLinkApi.allForCustomerId(customerId, { supplierIds: supplierIds.join(',') }),
+        this.einvoiceSendApi.all(supplierIds)
+      ]).then(([suppliers, businessLinks, invoiceConfigs]) => {
+        const bisLinksBySupplierId = businessLinks.reduce((acc, bl) => {
           const connectionsByType = bl.connections.reduce((obj, con) => {
             con.config = con.config && JSON.parse(con.config);
             obj[con.type] = con;
@@ -54,7 +63,18 @@ class SupplierStatus extends Components.ContextComponent {
           acc[bl.supplierId] = { ...bl, connections: connectionsByType };
           return acc;
         }, {});
-        this.setState({ suppliers, businessLinksById, loading: false });
+        const invoiceConfigsBySupplierId = invoiceConfigs.reduce((acc, ic) => {
+          if (!ic) return acc;
+
+          acc[ic.supplierId] = {
+            keyin: ic[configType2Inchannel.keyin],
+            einvoice: ic[configType2Inchannel.einvoice],
+            pdf: ic[configType2Inchannel.pdf]
+          }
+
+          return acc;
+        }, {});
+        this.setState({ suppliers, bisLinksBySupplierId, invoiceConfigsBySupplierId, loading: false });
       });
     } catch(err) {
       console.log(err);
@@ -63,15 +83,26 @@ class SupplierStatus extends Components.ContextComponent {
   }
 
   getBusinessLinkConnection(supplier, connectionType) {
-    const businessLink = this.state.businessLinksById[supplier.id];
+    const businessLink = this.state.bisLinksBySupplierId[supplier.id];
     if (!businessLink) return null;
 
     return businessLink.connections[connectionType];
   }
 
+  getInvoiceConfig(supplier, invoiceType) {
+    const config = this.state.invoiceConfigsBySupplierId[supplier.id];
+    if (!config) return null;
+
+    return config[invoiceType];
+  }
+
+  renderActivatedStatus() {
+    return <i className='fa fa-check' />;
+  }
+
   render() {
     if (!this.context.userData.customerid) return null;
-    const { i18n, businessLinksById } = this.context;
+    const { i18n, bisLinksBySupplierId } = this.context;
 
     const columns = [
       {
@@ -83,37 +114,43 @@ class SupplierStatus extends Components.ContextComponent {
         columns: [{
           Header: i18n.getMessage('SupplierStatus.invoice.keyin'),
           id: 'keyin',
-          accessor: element => this.getBusinessLinkConnection(element, 'invoice'),
+          accessor: element => element,
           Cell: row => {
-            if (!row.value || row.value.status !== 'connected') return null;
+            const blc = this.getBusinessLinkConnection(row.value, 'invoice');
+            if (!blc || blc.status !== 'connected') return null;
 
-            if (!row.value.config.keyin) return null;
+            const invoiceConfig = this.getInvoiceConfig(row.value, 'keyin');
+            if (!invoiceConfig || invoiceConfig.status !== 'activated') return null;
 
-            return <i className='fa fa-check' />;
+            return this.renderActivatedStatus();
           }
         },
         {
           Header: i18n.getMessage('SupplierStatus.invoice.einvoice'),
           id: 'einvoice',
-          accessor: element => this.getBusinessLinkConnection(element, 'invoice'),
+          accessor: element => element,
           Cell: row => {
-            if (!row.value || row.value.status !== 'connected') return null;
+            const blc = this.getBusinessLinkConnection(row.value, 'invoice');
+            if (!blc || blc.status !== 'connected') return null;
 
-            if (!row.value.config.einvoice) return null;
+            const invoiceConfig = this.getInvoiceConfig(row.value, 'einvoice');
+            if (!invoiceConfig || invoiceConfig.status !== 'activated') return null;
 
-            return <i className='fa fa-check' />;
+            return this.renderActivatedStatus();
           }
         },
         {
           Header: i18n.getMessage('SupplierStatus.invoice.pdf'),
           id: 'pdf',
-          accessor: element => this.getBusinessLinkConnection(element, 'invoice'),
+          accessor: element => element,
           Cell: row => {
-            if (!row.value || row.value.status !== 'connected') return null;
+            const blc = this.getBusinessLinkConnection(row.value, 'invoice');
+            if (!blc || blc.status !== 'connected') return null;
 
-            if (!row.value.config.pdf) return null;
+            const invoiceConfig = this.getInvoiceConfig(row.value, 'pdf');
+            if (!invoiceConfig || invoiceConfig.status !== 'activated') return null;
 
-            return <i className='fa fa-check' />;
+            return this.renderActivatedStatus();
           }
         }]
       },
@@ -124,7 +161,7 @@ class SupplierStatus extends Components.ContextComponent {
         Cell: row => {
           if (!row.value || row.value.status !== 'connected') return null;
 
-          return <i className='fa fa-check' />;
+          return this.renderActivatedStatus();
         }
       },
       {
@@ -134,7 +171,7 @@ class SupplierStatus extends Components.ContextComponent {
         Cell: row => {
           if (!row.value || row.value.status !== 'connected') return null;
 
-          return <i className='fa fa-check' />;
+          return this.renderActivatedStatus();
         }
       }
     ];
@@ -160,5 +197,3 @@ class SupplierStatus extends Components.ContextComponent {
     );
   }
 };
-
-export default SupplierStatus;
