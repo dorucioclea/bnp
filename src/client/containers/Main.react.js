@@ -27,6 +27,8 @@ import RedisCommander from './Admin/RedisCommander';
 import CatalogUpload from './CatalogUpload';
 import CredentialEdit from './Admin/Routing/CredentialEdit';
 import DeliveryConfigEdit from './Admin/Routing/DeliveryConfigEdit';
+import DeliveryConfigTemplateEdit from './Admin/Routing/DeliveryConfigTemplateEdit';
+import DeliveryConfigTemplateList from './Admin/Routing/DeliveryConfigTemplateList';
 import DeliveryNodeEdit from './Admin/Routing/DeliveryNodeEdit';
 import RecordList from './Admin/Routing/RecordList';
 import RouteList from './Admin/Routing/RouteList';
@@ -77,6 +79,9 @@ class Main extends React.Component
                 <Route path="/routing/credentials/:credentialId" component={CredentialEdit} />
                 <Route path="/routing/deliverynodes/:deliveryNodeId" component={DeliveryNodeEdit} />
                 <Route path="/routing/deliveryconfigs/:deliveryConfigId" component={DeliveryConfigEdit} />
+                <Route path="/routing/deliveryconfigtemplates" component={DeliveryConfigTemplateList} />
+                <Route path="/routing/deliveryconfigtemplates/create/:deliveryChannelId" component={DeliveryConfigTemplateEdit} />
+                <Route path="/routing/deliveryconfigtemplates/edit/:deliveryConfigId" component={DeliveryConfigTemplateEdit} />
                 <Route path="/routing/routes" component={RouteList} />
                 <Route path="/routing/routes/:routeId" component={RouteEdit} />
                 <Route path="/permissions(/:roleId)" component={AclEditor} />
