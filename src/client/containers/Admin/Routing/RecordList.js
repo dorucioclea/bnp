@@ -26,6 +26,10 @@ export default class RecordList extends Components.ContextComponent {
         this.context.router.push(`/bnp/routing/deliveryconfigs/${id}`);
     }
 
+    handleDeliveryConfigTemplateEditClick(id) {
+        this.context.router.push(`/bnp/routing/deliveryconfigtemplates/edit/${id}`);
+    }
+
     handleDeliveryNodeEditClick(id) {
         this.context.router.push(`/bnp/routing/deliverynodes/${id}`);
     }
@@ -43,6 +47,7 @@ export default class RecordList extends Components.ContextComponent {
                 <this.RecordList
                     onRouteEdit={id => this.handleRouteEditClick(id)}
                     onDeliveryConfigEdit={id => this.handleDeliveryConfigEditClick(id)}
+                    onDeliveryConfigTemplateEdit={id => this.handleDeliveryConfigTemplateEditClick(id)}
                     onDeliveryNodeEdit={id => this.handleDeliveryNodeEditClick(id)}
                     onCredentialEdit={id => this.handleCredentialEditClick(id)}
                 />
