@@ -12,8 +12,6 @@ export default class DeliveryConfigTemplateList extends Components.ContextCompon
     constructor(props, context) {
         super(props);
 
-        context.i18n.register('RoutingAdmin.DeliveryConfigTemplate.List', translations);
-
         this.DeliveryConfigTemplateList = context.loadComponent({
             serviceName: 'routing',
             moduleName: 'routing-deliveryconfigtemplatelist'
@@ -24,6 +22,14 @@ export default class DeliveryConfigTemplateList extends Components.ContextCompon
         this.state = {
             deliveryChannelId: DELIVERY_CHANNEL_ID[Object.keys(DELIVERY_CHANNEL_ID)[0]]
         };
+    }
+
+    componentWillMount(){
+        this.context.i18n.register('RoutingAdmin.DeliveryConfigTemplate.List', translations);
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        nextContext.i18n.register('RoutingAdmin.DeliveryConfigTemplate.List', translations);
     }
 
     /**

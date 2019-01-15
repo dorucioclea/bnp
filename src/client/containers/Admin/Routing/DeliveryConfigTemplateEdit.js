@@ -7,8 +7,6 @@ export default class DeliveryConfigTemplateEdit extends Components.ContextCompon
     constructor(props, context) {
         super(props);
 
-        context.i18n.register('RoutingAdmin.DeliveryConfigTemplate.Edit', translations);
-
         this.DeliveryConfigTemplateForm = context.loadComponent({
             serviceName: 'routing',
             moduleName: 'routing-deliveryconfigtemplateform'
@@ -18,6 +16,14 @@ export default class DeliveryConfigTemplateEdit extends Components.ContextCompon
 
         this.handleBackClick = this.handleBackClick.bind(this);
         this.handleSaveClick = this.handleSaveClick.bind(this);
+    }
+
+    componentWillMount(){
+        this.context.i18n.register('RoutingAdmin.DeliveryConfigTemplate.Edit', translations);
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        nextContext.i18n.register('RoutingAdmin.DeliveryConfigTemplate.Edit', translations);
     }
 
     /**
