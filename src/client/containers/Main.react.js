@@ -81,7 +81,7 @@ class Main extends React.Component
                 <Route path="/routing/deliveryconfigs/:deliveryConfigId" component={DeliveryConfigEdit} />
                 <Route path="/routing/deliveryconfigtemplates" component={DeliveryConfigTemplateList} />
                 <Route path="/routing/deliveryconfigtemplates/create/:deliveryChannelId" component={DeliveryConfigTemplateEdit} />
-                <Route path="/routing/deliveryconfigtemplates/edit/:deliveryConfigId" component={DeliveryConfigTemplateEdit} />
+                <Route path="/routing/deliveryconfigtemplates/edit/:deliveryConfigTemplateId" component={DeliveryConfigTemplateEdit} />
                 <Route path="/routing/routes" component={RouteList} />
                 <Route path="/routing/routes/:routeId" component={RouteEdit} />
                 <Route path="/permissions(/:roleId)" component={AclEditor} />
