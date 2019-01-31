@@ -69,7 +69,7 @@ export default class UserSelectCreate extends Components.ContextComponent {
   render() {
 
     return (
-      <div>
+      <div style={{ minHeight: '500px' }}>
         {this.renderTenantPicker({
           tenantType: 'supplier',
           component: (

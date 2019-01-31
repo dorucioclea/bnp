@@ -203,6 +203,28 @@
                 "back": "Back",
                 "save": "Save"
             }
+        },
+        "DeliveryConfigTemplate": {
+            "Edit": {
+                "page": {
+                    "title": "Delivery config template edit"
+                },
+                "back": "Back",
+                "save": "Save"
+            },
+            "List": {
+                "head": "Delivery config template list",
+                "page": {
+                    "title": "Delivery config template list"
+                },
+                "create": {
+                    "button": "Create",
+                    "deliveryChannelId": {
+                        "generic": "Generic",
+                        "mdrtc": "Master-data replication"
+                    }
+                }
+            }
         }
     },
     "BusinessLinkConnections": {
