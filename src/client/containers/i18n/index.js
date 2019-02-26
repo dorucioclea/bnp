@@ -2,11 +2,11 @@
 
 const en = require('./en.json');
 const de = require('./de.json');
-const fi = require('./fi.json');
-const sv = require('./sv.json');
-const it = require('./it.json');
-const fr = require('./fr.json');
 const es = require('./es.json');
+const fi = require('./fi.json');
+const fr = require('./fr.json');
+const it = require('./it.json');
 const pt = require('./pt.json');
+const sv = require('./sv.json');
 
-module.exports = {en, de, fi, sv, it, fr, es, pt };
+module.exports = {en, de, es, fi, fr, it, pt, sv };
