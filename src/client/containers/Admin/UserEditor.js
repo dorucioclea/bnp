@@ -46,6 +46,24 @@ export default class UserEditor extends Components.ContextComponent
             jsFileName: 'profile-image-uploader-bundle'
         });
 
+        this.SubstitutionPeriodAdminEditor = context.loadComponent({
+            serviceName: 'user',
+            moduleName: 'user-substitution-period-admin-editor',
+            jsFileName: 'substitution-period-admin-editor-bundle'
+        });
+
+        this.SubstitutionPeriodUserEditor = context.loadComponent({
+            serviceName: 'user',
+            moduleName: 'user-substitution-period-user-editor',
+            jsFileName: 'substitution-period-user-editor-bundle'
+        });
+
+        this.RelationEdtior = context.loadComponent({
+            serviceName: 'user',
+            moduleName: 'user-relation-editor',
+            jsFileName: 'relation-editor-bundle'
+        });
+
         this.state = {
             isDirty: false,
             tab: 0
@@ -129,6 +147,12 @@ export default class UserEditor extends Components.ContextComponent
                         <this.UserProfileImageUploader
                           userId={this.props.params.userId}
                           onChange={image => document.getElementById('userProfileImageHolder').src = image}
+                        />
+                    </Tab>
+                    <Tab eventKey={4} title={i18n.getMessage('UserAdmin.Editor.tabs.absences')}>
+                        <this.SubstitutionPeriodUserEditor
+                            userId={this.props.params.userId}
+                            tenantId={this.props.params.tenantId}
                         />
                     </Tab>
                 </Tabs>
