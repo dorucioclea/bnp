@@ -35,6 +35,9 @@ import RouteList from './Admin/Routing/RouteList';
 import RouteEdit from './Admin/Routing/RouteEdit';
 import BusinessLinkConnections from './BusinessLinkConnections';
 import SupplierStatus from './SupplierStatus';
+import UserRelationEditor from './UserRelationEditor';
+import SubstitutionPeriodAdminEditor from './SubstitutionPeriodAdminEditor';
+
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -104,6 +107,8 @@ class Main extends React.Component
                 <Route path="/catalogs" component={CatalogList} />
                 <Route path="/catalogs/new" component={CatalogEditor} />
                 <Route path="/catalogs/:customerId" component={CatalogEditor} />
+                <Route path="/substituteUserRelations" component={UserRelationEditor} />
+                <Route path="/substitutionPeriods" component={SubstitutionPeriodAdminEditor} />
             </Containers.ServiceLayout>
         );
     }
