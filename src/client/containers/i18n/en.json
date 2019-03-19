@@ -124,7 +124,8 @@
                 "profile": "Profile",
                 "roles": "Roles",
                 "password": "Password",
-                "image": "Image"
+                "image": "Image",
+                "absences": "Absences"
             },
             "unsavedChangesConfirmation": {
                 "title": "Confirmation",
