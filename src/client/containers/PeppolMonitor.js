@@ -4,7 +4,6 @@ import {Components} from '@opuscapita/service-base-ui';
 class PeppolMonitor extends Components.ContextComponent {
 
   constructor(props, context) {
-
     super(props);
 
     this.PeppolMonitor = context.loadComponent({
@@ -14,9 +13,13 @@ class PeppolMonitor extends Components.ContextComponent {
     });
   }
 
+  goMessageDetail(messageId) {
+    this.context.router.push(`/bnp/peppolMonitorDetail/${messageId}`);
+  }
+
   render() {
     return (
-      <this.PeppolMonitor/>
+      <this.PeppolMonitor goMessageDetail={messageId => this.goMessageDetail(messageId)}/>
     )
   }
 }
