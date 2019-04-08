@@ -8,8 +8,8 @@ class PeppolMonitor extends Components.ContextComponent {
 
     this.PeppolMonitor = context.loadComponent({
       serviceName: 'peppol-monitor',
-      moduleName: 'peppol-monitor',
-      jsFileName: 'peppol-monitor-bundle'
+      moduleName: 'peppol-monitor-home',
+      jsFileName: 'home-bundle'
     });
   }
 
