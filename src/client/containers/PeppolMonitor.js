@@ -13,13 +13,9 @@ class PeppolMonitor extends Components.ContextComponent {
     });
   }
 
-  goMessageDetail(messageId) {
-    this.context.router.push(`/bnp/peppolMonitorDetail/${messageId}`);
-  }
-
   render() {
     return (
-      <this.PeppolMonitor goMessageDetail={messageId => this.goMessageDetail(messageId)}/>
+      <this.PeppolMonitor />
     )
   }
 }
