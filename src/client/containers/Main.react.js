@@ -38,7 +38,6 @@ import SupplierStatus from './SupplierStatus';
 import UserRelationEditor from './UserRelationEditor';
 import SubstitutionPeriodAdminEditor from './SubstitutionPeriodAdminEditor';
 import PeppolMonitor from './PeppolMonitor';
-import PeppolMonitorDetail from './PeppolMonitorDetail';
 
 class Dispatcher extends Components.ContextComponent
 {
@@ -111,7 +110,6 @@ class Main extends React.Component
                 <Route path="/substituteUserRelations" component={UserRelationEditor} />
                 <Route path="/substitutionPeriods" component={SubstitutionPeriodAdminEditor} />
                 <Route path="/peppolMonitor" component={PeppolMonitor} />
-                <Route path="/peppolMonitorDetail/:messageId" component={PeppolMonitorDetail} />
             </Containers.ServiceLayout>
         );
     }
