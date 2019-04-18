@@ -65,7 +65,7 @@ services:
       - 'consul:${HOST_IP}'
     ports:
       - '3002:3002'
-    command: 'npm run dev'
+    command: 'npm run dev:production'
 
   supplier:
     image: opuscapita/supplier:dev
@@ -95,7 +95,7 @@ services:
       SERVICE_3001_CHECK_HTTP: /api/health/check
       SERVICE_3001_CHECK_INTERVAL: 15s
       SERVICE_3001_CHECK_TIMEOUT: 3s
-    command: 'npm run dev'
+    command: 'npm run dev:production'
 
   customer:
     image: opuscapita/customer:dev
@@ -119,7 +119,7 @@ services:
       REDIS_AUTH: ${REDIS_AUTH}
     ports:
       - '3009:3009'
-    command: 'npm run dev'
+    command: 'npm run dev:production'
 
   blob:
     image: opuscapita/blob:dev
@@ -142,7 +142,7 @@ services:
       SERVICE_3012_CHECK_TIMEOUT: 3s
     ports:
      - '3012:3012'
-    command: "npm run dev"
+    command: "npm run dev:production"
 
   postgres:
     image: postgres:9.4
@@ -184,7 +184,7 @@ services:
       SERVICE_3008_CHECK_TIMEOUT: 3s
     ports:
       - '3008:3008'
-    command: 'npm run dev'
+    command: 'npm run dev:production'
 
   routing:
     image: opuscapita/routing:dev
@@ -270,7 +270,7 @@ services:
       - registrator
     ports:
       - '3050:3050' #uncomment in case you want to have access to kue UI
-    command: 'npm run dev'
+    command: 'npm run dev:production'
 
   kong:
     image: opuscapita/kong:dev
@@ -343,7 +343,7 @@ services:
 
     depends_on:
       - kong
-    command: 'npm run dev'
+    command: 'npm run dev:production'
 
   api-registry:
     image: opuscapita/api-registrator:dev
@@ -403,7 +403,7 @@ services:
       SERVICE_3006_CHECK_HTTP: /api/health/check
       SERVICE_3006_CHECK_INTERVAL: 15s
       SERVICE_3006_CHECK_TIMEOUT: 3s
-    command: 'npm run dev'
+    command: 'npm run dev:production'
 
   einvoice-send:
     image: opuscapita/einvoice-send:dev
@@ -433,7 +433,7 @@ services:
       GATEWAY_SCHEME: $GATEWAY_SCHEME
       GATEWAY_IP: $GATEWAY_IP
       GATEWAY_PORT: $GATEWAY_PORT
-    command: 'npm run dev'
+    command: 'npm run dev:production'
 
   sales-invoice:
     image: opuscapita/sales-invoice:dev
@@ -461,7 +461,7 @@ services:
       SERVICE_3018_CHECK_TIMEOUT: 3s
     ports:
      - '3018:3018'
-    command: "npm run dev"
+    command: "npm run dev:production"
 
   sales-order:
     image: opuscapita/sales-order:dev
@@ -539,28 +539,7 @@ services:
     depends_on:
       - consul
       - rabbitmq
-    command: 'npm run dev'
-
-  redis-commander:
-    image: opuscapita/redis-commander:dev
-    labels:
-      SERVICE_NAME: 'redis-commander'
-      SERVICE_TAGS: 'external'
-    environment:
-      REDIS_AUTH: ${REDIS_AUTH}
-      MYSQL_DATABASE: $MYSQL_DATABASE
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      RABBITMQ_USER: ${RABBITMQ_USER}
-      RABBITMQ_PASS: ${RABBITMQ_PASS}
-      SERVICE_3025_CHECK_HTTP: /api/health/check
-      SERVICE_3025_CHECK_INTERVAL: 15s
-      SERVICE_3025_CHECK_TIMEOUT: 3s
-    depends_on:
-     - consul
-     - rabbitmq
-    ports:
-      - "3025:3025"
-    command: 'npm run dev'
+    command: 'npm run dev:production'
 
   rabbitmq:
     image: rabbitmq:3-management

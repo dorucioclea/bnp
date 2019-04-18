@@ -16,24 +16,7 @@ export default class AclEditor extends Components.ContextComponent
             moduleName: 'user-role-manager',
             jsFileName: 'role-manager-bundle'
         });
-
-        // this.AclEditor = context.loadComponent({
-        //     serviceName: 'acl' ,
-        //     moduleName: 'acl-editor',
-        //     jsFileName: 'editor-bundle'
-        // });
-
-        // this.UserRolePicker = context.loadComponent({
-        //     serviceName: 'user' ,
-        //     moduleName: 'user-rolepicker',
-        //     jsFileName: 'rolepicker-bundle'
-        // });
     }
-
-    // roleChange(roleId)
-    // {
-    //     this.props.router.push(`/bnp/permissions/${roleId}`);
-    // }
 
     render()
     {
@@ -44,19 +27,10 @@ export default class AclEditor extends Components.ContextComponent
             <div>
                 <section>
                     <h2>{i18n('AclEditor.authority.heading')}</h2>
-                    {/* <this.UserRolePicker
-                        className="acl-admin-role-picker"
-                        value={this.props.params.roleId}
-                        onChange={roleId => this.roleChange(roleId)}
-                    /> */}
                 </section>
-
-                {this.props.params.roleId &&
-                    <section>
-                        {/* <h2>{i18n('AclEditor.permissions.heading')}</h2>
-                        <this.AclEditor role={this.props.params.roleId} /> */}
-                        <this.RoleManager />
-                    </section>}
+                <section>
+                    <this.RoleManager />
+                </section>
             </div>
         )
     }
