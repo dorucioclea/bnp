@@ -131,17 +131,6 @@
             }
         }
     },
-    "AclEditor": {
-        "page": {
-            "title": "Acl redigerare"
-        },
-        "authority": {
-            "heading": "Authority identifier"
-        },
-        "permissions": {
-            "heading": "Rättigheter"
-        }
-    },
     "RedisCommander": {
         "page": {
             "title": "Redis Commander"

@@ -135,10 +135,10 @@
     },
     "AclEditor": {
         "page": {
-            "title": "ACL Editor"
+            "title": "Rollen-Editor"
         },
         "authority": {
-            "heading": "Authority-ID"
+            "heading": "Rollen-Editor"
         },
         "permissions": {
             "heading": "Berechtigungs-ID"

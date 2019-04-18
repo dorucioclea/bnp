@@ -147,17 +147,6 @@
             }
         }
     },
-    "AclEditor": {
-        "page": {
-            "title": "Acl editori"
-        },
-        "authority": {
-            "heading": "Viranomaisen tunniste"
-        },
-        "permissions": {
-            "heading": "Käyttöoikeudet"
-        }
-    },
     "RedisCommander": {
         "page": {
             "title": "Redis Commander"
